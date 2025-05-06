@@ -1,9 +1,12 @@
 <script lang="ts">
     import LeaderboardSwitch from '$lib/components/leaderboardSwitch.svelte';
-import Linker from '$lib/components/linker.svelte';
+    import Linker from '$lib/components/linker.svelte';
     import MainContenSwitch from '$lib/components/mainContenSwitch.svelte';
     import Breakline from '$lib/components/util/breakline.svelte';
     import Icon from '@iconify/svelte';
+    import { onMount } from 'svelte';
+    import { writable } from 'svelte/store';
+
 
     type Bacaan = {
         id: number;
@@ -37,6 +40,23 @@ import Linker from '$lib/components/linker.svelte';
     }
 
     const [first] = bacaan;
+
+    const desktop = writable(false);
+    const desktopex = writable(false);
+    const desktoplarge = writable(false);
+
+    onMount(() => {
+        const update = () => {
+            desktop.set(window.innerWidth >= 900);
+            desktopex.set(window.innerWidth >= 1300);
+            desktoplarge.set(window.innerWidth >= 1100);
+        };
+
+        update(); // Initial check
+        window.addEventListener('resize', update);
+
+        return () => window.removeEventListener('resize', update);
+    });
 </script>
 
 <svelte:head>
@@ -74,34 +94,61 @@ import Linker from '$lib/components/linker.svelte';
 
     <!-- H E R O    S E C T I O N -->
         <!-- Slider Mobile -->
-        <section class="w-full aspect-square bg-mainred text-zinc-900 relative">
-            <div class="flex justify-center items-center w-full h-full">
-                SLIDER MOBILE
-            </div>
-        </section>
+        {#if !$desktop}
+            <section class="w-full flex justify-center bg-stone-500">
+                <div class="w-full max-w-[500px] 
+                aspect-square bg-mainred text-zinc-900 relative">
+                    <div class="flex justify-center items-center w-full h-full">
+                        SLIDER MOBILE
+                    </div>
+                </div>
+            </section>
+        {/if}
+        {#if $desktop}
+            <section class="w-full flex justify-center bg-stone-500">
+                <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
+                    <img src="https://i.imgur.com/JEeO6Yw.png" alt="banner" class="h-full absolute left-0">
+                    <img src="https://i.imgur.com/Jd9blRa.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
+                    <img src="https://i.imgur.com/UaoxPIJ.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
+                    <div class="absolute left-[calc(12%/2)] trapezoid hover:bg-emerald-500 h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] bg-red-500/30">test</div>
+                    <div class="absolute right-[calc(12%/2)] h-[calc(37%)] hover:bg-emerald-500 w-[30.7%] top-[calc((100%-81%)/2)] bg-red-500/30 bannertr"></div>
+                    <div class="absolute right-[calc(12%/2)] h-[calc(50%)] hover:bg-emerald-500 w-[28%] bottom-[calc((100%-81%)/2)] bg-red-500/30 bannertb"></div>
+                </div> 
+            </section>
+        {/if}
 
     <!-- C O N T E N T -->
         <!-- Konten Utama -->
-        <section>
+        <section class="flex flex-col justify-center items-center min-[900px]:bg-stone-200">
             <!-- Tombol Rekomendasi -->
-            <Linker 
-                title="Rekomendasi Hari Ini"
-                link="todays"
-            />
+             
+            {#if !$desktop}
+                <Linker 
+                    title="Rekomendasi Hari Ini"
+                    link="todays"
+                />
+            {/if}
 
             <!-- Switch Komik Novel -->
              <MainContenSwitch/>
 
             <!-- Bacaan Rekomendasi -->
-            <div class="grid grid-cols-3 w-full" style="direction:rtl">
-                <div class="col-span-2 row-span-2 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-300 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-500 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-500 flex justify-center items-center"></div>
-                <div class="col-span-2 aspect-[2/1] bg-blue-600 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-300 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-200 flex justify-center items-center"></div>
+            <div class="grid grid-cols-3 w-full max-w-[770px] 
+            xs:my-[5vw] xs:px-[5vw] xs:gap-[8px] md:my-[20px]
+            md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
+            lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
+                <div class="col-span-2 row-span-2 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-purple-600 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-red-300 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-amber-500 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-sky-500 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                <div class="col-span-1 aspect-[1/1] bg-emerald-200 flex justify-center items-center"></div>
+                {#if $desktoplarge}
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                    <div class="col-span-2 w-full bg-emerald-300 flex justify-center items-center"></div>
+                {/if}
             </div>
         </section>
 
@@ -109,36 +156,91 @@ import Linker from '$lib/components/linker.svelte';
         <!-- Berita Terbaru -->
         <section>
             <a href="/news">
-                <div class="w-full font-semibold flex justify-between items-center px-[3.2vw] py-[2.8vw]
-                bg-mainred text-mainlight">
-                    <div class="flex items-center space-x-[1vw]">
-                        <div class="text-[3.6vw] uppercase font-bold tracking-tight">PENGUMUMAN</div>
-                        <div><Icon icon="material-symbols:arrow-forward-ios" /></div>
-                        <p class=" text-[2.8vw] line-clamp-1 mr-[2vw]">Fitur baru dapakatkan koin dari menonton iklan baru</p>
+                <div class="w-full flex justify-center bg-stone-200">
+                    <div class="w-full font-semibold flex justify-between items-center 
+                    px-[3.2vw] py-[2.8vw] xs:px-[16px] xs:py-[14px]
+                    text-mainlight bg-mainred md:rounded-[16px] md:px-6
+                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]">
+                        <div class="flex items-center space-x-[1vw] xs:space-x-[5px]">
+                            <div class="text-[3.6vw] xs:text-[18px] uppercase font-bold tracking-tight">PENGUMUMAN</div>
+                            <div><Icon icon="material-symbols:arrow-forward-ios" class="text-[3.6vw] xs:text-[18px]" /></div>
+                            <p class=" text-[2.8vw] xs:text-[16px] line-clamp-1 mr-[2vw] xs:mr-[10px]">Fitur baru dapakatkan koin dari menonton iklan baru</p>
+                        </div>
+                        <div class="text-[2.8vw] xs:text-[16px] text-stone-300/80 text-nowrap">32 Feb 2025</div>
                     </div>
-                    <div class="text-[2.8vw] text-stone-300/80 text-nowrap">32 Feb 2025</div>
                 </div>
             </a>
         </section>
 
+        {#if $desktop}
+            <section class="w-full flex justify-center py-16 bg-stone-200">
+                <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
+                    <div class="w-min text-nowrap">
+                        <Linker 
+                        title="Terbaru Dari Kita"
+                        link="latest"
+                        />
+                    </div>
+                    <div class="grid grid-cols-4 w-full gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                        <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                        {#if $desktoplarge}
+                            <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                        {/if}
+                    </div>
+                    <div class="flex justify-center items-center space-x-4 mt-4">
+                        <div class="h-3 aspect-square rounded-full bg-black"></div>
+                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
+                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
+                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
+                    </div>
+                    <div class="absolute h-full flex items-center -left-[5%]">
+                        <Icon icon="material-symbols:arrow-back-ios" class="text-3xl" />
+                    </div>
+                    <div class="absolute h-full flex items-center -right-[5%]">
+                        <Icon icon="material-symbols:arrow-forward-ios" class="text-3xl" />
+                    </div>
+                </div>
+            </section>
+        {/if}
 
         <!-- Konten Tambahan -->
-        <section>
+        <section class="flex flex-col md:flex-row justify-center items-center md:items-start md:my-8">
             <!-- Terakhir Di Update -->
-            <div class="grid grid-cols-3 w-full" style="direction: rtl;">
-                <div class="col-span-2 aspect-[2/1] bg-blue-600 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-300 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-500 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-300 flex justify-center items-center"></div>
-                <div class="col-span-2 aspect-[2/1] bg-blue-200 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-500 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-blue-400 flex justify-center items-center"></div>
+             <div class="w-full max-w-[770px] md:w-[calc(770px/2)] lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)]">
+                { #if $desktop }
+                    <Linker 
+                    title="Terakhir di Update"
+                    link="latest"
+                    />
+                {/if}
+                <div class="grid grid-cols-3 w-full
+                xs:my-[5vw] xs:px-[5vw] xs:gap-[8px] md:m-0
+                md:grid-cols-2 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-3 xl:w-[1100px] md:pr-1" style="direction: rtl;">
+                    <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-500 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                    <div class="col-span-2 md:h-[186.5px] lg:h-full md:order-1 lg:order-none w-full bg-emerald-200 flex justify-center items-center"></div>
+                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                    {#if !$desktop}
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                    {/if}
+                    {#if $desktoplarge}
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                        <div class="col-span-2 w-full bg-emerald-400 flex justify-center items-center"></div>
+                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                    {/if}
+                </div>
             </div>
 
-            <div>
+            <div class="flex flex-col justify-center items-center w-full md:w-[calc(770px/2)] lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)] md:pl-4">
                 <!-- Tombol 'Papan Peringkat' -->
                 <Linker 
                     title="Papan Peringkat"
@@ -149,70 +251,120 @@ import Linker from '$lib/components/linker.svelte';
                  <LeaderboardSwitch/>
 
                 <!-- Peringkat -->
-                <div>
+                <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
                     <!-- pertama -->
                     {#if first}
-                        <div>
-                            <div class="flex justify-center items-center h-[50vw] px-[3.2vw] pt-[3.2vw]">
-                                <div class="bg-blue-400 w-full h-full"></div>
+                        <div class="w-full flex flex-col justify-center items-center">
+                            <div class="flex justify-center items-center w-full xs:aspect-auto
+                            px-[3.2vw] xs:px-[16px] 
+                            pt-[3.2vw] xs:pt-[48px]
+                            md:px-0 md:pt-[32px]">
+                                <div class="w-full h-full">
+                                    <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
+                                </div>
                             </div>
-                            <div class="flex items-center justify-between space-x-[3.2vw] pl-[4.8vw] pr-[7.2vw] pt-[3.2vw] pb-[4.8vw]">
-                                <div class="font-bold text-[4.8vw] mr-[4.8vw]">
+                            <div class="flex items-center justify-between xs:max-w-[600px]
+                            space-x-[3.2vw] xs:space-x-[16px]
+                            pl-[4.8vw] xs:pl-[24px] 
+                            pr-[7.2vw] xs:pr-[36px] 
+                            pt-[3.2vw] xs:pt-[16px] 
+                            pb-[4.8vw] xs:pb-[24px]
+                            md:px-0
+                            w-full">
+                                <div class="font-bold 
+                                text-[4.8vw] xs:text-[32px]
+                                mr-[4.8vw] xs:mr-[24px]">
                                     #{first.id}
                                 </div>
-                                <div class="flex-1 leading-[1.4] text-[3.2vw] capitalize">
+                                <div class="flex-1 leading-[1.4] 
+                                text-[3.2vw] xs:text-[16px] md:text-[14px] capitalize">
                                     <div class={genreColor(first.genre)}>{first.genre}</div>
-                                    <div class="text-[4.8vw] font-bold">{first.title}</div>
-                                    <div class="text-[3.2vw]">{first.author}</div>
+                                    <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
+                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px]">{first.author}</div>
                                 </div>
-                                <div class="text-[3.2vw]">
-                                    {first.chapter} chapter
+                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                    {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
                                 </div>
                             </div>
                         </div>
                     {/if}
                     <!-- 2 - 7 -->
-                    <div>
+                    <div class="max-w-[600px] w-full">
                         <Breakline />
-                        {#each bacaan.slice(1) as item (item.id)}
-                            <div class="flex items-center justify-between space-x-[3.2vw] pl-[4.8vw] pr-[7.2vw] py-[1vw]">
-                                <div class="font-bold text-[4.8vw] mr-[4.8vw]">
+                        {#each bacaan.slice(1, 7) as item, i (item.id)}
+                            <div class="flex items-center justify-between 
+                            space-x-[3.2vw] xs:space-x-[16px] 
+                            pl-[4.8vw] xs:pl-[24px]
+                            pr-[7.2vw] xs:pr-[36px]
+                            py-[1vw] xs:py-[5px]
+                            md:px-0">
+                                <div class="font-bold 
+                                text-[4.8vw] xs:text-[24px] md:text-[20px]
+                                mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
                                     #{item.id}
                                 </div>
-                                <div class="bg-blue-400 rounded-[1vw] h-[16vw] aspect-square">
+                                <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
+                                h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
                                     
                                 </div>
-                                <div class="flex-1 leading-[1.4] text-[2.8vw] capitalize">
+                                <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[16px] capitalize">
                                     <div class={genreColor(item.genre)}>{item.genre}</div>
-                                    <div class="text-[3.2vw] font-bold">{item.title}</div>
-                                    <div class="text-[2.8vw] text-stone-500">{item.author}</div>
+                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[18px] font-bold">{item.title}</div>
+                                    <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[16px] text-stone-500">{item.author}</div>
                                 </div>
-                                <div class="text-[3.2vw]">
-                                    {item.chapter} chapter
+                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                    {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
                                 </div>
                             </div>
-                            <Breakline />
+                            {#if i < 5}
+                                <Breakline />
+                            {/if}
                         {/each}
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Santara (Canvas) -->
-        <section>
-            <div class="w-full flex flex-col justify-center items-center">
-                <div class="w-2/3 flex justify-center items-center flex-col text-center space-y-[3.2vw] h-[75vw]">
-                    <h6 class="text-[4.8vw] font-nunito font-black leading-none">SANTARA</h6>
-                    <p class="text-[3.2vw]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam aut iusto, consequuntur quam dignissimos!</p>
-                    <button class="text-[3.2vw] bg-mainred px-[3.2vw] py-[2.8vw] text-mainlight rounded-[2vw]">Lihat Karya Lainnya</button>
+        <div class="max-md:hidden"><Breakline/></div>
+
+        <!-- Karya (Canvas) -->
+        <section class="w-full flex justify-center md:my-8">
+            <div class="w-full flex flex-col min-[650px]:flex-row justify-center min-[650px]:items-start items-center xs:h-full max-w-[700px] md:max-w-[100%] xs:p-[50px]
+            md:p-0 md:w-[770px] lg:w-[946px] xl:w-[1100px]">
+                <div class="w-2/3 min-[650px]:w-1/2 flex justify-center items-center flex-col text-center min-[650px]:text-left min-[650px]:items-start space-y-[3.2vw] min-[650px]:pr-[16px] xs:mb-[32px] min-[650px]:pb-[0px] min-[650px]:pt-[32px] h-[75vw] xs:h-fit lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)]">
+                    <h6 class="text-[4.8vw] xs:text-[24px] font-nunito font-black xs:mb-[8px] leading-none">KARYA</h6>
+                    <p class="text-[3.2vw] xs:text-[14px] xs:mb-[24px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam aut iusto, consequuntur quam dignissimos!</p>
+                    <button class="text-[3.2vw] xs:text-[14px] bg-mainred 
+                    px-[3.2vw] xs:px-[16px]
+                    py-[2.8vw] xs:py-[14px]
+                    text-mainlight rounded-[2vw] xs:rounded-[10px]">Lihat Karya Lainnya</button>
                 </div>
-                <div class="w-full grid grid-cols-3">
-                    <div class="bg-blue-300 w-full col-span-2"></div>
-                    <div class="bg-blue-400 w-full aspect-square"></div>
-                    <div class="bg-blue-400 w-full aspect-square"></div>
-                    <div class="bg-blue-500 w-full aspect-square"></div>
-                    <div class="bg-blue-600 w-full aspect-square"></div>
+                <div class="w-full min-[650px]:w-1/2 grid grid-cols-3 min-[650px]:grid-cols-2 xs:gap-[8px] md:pl-1 lg:grid-cols-4 lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)] xl:grid-cols-5">
+                    <div class="bg-emerald-500 w-full min-[650px]:h-[186.5px] lg:h-full col-span-2"></div>
+                    <div class="bg-emerald-400 w-full aspect-square"></div>
+                    <div class="bg-emerald-300 w-full aspect-square"></div>
+                    <div class="bg-emerald-500 w-full aspect-square"></div>
+                    <div class="bg-emerald-600 w-full aspect-square"></div>
+                    {#if $desktopex}
+                        <div class="bg-emerald-500 w-full aspect-square"></div>
+                        <div class="bg-emerald-600 w-full aspect-square"></div>
+                    {/if}
+                    {#if $desktoplarge}
+                        <div class="bg-emerald-500 w-full aspect-square"></div>
+                        <div class="bg-emerald-600 w-full aspect-square"></div>
+                    {/if}
                 </div>
             </div>
         </section>
 </section>
+<style>
+    .trapezoid {
+        clip-path: polygon(0 0, 90.4% 0, 99.5% 100%, 0% 100%);
+    }
+    .bannertr {
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 8.6% 100%);
+    }
+    .bannertb {
+        clip-path: polygon(0.5% 20%, 100% 0, 100% 100%, 10.5% 100%);
+    }
+</style>
