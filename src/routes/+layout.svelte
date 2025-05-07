@@ -12,7 +12,7 @@
         goto('/'); // Arahkan ke halaman root
     }
     function handleScroll(): void {
-        const isMobile = window.innerWidth >= 500;
+        const isMobile = window.innerWidth <= 500;
         const threshold = isMobile ? window.innerWidth * 0.5 : 250;
         showNav = window.scrollY > threshold;
     }
@@ -24,10 +24,14 @@
 
 
     const desktop = writable(false);
+    const desktopex = writable(false);
+    const desktoplarge = writable(false);
 
     onMount(() => {
         const update = () => {
             desktop.set(window.innerWidth >= 900);
+            desktopex.set(window.innerWidth >= 1300);
+            desktoplarge.set(window.innerWidth >= 1100);
         };
 
         update(); // Initial check
@@ -35,46 +39,149 @@
 
         return () => window.removeEventListener('resize', update);
     });
+
+	let searchInput: HTMLInputElement | null = null;
+
+    onMount(() => {
+        const handler = (e: KeyboardEvent) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                if (!showNav) return;
+
+                e.preventDefault();
+                searchInput?.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    });
 </script>
 <!-- 4vw = 20px -->
 <section class="bg-mainlight text-zinc-900 min-h-screen flex flex-col">
 
     <!-- Top Nav -->
-    <nav class={`fixed w-full z-[99] transition-all ${showNav ? 'translate-y-0 pointer-events-auto' : '-translate-y-full pointer-events-none'}`}>
+    <nav class={`lg:flex lg:justify-center
+    fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : '-translate-y-full pointer-events-none'}`}>
         <div class="w-full drop-shadow-md shadow-black bg-mainlight text-mainred fill-mainred flex items-center justify-between 
+        lg:translate-y-4 lg:w-[946px] lg:rounded-xl xl:w-[1000px]
         px-[3.2vw] xs:px-[16px]
-        h-[20vw] xs:h-[76px]">
-            <a href="/" class={`fixed z-[100] aspect-square rounded-full flex justify-center items-center transition-all
+        h-[20vw] xs:h-[76px] md:landscape:h-[100px] lg:h-[100px]
+        md:landscape:pr-[24px] lg:pr-[24px] md:landscape:pl-[8px] lg:pl-[8px]">
+            <a href="/" class={`fixed z-[100] aspect-square rounded-full flex justify-center items-center transition-all md:landscape:hidden lg:hidden
             top-[3.8vw] right-[3.2vw] xs:top-[12px] xs:right-[16px]
             h-[12vw] xs:h-[50px]
             ${showNav ? 'translate-y-0' : 'translate-y-[calc(100%+(3.8vw)*2)] xs:translate-y-[calc(100%+(12px*2))] bg-zinc-900/10 text-mainlight pointer-events-auto'}`}>
                 <Icon icon="fa6-solid:magnifying-glass" class="text-[6vw] xs:text-[24px]"/>
             </a>
             <!-- LEFT -->
-            <button on:click={home} disabled={!showNav} aria-label="home">
-                <svg class="h-[5vw] xs:h-[25px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
-                    <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                    <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
-                    <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                    <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
-                    <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                    <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                    <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
-                    <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
-                </svg>
-            </button>
+            <div class="flex justify-center items-center space-x-[20px]">
+                <button 
+                aria-hidden={!showNav}
+                tabindex={showNav ? 0 : -1}
+                on:click={home} disabled={!showNav} aria-label="home" class="mr-3">
+                    <svg class="h-[5vw] xs:h-[25px] lg:hidden md:landscape:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
+                        <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
+                        <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                        <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
+                        <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
+                    </svg>
+                    <svg class="hidden lg:block md:landscape:block h-[100px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+                        <g>
+                            <g>
+                                <path d="m572.79,345.04c-12.91.87-25.81,1.74-38.72,2.61-17.66,60-35.79,119.86-54.49,179.55,12.91.52,25.81,1.04,38.72,1.57,4.54-14.83,9.04-29.67,13.53-44.51,14.41.2,28.81.39,43.22.59,4.51,15.48,8.99,30.98,13.45,46.48,12.9.52,25.81,1.04,38.71,1.56-17.66-62.75-35.76-125.37-54.41-187.84Zm-30.29,103.57c3.66-12.32,7.3-24.64,10.93-36.96,3.66,12.26,7.3,24.53,10.93,36.8-7.29.05-14.58.11-21.86.16Z"/>
+                                <path d="m749.37,453.28c-19.47,27.65-39.29,55.02-59.52,82.12-16.9-.68-33.8-1.36-50.7-2.04,18.38-23.92,36.43-48.08,54.18-72.48-20.09,0-40.18,0-60.28.01-4.32-13.24-8.66-26.47-13.02-39.7,20.38-27.51,40.35-55.32,59.96-83.39,16.9-1.14,33.79-2.28,50.69-3.42-17.89,26.29-36.08,52.37-54.61,78.23,20.09-.53,40.18-1.07,60.27-1.6,4.36,14.08,8.71,28.17,13.02,42.26Z"/>
+                                <path d="m842.17,326.88c-12.91.87-25.81,1.74-38.72,2.61-17.72,69.65-35.85,139.19-54.49,208.6,12.91.52,25.81,1.04,38.72,1.57,4.53-17.24,9.04-34.48,13.53-51.73,14.4.2,28.81.39,43.21.59,4.51,17.88,8.99,35.76,13.44,53.64,12.9.52,25.8,1.04,38.71,1.56-17.7-72.39-35.82-144.68-54.4-216.85Zm-30.28,119.72c3.66-14.26,7.3-28.52,10.93-42.79,3.66,14.2,7.3,28.42,10.93,42.63-7.29.05-14.57.11-21.86.16Z"/>
+                                <path d="m418.7,443.78c19.78,25.46,35.64,53.52,49.25,82.68-14.01-.56-28.02-1.13-42.04-1.69-9.58-17.58-19.99-34.61-32.09-50.58v49.29c-12.11-.49-24.22-.98-36.34-1.46v-162.46c12.11-.82,24.22-1.63,36.34-2.45v57.01c14.81-18.59,27.44-38.57,38.47-59.6,13.82-.93,27.64-1.86,41.46-2.8-14.13,33.09-32.37,64.11-55.07,92.07Z"/>
+                            </g>
+                            <g>
+                                <path d="m778.76,571.12c-12.6-.51-25.19-1.02-37.79-1.53-18.25,58.43-35.94,117.02-53.19,175.75,12.6-.85,25.2-1.7,37.79-2.54,4.37-14.57,8.78-29.13,13.2-43.69,14.06-.57,28.12-1.14,42.18-1.71,4.34,13.52,8.72,27.04,13.12,40.54,12.59-.85,25.19-1.69,37.78-2.54-18.25-54.59-35.91-109.36-53.11-164.28Zm-29.56,94.01c3.54-11.45,7.09-22.9,10.67-34.34,3.54,11.31,7.09,22.62,10.67,33.92-7.11.14-14.23.28-21.34.42Z"/>
+                                <path d="m490.54,559.49c-12.6-.51-25.2-1.02-37.79-1.53-18.18,68.81-35.89,137.74-53.19,206.77,12.6-.85,25.2-1.7,37.79-2.54,4.38-17.14,8.78-34.27,13.2-51.39,14.06-.57,28.12-1.14,42.19-1.71,4.35,16.07,8.73,32.13,13.13,48.19,12.6-.85,25.19-1.69,37.79-2.54-18.18-64.96-35.85-130.05-53.11-195.26Zm-29.56,111.26c3.54-13.53,7.1-27.05,10.67-40.56,3.54,13.39,7.1,26.77,10.67,40.15-7.11.14-14.23.28-21.34.42Z"/>
+                                <path d="m411.79,556.47v50.84c-12.74-.18-25.48-.35-38.22-.53v159.55c-14.19.95-28.38,1.91-42.57,2.86v-163c-12.74-.18-25.48-.35-38.22-.53v-53.97c39.67,1.6,79.33,3.2,119,4.79Z"/>
+                                <path d="m682.9,648.93c6.75-15.76,5.55-32.21.96-47.93-8.03-27.54-38.69-35.1-64.39-36.46-19.53-1.04-39.7-1.41-59.53-1.26,2.6,30.1,3.47,60.48,3.12,90.56-.39,33.31-1.21,66.94-3.12,100.33,11.86-.8,23.73-1.6,35.59-2.4.86-14.87,1.37-29.75,1.77-44.64,8.44-2.94,16.74-6.01,25.04-9.35,6.93,16.51,11.71,33.67,15.55,51.13,12.14-.82,24.28-1.64,36.42-2.45-4.27-22.61-10.1-44.78-18.73-66.14,11.61-7.71,21.8-18.5,27.32-31.39Zm-33.97-17.9c-10.75,14.77-34.96,19.86-51.08,25.36-.23-14.78-.85-29.49-1.9-44.23,6.82-.56,13.81-1.29,20.56-1.14,9.77.21,27.34-1.1,33.69,8.3,2.96,4.39-.56,10.74-1.27,11.71Z"/>
+                            </g>
+                        </g>
+                        <g>
+                            <polygon points="836.57 779.77 817.68 877.39 812.13 906.03 783.49 900.49 456.18 837.15 518.05 819.4 789.03 871.84 806.99 779.02 836.57 779.77"/>
+                            <polygon points="235.55 794.46 156.7 779.2 128.06 773.66 133.61 745.01 168.96 562.31 186.7 624.17 162.24 750.55 226.52 762.99 235.55 794.46"/>
+                            <polygon points="519.28 227.22 457.42 244.96 267.2 208.16 248.49 304.89 217.02 313.92 238.56 202.61 244.1 173.97 272.75 179.51 519.28 227.22"/>
+                            <polygon points="804.91 303.01 775.03 304.62 766.55 275.06 750.15 217.9 637.75 250.14 575.89 267.89 236.83 365.15 205.36 374.17 174.44 383.04 191.88 443.84 209.62 505.7 286.78 774.65 295.8 806.11 301.14 824.72 337.71 814.23 399.58 796.48 399.69 796.45 493.82 799.79 462.76 808.71 400.9 826.45 309.18 852.76 281.13 860.81 273.09 832.77 263.67 799.89 254.64 768.43 197.4 568.89 179.66 507.03 146.4 391.08 138.36 363.04 166.4 355 211.58 342.04 243.04 333.02 512.71 255.66 574.56 237.91 742.1 189.86 770.14 181.82 778.19 209.86 798.68 281.28 804.91 303.01"/>
+                        </g>
+                    </svg>
+                </button>
+                {#if $desktop}
+                    <div class="text-[20px] font-work-sans uppercase text-zinc-900 max-lg:portrait:hidden">
+                        <a href="/"
+                        aria-hidden={!showNav}
+                        tabindex={showNav ? 0 : -1}>Komik</a>
+                    </div>
+                    <div class="text-[20px] font-work-sans uppercase text-zinc-900 max-lg:portrait:hidden">
+                        <a href="/"
+                        aria-hidden={!showNav}
+                        tabindex={showNav ? 0 : -1}>novel</a>
+                    </div>
+                    <div class="text-[20px] font-work-sans uppercase text-zinc-900 max-lg:portrait:hidden">
+                        <a href="/"
+                        aria-hidden={!showNav}
+                        tabindex={showNav ? 0 : -1}>kreator</a>
+                    </div>
+                {/if}
+            </div>
             <!-- RIGHT -->
-            <div class="space-x-[2vw] flex">
-                <div class="h-[12vw] xs:h-[76px] flex justify-center items-center 
-                text-[3.2vw] xs:text-[16px]">100 <Icon icon="tabler:coin-filled" class="text-[6.4vw] xs:text-[32px] ml-[1vw]"/></div>
-                <div class="h-[12vw] xs:h-[50px] aspect-square rounded-full flex justify-center items-center"></div>
+            <div class="space-x-[2vw] md:space-x-[10px] flex md:flex md:justify-center md:items-center">
+                {#if !$desktop}
+                    <div class="h-[12vw] xs:h-[76px] flex justify-center items-center 
+                    text-[3.2vw] xs:text-[16px]">100 <Icon icon="tabler:coin-filled" class="text-[6.4vw] xs:text-[32px] ml-[1vw] md:ml-[5px]"/></div>
+                    <div class="h-[12vw] xs:h-[50px] aspect-square rounded-full flex justify-center items-center md:landscape:hidden lg:hidden"></div>
+                {/if}
+                {#if $desktop}
+                <form
+                class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
+                rounded-lg pl-3 pr-4 py-2 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
+                focus-within:[&_.shortcut]:hidden max-lg:portrait:hidden"
+                >
+                    <div class="flex justify-center items-center flex-1">
+                        <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] inline mr-2 h-[18px] w-[18px] aspect-square" />
+                        <input 
+                            aria-hidden={!showNav}
+                            tabindex={showNav ? 0 : -1}        
+                            bind:this={searchInput}
+                            type="text"
+                            class="focus:outline-none bg-transparent w-full"
+                            placeholder="Cari Bacaan"
+                            maxlength="25"
+                        />
+                    </div>
+                    <div class="shortcut">
+                        <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
+                    </div>
+                </form>
+                
+                <button 
+                aria-hidden={!showNav}
+                tabindex={showNav ? 0 : -1}
+                 class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
+                    Publish
+                </button>
+                <button 
+                aria-hidden={!showNav}
+                tabindex={showNav ? 0 : -1}
+                class=" outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
+                    <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
+                </button>
+                {/if}
             </div>
         </div>
     </nav>
 
     <!-- Bot Nav -->
-    {#if !$desktop}
-        <nav class="fixed bottom-0 w-full z-[99] xs:pb-[16px] flex justify-center">
+    {#if !$desktoplarge}
+        <nav class="fixed bottom-0 w-full z-[99] xs:pb-[16px] flex justify-center landscape:hidden">
             <div class="h-[20vw] xs:h-[76px] xs:rounded-[16px] xs:max-w-[400px] 
             w-full drop-shadow-md shadow-black bg-mainlight text-mainred fill-mainred flex justify-around items-center px-[2vw]">
                 <div>
@@ -226,6 +333,6 @@
                 </svg>
             </div>
         </div>
-        <div class="h-[20vw] xs:h-[100px] md:hidden"></div>
+        <div class="h-[20vw] xs:h-[100px] lg:h-[10px] md:landscape:h-[10px]"></div>
     </footer>
 </section>

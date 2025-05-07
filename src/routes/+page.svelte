@@ -91,11 +91,17 @@
 </svelte:head>
 
 <section>
+    <!-- HISTORY -->
+    <button class="fixed md:block top-[calc(100%/5)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl drop-shadow-2xl shadow-zinc-900 cursor-pointer border-2 border-r-0 border-zinc-400 hover:-translate-x-2 focus:-translate-x-2 focus:outline-none focus:border-zinc-900 transition-all hidden">
+        <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="text-xl mx-3" /></div>
+    </button>
+
+
 
     <!-- H E R O    S E C T I O N -->
         <!-- Slider Mobile -->
-        {#if !$desktop}
-            <section class="w-full flex justify-center bg-stone-500">
+        {#if !$desktoplarge}
+            <section class="w-full flex justify-center bg-stone-500 md:landscape:hidden">
                 <div class="w-full max-w-[500px] 
                 aspect-square bg-mainred text-zinc-900 relative">
                     <div class="flex justify-center items-center w-full h-full">
@@ -105,7 +111,7 @@
             </section>
         {/if}
         {#if $desktop}
-            <section class="w-full flex justify-center bg-stone-500">
+            <section class="w-full flex justify-center bg-stone-500 max-lg:portrait:hidden">
                 <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
                     <img src="https://i.imgur.com/JEeO6Yw.png" alt="banner" class="h-full absolute left-0">
                     <img src="https://i.imgur.com/Jd9blRa.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
@@ -155,9 +161,9 @@
 
         <!-- Berita Terbaru -->
         <section>
-            <a href="/news">
+            <div>
                 <div class="w-full flex justify-center bg-stone-200">
-                    <div class="w-full font-semibold flex justify-between items-center 
+                    <a href="/news" class="w-full font-semibold flex justify-between items-center 
                     px-[3.2vw] py-[2.8vw] xs:px-[16px] xs:py-[14px]
                     text-mainlight bg-mainred md:rounded-[16px] md:px-6
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]">
@@ -167,9 +173,9 @@
                             <p class=" text-[2.8vw] xs:text-[16px] line-clamp-1 mr-[2vw] xs:mr-[10px]">Fitur baru dapakatkan koin dari menonton iklan baru</p>
                         </div>
                         <div class="text-[2.8vw] xs:text-[16px] text-stone-300/80 text-nowrap">32 Feb 2025</div>
-                    </div>
+                    </a>
                 </div>
-            </a>
+            </div>
         </section>
 
         {#if $desktop}
@@ -196,10 +202,10 @@
                         <div class="h-3 aspect-square rounded-full bg-black/30"></div>
                     </div>
                     <div class="absolute h-full flex items-center -left-[5%]">
-                        <Icon icon="material-symbols:arrow-back-ios" class="text-3xl" />
+                        <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl" />
                     </div>
                     <div class="absolute h-full flex items-center -right-[5%]">
-                        <Icon icon="material-symbols:arrow-forward-ios" class="text-3xl" />
+                        <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl" />
                     </div>
                 </div>
             </section>
@@ -277,10 +283,10 @@
                                     #{first.id}
                                 </div>
                                 <div class="flex-1 leading-[1.4] 
-                                text-[3.2vw] xs:text-[16px] md:text-[14px] capitalize">
+                                text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
                                     <div class={genreColor(first.genre)}>{first.genre}</div>
                                     <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
-                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px]">{first.author}</div>
+                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
                                 </div>
                                 <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
                                     {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
@@ -307,10 +313,10 @@
                                 h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
                                     
                                 </div>
-                                <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[16px] capitalize">
+                                <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
                                     <div class={genreColor(item.genre)}>{item.genre}</div>
-                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[18px] font-bold">{item.title}</div>
-                                    <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[16px] text-stone-500">{item.author}</div>
+                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
+                                    <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
                                 </div>
                                 <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
                                     {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
