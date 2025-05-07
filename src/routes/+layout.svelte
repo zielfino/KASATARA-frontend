@@ -60,8 +60,8 @@
 <section class="bg-mainlight text-zinc-900 min-h-screen flex flex-col">
 
     <!-- Top Nav -->
-    <nav class={`lg:flex lg:justify-center
-    fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : '-translate-y-full pointer-events-none'}`}>
+    <nav class={`lg:flex lg:justify-center duration-500 ease-in-out
+    fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'}`}>
         <div class="w-full drop-shadow-md shadow-black bg-mainlight text-mainred fill-mainred flex items-center justify-between 
         lg:translate-y-4 lg:w-[946px] lg:rounded-xl xl:w-[1000px]
         px-[3.2vw] xs:px-[16px]
@@ -75,10 +75,10 @@
             </a>
             <!-- LEFT -->
             <div class="flex justify-center items-center space-x-[20px]">
-                <button 
+                <button
                 aria-hidden={!showNav}
-                tabindex={showNav ? 0 : -1}
-                on:click={home} disabled={!showNav} aria-label="home" class="mr-3">
+                tabindex="-1"
+                on:click={home} disabled={!showNav} aria-label="home" class="mr-3 cursor-pointer">
                     <svg class="h-[5vw] xs:h-[25px] lg:hidden md:landscape:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
                         <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
                         <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
@@ -140,17 +140,18 @@
                 {#if $desktop}
                 <form
                 class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
+                focus-within:outline-3 focus-within:outline-sky-400
                 rounded-lg pl-3 pr-4 py-2 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
                 focus-within:[&_.shortcut]:hidden max-lg:portrait:hidden"
                 >
                     <div class="flex justify-center items-center flex-1">
-                        <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] inline mr-2 h-[18px] w-[18px] aspect-square" />
+                        <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] mr-2" />
                         <input 
                             aria-hidden={!showNav}
                             tabindex={showNav ? 0 : -1}        
                             bind:this={searchInput}
                             type="text"
-                            class="focus:outline-none bg-transparent w-full"
+                            class="outline-none bg-transparent w-full"
                             placeholder="Cari Bacaan"
                             maxlength="25"
                         />

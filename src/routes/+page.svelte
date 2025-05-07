@@ -57,6 +57,22 @@
 
         return () => window.removeEventListener('resize', update);
     });
+
+
+
+    // history
+    let historyShow: boolean = false;
+    function handleScroll() {
+        historyShow = false;
+    }
+
+    onMount(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        // onDestroy(() => {
+        // window.removeEventListener('scroll', handleScroll);
+        // });
+    });
 </script>
 
 <svelte:head>
@@ -92,10 +108,46 @@
 
 <section>
     <!-- HISTORY -->
-    <button class="fixed md:block top-[calc(100%/5)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl drop-shadow-2xl shadow-zinc-900 cursor-pointer border-2 border-r-0 border-zinc-400 hover:-translate-x-2 focus:-translate-x-2 focus:outline-none focus:border-zinc-900 transition-all hidden">
-        <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="text-xl mx-3" /></div>
-    </button>
-
+     <div class="group relative">
+        <button on:click={(e) => { historyShow = !historyShow; e.currentTarget.blur(); }} class={`fixed z-[101] md:block top-[calc(100%/3)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
+        border-2 border-r-0 border-zinc-400 transition-all hidden focus:outline-none focus:border-sky-500 duration-500 ease-in-out
+        ${historyShow ? '-translate-x-[calc(320px-2px)]' : 'translate-x-[2px] group-hover:-translate-x-[14px] focus:-translate-x-[14px]'}
+        `}>
+            <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="text-xl mx-3" /></div>
+        </button>
+    
+        <div class={`
+        fixed z-[100] w-[320px] h-screen right-0
+        transition-transform duration-500 ease-in-out
+        ${historyShow ? 'translate-x-0 pointer-events-auto' : 'translate-x-full group-hover:translate-x-[calc(100%-16px)] group-focus-within:translate-x-[calc(100%-16px)]'}
+        `}>
+            <div tabindex="-1" class={`
+            h-[75dvh] bg-mainlight border-2 translate-y-32 rounded-l-xl border-r-0 border-zinc-400 transition-shadow group-focus-within:border-sky-500
+            p-3 focus:outline-none overflow-y-scroll
+            ${historyShow ? 'shadow-2xl shadow-zinc-900/50' : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
+            `}>
+                <!-- <div class=" overflow-y-scroll w-full h-full mask-b-from-[90%] mask-b-to-100% mask-t-from-[90%] mask-t-to-100%"> -->
+                    <div class="space-y-2">
+                        <!-- <div class="h-4"></div> -->
+                        {#each Array.from({ length: 10 }, (_, i) => i + 1) as n}
+                            <!-- <li>{n}</li> -->
+                            <div class="flex justify-center items-center">
+                                <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2"></div>
+                                <div class="w-full flex justify-between items-center">
+                                    <div>
+                                        <div class="leading-[1.2] text-[16px] text-zinc-900 capitalize">judul bacaan</div>
+                                        <div class="leading-none text-[12px] text-zinc-900/40 tracking-tight">terakhir dibaca 32 Feb 2025</div>
+                                    </div>
+                                    <div>#{n}</div>
+                                </div>
+                            </div>
+                        {/each}
+                        <!-- <div class="h-6"></div> -->
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
 
 
     <!-- H E R O    S E C T I O N -->
