@@ -73,6 +73,24 @@
         // window.removeEventListener('scroll', handleScroll);
         // });
     });
+
+
+    // SLIDER
+	import { fade } from 'svelte/transition';
+	let currentSlide = 0;
+	const totalSlides = 4; // Jumlah slide yang tersedia
+
+	function nextSlide() {
+		currentSlide = (currentSlide + 1) % totalSlides;
+	}
+
+	function prevSlide() {
+		currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+	}
+
+	function goToSlide(index: number) {
+		currentSlide = index;
+	}
 </script>
 
 <svelte:head>
@@ -107,43 +125,59 @@
 </svelte:head>
 
 <section>
-    <!-- HISTORY -->
-     <div class="group relative">
-        <button on:click={(e) => { historyShow = !historyShow; e.currentTarget.blur(); }} class={`fixed z-[101] md:block top-[calc(100%/3)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
-        border-2 border-r-0 border-zinc-400 transition-all hidden focus:outline-none focus:border-sky-500 duration-500 ease-in-out
-        ${historyShow ? '-translate-x-[calc(320px-2px)]' : 'translate-x-[2px] group-hover:-translate-x-[14px] focus:-translate-x-[14px]'}
+
+
+    <!-- H I S T O R Y -->
+    <div tabindex="-1" class={`group fixed h-screen z-[100] transition-all right-0 top-0 duration-300 ease-in-out
+            ${historyShow
+            ? '-translate-x-[320px]'
+            : 'hover:-translate-x-4 focus-within:-translate-x-4'}
         `}>
-            <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="text-xl mx-3" /></div>
-        </button>
-    
-        <div class={`
-        fixed z-[100] w-[320px] h-screen right-0
-        transition-transform duration-500 ease-in-out
-        ${historyShow ? 'translate-x-0 pointer-events-auto' : 'translate-x-full group-hover:translate-x-[calc(100%-16px)] group-focus-within:translate-x-[calc(100%-16px)]'}
-        `}>
-            <div tabindex="-1" class={`
-            h-[75dvh] bg-mainlight border-2 translate-y-32 rounded-l-xl border-r-0 border-zinc-400 transition-shadow group-focus-within:border-sky-500
-            p-3 focus:outline-none overflow-y-scroll
-            ${historyShow ? 'shadow-2xl shadow-zinc-900/50' : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
+        <div class="relative">
+            <button on:click={(e) => { historyShow = !historyShow }} class="fixed z-[101] translate-x-[2px] md:block top-[calc(100%/3)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
+            border-2 border-r-0 border-zinc-400 hidden
+            peer focus:outline-none focus:border-sky-500">
+                <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class={`text-xl mx-3 transition-transform ${historyShow ? 'rotate-180' : ''}`} /></div>
+            </button>
+            <div tabindex="-1"
+            class={`
+                fixed z-[100] w-[320px] right-0 translate-y-32 translate-x-full
+                h-[75dvh] bg-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400
+                p-3 focus:outline-none overflow-y-scroll
+                peer-focus:outline-none peer-focus:border-sky-500
+                ${historyShow
+                ? 'shadow-2xl shadow-zinc-900/50'
+                : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
             `}>
-                <!-- <div class=" overflow-y-scroll w-full h-full mask-b-from-[90%] mask-b-to-100% mask-t-from-[90%] mask-t-to-100%"> -->
-                    <div class="space-y-2">
-                        <!-- <div class="h-4"></div> -->
-                        {#each Array.from({ length: 10 }, (_, i) => i + 1) as n}
-                            <!-- <li>{n}</li> -->
-                            <div class="flex justify-center items-center">
-                                <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2"></div>
-                                <div class="w-full flex justify-between items-center">
-                                    <div>
-                                        <div class="leading-[1.2] text-[16px] text-zinc-900 capitalize">judul bacaan</div>
-                                        <div class="leading-none text-[12px] text-zinc-900/40 tracking-tight">terakhir dibaca 32 Feb 2025</div>
+        <!-- <div class={`
+            fixed z-[100] w-[320px] right-0 translate-y-32
+            transition-transform duration-500 ease-in-out
+            ${historyShow ? 'translate-x-0 pointer-events-auto' : 'translate-x-full group-hover:translate-x-[calc(100%-16px)] group-focus-within:translate-x-[calc(100%-16px)]'}
+            `}>
+                <div tabindex="-1" class={`
+                h-[75dvh] bg-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400 transition-shadow group-focus-within:border-sky-500
+                p-3 focus:outline-none overflow-y-scroll
+                ${historyShow ? 'shadow-2xl shadow-zinc-900/50' : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
+                `}> -->
+                    <!-- <div class=" overflow-y-scroll w-full h-full mask-b-from-[90%] mask-b-to-100% mask-t-from-[90%] mask-t-to-100%"> -->
+                        <div class="space-y-2">
+                            <!-- <div class="h-4"></div> -->
+                            {#each Array.from({ length: 10 }, (_, i) => i + 1) as n}
+                                <!-- <li>{n}</li> -->
+                                <div class="flex justify-center items-center">
+                                    <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2"></div>
+                                    <div class="w-full flex justify-between items-center">
+                                        <div>
+                                            <div class="leading-[1.2] text-[16px] text-zinc-900 capitalize">judul bacaan</div>
+                                            <div class="leading-none text-[12px] text-zinc-900/40 tracking-tight">terakhir dibaca 32 Feb 2025</div>
+                                        </div>
+                                        <div>#{n}</div>
                                     </div>
-                                    <div>#{n}</div>
                                 </div>
-                            </div>
-                        {/each}
-                        <!-- <div class="h-6"></div> -->
-                    </div>
+                            {/each}
+                            <!-- <div class="h-6"></div> -->
+                        </div>
+                    <!-- </div> -->
                 <!-- </div> -->
             </div>
         </div>
@@ -195,9 +229,91 @@
             xs:my-[5vw] xs:px-[5vw] xs:gap-[8px] md:my-[20px]
             md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
             lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
-                <div class="col-span-2 row-span-2 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-purple-600 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-red-300 flex justify-center items-center"></div>
+                <div class="col-span-2 row-span-2 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
+                    <div class="absolute top-0 right-0 w-8 h-8 bg-emerald-500 text-[12px] font-[700] rounded-es-full text-right pt-1 pr-1 text-mainlight z-10">UP</div>
+                    <div class="bg-black absolute top-0 left-0 w-full h-full z-[1] opacity-60"
+                    style="
+                        mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
+                        -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
+                    ">
+                        test
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
+                        <div class="absolute top-0 left-0 p-3">
+                            <h3 class="text-left font-semibold text-[24px] line-clamp-1 text-mainlight">OVERGEARED</h3>
+                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
+                        </div>
+                        <div class="absolute flex bottom-0 left-0 p-3">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/HHe6hQi.png');"></div>
+                    <div class="relative w-full h-full z-[2]">
+                        <div class="absolute top-0 left-0 w-3/4">
+                            <h3 class="text-left font-semibold text-[24px] line-clamp-3 text-mainlight">OVERGEARED</h3>
+                            <h4 class="flex items-center text-[16px] text-emerald-400"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-0">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
+                    <div class="absolute top-0 right-0 w-12 h-9 bg-zinc-900 text-[14px] font-[700] rounded-es-full text-right pt-1 pr-1 text-amber-300 z-10 font-caveat"><div class="-translate-x-1">NEW</div></div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
+                        <div class="absolute top-0 left-0 p-3">
+                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">The Greatest Estate Developer</h3>
+                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
+                        </div>
+                        <div class="absolute flex bottom-0 left-0 p-3">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/vQVhakk.png');"></div>
+                    <div class="relative w-full h-full">
+                        <div class="absolute top-0 left-0 w-3/4">
+                            <h3 class="text-left font-semibold line-clamp-3">The Greatest Estate Developer</h3>
+                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-0">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-span-1 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
+                    <div class="absolute top-0 right-0 w-8 h-8 bg-emerald-500 text-[12px] font-[700] rounded-es-full text-right pt-1 pr-1 text-mainlight z-10">UP</div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
+                        <div class="absolute top-0 left-0 p-3">
+                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">Return Of The Mount Hua Sect</h3>
+                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
+                        </div>
+                        <div class="absolute flex bottom-0 left-0 p-3">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/kyLUJIS.png');"></div>
+                    <div class="relative w-full h-full">
+                        <div class="absolute top-0 left-0 w-3/4">
+                            <h3 class="text-left font-semibold line-clamp-3">Return Of The Mount Hua Sect</h3>
+                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-0">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-span-1 aspect-[1/1] bg-amber-500 flex justify-center items-center"></div>
                 <div class="col-span-1 aspect-[1/1] bg-sky-500 flex justify-center items-center"></div>
                 <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
@@ -231,7 +347,7 @@
         </section>
 
         {#if $desktop}
-            <section class="w-full flex justify-center py-16 bg-stone-200">
+            <!-- <section class="w-full flex justify-center py-16 bg-stone-200">
                 <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
                     <div class="w-min text-nowrap">
                         <Linker 
@@ -239,13 +355,17 @@
                         link="latest"
                         />
                     </div>
-                    <div class="grid grid-cols-4 w-full gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                        <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                        {#if $desktoplarge}
-                            <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                        {/if}
+                    <div class="w-full flex overflow-scroll overflow-scroll-hidden">
+                        {#each [1, 2, 3, 4] as item}
+                            <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] mr-[8px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
+                                <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
+                                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                                {#if $desktoplarge}
+                                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
+                                {/if}
+                            </div>
+                        {/each}
                     </div>
                     <div class="flex justify-center items-center space-x-4 mt-4">
                         <div class="h-3 aspect-square rounded-full bg-black"></div>
@@ -259,6 +379,98 @@
                     <div class="absolute h-full flex items-center -right-[5%]">
                         <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl" />
                     </div>
+                </div>
+            </section> -->
+
+            <section class="w-full flex justify-center py-16 bg-stone-200">
+                <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
+
+                    <!-- Title -->
+                    <div class="w-min text-nowrap">
+                        <Linker title="Terbaru Dari Kita" link="latest" />
+                    </div>
+
+                    <!-- Slider -->
+                    <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(946px/5)] xl:min-h-[calc(1100px/5)]">
+                        {#each Array(totalSlides) as _, i (i)}
+                            {#if i === currentSlide}
+                                <div transition:fade class="absolute top-0 left-0 w-full flex justify-center overflow-hidden">
+                                    {#if i === 0}
+                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center">
+                                                Slide 1 - A
+                                            </div>
+                                            <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center">B</div>
+                                            <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center">C</div>
+                                            {#if $desktoplarge}
+                                                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center">D</div>
+                                            {/if}
+                                        </div>
+                                    {:else if i === 1}
+                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-fuchsia-600 flex justify-center items-center">
+                                                Slide 2 - A
+                                            </div>
+                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-300 flex justify-center items-center">B</div>
+                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">C</div>
+                                            {#if $desktoplarge}
+                                                <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">D</div>
+                                            {/if}
+                                        </div>
+                                    {:else if i === 2}
+                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-sky-600 flex justify-center items-center">
+                                                Slide 3 - A
+                                            </div>
+                                            <div class="col-span-1 aspect-[1/1] bg-sky-300 flex justify-center items-center">B</div>
+                                            <div class="col-span-1 aspect-[1/1] bg-sky-400 flex justify-center items-center">C</div>
+                                            {#if $desktoplarge}
+                                                <div class="col-span-1 aspect-[1/1] bg-sky-400 flex justify-center items-center">D</div>
+                                            {/if}
+                                        </div>
+                                    {:else if i === 3}
+                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
+                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-cyan-600 flex justify-center items-center">
+                                                Slide 4 - A
+                                            </div>
+                                            <div class="col-span-1 aspect-[1/1] bg-cyan-300 flex justify-center items-center">B</div>
+                                            <div class="col-span-1 aspect-[1/1] bg-cyan-400 flex justify-center items-center">C</div>
+                                            {#if $desktoplarge}
+                                                <div class="col-span-1 aspect-[1/1] bg-cyan-400 flex justify-center items-center">D</div>
+                                            {/if}
+                                        </div>
+                                    {/if}
+                                </div>
+                            {/if}
+                        {/each}
+                    </div>
+
+
+                    <!-- Navigation Buttons -->
+                    <div class="absolute h-full flex items-center -left-[5%]">
+                        <button class="cursor-pointer" on:click={prevSlide}>
+                            <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl text-stone-400" />
+                        </button>
+                    </div>
+                    <div class="absolute h-full flex items-center -right-[5%]">
+                        <button class="cursor-pointer" on:click={nextSlide}>
+                            <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl text-stone-400" />
+                        </button>
+                    </div>
+
+
+                    <!-- Dots -->
+                    <div class="flex justify-center items-center space-x-4 mt-4">
+                        {#each Array(totalSlides) as _, i (i)}
+                            <button
+                                aria-label={`Pindah ke slide ${i + 1}`}
+                                tabindex="0"
+                                on:click={() => goToSlide(i)}
+                                class={`h-3 aspect-square rounded-full cursor-pointer ${i === currentSlide ? 'bg-zinc-900' : 'bg-stone-400'}`}
+                            ></button>
+                        {/each}
+                    </div>
+
                 </div>
             </section>
         {/if}
@@ -425,4 +637,14 @@
     .bannertb {
         clip-path: polygon(0.5% 20%, 100% 0, 100% 100%, 10.5% 100%);
     }
+    
+	.overflow-scroll-hidden {
+		overflow: auto;
+		scrollbar-width: none;       /* Firefox */
+		-ms-overflow-style: none;    /* Internet Explorer 10+ */
+	}
+
+	.overflow-scroll-hidden::-webkit-scrollbar {
+		display: none;               /* Safari & Chrome */
+	}
 </style>

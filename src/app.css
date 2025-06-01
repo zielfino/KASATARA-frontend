@@ -22,44 +22,6 @@
     --breakpoint-xl: 1300px;  
 }
 
-/* @config {
-  theme {
-    screens: {
-      xs: '500px';
-      sm: '700px';
-      md: '900px';
-      lg: '1100px';
-      xl: '1300px';
-    }
-  }
-}
-
-@layer utilities {
-  .portrait\:block {
-    @media (orientation: portrait) {
-      display: block;
-    }
-  }
-
-  .landscape\:block {
-    @media (orientation: landscape) {
-      display: block;
-    }
-  }
-
-  .portrait\:hidden {
-    @media (orientation: portrait) {
-      display: none;
-    }
-  }
-
-  .landscape\:hidden {
-    @media (orientation: landscape) {
-      display: none;
-    }
-  }
-} */
-
 
 p {
     @apply tracking-wide;

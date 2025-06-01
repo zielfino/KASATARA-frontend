@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy, tick } from "svelte";
     import "../app.css";
     import Icon from "@iconify/svelte";
     import { goto } from '$app/navigation';
     import { writable } from "svelte/store";
+	import { browser } from '$app/environment';
     // let { children } = $props();
 
     let showNav: boolean = false;
@@ -11,10 +12,14 @@
     function home() {
         goto('/'); // Arahkan ke halaman root
     }
+
     function handleScroll(): void {
         const isMobile = window.innerWidth <= 500;
         const threshold = isMobile ? window.innerWidth * 0.5 : 250;
         showNav = window.scrollY > threshold;
+		if (showDropdown) {
+			showDropdown = false;
+		}
     }
 
     onMount(() => {
@@ -40,7 +45,39 @@
         return () => window.removeEventListener('resize', update);
     });
 
-	let searchInput: HTMLInputElement | null = null;
+
+
+    // S E A R C H B A R
+
+    let searchForm: HTMLFormElement | null = null;
+    let searchInput: HTMLInputElement | null = null;
+
+    function focusInput(): void {
+        searchInput?.focus();
+        // console.log("succ1");
+    }
+
+    onMount(() => {
+        const init = async () => {
+            await tick();
+
+            if (!searchForm) {
+                console.log("searchForm masih null setelah tick 😢");
+                return;
+            }
+            // console.log("succ2");
+
+            searchForm.addEventListener('click', focusInput);
+            // console.log("succ3");
+        };
+
+        init();
+
+        return () => {
+            searchForm?.removeEventListener('click', focusInput);
+            // console.log("succ4");
+        };
+    });
 
     onMount(() => {
         const handler = (e: KeyboardEvent) => {
@@ -55,13 +92,62 @@
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
     });
+
+
+
+    // P R O F I L E
+	let showDropdown: boolean = false;
+
+	let profileButton: HTMLButtonElement | null = null;
+	let profileDropdown: HTMLDivElement | null = null;
+
+	function toggleDropdown(): void {
+		showDropdown = !showDropdown;
+	}
+
+	onMount(() => {
+		if (browser) {
+			window.addEventListener('scroll', handleScroll, { passive: true });
+		}
+	});
+
+	onDestroy(() => {
+		if (browser) {
+			window.removeEventListener('scroll', handleScroll);
+		}
+	});
 </script>
+
+<style>
+	.dropdown-panel::before {
+		content: "";
+		position: absolute;
+		top: -10px;
+		right: 13.5px;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid black; /* Outline */
+		z-index: 0;
+	}
+
+	.dropdown-panel::after {
+		content: "";
+		position: absolute;
+		top: -8px;
+		right: 15px;
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-bottom: 8px solid white; /* Inner triangle (match bg) */
+		z-index: 1;
+	}
+</style>
+
 <!-- 4vw = 20px -->
 <section class="bg-mainlight text-zinc-900 min-h-screen flex flex-col">
 
     <!-- Top Nav -->
     <nav class={`lg:flex lg:justify-center duration-500 ease-in-out
-    fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'}`}>
+    fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'} ${showDropdown ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'}`}>
         <div class="w-full drop-shadow-md shadow-black bg-mainlight text-mainred fill-mainred flex items-center justify-between 
         lg:translate-y-4 lg:w-[946px] lg:rounded-xl xl:w-[1000px]
         px-[3.2vw] xs:px-[16px]
@@ -70,11 +156,13 @@
             <a href="/" class={`fixed z-[100] aspect-square rounded-full flex justify-center items-center transition-all md:landscape:hidden lg:hidden
             top-[3.8vw] right-[3.2vw] xs:top-[12px] xs:right-[16px]
             h-[12vw] xs:h-[50px]
-            ${showNav ? 'translate-y-0' : 'translate-y-[calc(100%+(3.8vw)*2)] xs:translate-y-[calc(100%+(12px*2))] bg-zinc-900/10 text-mainlight pointer-events-auto'}`}>
+            ${showNav ? 'translate-y-0' : 'translate-y-[calc(100%+(3.8vw)*2)] xs:translate-y-[calc(100%+(12px*2))] bg-zinc-900/10 text-mainlight pointer-events-auto'}
+            ${showDropdown ? 'translate-y-0' : 'translate-y-[calc(100%+(3.8vw)*2)] xs:translate-y-[calc(100%+(12px*2))] bg-zinc-900/10 text-mainlight pointer-events-auto'}`}>
                 <Icon icon="fa6-solid:magnifying-glass" class="text-[6vw] xs:text-[24px]"/>
             </a>
             <!-- LEFT -->
             <div class="flex justify-center items-center space-x-[20px]">
+                <!-- Logo -->
                 <button
                 aria-hidden={!showNav}
                 tabindex="-1"
@@ -112,6 +200,8 @@
                         </g>
                     </svg>
                 </button>
+
+                <!-- Navigasi -->
                 {#if $desktop}
                     <div class="text-[20px] font-work-sans uppercase text-zinc-900 max-lg:portrait:hidden">
                         <a href="/"
@@ -130,6 +220,7 @@
                     </div>
                 {/if}
             </div>
+
             <!-- RIGHT -->
             <div class="space-x-[2vw] md:space-x-[10px] flex md:flex md:justify-center md:items-center">
                 {#if !$desktop}
@@ -137,21 +228,27 @@
                     text-[3.2vw] xs:text-[16px]">100 <Icon icon="tabler:coin-filled" class="text-[6.4vw] xs:text-[32px] ml-[1vw] md:ml-[5px]"/></div>
                     <div class="h-[12vw] xs:h-[50px] aspect-square rounded-full flex justify-center items-center md:landscape:hidden lg:hidden"></div>
                 {/if}
+
+
                 {#if $desktop}
-                <form
+                <!-- Search Bar -->
+                <form bind:this={searchForm}
                 class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
                 focus-within:outline-3 focus-within:outline-sky-400
-                rounded-lg pl-3 pr-4 py-2 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
-                focus-within:[&_.shortcut]:hidden max-lg:portrait:hidden"
-                >
+                rounded-lg pl-3 pr-4 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
+                focus-within:[&_.shortcut]:hidden max-lg:portrait:hidden
+                cursor-text
+                ">
                     <div class="flex justify-center items-center flex-1">
                         <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] mr-2" />
-                        <input 
+                        <input
+                            name="kasantaraSearchInput"
+                            id="kasantaraSearchInput"
                             aria-hidden={!showNav}
                             tabindex={showNav ? 0 : -1}        
                             bind:this={searchInput}
                             type="text"
-                            class="outline-none bg-transparent w-full"
+                            class="outline-none bg-transparent w-full py-2"
                             placeholder="Cari Bacaan"
                             maxlength="25"
                         />
@@ -161,20 +258,39 @@
                     </div>
                 </form>
                 
-                <button 
+                <!-- Publish Button -->
+                <button
                 aria-hidden={!showNav}
                 tabindex={showNav ? 0 : -1}
                  class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
                 rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
                     Publish
                 </button>
-                <button 
-                aria-hidden={!showNav}
-                tabindex={showNav ? 0 : -1}
-                class=" outline-sky-500 focus:outline-3 max-lg:portrait:hidden
-                h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
-                    <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
-                </button>
+
+                <!-- Profile Picture -->
+                <div class="relative">
+                    <button 
+                    bind:this={profileButton}
+                    on:click={toggleDropdown}
+                    aria-hidden={!showNav}
+                    tabindex={showNav ? 0 : -1}
+                    class=" outline-sky-500 focus:outline-3 max-lg:portrait:hidden cursor-pointer
+                    h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
+                        <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
+                    </button>
+                    {#if showDropdown}
+                        <div bind:this={profileDropdown}
+                        class="absolute translate-y-1 right-0 mt-3 rounded-lg shadow-lg bg-mainlight border-2 border-zinc-900 z-50 dropdown-panel">
+                            <div class="">
+                                <ul class="space-y-1 text-sm text-gray-700 whitespace-nowrap overflow-hidden rounded-lg">
+                                    <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Profil</div></li>
+                                    <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Aktifitas Saya</div></li>
+                                    <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Pengaturan</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                    {/if}
+                </div>
                 {/if}
             </div>
         </div>
