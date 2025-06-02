@@ -1,0 +1,2 @@
+
+<div class="absolute top-0 right-0 w-full aspect-[3/2] bg-zinc-900 text-[14px] font-[700] rounded-es-full text-right pt-1 pr-1 text-amber-300 z-10 font-caveat"><div class="-translate-x-1">NEW</div></div>

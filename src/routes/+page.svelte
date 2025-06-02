@@ -3,6 +3,10 @@
     import Linker from '$lib/components/linker.svelte';
     import MainContenSwitch from '$lib/components/mainContenSwitch.svelte';
     import Breakline from '$lib/components/util/breakline.svelte';
+    import Choice from '$lib/components/util/choice.svelte';
+    import New from '$lib/components/util/new.svelte';
+    import Top from '$lib/components/util/top.svelte';
+    import Up from '$lib/components/util/up.svelte';
     import Icon from '@iconify/svelte';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';
@@ -91,6 +95,73 @@
 	function goToSlide(index: number) {
 		currentSlide = index;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    import { cards } from '$lib/datadummy';
+    function formatLikes(n: number): string {
+        if (n >= 1_000_000) {
+        const v = n / 1_000_000;
+        return v % 1 === 0 ? `${v.toFixed(0)}M` : `${v.toFixed(1)}M`;
+        }
+        if (n >= 1_000) {
+        const v = n / 1_000;
+        return v % 1 === 0 ? `${v.toFixed(0)}K` : `${v.toFixed(1)}K`;
+        }
+        return n.toString();
+    }
+
 </script>
 
 <svelte:head>
@@ -125,7 +196,6 @@
 </svelte:head>
 
 <section>
-
 
     <!-- H I S T O R Y -->
     <div tabindex="-1" class={`group fixed h-screen z-[100] transition-all right-0 top-0 duration-300 ease-in-out
@@ -209,11 +279,12 @@
             </section>
         {/if}
 
-    <!-- C O N T E N T -->
+    <!-- C  O  N  T  E  N  T -->
+
         <!-- Konten Utama -->
         <section class="flex flex-col justify-center items-center min-[900px]:bg-stone-200">
-            <!-- Tombol Rekomendasi -->
-             
+
+            <!-- Tombol Rekomendasi --> 
             {#if !$desktop}
                 <Linker 
                     title="Rekomendasi Hari Ini"
@@ -221,108 +292,242 @@
                 />
             {/if}
 
+
             <!-- Switch Komik Novel -->
              <MainContenSwitch/>
+             
 
             <!-- Bacaan Rekomendasi -->
             <div class="grid grid-cols-3 w-full max-w-[770px] 
             xs:my-[5vw] xs:px-[5vw] xs:gap-[8px] md:my-[20px]
             md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
             lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
-                <div class="col-span-2 row-span-2 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
-                    <div class="absolute top-0 right-0 w-8 h-8 bg-emerald-500 text-[12px] font-[700] rounded-es-full text-right pt-1 pr-1 text-mainlight z-10">UP</div>
-                    <div class="bg-black absolute top-0 left-0 w-full h-full z-[1] opacity-60"
-                    style="
-                        mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
-                        -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
-                    ">
-                        test
+            
+                {#each cards as card}
+                    <div 
+                        class={`relative bg-mainlight flex justify-center items-center p-3 ${
+                            card.size === '1x1'
+                            ? 'col-span-1 aspect-[1/1]'
+                            : card.size === '2x1'
+                            ? 'col-span-2 md:h-[186.5px] lg:h-full min-h-[182.8px]'
+                            : 'col-span-2 row-span-2 aspect-[1/1]'
+                        }`}
+                        style="direction:ltr"
+                    >
+                        
+                        <!-- LABLE -->
+                        {#if card.label !== 'none'}
+                            {#if card.size == '2x2'}
+                                <div class="absolute top-0 right-0 w-24 z-10">
+                                    {#if card.label === 'new'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-15 aspect-[10/8]
+                                        bg-zinc-900 tracking-widest
+                                        text-right text-amber-300 text-[17px] 
+                                        font-caveat font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[6%] pr-[10%]"
+                                        >
+                                            <div class="rotate-5">NEW</div>
+                                        </div>
+                                    {:else if card.label === 'up'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-11.5 aspect-square
+                                        bg-emerald-500 
+                                        text-right text-mainlight
+                                        text-[16px] font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[8%] pr-[8%]"
+                                        >UP</div>
+                                    {:else if card.label === 'top'}<Top />
+                                    {:else if card.label === 'choice'}<Choice />
+                                    {/if}
+                                </div>
+                            {:else if card.size == '2x1'}
+                                <div class="absolute top-0 right-0 w-20 z-10">
+                                    {#if card.label === 'new'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-13.5 aspect-[10/8]
+                                        bg-zinc-900 tracking-widest
+                                        text-right text-amber-300 text-[15px] 
+                                        font-caveat font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[8%] pr-[12%]"
+                                        >
+                                            <div class="rotate-5">NEW</div>
+                                        </div>
+                                    {:else if card.label === 'up'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-10 aspect-square
+                                        bg-emerald-500 
+                                        text-right text-mainlight
+                                        text-[14px] font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[9%] pr-[9%]"
+                                        >UP</div>
+                                    {:else if card.label === 'top'}<Top />
+                                    {:else if card.label === 'choice'}<Choice />
+                                    {/if}
+                                </div>
+                            {:else}
+                                <div class="absolute top-0 right-0 w-16 z-10">
+                                    {#if card.label === 'new'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-12 aspect-[10/8]
+                                        bg-zinc-900 tracking-widest
+                                        text-right text-amber-300 text-[13px] 
+                                        font-caveat font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[10%] pr-[14%]"
+                                        >
+                                            <div class="rotate-5">NEW</div>
+                                        </div>
+                                    {:else if card.label === 'up'}
+                                        <div class="absolute z-10 top-0 right-0 
+                                        w-8.5 aspect-square
+                                        bg-emerald-500 
+                                        text-right text-mainlight
+                                        text-[12px] font-[700] 
+                                        rounded-es-[80%]
+                                        pt-[10%] pr-[10%]"
+                                        >UP</div>
+                                    {:else if card.label === 'top'}<Top />
+                                    {:else if card.label === 'choice'}<Choice />
+                                    {/if}
+                                </div>
+                            {/if}
+                        {/if}
+
+                        <!-- BACKGROUND DIM -->
+                        {#if card.size == '2x2' || card.size == '2x1'}
+                            <div class="absolute top-0 left-0 w-full h-full z-[1] bg-stone-900/80"
+                                style="
+                                mask-image: linear-gradient(to bottom, black 10%, transparent 60%, transparent 80%, black 100%);
+                                -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 60%, transparent 80%, black 100%);
+                                ">
+                            </div>
+                        {/if}
+                        
+                        <!-- H O V E R E D -->
+                        <div class={`absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity 
+                        ${card.genre[0] === 'Fantasy' ? 'bg-purple-600' : 
+                        card.genre[0] === 'Action' ? 'bg-indigo-600' : 
+                        card.genre[0] === 'Comedy' ? 'bg-amber-600' : 
+                        card.genre[0] === 'Drama' ? 'bg-cyan-600' : 
+                        card.genre[0] === 'Horror' ? 'bg-rose-600' : 
+                        'bg-gray-800'}`}>
+
+                            <!-- MAIN HOVER -->
+                            <div class="absolute top-0 left-0 p-3">
+                                <h3 class={`text-left font-semibold line-clamp-1 text-mainlight ${card.size === '2x2' ? 'text-[24px]' : 'text-[16px]'}`}>{card.title}</h3>
+                                <div class={`bg-mainlight h-[0.5px] ${card.size === '2x2' ? 'm-1 mb-1.5' : 'm-0.5'}`}></div>
+                                <h4 class={`text-mainlight text-justify font-semibold
+                                ${card.size === '2x2' ? 'text-[14px] line-clamp-12 xl:line-clamp-14' : 'text-[12px] line-clamp-5 xl:line-clamp-6'}`}>
+                                    {card.excerpt}
+                                </h4>
+                            </div>
+
+                            <!-- TAGS -->
+                            <div class={`absolute bottom-0 left-0 p-3 w-full flex leading-[80%]
+                            ${card.size === '2x2' ? 'space-x-1.5' : 'space-x-1'}`}>
+                                {#if card.size !== '1x1'}
+                                    <span class={`rounded-full border-2 font-[600] flex w-min h-min justify-center items-center
+                                    ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'} 
+                                    ${card.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
+                                    card.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
+                                    card.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
+                                    card.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
+                                    card.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                                    'border-gray-700 text-gray-700 bg-gray-100'}`}>{ card.genre[0] }</span>
+
+                                    <span class={`rounded-full border-2 font-[600] flex w-min h-min justify-center items-center
+                                    ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'} 
+                                    ${card.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
+                                    card.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
+                                    card.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
+                                    card.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
+                                    card.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                                    'border-gray-700 text-gray-700 bg-gray-100'}`}>{ card.type }</span>
+                                {/if}
+                                <span class={`rounded-full border-2 font-[600] flex w-min h-min justify-center items-center
+                                ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'} 
+                                ${card.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
+                                card.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
+                                card.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
+                                card.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
+                                card.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                                'border-gray-700 text-gray-700 bg-gray-100'}`}>
+                                    <Icon icon="fa6-solid:copy" class="mr-1" /> {card.pages}
+                                </span>
+                                
+                                <span class={`rounded-full border-2 font-[600] flex w-min h-min justify-center items-center
+                                ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'} 
+                                ${card.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
+                                card.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
+                                card.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
+                                card.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
+                                card.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                                'border-gray-700 text-gray-700 bg-gray-100'}`}>
+                                    <Icon icon="fa6-solid:star" class="mr-1" /> { card.rating }
+                                </span>
+                               
+                            </div>
+
+                            <!-- BUTTON -->
+                            <div class={`absolute px-2.5 py-1 z-20 cursor-pointer font-semibold
+                            ${card.size === '2x2' ? 'rounded-lg right-3 bottom-3 text-[18px]' : 'rounded-ss-xl xl:rounded-lg right-0 bottom-0 xl:right-3 xl:bottom-3 text-[16px]'} 
+                            ${card.genre[0] === 'Fantasy' ? 'text-purple-900 bg-purple-100' : 
+                            card.genre[0] === 'Action' ? 'text-indigo-900 bg-indigo-100' : 
+                            card.genre[0] === 'Comedy' ? 'text-amber-800 bg-amber-100' : 
+                            card.genre[0] === 'Drama' ? 'text-cyan-900 bg-cyan-100' : 
+                            card.genre[0] === 'Horror' ? 'text-rose-900 bg-rose-100' : 
+                            'text-gray-700 bg-gray-100'}
+                            `}>BACA</div>
+                        </div>
+
+                        <!-- BACKGROUND IMAGE -->
+                        <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style={`background-image: url('${card.image}');`}></div>   
+
+                        <!-- D I S P L A Y E D -->
+                        <div class="relative w-full h-full z-3">
+
+                            <!-- MAIN DISPLAY -->
+                            <div class="absolute top-0 left-0 w-3/4">
+
+                                <!-- TITLE -->
+                                <h3 class={`text-left font-semibold line-clamp-3 
+                                ${card.size === '1x1' ? 'text-zinc-900' : 'text-mainlight'} 
+                                ${card.size === '2x2' ? 'text-[24px]' : 'text-[16px]'}`}>
+                                    {card.title}
+                                </h3>
+
+                                <!-- LIKES -->
+                                <h4 class={`flex items-center text-[14px] ${card.size === '1x1' ? 'text-emerald-600/75' : 'text-emerald-400/85'}`}>
+                                    <Icon icon="fa6-solid:heart" class="mr-1" />{formatLikes(card.likes)}
+                                </h4>
+                            </div>
+
+                            <!-- TAGS -->
+                            <div class={`absolute bottom-0 left-0 flex space-x-1 leading-[80%]
+                            ${card.size === '2x2' ? 'space-x-1.5' : 'space-x-1'}`}>
+                                <span class={`rounded-full border-2 font-[600] flex w-min
+                                ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'}
+                                ${card.genre[0] === 'Fantasy' ? 'border-purple-800 text-purple-900 bg-purple-100' : 
+                                card.genre[0] === 'Action' ? 'border-indigo-800 text-indigo-900 bg-indigo-100' : 
+                                card.genre[0] === 'Comedy' ? 'border-amber-700 text-amber-800 bg-amber-100' : 
+                                card.genre[0] === 'Drama' ? 'border-cyan-800 text-cyan-900 bg-cyan-100' : 
+                                card.genre[0] === 'Horror' ? 'border-rose-800 text-rose-900 bg-rose-100' : 
+                                'border-gray-700 text-gray-700 bg-gray-100'}`}>{ card.genre[0] }</span>
+
+                                <span class={`rounded-full border-2 font-[600] flex w-min
+                                ${card.size === '2x2' ? 'text-[12px] py-1 px-2' : 'text-[10px] py-0.5 px-1.5'}
+                                ${card.type === 'KOMIK' ? 'border-sky-600 text-sky-700 bg-sky-100' : 
+                                card.type === 'NOVEL' ? 'border-amber-600 text-amber-700 bg-amber-100' : 
+                                'border-gray-600 text-gray-600 bg-gray-100'}`}>{ card.type }</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
-                        <div class="absolute top-0 left-0 p-3">
-                            <h3 class="text-left font-semibold text-[24px] line-clamp-1 text-mainlight">OVERGEARED</h3>
-                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
-                        </div>
-                        <div class="absolute flex bottom-0 left-0 p-3">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
-                        </div>
-                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
-                    </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/HHe6hQi.png');"></div>
-                    <div class="relative w-full h-full z-[2]">
-                        <div class="absolute top-0 left-0 w-3/4">
-                            <h3 class="text-left font-semibold text-[24px] line-clamp-3 text-mainlight">OVERGEARED</h3>
-                            <h4 class="flex items-center text-[16px] text-emerald-400"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
-                        </div>
-                        <div class="absolute bottom-0 left-0">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
-                    <div class="absolute top-0 right-0 w-12 h-9 bg-zinc-900 text-[14px] font-[700] rounded-es-full text-right pt-1 pr-1 text-amber-300 z-10 font-caveat"><div class="-translate-x-1">NEW</div></div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
-                        <div class="absolute top-0 left-0 p-3">
-                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">The Greatest Estate Developer</h3>
-                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
-                        </div>
-                        <div class="absolute flex bottom-0 left-0 p-3">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
-                        </div>
-                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
-                    </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/vQVhakk.png');"></div>
-                    <div class="relative w-full h-full">
-                        <div class="absolute top-0 left-0 w-3/4">
-                            <h3 class="text-left font-semibold line-clamp-3">The Greatest Estate Developer</h3>
-                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
-                        </div>
-                        <div class="absolute bottom-0 left-0">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-1 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
-                    <div class="absolute top-0 right-0 w-8 h-8 bg-emerald-500 text-[12px] font-[700] rounded-es-full text-right pt-1 pr-1 text-mainlight z-10">UP</div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
-                        <div class="absolute top-0 left-0 p-3">
-                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">Return Of The Mount Hua Sect</h3>
-                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                            <h4 class="flex items-center text-[12px] text-mainlight text-justify line-clamp-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sunt voluptates, dodos dolorem dignissimos minus dolor.</h4>
-                        </div>
-                        <div class="absolute flex bottom-0 left-0 p-3">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-1"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
-                        </div>
-                        <div class="absolute bottom-0 right-0 bg-mainlight text-[16px] rounded-ss-xl px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
-                    </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/kyLUJIS.png');"></div>
-                    <div class="relative w-full h-full">
-                        <div class="absolute top-0 left-0 w-3/4">
-                            <h3 class="text-left font-semibold line-clamp-3">Return Of The Mount Hua Sect</h3>
-                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
-                        </div>
-                        <div class="absolute bottom-0 left-0">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-span-1 aspect-[1/1] bg-amber-500 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-sky-500 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                <div class="col-span-1 aspect-[1/1] bg-emerald-200 flex justify-center items-center"></div>
-                {#if $desktoplarge}
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                    <div class="col-span-2 w-full bg-emerald-300 flex justify-center items-center"></div>
-                {/if}
+                {/each}
             </div>
         </section>
 
@@ -346,42 +551,110 @@
             </div>
         </section>
 
-        {#if $desktop}
-            <!-- <section class="w-full flex justify-center py-16 bg-stone-200">
-                <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-                    <div class="w-min text-nowrap">
-                        <Linker 
-                        title="Terbaru Dari Kita"
-                        link="latest"
-                        />
-                    </div>
-                    <div class="w-full flex overflow-scroll overflow-scroll-hidden">
-                        {#each [1, 2, 3, 4] as item}
-                            <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] mr-[8px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
-                                <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                                {#if $desktoplarge}
-                                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                                {/if}
-                            </div>
-                        {/each}
-                    </div>
-                    <div class="flex justify-center items-center space-x-4 mt-4">
-                        <div class="h-3 aspect-square rounded-full bg-black"></div>
-                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
-                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
-                        <div class="h-3 aspect-square rounded-full bg-black/30"></div>
-                    </div>
-                    <div class="absolute h-full flex items-center -left-[5%]">
-                        <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl" />
-                    </div>
-                    <div class="absolute h-full flex items-center -right-[5%]">
-                        <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl" />
-                    </div>
-                </div>
-            </section> -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!-- 2x1 -->
+                <!-- <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
+                    <div class="absolute top-0 right-0 w-16 z-10">
+                        <Top/>
+                    </div>
+                    <div class="bg-black absolute top-0 left-0 w-full h-full z-[1] opacity-60"
+                    style="
+                        mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
+                        -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
+                    "></div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
+                        <div class="absolute top-0 left-0 p-3">
+                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">The Greatest Estate Developer</h3>
+                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                            <h3 class="text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6 text-mainlight">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi enim quod illo expedita sit nobis nostrum rerum. Neque, facere qui. Soluta alias aliquam, odio, nostrum quae deserunt consequatur est nisi eligendi ad voluptas dicta eum fugiat voluptatum, rem ullam nesciunt libero quas consequuntur vero placeat! Amet eius non id inventore architecto dolores tempora nesciunt facilis? Modi, ducimus cupiditate unde ad deserunt saepe! Magni, nesciunt ducimus. At reprehenderit, sapiente veniam, consectetur optio cupiditate corporis animi aliquam voluptatum officiis nihil qui, nisi praesentium est sit cum inventore aperiam modi! Architecto, reiciendis aspernatur? Tempora quisquam, placeat fugit sunt accusamus similique aliquam quam? Doloribus.</h3>
+                        </div>
+                        <div class="absolute flex bottom-0 left-0 p-3">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] mr-2">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] mr-2">KOMIK</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-2"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3 bg-mainlight text-[16px] rounded-md px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/essXhcj.png');"></div>
+                    <div class="relative w-full h-full z-[2]">
+                        <div class="absolute top-0 left-0 w-3/4">
+                            <h3 class="text-left text-mainlight font-semibold line-clamp-3">The Greatest Estate Developer</h3>
+                            <h4 class="flex items-center text-[14px] text-emerald-400"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-0">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- 1x1 -->
+                <!-- <div class="col-span-1 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
+                    <New />
+                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
+                        <div class="absolute top-0 left-0 p-3">
+                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">Return Of The Mount Hua Sect</h3>
+                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                            <h4 class="items-center text-[12px] text-mainlight text-justify line-clamp-5 xl:line-clamp-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enimusta voluptatem laborum asta quamimpedit placeat! Aliasaqila aliquam, error repudiandae commodi iusto a quasi similique quam, delectus totam adipisci deleniti sequi quas. Labore dignissimos illo, ratione commodi consectetur atque. Deleniti maiores cumque quo vel, iusto temporibus dicta ad tenetur, dolores sint quidem aliquam consequatur, error voluptates commodi minima consequuntur ea pariatur minus esse ipsa atque laborum ducimus vero. Facere tenetur omnis, pariatur ratione ullam nostrum, quam, dolor incidunt cum quo corrupti qui doloremque amet expedita atque deserunt quae neque dolore distinctio quaerat modi nisi! Maxime nostrum consequuntur tempora culpa voluptas blanditiis quod incidunt perspiciatis expedita adipisci nihil, doloremque reprehenderit amet debitis eaque, quos itaque iure pariatur eius exercitationem veniam cupiditate cum! Dolores voluptatibus deleniti quis. Numquam reiciendis consectetur ea quaerat qui corporis odio maiores modi soluta dicta. Eius a praesentium ducimus tenetur hic nulla rem illum sunt magni, quo molestias.</h4>
+                        </div>
+                        <div class="absolute flex bottom-0 left-0 p-3">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-2"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
+                        </div>
+                        <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-mainlight text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
+                    </div>
+                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/kyLUJIS.png');"></div>
+                    <div class="relative w-full h-full">
+                        <div class="absolute top-0 left-0 w-3/4">
+                            <h3 class="text-left font-semibold line-clamp-3">Return Of The Mount Hua Sect</h3>
+                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
+                        </div>
+                        <div class="absolute bottom-0 left-0">
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
+                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
+                        </div>
+                    </div>
+                </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- TERBARU -->
+        {#if $desktop}
             <section class="w-full flex justify-center py-16 bg-stone-200">
                 <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
@@ -396,14 +669,305 @@
                             {#if i === currentSlide}
                                 <div transition:fade class="absolute top-0 left-0 w-full flex justify-center overflow-hidden">
                                     {#if i === 0}
-                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center">
-                                                Slide 1 - A
+                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative" style="direction: rtl;">
+                                            
+                                            <div 
+                                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-2 aspect-[2/1]"
+                                            style="direction:ltr"
+                                            >
+                                                <!-- LABEL (Choice) -->
+                                                <div class="absolute top-0 right-0 w-16 z-10">
+                                                    <Choice />
+                                                </div>
+
+                                                <!-- BACKGROUND DIM (1x1 tidak pakai mask) -->
+
+                                                <!-- HOVER -->
+                                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                                    <div class="absolute top-0 left-0 p-3">
+                                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                                        <!-- GENRE -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            Fantasy
+                                                        </span>
+                                                        <!-- TYPE -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            KOMIK
+                                                        </span>
+                                                        <!-- PAGES -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                                        </span>
+                                                        <!-- RATING -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- BUTTON -->
+                                                    <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-purple-100 text-purple-900 text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 z-20 cursor-pointer">
+                                                        BACA
+                                                    </div>
+                                                </div>
+
+                                                <!-- BACKGROUND IMAGE -->
+                                                <div
+                                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                                                ></div>
+
+                                                <!-- DISPLAYED -->
+                                                <div class="relative w-full h-full z-3">
+                                                    <div class="absolute top-0 left-0 w-3/4">
+                                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                                            Fantasy
+                                                        </span>
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                                            KOMIK
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center">B</div>
-                                            <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center">C</div>
+                                            <div 
+                                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 aspect-[1/1]"
+                                            style="direction:ltr"
+                                            >
+                                                <!-- LABEL (Choice) -->
+                                                <div class="absolute top-0 right-0 w-16 z-10">
+                                                    <Choice />
+                                                </div>
+
+                                                <!-- BACKGROUND DIM (1x1 tidak pakai mask) -->
+
+                                                <!-- HOVER -->
+                                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                                    <div class="absolute top-0 left-0 p-3">
+                                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                                        <!-- GENRE -->
+                                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            Fantasy
+                                                        </span> -->
+                                                        <!-- TYPE -->
+                                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            KOMIK
+                                                        </span> -->
+                                                        <!-- PAGES -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                                        </span>
+                                                        <!-- RATING -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- BUTTON -->
+                                                    <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-purple-100 text-purple-900 text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 z-20 cursor-pointer">
+                                                        BACA
+                                                    </div>
+                                                </div>
+
+                                                <!-- BACKGROUND IMAGE -->
+                                                <div
+                                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                                                ></div>
+
+                                                <!-- DISPLAYED -->
+                                                <div class="relative w-full h-full z-3">
+                                                    <div class="absolute top-0 left-0 w-3/4">
+                                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                                            Fantasy
+                                                        </span>
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                                            KOMIK
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div 
+                                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 aspect-[1/1]"
+                                            style="direction:ltr"
+                                            >
+                                                <!-- LABEL (Choice) -->
+                                                <div class="absolute top-0 right-0 w-16 z-10">
+                                                    <Choice />
+                                                </div>
+
+                                                <!-- BACKGROUND DIM (1x1 tidak pakai mask) -->
+
+                                                <!-- HOVER -->
+                                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                                    <div class="absolute top-0 left-0 p-3">
+                                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                                        <!-- GENRE -->
+                                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            Fantasy
+                                                        </span> -->
+                                                        <!-- TYPE -->
+                                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            KOMIK
+                                                        </span> -->
+                                                        <!-- PAGES -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                                        </span>
+                                                        <!-- RATING -->
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- BUTTON -->
+                                                    <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-purple-100 text-purple-900 text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 z-20 cursor-pointer">
+                                                        BACA
+                                                    </div>
+                                                </div>
+
+                                                <!-- BACKGROUND IMAGE -->
+                                                <div
+                                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                                                ></div>
+
+                                                <!-- DISPLAYED -->
+                                                <div class="relative w-full h-full z-3">
+                                                    <div class="absolute top-0 left-0 w-3/4">
+                                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                                        </h4>
+                                                    </div>
+
+                                                    <!-- TAGS -->
+                                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                                            Fantasy
+                                                        </span>
+                                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                                            KOMIK
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             {#if $desktoplarge}
-                                                <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center">D</div>
+                                                <div 
+                                                class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 aspect-[1/1]"
+                                                style="direction:ltr"
+                                                >
+                                                    <!-- LABEL (Choice) -->
+                                                    <div class="absolute top-0 right-0 w-16 z-10">
+                                                        <Choice />
+                                                    </div>
+
+                                                    <!-- BACKGROUND DIM (1x1 tidak pakai mask) -->
+
+                                                    <!-- HOVER -->
+                                                    <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                                        <div class="absolute top-0 left-0 p-3">
+                                                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                                            <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                                                Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                                            </h4>
+                                                        </div>
+
+                                                        <!-- TAGS -->
+                                                        <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                                            <!-- GENRE -->
+                                                            <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                                Fantasy
+                                                            </span> -->
+                                                            <!-- TYPE -->
+                                                            <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                                KOMIK
+                                                            </span> -->
+                                                            <!-- PAGES -->
+                                                            <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                                <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                                            </span>
+                                                            <!-- RATING -->
+                                                            <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                                                <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                                            </span>
+                                                        </div>
+
+                                                        <!-- BUTTON -->
+                                                        <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-purple-100 text-purple-900 text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 z-20 cursor-pointer">
+                                                            BACA
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- BACKGROUND IMAGE -->
+                                                    <div
+                                                        class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                                        style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                                                    ></div>
+
+                                                    <!-- DISPLAYED -->
+                                                    <div class="relative w-full h-full z-3">
+                                                        <div class="absolute top-0 left-0 w-3/4">
+                                                            <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                                            <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                                                <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                                            </h4>
+                                                        </div>
+
+                                                        <!-- TAGS -->
+                                                        <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                                            <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                                                Fantasy
+                                                            </span>
+                                                            <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                                                KOMIK
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             {/if}
                                         </div>
                                     {:else if i === 1}
@@ -647,4 +1211,13 @@
 	.overflow-scroll-hidden::-webkit-scrollbar {
 		display: none;               /* Safari & Chrome */
 	}
+
+    .clip-zigzag {
+        clip-path: polygon(
+            0% 0%, 10% 10%, 20% 0%, 30% 10%, 40% 0%,
+            50% 10%, 60% 0%, 70% 10%, 80% 0%, 90% 10%, 100% 0%,
+            100% 100%, 0% 100%
+        );
+    }
+
 </style>
