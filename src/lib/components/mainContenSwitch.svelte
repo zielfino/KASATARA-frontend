@@ -48,7 +48,7 @@
     }
 </script>
 
-<div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center">
+<div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
     <div class="grid grid-cols-2 w-full relative
     h-[9.6vw] min-[500px]:h-[64px]
     text-[3.2vw] min-[500px]:text-[18px]
