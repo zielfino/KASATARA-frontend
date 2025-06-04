@@ -100,6 +100,7 @@
     import { cards } from '$lib/datadummy';
     import Card from '$lib/components/util/card.svelte';
     import Slaideres from '$lib/components/slaideres.svelte';
+    import HeroFilter from '$lib/components/heroFilter.svelte';
     function formatLikes(n: number): string {
         if (n >= 1_000_000) {
         const v = n / 1_000_000;
@@ -241,7 +242,7 @@
             </section>
         {/if}
         {#if $desktop}
-            <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden pt-16">
+            <section class="w-full relative flex justify-center max-lg:portrait:hidden pt-16">
                 <div class="absolute w-full h-full bg-cover bg-center filter opacity-70 -translate-y-16 blur-md" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
                 <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
                     <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
@@ -260,7 +261,7 @@
 
         
         <!-- Konten Utama -->
-        <section class="flex flex-col justify-center items-center min-[900px]:bg-zinc-200">
+        <section class="flex flex-col justify-center items-center min-[900px]">
 
             <!-- Tombol Rekomendasi --> 
             {#if !$desktop}
@@ -277,12 +278,14 @@
             <!-- <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
                 <h2 class="text-[32px] uppercase tracking-[0.3rem] font-bold py-4">terbaru dari kasatara</h2>
             </div> -->
+            
+            <HeroFilter />
              
-            <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] pl-1.5">
+            <!-- <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] pl-1.5">
                 <div class="text-xl font-work-sans font-[600] tracking-tight mt-5">
                     Rekomendasi
                 </div>
-            </div>
+            </div> -->
 
             <!-- Bacaan Rekomendasi -->
             <div class="grid grid-cols-3 w-full max-w-[770px] 
@@ -299,7 +302,7 @@
 
         <!-- Berita Terbaru -->
         <section>
-            <div class="w-full flex flex-col items-center justify-center bg-zinc-200 relative overflow-hidden">
+            <div class="w-full flex flex-col items-center justify-center relative overflow-hidden">
                 <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
@@ -329,7 +332,7 @@
         </section>
 
         <!-- Slider Gokil -->
-        <div class="pt-6 bg-zinc-200 flex justify-center items-center">
+        <div class="pt-6 flex justify-center items-center">
             <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
                 <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
                     <a href="/">Komik Terbaru</a>
@@ -337,378 +340,9 @@
                 </div>
             </div>
         </div>
-        <Slaideres type="KOMIK" />
+        <Slaideres bacaan="KOMIK" />
 
-        <section class="w-full flex justify-center bg-zinc-200 ">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                <!-- Slider -->
-                <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(913px/5)] xl:min-h-[calc(1070px/5)]">
-                    <div class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-lg">
-                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative mr-[8px]" style="direction: rtl;">
-                            
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="pt-6 bg-zinc-200 flex justify-center items-center">
+        <div class="pt-6 flex justify-center items-center">
             <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
                 <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
                     <a href="/">Novel Terbaru</a>
@@ -716,378 +350,9 @@
                 </div>
             </div>
         </div>
-        <Slaideres type="NOVEL" />
+        <Slaideres bacaan="NOVEL" />
 
-        <section class="w-full flex justify-center bg-zinc-200 pb-2">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                <!-- Slider -->
-                <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(913px/5)] xl:min-h-[calc(1070px/5)]">
-                    <div class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-lg">
-                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative mr-[8px]" style="direction: rtl;">
-                            
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="pt-6 bg-zinc-200 flex justify-center items-center">
+        <div class="pt-6 flex justify-center items-center">
             <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
                 <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
                     <div>Mirror</div>
@@ -1096,383 +361,83 @@
             </div>
         </div>
 
-        <section class="w-full flex justify-center bg-zinc-200 py-2">
+        <section class="w-full flex justify-center py-2">
             <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
-                <!-- Slider -->
-                <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(913px/5)] xl:min-h-[calc(1070px/5)]">
-                    <div class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-lg">
-                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative mr-[8px]" style="direction: rtl;">
-                            
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
+                <div class="w-full">
+                    <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-5 relative">
+                        <div 
+                        class="relative bg-mainlight flex justify-center items-center p-3 col-span-2 rounded-lg overflow-hidden"
+                        style="direction:ltr"
+                        >
 
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
+                            <!-- HOVER -->
+                            <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                <div class="absolute top-0 left-0 p-3">
+                                    <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                    <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                    <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                        Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                    </h4>
                                 </div>
 
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
+                                <!-- TAGS -->
+                                <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                    <!-- GENRE -->
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        Fantasy
+                                    </span>
+                                    <!-- TYPE -->
+                                    <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        {type}
+                                    </span> -->
+                                    <!-- PAGES -->
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                    </span>
+                                    <!-- RATING -->
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                    </span>
                                 </div>
                             </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
 
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
+                            <!-- BACKGROUND IMAGE -->
+                            <div
+                                class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                            ></div>
 
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
+                            <!-- DISPLAYED -->
+                            <div class="relative w-full h-full z-3">
+                                <div class="absolute top-0 left-0 w-3/4">
+                                    <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                    <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                        <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                    </h4>
                                 </div>
 
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
+                                <!-- TAGS -->
+                                <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                        Fantasy
+                                    </span>
+                                    <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                        {type}
+                                    </span> -->
+                                    <!-- PAGES -->
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                    </span>
+                                    <!-- RATING -->
+                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                        <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="w-full flex justify-center bg-zinc-200">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                <!-- Slider -->
-                <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(913px/5)] xl:min-h-[calc(1070px/5)]">
-                    <div class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-lg">
-                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative mr-[8px]" style="direction: rtl;">
-                            
+                        {#each Array.from({ length: 3 }, (_, i) => i + 1) as n}
                             <div 
                             class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
                             style="direction:ltr"
@@ -1544,660 +509,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="w-full flex justify-center bg-zinc-200 py-2">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                <!-- Slider -->
-                <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(913px/5)] xl:min-h-[calc(1070px/5)]">
-                    <div class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-lg">
-                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5 relative mr-[8px]" style="direction: rtl;">
-                            
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/each}
+                        
                     </div>
                 </div>
             </div>
@@ -2205,12 +518,12 @@
 
         <!-- Berita Terbaru -->
         <section>
-            <div class="w-full flex flex-col items-center justify-center bg-zinc-200 relative overflow-hidden">
-                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden
+            <div class="w-full flex flex-col items-center justify-center relative overflow-hidden">
+                <a href="/news" class="w-full flex flex-col items-center justify-center bg-mainlight relative overflow-hidden
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
                     px-[3.2vw] py-[2.8vw] xs:px-[16px] xs:py-[14px]
-                    text-mainlight md:rounded-lg md:px-6">
+                    text-zinc-900/70 md:rounded-lg md:px-6">
 
                     
                     <div class="absolute w-full h-full md:rounded-lg flex justify-center items-center
@@ -2220,7 +533,7 @@
 
                     <div class="w-full font-semibold flex justify-between items-center 
                     
-                    text-mainlight bg-zinc-900 md:rounded-lg
+                    text-zinc-900/70 bg-mainlight md:rounded-lg
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]">
                         
                         <div class="flex items-center space-x-[1vw] xs:space-x-[5px]">
@@ -2228,9 +541,177 @@
                             <div><Icon icon="material-symbols:arrow-forward-ios" class="text-[3.6vw] xs:text-[18px]" /></div>
                             <p class=" text-[2.8vw] xs:text-[16px] line-clamp-1 mr-[2vw] xs:mr-[10px]">Fitur komentar telah di perbaharui.</p>
                         </div>
-                        <div class="text-[2.8vw] xs:text-[16px] text-mainlight/30 text-nowrap">32 Feb 2025</div>
+                        <div class="text-[2.8vw] xs:text-[16px] text-zinc-900/30 text-nowrap">32 Feb 2025</div>
                     </div>
                 </a>
+            </div>
+        </section>
+
+        <section class="w-full flex justify-center py-2 mb-12">
+            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
+
+                <div class="w-full grid grid-cols-2 lg:grid-cols-5 gap-[8px]">
+                    <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3" style="direction: rtl;">
+                        {#each Array.from({ length: 15 }, (_, i) => i + 1) as n}
+                            <div 
+                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
+                            style="direction:ltr"
+                            >
+
+                                <!-- HOVER -->
+                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
+                                    <div class="absolute top-0 left-0 p-3">
+                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
+                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
+                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
+                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
+                                        </h4>
+                                    </div>
+
+                                    <!-- TAGS -->
+                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
+                                        <!-- GENRE -->
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            Fantasy
+                                        </span>
+                                        <!-- TYPE -->
+                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            {type}
+                                        </span> -->
+                                        <!-- PAGES -->
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                        </span>
+                                        <!-- RATING -->
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div
+                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
+                                ></div>
+
+                                <!-- DISPLAYED -->
+                                <div class="relative w-full h-full z-3">
+                                    <div class="absolute top-0 left-0 w-3/4">
+                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
+                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
+                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
+                                        </h4>
+                                    </div>
+
+                                    <!-- TAGS -->
+                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
+                                            Fantasy
+                                        </span>
+                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
+                                            {type}
+                                        </span> -->
+                                        <!-- PAGES -->
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
+                                        </span>
+                                        <!-- RATING -->
+                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
+                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {/each}
+                        
+                    </div>
+
+                    <div class="flex flex-col items-center w-full md:w-[calc(770px/2)] lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)] lg:col-span-2">
+                        <!-- Tombol 'Papan Peringkat' -->
+                        <Linker 
+                            title="Papan Peringkat"
+                            link="leaderboard"
+                        />
+
+                        <!-- Switch Peringkat -->
+                        <LeaderboardSwitch/>
+
+                        <!-- Peringkat -->
+                        <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
+                            <!-- pertama -->
+                            {#if first}
+                                <div class="w-full flex flex-col justify-center items-center">
+                                    <div class="flex justify-center items-center w-full xs:aspect-auto
+                                    px-[3.2vw] xs:px-[16px] 
+                                    pt-[3.2vw] xs:pt-[48px]
+                                    md:px-0 md:pt-[32px]">
+                                        <div class="w-full h-full">
+                                            <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between xs:max-w-[600px]
+                                    space-x-[3.2vw] xs:space-x-[16px]
+                                    pl-[4.8vw] xs:pl-[24px] 
+                                    pr-[7.2vw] xs:pr-[36px] 
+                                    pt-[3.2vw] xs:pt-[16px] 
+                                    pb-[4.8vw] xs:pb-[24px]
+                                    md:px-0
+                                    w-full">
+                                        <div class="font-bold 
+                                        text-[4.8vw] xs:text-[32px]
+                                        mr-[4.8vw] xs:mr-[24px]">
+                                            #{first.id}
+                                        </div>
+                                        <div class="flex-1 leading-[1.4] 
+                                        text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
+                                            <div class={genreColor(first.genre)}>{first.genre}</div>
+                                            <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
+                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
+                                        </div>
+                                        <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                            {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                        </div>
+                                    </div>
+                                </div>
+                            {/if}
+                            <!-- 2 - 7 -->
+                            <div class="max-w-[600px] w-full">
+                                <Breakline />
+                                {#each bacaan.slice(1, 7) as item, i (item.id)}
+                                    <div class="flex items-center justify-between 
+                                    space-x-[3.2vw] xs:space-x-[16px] 
+                                    pl-[4.8vw] xs:pl-[24px]
+                                    pr-[7.2vw] xs:pr-[36px]
+                                    py-[1vw] xs:py-[5px]
+                                    md:px-0">
+                                        <div class="font-bold 
+                                        text-[4.8vw] xs:text-[24px] md:text-[20px]
+                                        mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
+                                            #{item.id}
+                                        </div>
+                                        <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
+                                        h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
+                                            
+                                        </div>
+                                        <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
+                                            <div class={genreColor(item.genre)}>{item.genre}</div>
+                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
+                                            <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
+                                        </div>
+                                        <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                            {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                        </div>
+                                    </div>
+                                    {#if i < 5}
+                                        <Breakline />
+                                    {/if}
+                                {/each}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -2327,7 +808,7 @@
 
         <!-- TERBARU -->
         <!-- {#if $desktop}
-            <section class="w-full flex justify-center py-16 bg-zinc-200">
+            <section class="w-full flex justify-center py-16">
                 <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
                     <div class="w-min text-nowrap">
@@ -2417,8 +898,7 @@
         {/if} -->
 
         <!-- Konten Tambahan -->
-        <section class="flex flex-col md:flex-row justify-center items-center md:items-start md:my-8">
-            <!-- Terakhir Di Update -->
+        <!-- <section class="flex flex-col md:flex-row justify-center items-center md:items-start md:my-8">
              <div class="w-full max-w-[770px] md:w-[calc(770px/2)] lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)]">
                 { #if $desktop }
                     <Linker 
@@ -2452,18 +932,14 @@
             </div>
 
             <div class="flex flex-col justify-center items-center w-full md:w-[calc(770px/2)] lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)] md:pl-4">
-                <!-- Tombol 'Papan Peringkat' -->
                 <Linker 
                     title="Papan Peringkat"
                     link="leaderboard"
                 />
 
-                <!-- Switch Peringkat -->
                  <LeaderboardSwitch/>
 
-                <!-- Peringkat -->
                 <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
-                    <!-- pertama -->
                     {#if first}
                         <div class="w-full flex flex-col justify-center items-center">
                             <div class="flex justify-center items-center w-full xs:aspect-auto
@@ -2499,7 +975,6 @@
                             </div>
                         </div>
                     {/if}
-                    <!-- 2 - 7 -->
                     <div class="max-w-[600px] w-full">
                         <Breakline />
                         {#each bacaan.slice(1, 7) as item, i (item.id)}
@@ -2534,39 +1009,9 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
-        <div class="max-md:hidden"><Breakline/></div>
-
-        <!-- Karya (Canvas) -->
-        <section class="w-full flex justify-center md:my-8">
-            <div class="w-full flex flex-col min-[650px]:flex-row justify-center min-[650px]:items-start items-center xs:h-full max-w-[700px] md:max-w-[100%] xs:p-[50px]
-            md:p-0 md:w-[770px] lg:w-[946px] xl:w-[1100px]">
-                <div class="w-2/3 min-[650px]:w-1/2 flex justify-center items-center flex-col text-center min-[650px]:text-left min-[650px]:items-start space-y-[3.2vw] min-[650px]:pr-[16px] xs:mb-[32px] min-[650px]:pb-[0px] min-[650px]:pt-[32px] h-[75vw] xs:h-fit lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)]">
-                    <h6 class="text-[4.8vw] xs:text-[24px] font-nunito font-black xs:mb-[8px] leading-none">KARYA</h6>
-                    <p class="text-[3.2vw] xs:text-[14px] xs:mb-[24px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam aut iusto, consequuntur quam dignissimos!</p>
-                    <button class="text-[3.2vw] xs:text-[14px] bg-mainred 
-                    px-[3.2vw] xs:px-[16px]
-                    py-[2.8vw] xs:py-[14px]
-                    text-mainlight rounded-[2vw] xs:rounded-[10px]">Lihat Karya Lainnya</button>
-                </div>
-                <div class="w-full min-[650px]:w-1/2 grid grid-cols-3 min-[650px]:grid-cols-2 xs:gap-[8px] md:pl-1 lg:grid-cols-4 lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)] xl:grid-cols-5">
-                    <div class="bg-emerald-500 w-full min-[650px]:h-[186.5px] lg:h-full col-span-2"></div>
-                    <div class="bg-emerald-400 w-full aspect-square"></div>
-                    <div class="bg-emerald-300 w-full aspect-square"></div>
-                    <div class="bg-emerald-500 w-full aspect-square"></div>
-                    <div class="bg-emerald-600 w-full aspect-square"></div>
-                    {#if $desktopex}
-                        <div class="bg-emerald-500 w-full aspect-square"></div>
-                        <div class="bg-emerald-600 w-full aspect-square"></div>
-                    {/if}
-                    {#if $desktoplarge}
-                        <div class="bg-emerald-500 w-full aspect-square"></div>
-                        <div class="bg-emerald-600 w-full aspect-square"></div>
-                    {/if}
-                </div>
-            </div>
-        </section>
+        <!-- <div class="max-md:hidden"><Breakline/></div> -->
 </section>
 <style>
     .trapezoid {

@@ -82,7 +82,7 @@
     onMount(() => {
         const handler = (e: KeyboardEvent) => {
             if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-                if (!showNav) return;
+                // if (!showNav) return;
 
                 e.preventDefault();
                 searchInput?.focus();
@@ -140,31 +140,19 @@
 		border-bottom: 8px solid white; /* Inner triangle (match bg) */
 		z-index: 1;
 	}
+    .trapezoid {
+        clip-path: polygon(0 0, 90.4% 0, 99.5% 100%, 0% 100%);
+    }
+    .bannertr {
+        clip-path: polygon(0 0, 100% 0, 100% 75%, 8.6% 100%);
+    }
+    .bannertb {
+        clip-path: polygon(0.5% 20%, 100% 0, 100% 100%, 10.5% 100%);
+    }
 </style>
 
-
-<div>
-    <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden pt-4">
-        <div class="absolute w-full h-full bg-cover bg-center filter opacity-70 -translate-y-16 blur-md" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
-        <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
-            <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
-            <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
-            <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
-            <div class="absolute cursor-pointer left-[calc(12%/2)] trapezoid h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] hover:bg-emerald-300/20">test</div>
-            <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] bannertr hover:bg-emerald-300/20"></div>
-            <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
-        </div> 
-    </section>
-    <div class="sticky top-0 z-100">
-        <section class="flex flex-col justify-center items-center min-[900px]:bg-zinc-200">
-            <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
-                <h2 class="text-[32px] uppercase tracking-[0.3rem] font-bold py-4">terbaru dari kasatara</h2>
-            </div>
-        </section>
-    </div>
-    <!-- 4vw = 20px -->
-    <section class="bg-mainlight text-zinc-900 min-h-screen flex flex-col">
-
+<section class="bg-mainlight">
+    <section class="hidden">
         <!-- Top Nav -->
         <nav class={`lg:flex lg:justify-center duration-500 ease-in-out
         fixed w-full z-[99] transition-all font-work-sans ${showNav ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'} ${showDropdown ? 'translate-y-0 pointer-events-auto' : 'hover:translate-y-0 -translate-y-full'}`}>
@@ -252,7 +240,7 @@
 
                     {#if $desktop}
                     <!-- Search Bar -->
-                    <form bind:this={searchForm}
+                    <!-- <form bind:this={searchForm}
                     class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
                     focus-within:outline-3 focus-within:outline-sky-400
                     rounded-lg pl-3 pr-4 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
@@ -276,7 +264,7 @@
                         <div class="shortcut">
                             <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
                         </div>
-                    </form>
+                    </form> -->
                     
                     <!-- Publish Button -->
                     <button
@@ -425,52 +413,238 @@
                 </div>
             </nav>   
         {/if}
-
-        <!-- Content -->
-        <main class="min-h-screen">
-            <slot />
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <div class="flex flex-col justify-center items-center space-y-[3.2vw] xs:space-y-[12px] py-[4.8vw] xs:py-[24px] text-[3.2vw] xs:text-[16px]">
-                <div class="space-x-[2vw] xs:space-x-[10px] flex text-mainred [&>a]:hover:text-red-800">
-                    <a href="/" target="_blank" class="
-                    h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                        <Icon icon="fa6-brands:facebook-f" class="text-[6vw] xs:text-[24px]"/>
-                    </a>
-                    <a href="/" target="_blank" class="
-                    h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                        <Icon icon="fa6-brands:x-twitter" class="text-[6vw] xs:text-[24px]"/>
-                    </a>
-                    <a href="/" target="_blank" class="
-                    h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                        <Icon icon="fa6-brands:instagram" class="text-[6vw] xs:text-[24px]"/>
-                    </a>
-                    <a href="/" target="_blank" class="
-                    h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                        <Icon icon="fa6-brands:youtube" class="text-[6vw] xs:text-[24px]"/>
-                    </a>
-                </div>
-                <div>About   |   Feedback   |   Help   |   Terms   |   Privacy    |   Contact</div>
-                <div>&copy; agerr.co 2025 | KASATARA</div>
-                <div class="mt-[6.4vw] xs:mt-[32px]">
-                    <svg class="h-[20vw] xs:h-[100px] fill-mainred" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
-                        <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
-                        <path d="m505.27,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <path d="m167.86,289.98c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98h-28.96v-118.06h28.96v40.46c8.33-9.06,20.4-23.42,30.66-40.46h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
-                        <path d="m936.33,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <path d="m701.07,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <polygon points="636.79 228.37 636.79 257.32 605.6 257.32 605.6 346.43 570.85 346.43 570.85 257.32 539.66 257.32 539.66 228.37 636.79 228.37"/>
-                        <path d="m858.08,282.41c3.5-6.62,6.49-17.5.79-31.78-5.85-14.67-22.25-22.45-52.56-22.45-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08,2.39,2.94.74,6.25.34,7.01Z"/>
-                        <polygon points="675.89 363.91 653.54 456.2 646.68 484.56 618.32 477.69 304.98 401.82 356.93 384.38 625.19 449.33 645.87 363.91 675.89 363.91"/>
-                        <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
-                        <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="h-[20vw] xs:h-[100px] lg:h-[10px] md:landscape:h-[10px]"></div>
-        </footer>
     </section>
-</div>
+
+    <section class="bg-zinc-200/50">
+        <!-- HERO SECTION -->
+        <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden">
+            <div class="absolute w-full h-full bg-cover bg-center filter opacity-40 blur-sm" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
+            <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
+                <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
+                <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
+                <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
+                <div class="absolute cursor-pointer left-[calc(12%/2)] trapezoid h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] hover:bg-emerald-300/20">test</div>
+                <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] bannertr hover:bg-emerald-300/20"></div>
+                <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
+            </div> 
+        </section>
+        <!-- NAV -->
+        <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15">
+            <section class="flex flex-col justify-center items-center min-[900px]:bg-zinc-200">
+                <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
+                    <div class="w-full  text-mainred fill-mainred flex items-center justify-between 
+                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1200px]
+                    px-[3.2vw] xs:px-[16px]
+                    h-[20vw] xs:h-[76px] md:landscape:h-[80px] lg:h-[80px]
+                    md:landscape:pr-[18px] lg:pr-[24px] md:landscape:pl-[8px] lg:pl-[8px]">
+                        <a href="/" class="fixed z-[100] aspect-square rounded-full flex justify-center items-center transition-all md:landscape:hidden lg:hidden
+                        top-[3.8vw] right-[3.2vw] xs:top-[12px] xs:right-[16px]
+                        h-[12vw] xs:h-[50px]">
+                            <Icon icon="fa6-solid:magnifying-glass" class="text-[6vw] xs:text-[24px]"/>
+                        </a>
+                        <!-- LEFT -->
+                        <div class="flex justify-center items-center space-x-[20px]">
+                            <!-- Logo -->
+                            <button
+                            aria-hidden={!showNav}
+                            tabindex="-1"
+                            on:click={home} disabled={!showNav} aria-label="home" class="mr-3 cursor-pointer">
+                                <svg class="h-[5vw] xs:h-[25px] lg:hidden md:landscape:hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
+                                    <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                    <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
+                                    <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                    <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                                    <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                    <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                    <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
+                                    <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
+                                </svg>
+                                <svg class="hidden lg:block md:landscape:block h-[18px] mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
+                                    <g>
+                                        <path  class="fill-zinc-900" d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                        <polygon  class="fill-zinc-900" points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
+                                        <path  class="fill-zinc-900" d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                        <path  class="fill-zinc-900" d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                                        <path  class="fill-zinc-900" d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                        <path  class="fill-zinc-900" d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                                        <polygon  class="fill-zinc-900" points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
+                                        <path  class="fill-zinc-900" d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
+                                    </g> 
+                                </svg>
+                            </button>
+
+                            <!-- Navigasi -->
+                            {#if $desktop}
+                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden underline underline-offset-4 decoration-[0.1em]">
+                                    <a href="/">Jadwal</a>
+                                </div>
+                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                    <a href="/">komik</a>
+                                </div>
+                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                    <a href="/">novel</a>
+                                </div>
+                                <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                    <a href="/">buku</a>
+                                </div> -->
+                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                    <a href="/">kreator</a>
+                                </div>
+                            {/if}
+                        </div>
+
+                        <!-- RIGHT -->
+                        <div class="space-x-[2vw] md:space-x-[10px] flex md:flex md:justify-center md:items-center">
+                            {#if !$desktop}
+                                <div class="h-[12vw] xs:h-[76px] flex justify-center items-center 
+                                text-[3.2vw] xs:text-[16px]">100 <Icon icon="tabler:coin-filled" class="text-[6.4vw] xs:text-[32px] ml-[1vw] md:ml-[5px]"/></div>
+                                <div class="h-[12vw] xs:h-[50px] aspect-square rounded-full flex justify-center items-center md:landscape:hidden lg:hidden"></div>
+                            {/if}
+
+
+                            {#if $desktop}
+                            <!-- Search Bar -->
+                            <form bind:this={searchForm}
+                            class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
+                            focus-within:outline-3 focus-within:outline-sky-400
+                            rounded-lg pl-3 pr-4 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
+                            focus-within:[&_.shortcut]:hidden max-lg:portrait:hidden
+                            cursor-text
+                            ">
+                                <div class="flex justify-center items-center flex-1">
+                                    <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] mr-2" />
+                                    <input
+                                        name="kasantaraSearchInput"
+                                        id="kasantaraSearchInput"   
+                                        bind:this={searchInput}
+                                        type="text"
+                                        class="outline-none bg-transparent w-full py-2"
+                                        placeholder="Cari Bacaan"
+                                        maxlength="25"
+                                    />
+                                </div>
+                                <div class="shortcut">
+                                    <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
+                                </div>
+                            </form>
+                            
+                            <!-- Publish Button -->
+                            <button
+                            class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                            rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
+                                Publish
+                            </button>
+
+                            <!-- Profile Picture -->
+                            <div class="relative">
+                                <button 
+                                bind:this={profileButton}
+                                on:click={toggleDropdown}
+                                class=" outline-sky-500 focus:outline-3 max-lg:portrait:hidden cursor-pointer
+                                h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
+                                    <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
+                                </button>
+                                {#if showDropdown}
+                                    <div bind:this={profileDropdown}
+                                    class="absolute translate-y-1 right-0 mt-3 rounded-lg shadow-lg bg-mainlight border-2 border-zinc-900 z-50 dropdown-panel">
+                                        <div class="">
+                                            <ul class="space-y-1 text-sm text-gray-700 whitespace-nowrap overflow-hidden rounded-lg">
+                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Profil</div></li>
+                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Aktifitas Saya</div></li>
+                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Pengaturan</div></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {/if}
+                            </div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </nav>
+        <!-- 4vw = 20px -->
+        <section class="text-zinc-900 min-h-screen flex flex-col">
+
+            <!-- Content -->
+            <main class="min-h-screen">
+                <slot />
+            </main>
+
+
+
+            
+
+            <!-- Footer -->
+            <footer class="bg-mainlight drop-shadow-lg drop-shadow-zinc-900/30">
+                <!-- Karya (Canvas) -->
+                <section class="w-full flex justify-center md:pb-12 md:pt-18 pt-16">
+                    <div class="w-full flex flex-col min-[650px]:flex-row justify-center min-[650px]:items-start items-center xs:h-full max-w-[700px] md:max-w-[100%] xs:p-[50px]
+                    md:p-0 md:w-[770px] lg:w-[946px] xl:w-[1100px]">
+                        <div class="w-2/3 min-[650px]:w-1/2 flex justify-center items-center flex-col text-center min-[650px]:text-left min-[650px]:items-start space-y-[3.2vw] min-[650px]:pr-[16px] xs:mb-[32px] min-[650px]:pb-[0px] min-[650px]:pt-[32px] h-[75vw] xs:h-fit lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)]">
+                            <h6 class="text-[4.8vw] xs:text-[24px] font-nunito font-black xs:mb-[8px] leading-none">KARYA</h6>
+                            <p class="text-[3.2vw] xs:text-[14px] xs:mb-[24px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam aut iusto, consequuntur quam dignissimos!</p>
+                            <button class="text-[3.2vw] xs:text-[14px] bg-mainred 
+                            px-[3.2vw] xs:px-[16px]
+                            py-[2.8vw] xs:py-[14px]
+                            text-mainlight rounded-[2vw] xs:rounded-[10px]">Lihat Karya Lai nnya</button>
+                        </div>
+                        <div class="w-full min-[650px]:w-1/2 grid grid-cols-3 min-[650px]:grid-cols-2 xs:gap-[8px] md:pl-1 lg:grid-cols-4 lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)] xl:grid-cols-5">
+                            <div class="bg-emerald-500 w-full min-[650px]:h-[186.5px] lg:h-full col-span-2"></div>
+                            <div class="bg-emerald-400 w-full aspect-square"></div>
+                            <div class="bg-emerald-300 w-full aspect-square"></div>
+                            <div class="bg-emerald-500 w-full aspect-square"></div>
+                            <div class="bg-emerald-600 w-full aspect-square"></div>
+                            {#if $desktopex}
+                                <div class="bg-emerald-500 w-full aspect-square"></div>
+                                <div class="bg-emerald-600 w-full aspect-square"></div>
+                            {/if}
+                            {#if $desktoplarge}
+                                <div class="bg-emerald-500 w-full aspect-square"></div>
+                                <div class="bg-emerald-600 w-full aspect-square"></div>
+                            {/if}
+                        </div>
+                    </div>
+                </section>
+                <div class="flex flex-col justify-center items-center space-y-[3.2vw] xs:space-y-[12px] py-[4.8vw] xs:py-[24px] text-[3.2vw] xs:text-[16px]">
+                    <div class="space-x-[2vw] xs:space-x-[10px] flex text-mainred [&>a]:hover:text-red-800">
+                        <a href="/" target="_blank" class="
+                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
+                            <Icon icon="fa6-brands:facebook-f" class="text-[6vw] xs:text-[24px]"/>
+                        </a>
+                        <a href="/" target="_blank" class="
+                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
+                            <Icon icon="fa6-brands:x-twitter" class="text-[6vw] xs:text-[24px]"/>
+                        </a>
+                        <a href="/" target="_blank" class="
+                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
+                            <Icon icon="fa6-brands:instagram" class="text-[6vw] xs:text-[24px]"/>
+                        </a>
+                        <a href="/" target="_blank" class="
+                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
+                            <Icon icon="fa6-brands:youtube" class="text-[6vw] xs:text-[24px]"/>
+                        </a>
+                    </div>
+                    <div>About   |   Feedback   |   Help   |   Terms   |   Privacy    |   Contact</div>
+                    <div>&copy; agerr.co 2025 | KASATARA</div>
+                    <div class="mt-[6.4vw] xs:mt-[32px]">
+                        <svg class="h-[20vw] xs:h-[100px] fill-mainred" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
+                            <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
+                            <path d="m505.27,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <path d="m167.86,289.98c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98h-28.96v-118.06h28.96v40.46c8.33-9.06,20.4-23.42,30.66-40.46h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                            <path d="m936.33,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <path d="m701.07,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <polygon points="636.79 228.37 636.79 257.32 605.6 257.32 605.6 346.43 570.85 346.43 570.85 257.32 539.66 257.32 539.66 228.37 636.79 228.37"/>
+                            <path d="m858.08,282.41c3.5-6.62,6.49-17.5.79-31.78-5.85-14.67-22.25-22.45-52.56-22.45-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08,2.39,2.94.74,6.25.34,7.01Z"/>
+                            <polygon points="675.89 363.91 653.54 456.2 646.68 484.56 618.32 477.69 304.98 401.82 356.93 384.38 625.19 449.33 645.87 363.91 675.89 363.91"/>
+                            <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
+                            <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="h-[20vw] xs:h-[100px] lg:h-[10px] md:landscape:h-[10px]"></div>
+            </footer>
+        </section>
+    </section>
+</section>
