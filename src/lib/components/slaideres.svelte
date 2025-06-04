@@ -5,7 +5,7 @@
     import { writable } from 'svelte/store';
     import Card from './util/card.svelte';
 
-    export let bacaan;
+    // export let bacaan;
 
 
   let sliderContainer: HTMLDivElement;
@@ -17,27 +17,52 @@
   let scrollStart = 0;
   let isTransitioning = false;
 let displayGroup = 1;
+    onMount(() => {
+        (async () => {
+            await tick();
+            const updateSlideWidth = () => {
+                const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
+                if (firstSlide) {
+                slideWidth = firstSlide.offsetWidth + 8; // include gap
+                scrollToIndex(currentGroup, true)
+                }
+            };
 
-onMount(
-    async () => {
-  await tick(); // pastikan DOM sudah render
+            updateSlideWidth();       // inisialisasi pertama
+            scrollToIndex(1, false);  // scroll ke grup 1 asli
 
-  const updateSlideWidth = () => {
-    const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
-    if (firstSlide) {
-      slideWidth = firstSlide.offsetWidth + 8; // include gap
-      scrollToIndex(currentGroup, true)
-    }
-  };
+            const observer = new ResizeObserver(updateSlideWidth);
+            observer.observe(sliderContainer);
 
-  updateSlideWidth();       // inisialisasi pertama
-  scrollToIndex(1, false);  // scroll ke grup 1 asli
+            return () => observer.disconnect();
+        })();
 
-  const observer = new ResizeObserver(updateSlideWidth);
-  observer.observe(sliderContainer);
+        // return () => {
+        //     observer.disconnect()
+        // };
+    });
 
-  return () => observer.disconnect();
-});
+// onMount(
+//     async () => {
+//         await tick(); // pastikan DOM sudah render
+
+//         const updateSlideWidth = () => {
+//             const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
+//             if (firstSlide) {
+//             slideWidth = firstSlide.offsetWidth + 8; // include gap
+//             scrollToIndex(currentGroup, true)
+//             }
+//         };
+
+//         updateSlideWidth();       // inisialisasi pertama
+//         scrollToIndex(1, false);  // scroll ke grup 1 asli
+
+//         const observer = new ResizeObserver(updateSlideWidth);
+//         observer.observe(sliderContainer);
+
+//         return () => observer.disconnect();
+//     }
+// );
 
 
 function scrollToIndex(index: number, smooth: boolean = true) {

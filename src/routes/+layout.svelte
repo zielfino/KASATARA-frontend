@@ -428,15 +428,28 @@
                 <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
             </div> 
         </section>
+        
+        {#if !$desktoplarge}
+            <section class="w-full relative flex justify-center bg-stone-500 md:landscape:hidden overflow-hidden">
+                <div class="absolute w-full h-full bg-cover bg-center filter blur-xl" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
+                <div class="w-full max-w-[500px] 
+                aspect-square bg-mainred text-zinc-900 relative">
+                    <div class="flex justify-center items-center w-full h-full">
+                        SLIDER MOBILE
+                    </div>
+                </div>
+            </section>
+        {/if}
+        
         <!-- NAV -->
         <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15">
-            <section class="flex flex-col justify-center items-center min-[900px]:bg-zinc-200">
+            <section class="flex flex-col justify-center items-center bg-mainlight min-[900px]:bg-zinc-200">
                 <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
                     <div class="w-full  text-mainred fill-mainred flex items-center justify-between 
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1200px]
                     px-[3.2vw] xs:px-[16px]
                     h-[20vw] xs:h-[76px] md:landscape:h-[80px] lg:h-[80px]
-                    md:landscape:pr-[18px] lg:pr-[24px] md:landscape:pl-[8px] lg:pl-[8px]">
+                    lg:px-[12px]">
                         <a href="/" class="fixed z-[100] aspect-square rounded-full flex justify-center items-center transition-all md:landscape:hidden lg:hidden
                         top-[3.8vw] right-[3.2vw] xs:top-[12px] xs:right-[16px]
                         h-[12vw] xs:h-[50px]">
@@ -487,9 +500,11 @@
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/">buku</a>
                                 </div> -->
-                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/">kreator</a>
-                                </div>
+                                {#if $desktoplarge}
+                                    <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                        <a href="/">kreator</a>
+                                    </div>
+                                {/if}
                             {/if}
                         </div>
 
@@ -529,11 +544,13 @@
                             </form>
                             
                             <!-- Publish Button -->
-                            <button
-                            class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
-                            rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
-                                Publish
-                            </button>
+                            {#if $desktoplarge}
+                                <button
+                                class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                                rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
+                                    Publish
+                                </button>
+                            {/if}
 
                             <!-- Profile Picture -->
                             <div class="relative">

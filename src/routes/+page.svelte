@@ -240,8 +240,8 @@
                     </div>
                 </div>
             </section>
-        {/if}
-        {#if $desktop}
+        {/if} -->
+        <!-- {#if $desktop}
             <section class="w-full relative flex justify-center max-lg:portrait:hidden pt-16">
                 <div class="absolute w-full h-full bg-cover bg-center filter opacity-70 -translate-y-16 blur-md" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
                 <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
@@ -264,13 +264,13 @@
         <section class="flex flex-col justify-center items-center min-[900px]">
 
             <!-- Tombol Rekomendasi --> 
-            {#if !$desktop}
+            <!-- {#if !$desktop}
                 <Linker 
                     title="Rekomendasi Hari Ini"
                     link="todays"
                 />
-                <!-- <h2>TERBARU</h2> -->
-            {/if}
+                <h2>TERBARU</h2>
+            {/if} -->
 
 
             <!-- Switch Komik Novel -->
@@ -340,7 +340,7 @@
                 </div>
             </div>
         </div>
-        <Slaideres bacaan="KOMIK" />
+        <Slaideres />
 
         <div class="pt-6 flex justify-center items-center">
             <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
@@ -350,7 +350,7 @@
                 </div>
             </div>
         </div>
-        <Slaideres bacaan="NOVEL" />
+        <Slaideres />
 
         <div class="pt-6 flex justify-center items-center">
             <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
