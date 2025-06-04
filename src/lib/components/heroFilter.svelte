@@ -1,16 +1,20 @@
+<!-- SOLVED 6/4/2025 | for Desktop to Mobile -->
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 
+	// DUMMY DATA SEMENTARA
 	type Tag = {
 		label: string;
 		icon?: string;
+		color?: string;
 	};
 
 	const filter: Tag[] = [
-		{ label: 'Rekomendasi', icon: 'material-symbols:bolt' },
-		{ label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill' },
-		{ label: 'Ringan', icon: 'fa6-solid:feather-pointed' },
+		{ label: 'Rekomendasi', icon: 'material-symbols:bolt', color: 'text-amber-300' },
+		{ label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill', color: 'text-emerald-400' },
+		{ label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
 		{ label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
 		{ label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
 		{ label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
@@ -26,11 +30,42 @@
 		{ label: 'Lainnya' }
 	];
 
+
+
+	// SNAP SYSTEN
 	let scroller: HTMLDivElement;
 	let isDragging = false;
 	let startX = 0;
 	let scrollStart = 0;
+	let preventClick = false;
+	let isSnapEnabled = true;
 
+	// SNAP CONTROL
+	function updateSnapEnabled() {
+		const width = window.innerWidth;
+		const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+
+		if (width < 500) {
+			isSnapEnabled = false;
+		} else if (width >= 500 && width < 1100) {
+			isSnapEnabled = !isPortrait; // aktif hanya jika landscape
+		} else {
+			isSnapEnabled = true;
+		}
+	}
+
+	onMount(() => {
+		buttonRefs = Array.from(scroller.querySelectorAll('button'));
+
+		updateSnapEnabled(); // 🔁 cek awal
+
+		window.addEventListener('resize', updateSnapEnabled);
+		return () => window.removeEventListener('resize', updateSnapEnabled);
+	});
+
+
+
+	// DRAG CONTROL
 	function startDrag(e: MouseEvent | TouchEvent) {
 		isDragging = true;
 		startX = e instanceof MouseEvent ? e.pageX : e.touches[0].pageX;
@@ -42,17 +77,22 @@
 		const x = e instanceof MouseEvent ? e.pageX : e.touches[0].pageX;
 		const walk = startX - x;
 		scroller.scrollLeft = scrollStart + walk;
+		preventClick = true;
 	}
 
 	function endDrag() {
 		if (!isDragging) return;
 		isDragging = false;
+		setTimeout(() => (preventClick = false), 0);
+		if (isSnapEnabled) 
 		snapToNearest();
 	}
 
+	// DRAG FUNCTION
 	let buttonRefs: HTMLButtonElement[] = [];
 
 	function snapToNearest() {
+		if (!isSnapEnabled) return;
 		const containerLeft = scroller.getBoundingClientRect().left;
 		const containerRight = scroller.getBoundingClientRect().right;
 		const lastBtn = buttonRefs[buttonRefs.length - 1];
@@ -94,9 +134,10 @@
 		}
 	}
 
-	// track scroll end with timeout
+	// SCROLL CONTROL
 	let scrollTimeout: ReturnType<typeof setTimeout>;
 	function onScroll() {
+		if (!isSnapEnabled) return;
 		clearTimeout(scrollTimeout);
 		scrollTimeout = setTimeout(snapToNearest, 80);
 	}
@@ -104,6 +145,29 @@
 	onMount(() => {
 		buttonRefs = Array.from(scroller.querySelectorAll('button'));
 	});
+
+	// CLICK CONTROL
+	import { tick } from 'svelte';
+	const isBrowser = typeof window !== 'undefined';
+	let heroFilter: string = filter[0].label;
+	
+	onMount(() => {
+		if (!isBrowser) return;
+		sessionStorage.setItem('heroFilter', heroFilter);
+		const storedType = sessionStorage.getItem('heroFilter');
+
+		if (storedType && filter.map(item => item.label).includes(storedType)) {
+			heroFilter = storedType;
+		} else {
+			sessionStorage.setItem('heroFilter', heroFilter);
+		}
+	});
+
+	async function changeHeroFilter(to: string) {
+		heroFilter = to;
+		sessionStorage.setItem('heroFilter', to);
+		await tick();
+	}
 </script>
 
 <style>
@@ -117,44 +181,70 @@
 	}
 </style>
 
-<!-- Outer wrapper -->
-<div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] pl-1.5">
-    <!-- <div class="text-sm font-work-sans space-x-2 w-[calc(100%+16px)] bg-red-200 -translate-x-[16px] font-[400] tracking-tight mt-5 flex overflow-x-scroll overflow-scroll-hidden mask-x-from-98% mask-x-to-100%"> -->
+<div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] min-[900px]:pl-1.5 mt-3 md:mt-6">
+	<div 
+		role="button" 
+		tabindex="0"
+		bind:this={scroller}
+		on:scroll={onScroll}
+		on:mousedown={startDrag}
+		on:touchstart={startDrag}
+		on:mousemove|passive={duringDrag}
+		on:touchmove|passive={duringDrag}
+		on:mouseup={endDrag}
+		on:touchend={endDrag}
+		on:mouseleave={endDrag}
+		aria-label="Kategori Filter"
+		class="
+		text-sm font-work-sans font-[400] tracking-tight space-x-2
+		min-[900px]:w-[calc(100%+16px)] min-[900px]:-translate-x-[16px]
+		flex overflow-x-scroll overflow-scroll-hidden
+		min-[900px]:mask-x-from-98% min-[900px]:mask-x-to-100%
+		cursor-grab active:cursor-grabbing
+	">
+		<!-- LEFT FILLER -->
+		<div class="w-[8px] aspect-square opacity-0 min-[900px]:w-[4px] min-[900px]:mr-0" aria-hidden="true">•</div>
 
-		<!-- Scrollable content -->
-		<div
-			bind:this={scroller}
-			class="text-sm font-work-sans space-x-2 w-[calc(100%+16px) -translate-x-[16px] font-[400] tracking-tight mt-5 flex overflow-x-scroll overflow-scroll-hidden mask-x-from-98% mask-x-to-100% cursor-grab active:cursor-grabbing"
-			on:scroll={onScroll}
-			on:mousedown={startDrag}
-			on:touchstart={startDrag}
-			on:mousemove|passive={duringDrag}
-			on:touchmove|passive={duringDrag}
-			on:mouseup={endDrag}
-			on:touchend={endDrag}
-			on:mouseleave={endDrag}
-			aria-label="Kategori Filter"
-			role="group"
-		>
-			<!-- Left filler -->
-			<div class="w-[16px] aspect-square opacity-0" aria-hidden="true">•</div>
-
-			<!-- Loop kategori -->
-			{#each filter as tag, i}
-				<button
-					class="flex justify-center items-center
-        py-1 border-1 focus:outline-none focus:bg-zinc-900/6 rounded-full border-zinc-900/15 text-nowrap text-zinc-900/70 hover:bg-zinc-900/3 active:bg-zinc-900/9 cursor-pointer active:cursor-grabbing"
+		<!-- LOOP FILTER -->
+		{#each filter as tag, i}
+			<button
+			on:click|preventDefault={e => {
+				if (preventClick) {
+					e.stopPropagation();
+					return;
+				}
+			}}
+			on:click={() => changeHeroFilter(tag.label)}
+			class={`  
+				flex justify-center items-center
+				max-[500px]:py-[0.8vw] py-1 
+				text-nowrap rounded-full
+				border border-zinc-900/15
+				focus:outline-none cursor-pointer 
+				max-[500px]:text-[2.8vw]
+				${tag.label === heroFilter ? 
+				'text-mainlight bg-zinc-900' : 
+				'text-zinc-900/70 hover:bg-zinc-900/3 focus:bg-zinc-900/6 active:bg-zinc-900/9'}
+			`}>
+				<!-- ICON -->
+				{#if tag.icon}
+					<Icon icon={tag.icon} class={`
+						max-[500px]:ml-[1.6vw] max-[500px]:mr-[0.8vw] ml-2 mr-1
+						${tag.label === heroFilter ? 
+						tag.color : 
+						''}
+					`} />
+				{/if}
+				<!-- LABEL -->
+				<span 
+					class={`${tag.icon ? 'max-[500px]:mr-[3.2vw] mr-4' : 'max-[500px]:mx-[3.2vw] mx-4'}`}
 				>
-					{#if tag.icon}
-						<Icon icon={tag.icon} class="ml-2 mr-1" />
-					{/if}
-					<span class={`mr-4 ${tag.icon ? 'mr-4' : 'mx-4'}`}>{tag.label}</span>
-				</button>
-			{/each}
+					{tag.label}
+				</span>
+			</button>
+		{/each}
 
-			<!-- Right filler -->
-			<div class="px-[4vw] py-1" aria-hidden="true" />
-		</div>
-
-	<!-- </div> -->
+		<!-- RIGHT FILLER -->
+		<div class="px-[4vw] py-1"></div>
+	</div>
 </div>
