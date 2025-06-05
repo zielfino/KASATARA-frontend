@@ -28,12 +28,14 @@
     });
 
 
+    const phone = writable(false);
     const desktop = writable(false);
     const desktopex = writable(false);
     const desktoplarge = writable(false);
 
     onMount(() => {
         const update = () => {
+            phone.set(window.innerWidth <= 500);
             desktop.set(window.innerWidth >= 900);
             desktopex.set(window.innerWidth >= 1300);
             desktoplarge.set(window.innerWidth >= 1100);
@@ -415,22 +417,24 @@
         {/if}
     </section>
 
-    <section class="bg-zinc-200/50">
+    <section class="bg-zinc-300/50 xs:bg-zinc-200/50">
         <!-- HERO SECTION -->
-        <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden">
-            <div class="absolute w-full h-full bg-cover bg-center filter opacity-40 blur-sm" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
-            <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
-                <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
-                <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
-                <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
-                <div class="absolute cursor-pointer left-[calc(12%/2)] trapezoid h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] hover:bg-emerald-300/20">test</div>
-                <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] bannertr hover:bg-emerald-300/20"></div>
-                <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
-            </div> 
-        </section>
+        {#if !$phone}
+            <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden">
+                <div class="absolute w-full h-full bg-cover bg-center filter opacity-40 blur-sm" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
+                <div class="h-[210px] sm:h-[300px] md:h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
+                    <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
+                    <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
+                    <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
+                    <div class="absolute cursor-pointer left-[calc(12%/2)] trapezoid h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] hover:bg-emerald-300/20">test</div>
+                    <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] bannertr hover:bg-emerald-300/20"></div>
+                    <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
+                </div> 
+            </section>
+        {/if}
         
         {#if !$desktoplarge}
-            <section class="w-full relative flex justify-center bg-stone-500 md:landscape:hidden overflow-hidden">
+            <section class="w-full relative flex justify-center bg-stone-500 md:landscape:hidden overflow-hidden max-lg:landscape:hidden">
                 <div class="absolute w-full h-full bg-cover bg-center filter blur-xl" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
                 <div class="w-full max-w-[500px] 
                 aspect-square bg-mainred text-zinc-900 relative">
@@ -538,7 +542,7 @@
                                         maxlength="25"
                                     />
                                 </div>
-                                <div class="shortcut">
+                                <div class="shortcut max-[1100px]:hidden">
                                     <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
                                 </div>
                             </form>

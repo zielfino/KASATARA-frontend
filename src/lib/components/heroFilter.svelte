@@ -181,7 +181,7 @@
 	}
 </style>
 
-<div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] min-[900px]:pl-1.5 mt-3 md:mt-6">
+<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] min-[500px]:pl-1.5 mt-3 md:mt-6">
 	<div 
 		role="button" 
 		tabindex="0"
@@ -197,13 +197,13 @@
 		aria-label="Kategori Filter"
 		class="
 		text-sm font-work-sans font-[400] tracking-tight space-x-2
-		min-[900px]:w-[calc(100%+16px)] min-[900px]:-translate-x-[16px]
+		min-[500px]:w-[calc(100%+16px)] min-[500px]:-translate-x-[16px]
 		flex overflow-x-scroll overflow-scroll-hidden
-		min-[900px]:mask-x-from-98% min-[900px]:mask-x-to-100%
+		min-[500px]:mask-x-from-98% min-[500px]:mask-x-to-100%
 		cursor-grab active:cursor-grabbing
 	">
 		<!-- LEFT FILLER -->
-		<div class="w-[8px] aspect-square opacity-0 min-[900px]:w-[4px] min-[900px]:mr-0" aria-hidden="true">•</div>
+		<div class="min-w-[16px] opacity-0 mr-0 max-xs:min-w-[8px]">•</div>
 
 		<!-- LOOP FILTER -->
 		{#each filter as tag, i}
@@ -220,11 +220,11 @@
 				max-[500px]:py-[0.8vw] py-1 
 				text-nowrap rounded-full
 				border border-zinc-900/15
-				focus:outline-none cursor-pointer 
+				focus:outline-none 
 				max-[500px]:text-[2.8vw]
 				${tag.label === heroFilter ? 
 				'text-mainlight bg-zinc-900' : 
-				'text-zinc-900/70 hover:bg-zinc-900/3 focus:bg-zinc-900/6 active:bg-zinc-900/9'}
+				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus:bg-zinc-900/6 active:bg-zinc-900/9 cursor-pointer'}
 			`}>
 				<!-- ICON -->
 				{#if tag.icon}

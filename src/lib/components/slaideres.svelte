@@ -1572,30 +1572,30 @@ function scrollToIndex(index: number, smooth: boolean = true) {
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="absolute h-full flex items-center -left-[4%] lg:-left-[4%] xl:-left-[5%]">
+        <div class="absolute h-full flex items-center -left-[4%] lg:-left-[4%] xl:-left-[5%] max-xs:hidden">
             <button class="cursor-pointer" on:click={prevSlide}>
                 <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl text-stone-400" />
             </button>
         </div>
-        <div class="absolute h-full flex items-center -right-[4%] lg:-right-[4%] xl:-right-[5%]">
+        <div class="absolute h-full flex items-center -right-[4%] lg:-right-[4%] xl:-right-[5%] max-xs:hidden">
             <button class="cursor-pointer" on:click={nextSlide}>
                 <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl text-stone-400" />
             </button>
         </div>
 
-        <div class="absolute z-10 bottom-0 right-0 bg-zinc-200 font-[700] text-lg tracking-[0.2rem] px-2 py-1 rounded-ss-[12px] text-transparent">
+        <div class="absolute z-10 bottom-0 right-0 bg-zinc-200 font-[700] text-lg tracking-[0.2rem] px-2 py-1 rounded-ss-[12px] text-transparent max-xs:hidden">
             <div class="absolute bg-zinc-50 text-zinc-900/50 text-base translate-y-1 tracking-[0.1rem] px-[7px] py-0.5 rounded-lg">
                 {displayGroup}/{totalGroup}
             </div>
             {displayGroup}/{totalGroup}
         </div>
-        <div class="absolute z-10 bottom-0 right-0 -translate-y-[36px] fill-zinc-200" style="width: 16px; height: 16px;">
+        <div class="absolute z-10 bottom-0 right-0 -translate-y-[36px] fill-zinc-200" style="width: 16px; height: 16px; max-xs:hidden">
             <svg viewBox="0 0 8 8" width="12" height="12"
                 style="position: absolute; bottom: 0; right: 0;">
                 <path d="M8 0 A8 8 0 0 1 0 8 L8 8 Z"/>
             </svg>
         </div>
-        <div class="absolute z-10 bottom-0 right-0 -translate-x-[53.5px] fill-zinc-200" style="width: 16px; height: 16px;">
+        <div class="absolute z-10 bottom-0 right-0 -translate-x-[53.5px] fill-zinc-200" style="width: 16px; height: 16px; max-xs:hidden">
             <svg viewBox="0 0 8 8" width="12" height="12"
                 style="position: absolute; bottom: 0; right: 0;">
                 <path d="M8 0 A8 8 0 0 1 0 8 L8 8 Z"/>
@@ -1605,7 +1605,7 @@ function scrollToIndex(index: number, smooth: boolean = true) {
 
         <!-- Dots -->
         <div class="space-y-2 absolute top-4 -right-5 lg:-right-7 xl:-right-11 z-10
-        flex flex-col justify-center items-center">
+        flex flex-col justify-center items-center max-xs:hidden">
             {#each Array(totalGroup) as _, i}
                 <button
                     aria-label={`Pindah ke slide ${displayGroup + 1}`}

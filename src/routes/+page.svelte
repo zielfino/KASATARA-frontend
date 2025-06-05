@@ -101,6 +101,7 @@
     import Card from '$lib/components/util/card.svelte';
     import Slaideres from '$lib/components/slaideres.svelte';
     import HeroFilter from '$lib/components/heroFilter.svelte';
+    import HeroShow from '$lib/components/heroShow.svelte';
     function formatLikes(n: number): string {
         if (n >= 1_000_000) {
         const v = n / 1_000_000;
@@ -228,75 +229,15 @@
     </div>
 
 
-    <!-- H E R O    S E C T I O N -->
-        <!-- Slider Mobile -->
-        <!-- {#if !$desktoplarge}
-            <section class="w-full relative flex justify-center bg-stone-500 md:landscape:hidden overflow-hidden">
-                <div class="absolute w-full h-full bg-cover bg-center filter blur-xl" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
-                <div class="w-full max-w-[500px] 
-                aspect-square bg-mainred text-zinc-900 relative">
-                    <div class="flex justify-center items-center w-full h-full">
-                        SLIDER MOBILE
-                    </div>
-                </div>
-            </section>
-        {/if} -->
-        <!-- {#if $desktop}
-            <section class="w-full relative flex justify-center max-lg:portrait:hidden pt-16">
-                <div class="absolute w-full h-full bg-cover bg-center filter opacity-70 -translate-y-16 blur-md" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
-                <div class="h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
-                    <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
-                    <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
-                    <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute">
-                    <div class="absolute cursor-pointer left-[calc(12%/2)] trapezoid h-[calc(100%-(100%-81%))] w-[62%]  top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] hover:bg-emerald-300/20">test</div>
-                    <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] bannertr hover:bg-emerald-300/20"></div>
-                    <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] bannertb hover:bg-emerald-300/20"></div>
-                </div> 
-            </section>
-        {/if} -->
-
-
 
     <!-- C  O  N  T  E  N  T -->
 
         
         <!-- Konten Utama -->
         <section class="flex flex-col justify-center items-center min-[900px]">
-
-            <!-- Tombol Rekomendasi --> 
-            <!-- {#if !$desktop}
-                <Linker 
-                    title="Rekomendasi Hari Ini"
-                    link="todays"
-                />
-                <h2>TERBARU</h2>
-            {/if} -->
-
-
-            <!-- Switch Komik Novel -->
-            <!-- <MainContenSwitch/> -->
-            <!-- <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
-                <h2 class="text-[32px] uppercase tracking-[0.3rem] font-bold py-4">terbaru dari kasatara</h2>
-            </div> -->
-            
+     
             <HeroFilter />
-             
-            <!-- <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] pl-1.5">
-                <div class="text-xl font-work-sans font-[600] tracking-tight mt-5">
-                    Rekomendasi
-                </div>
-            </div> -->
-
-            <!-- Bacaan Rekomendasi -->
-            <div class="grid grid-cols-3 w-full max-w-[770px] 
-            xs:mt-[5vw] xs:mb-[0px] xs:px-[5vw] xs:gap-[8px] md:mt-[8px] md:mb-[8px]
-            md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
-            lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
-            
-                {#each cards as card}
-                    <Card item={card} />
-                {/each}
-            </div>
+            <HeroShow />
         </section>
 
 
@@ -306,7 +247,7 @@
                 <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
-                    px-[3.2vw] py-[2.8vw] xs:px-[16px] xs:py-[14px]
+                    px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
                     text-mainlight md:rounded-lg md:px-6">
 
                     
@@ -522,7 +463,7 @@
                 <a href="/news" class="w-full flex flex-col items-center justify-center bg-mainlight relative overflow-hidden
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
-                    px-[3.2vw] py-[2.8vw] xs:px-[16px] xs:py-[14px]
+                    px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
                     text-zinc-900/70 md:rounded-lg md:px-6">
 
                     
@@ -550,7 +491,7 @@
         <section class="w-full flex justify-center py-2 mb-12">
             <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
-                <div class="w-full grid grid-cols-2 lg:grid-cols-5 gap-[8px]">
+                <div class="w-full grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-5 gap-[8px]">
                     <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3" style="direction: rtl;">
                         {#each Array.from({ length: 15 }, (_, i) => i + 1) as n}
                             <div 
