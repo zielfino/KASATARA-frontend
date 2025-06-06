@@ -1,5 +1,5 @@
 
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 636.47 325.7">
+<svg id="Layer_2" class="w-[120%] -translate-x-[15%]" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 636.47 325.7">
     <defs>
         <style>
         .cls-1 {

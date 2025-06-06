@@ -492,21 +492,21 @@
 
                             <!-- Navigasi -->
                             {#if $desktop}
-                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden underline underline-offset-4 decoration-[0.1em]">
-                                    <a href="/">Jadwal</a>
+                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
+                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] underline">Jadwal</a>
                                 </div>
                                 <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/">komik</a>
+                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 focus:underline-offset-1 focus:decoration-[0.1em]">komik</a>
                                 </div>
                                 <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/">novel</a>
+                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 focus:underline-offset-1 focus:decoration-[0.1em]">novel</a>
                                 </div>
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/">buku</a>
                                 </div> -->
                                 {#if $desktoplarge}
                                     <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                        <a href="/">kreator</a>
+                                        <a href="/" class="focus:underline outline-none focus:decoration-sky-400 focus:underline-offset-1 focus:decoration-[0.1em]">kreator</a>
                                     </div>
                                 {/if}
                             {/if}

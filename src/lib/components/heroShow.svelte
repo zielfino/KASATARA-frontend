@@ -29,7 +29,7 @@
     let updateCards: CardItem[] = [];
     
     function topShows() {
-        const size = window.innerWidth <= 900 ? window.innerWidth <= 499.9 ? '2x1' : '2x1' : '2x2';
+        const size = window.innerWidth <= 899.9 ? window.innerWidth <= 499.9 ? '2x1' : '2x1' : '2x2';
 
         topCard = {
             ...top,
@@ -63,7 +63,7 @@
     }
     
     function updateShows() {
-        const limit = window.innerWidth > 1100 ? 7 : window.innerWidth < 900 ? window.innerWidth < 499.9 ? 7 : 9 : 8;
+        const limit = window.innerWidth > 1100 ? 7 : window.innerWidth < 899.9 ? window.innerWidth < 499.9 ? 7 : 9 : 8;
         updateCards = update.slice(0, limit).map((card, i) => ({
             ...card,
 		    idfe: `update-${i}`,
@@ -98,7 +98,7 @@
     onMount(() => {
         const update = () => {
             phone.set(window.innerWidth <= 499.9);
-            desktop.set(window.innerWidth >= 900);
+            desktop.set(window.innerWidth >= 899.9);
             desktopex.set(window.innerWidth >= 1300);
             desktoplarge.set(window.innerWidth >= 1100);
         };
@@ -122,7 +122,7 @@
 		}
 
 		if (choiceCard) {
-			choiceCard.order = window.innerWidth >= 900 ? 2 : window.innerWidth <= 499.9 ? 18 : 12;
+			choiceCard.order = window.innerWidth >= 899.9 ? 2 : window.innerWidth <= 499.9 ? 18 : 12;
 			list.push(choiceCard);
 		}
 
@@ -132,7 +132,7 @@
 		});
 
 		if (newCard) {
-			newCard.order = window.innerWidth >= 900 ? 'last' : window.innerWidth <= 499.9 ? 2 : 18;
+			newCard.order = window.innerWidth >= 899.9 ? 'last' : window.innerWidth <= 499.9 ? 2 : 18;
 			list.push(newCard);
 		}
 

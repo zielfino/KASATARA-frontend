@@ -243,8 +243,8 @@
 
         <!-- Berita Terbaru -->
         <section>
-            <div class="w-full flex flex-col items-center justify-center relative overflow-hidden">
-                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden
+            <div class="w-full flex flex-col items-center justify-center relative">
+                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden ring-sky-400 outline-none focus:ring-2
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
                     px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
@@ -491,7 +491,7 @@
         <section class="w-full flex justify-center py-2 mb-12">
             <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
-                <div class="w-full grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-5 gap-[8px]">
+                <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[8px]">
                     <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3" style="direction: rtl;">
                         {#each Array.from({ length: 15 }, (_, i) => i + 1) as n}
                             <div 

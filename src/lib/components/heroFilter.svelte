@@ -184,7 +184,7 @@
 <div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] min-[500px]:pl-1.5 mt-3 md:mt-6">
 	<div 
 		role="button" 
-		tabindex="0"
+		tabindex="-1"
 		bind:this={scroller}
 		on:scroll={onScroll}
 		on:mousedown={startDrag}
@@ -215,6 +215,7 @@
 				}
 			}}
 			on:click={() => changeHeroFilter(tag.label)}
+			disabled="{tag.label === heroFilter}"
 			class={`  
 				flex justify-center items-center
 				max-[500px]:py-[0.8vw] py-1 

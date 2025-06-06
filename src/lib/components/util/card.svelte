@@ -21,10 +21,12 @@
 
 
     const phone = writable(false);
+    const desktop = writable(false);
 
     onMount(() => {
         const update = () => {
-            phone.set(window.innerWidth <= 500);
+            phone.set(window.innerWidth <= 499.9);
+            desktop.set(window.innerWidth >= 900);
         };
 
         update();
@@ -34,9 +36,9 @@
     });
 </script>
 
-<div 
+<div
     class={`group relative
-    flex flex-col xs:border xs:border-zinc-900/15
+    flex flex-col outline-none
     ${
         item.size === '1x1'
         ? 'col-span-1 xs:aspect-[1/1]'
@@ -46,7 +48,7 @@
     }`}
     style="direction:ltr"
 >   
-    <div class={`z-3 xs:bg-mainlight relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.2vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+    <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.2vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
     ${
         item.size === '2x1'
         ? 'min-h-[50vw] xs:min-h-0 md:h-[186.5px] lg:h-full'
@@ -55,7 +57,7 @@
         <!-- LABLE -->
         {#if item.label !== 'none'}
             {#if item.size == '2x2'}
-                <div class="absolute top-0 right-0 w-24 z-10">
+                <div class="absolute top-0 right-0 w-18 z-5">
                     {#if item.label === 'new'}
                         <div class="absolute z-10 top-0 right-0 
                         w-15 aspect-[10/8]
@@ -81,7 +83,7 @@
                     {/if}
                 </div>
             {:else if item.size == '2x1'}
-                <div class="absolute top-0 right-0 w-20 z-10">
+                <div class="absolute top-0 right-0 w-16 max-xs:w-[13vw] z-10">
                     {#if item.label === 'new'}
                         <div class="absolute z-10 top-0 right-0 
                         w-13.5 aspect-[10/8]
@@ -107,12 +109,12 @@
                     {/if}
                 </div>
             {:else}
-                <div class="absolute top-0 right-0 w-16 z-10">
+                <div class="absolute top-0 right-0 w-16 max-xs:w-[16vw] z-10">
                     {#if item.label === 'new'}
                         <div class="absolute z-10 top-0 right-0 
-                        w-12 aspect-[10/8]
+                        w-12 max-xs:w-[11vw] aspect-[10/8]
                         bg-zinc-900 tracking-widest
-                        text-right text-amber-300 text-[13px] 
+                        text-right text-amber-300 text-[13px] max-xs:text-[2.6vw]
                         font-caveat font-[700] 
                         rounded-es-[80%]
                         pt-[10%] pr-[14%]"
@@ -121,7 +123,7 @@
                         </div>
                     {:else if item.label === 'up'}
                         <div class="absolute z-10 top-0 right-0 
-                        w-8.5 aspect-square
+                        w-8.5 max-xs:w-[8.4vw] aspect-square
                         bg-emerald-500 
                         text-right text-mainlight
                         text-[12px] max-xs:text-[2.4vw] font-[700] 
@@ -157,7 +159,7 @@
 
         <!-- H O V E R E D -->
         {#if !$phone }
-            <div class={`absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity cursor-pointer
+            <div class={`absolute w-full h-full top-0 left-0 z-10 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity
             ${item.genre[0] === 'Fantasy' ? 'bg-purple-600' : 
             item.genre[0] === 'Action' ? 'bg-indigo-600' : 
             item.genre[0] === 'Comedy' ? 'bg-amber-600' : 
@@ -353,60 +355,179 @@
         
     </div>
     {#if !$phone}
-        <div class="absolute w-full bottom-0 group-hover:-bottom-4 flex justify-center items-center z-1">
-            <div class="">
-                <div class="flex justify-between">
+        <div class={`z-20 portrait:hidden absolute w-[calc(100%-2px)] translate-x-[1px] bottom-0 opacity-0 group-focus:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
+        px-2 pb-1 space-x-1
+        ${item.size === '2x2' ? 'text-[13px]' : 'text-[12px]'}
+        ${item.genre[0] === 'Fantasy' ? 'bg-purple-600 text-purple-900' : 
+        item.genre[0] === 'Action' ? 'bg-indigo-600 text-indigo-900' : 
+        item.genre[0] === 'Comedy' ? 'bg-amber-600 text-amber-800' : 
+        item.genre[0] === 'Drama' ? 'bg-cyan-600 text-cyan-900' : 
+        item.genre[0] === 'Horror' ? 'bg-rose-600 text-rose-900' : 
+        'bg-gray-600 text-gray-700'}
+        `}>
+            <div class="w-full">
+                <div
+                role="button" 
+                aria-label="chapter"
+		        tabindex="0" 
+                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                `}>
                     <div>Chapter 105</div>
                     <div>1 hour ago</div>
                 </div>
-                <div class="flex justify-between">
+                <div
+                role="button" 
+                aria-label="chapter"
+		        tabindex="0" 
+                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                `}>
                     <div>Chapter 104</div>
-                    <div>1 week ago</div>
+                    <div>1 day ago</div>
                 </div>
-                <div class="flex justify-between">
+                <div
+                role="button" 
+                aria-label="chapter"
+		        tabindex="0" 
+                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                `}>
                     <div>Chapter 103</div>
-                    <div>1 month ago</div>
+                    <div>6 days ago</div>
                 </div>
             </div>
+            {#if item.size !== '1x1'}
+                <div class="w-full">
+                    <div
+                    role="button" 
+                    aria-label="chapter"             
+                    tabindex="0"
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                    item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                    item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                    item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                    item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                    `}>
+                        <div>Chapter 102</div>
+                        <div>1 week ago</div>
+                    </div>
+                    <div
+                    role="button" 
+                    aria-label="chapter"             
+                    tabindex="0"
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                    item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                    item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                    item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                    item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                    `}>
+                        <div>Chapter 101</div>
+                        <div>3 weeks ago</div>
+                    </div>
+                    <div
+                    role="button" 
+                    aria-label="chapter"             
+                    tabindex="0"
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                    item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                    item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                    item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                    item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                    `}>
+                        <div>Chapter 100</div>
+                        <div>1 month ago</div>
+                    </div>
+                </div>
+            {/if}
         </div>
     {/if}
     <div>
-        {#if $phone}
+        {#if !$desktop}
             {#if item.size === '1x1'}
-                <div class="grid grid-cols-1 mt-[1vw] gap-[1vw]">
-                    <div class="space-y-[1vw]">
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                <div class="grid grid-cols-1 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
+                    <div class="space-y-[1vw] xs:space-y-[4px]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 105</div>
                             <div>1 hour ago</div>
                         </div>
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 104</div>
                             <div>1 week ago</div>
                         </div>
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 103</div>
                             <div>1 month ago</div>
                         </div>
                     </div>
                 </div>
             {:else}
-                <div class="grid grid-cols-2 mt-[1vw] gap-[1vw]">
-                    <div class="space-y-[1vw]">
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                <div class="grid grid-cols-2 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
+                    <div class="space-y-[1vw] xs:space-y-[4px]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
                     </div>
                     <div class="space-y-[1vw]">
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 2</div>
                             <div>2 weeks ago</div>
                         </div>
-                        <div class="flex justify-between bg-white text-zinc-900 max-xs:border max-xs:border-zinc-900/15 text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
+                        <div
+                        role="button" 
+                        aria-label="chapter"             
+                        tabindex="0" 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>
