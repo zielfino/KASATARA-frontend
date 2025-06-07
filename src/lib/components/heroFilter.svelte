@@ -246,6 +246,6 @@
 		{/each}
 
 		<!-- RIGHT FILLER -->
-		<div class="px-[4vw] py-1"></div>
+		<div class="px-[4vw] py-1 max-xs:hidden"></div>
 	</div>
 </div>

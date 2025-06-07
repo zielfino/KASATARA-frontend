@@ -570,9 +570,9 @@
                                     class="absolute translate-y-1 right-0 mt-3 rounded-lg shadow-lg bg-mainlight border-2 border-zinc-900 z-50 dropdown-panel">
                                         <div class="">
                                             <ul class="space-y-1 text-sm text-gray-700 whitespace-nowrap overflow-hidden rounded-lg">
-                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Profil</div></li>
-                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Aktifitas Saya</div></li>
-                                                <li><div class="hover:bg-zinc-300 cursor-pointer py-1.5 pl-4 pr-5">Pengaturan</div></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Profil</button></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Aktifitas Saya</button></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Pengaturan</button></li>
                                             </ul>
                                         </div>
                                     </div>

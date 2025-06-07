@@ -159,13 +159,14 @@
 
         <!-- H O V E R E D -->
         {#if !$phone }
-            <div class={`absolute w-full h-full top-0 left-0 z-10 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity
+            <div class={`absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer
             ${item.genre[0] === 'Fantasy' ? 'bg-purple-600' : 
             item.genre[0] === 'Action' ? 'bg-indigo-600' : 
             item.genre[0] === 'Comedy' ? 'bg-amber-600' : 
             item.genre[0] === 'Drama' ? 'bg-cyan-600' : 
             item.genre[0] === 'Horror' ? 'bg-rose-600' : 
-            'bg-gray-800'}`}>
+            item.genre[0] === 'Romance' ? 'bg-pink-600' : 
+            'bg-gray-600'}`}>
 
                 <!-- MAIN HOVER -->
                 <div class="absolute top-0 left-0 p-3">
@@ -189,7 +190,8 @@
                         item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
                         item.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
                         item.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
-                        item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                        item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' :
+                        item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                         'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.genre[0] }</span>
 
                         <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
@@ -198,7 +200,8 @@
                         item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
                         item.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
                         item.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
-                        item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                        item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' :
+                        item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                         'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.type }</span>
                     {/if}
                     <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
@@ -207,7 +210,8 @@
                     item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
                     item.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
                     item.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
-                    item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                    item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' :
+                    item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                     'border-gray-700 text-gray-700 bg-gray-100'}`}>
                         <Icon icon="fa6-solid:copy" class="mr-1" /> {item.pages}
                     </span>
@@ -218,7 +222,8 @@
                     item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
                     item.genre[0] === 'Comedy' ? 'border-amber-100 text-amber-800 bg-amber-100' : 
                     item.genre[0] === 'Drama' ? 'border-cyan-100 text-cyan-900 bg-cyan-100' : 
-                    item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' : 
+                    item.genre[0] === 'Horror' ? 'border-rose-100 text-rose-900 bg-rose-100' :
+                    item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                     'border-gray-700 text-gray-700 bg-gray-100'}`}>
                         <Icon icon="fa6-solid:star" class="mr-1" /> { item.rating }
                     </span>
@@ -321,6 +326,7 @@
                 item.genre[0] === 'Comedy' ? 'border-amber-700 text-amber-800 bg-amber-100' : 
                 item.genre[0] === 'Drama' ? 'border-cyan-800 text-cyan-900 bg-cyan-100' : 
                 item.genre[0] === 'Horror' ? 'border-rose-800 text-rose-900 bg-rose-100' : 
+                item.genre[0] === 'Romance' ? 'border-pink-800 text-pink-900 bg-pink-100' : 
                 'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.genre[0] }</span>
 
                 <span class={`rounded-md max-xs:border-[0.3vw] border-2 font-[600] flex w-min
@@ -363,67 +369,93 @@
         item.genre[0] === 'Comedy' ? 'bg-amber-600 text-amber-800' : 
         item.genre[0] === 'Drama' ? 'bg-cyan-600 text-cyan-900' : 
         item.genre[0] === 'Horror' ? 'bg-rose-600 text-rose-900' : 
+        item.genre[0] === 'Romance' ? 'bg-pink-600 text-pink-900' : 
         'bg-gray-600 text-gray-700'}
         `}>
-            <div class="w-full">
-                <div
-                role="button" 
-                aria-label="chapter"
-		        tabindex="0" 
-                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
-                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
-                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
-                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
-                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
-                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
-                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
-                `}>
-                    <div>Chapter 105</div>
-                    <div>1 hour ago</div>
+            {#each Array(item.size !== '1x1' ? 2 : 1) as _, i}
+                <div class="w-full">
+                    {#if item.comments === 'short'}
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        tabindex={item.disable === true ? -1 : 0}
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
+                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                        `}>
+                            <div>Chapter {100-i}</div>
+                            <div>1 {i===1 ?  'week' : 'hour'} ago</div>
+                        </div>
+                    {:else}
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        tabindex={item.disable === true ? -1 : 0}
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
+                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                        `}>
+                            <div>Chapter {102+i*-3}</div>
+                            <div>1 hour ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        tabindex={item.disable === true ? -1 : 0}
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
+                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                        `}>
+                            <div>Chapter {101+i*-3}</div>
+                            <div>1 day ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        tabindex={item.disable === true ? -1 : 0}
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
+                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
+                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
+                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
+                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
+                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
+                        `}>
+                            <div>Chapter {100+i*-3}</div>
+                            <div>6 days ago</div>
+                        </div>
+                    {/if}
                 </div>
-                <div
-                role="button" 
-                aria-label="chapter"
-		        tabindex="0" 
-                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
-                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
-                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
-                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
-                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
-                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
-                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
-                `}>
-                    <div>Chapter 104</div>
-                    <div>1 day ago</div>
-                </div>
-                <div
-                role="button" 
-                aria-label="chapter"
-		        tabindex="0" 
-                class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
-                ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
-                item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
-                item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
-                item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
-                item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
-                'text-gray-700 bg-gray-100 hover:bg-gray-200'}
-                `}>
-                    <div>Chapter 103</div>
-                    <div>6 days ago</div>
-                </div>
-            </div>
-            {#if item.size !== '1x1'}
+            {/each}
+            <!-- {#if item.size !== '1x1'}
                 <div class="w-full">
                     <div
                     role="button" 
                     aria-label="chapter"             
-                    tabindex="0"
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    tabindex={item.disable === true ? -1 : 0}
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
                     item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
                     item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
                     'text-gray-700 bg-gray-100 hover:bg-gray-200'}
                     `}>
                         <div>Chapter 102</div>
@@ -432,13 +464,14 @@
                     <div
                     role="button" 
                     aria-label="chapter"             
-                    tabindex="0"
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    tabindex={item.disable === true ? -1 : 0}
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
                     item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
                     item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
                     'text-gray-700 bg-gray-100 hover:bg-gray-200'}
                     `}>
                         <div>Chapter 101</div>
@@ -447,20 +480,21 @@
                     <div
                     role="button" 
                     aria-label="chapter"             
-                    tabindex="0"
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus:ring-2 focus:ring-sky-400     
+                    tabindex={item.disable === true ? -1 : 0}
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
                     item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
                     item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
+                    item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
                     'text-gray-700 bg-gray-100 hover:bg-gray-200'}
                     `}>
                         <div>Chapter 100</div>
                         <div>1 month ago</div>
                     </div>
                 </div>
-            {/if}
+            {/if} -->
         </div>
     {/if}
     <div>
@@ -471,24 +505,24 @@
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
-                            <div>Chapter 105</div>
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                            <div>{item.disable}</div>
                             <div>1 hour ago</div>
                         </div>
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 104</div>
                             <div>1 week ago</div>
                         </div>
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 103</div>
                             <div>1 month ago</div>
                         </div>
@@ -500,16 +534,16 @@
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -518,16 +552,16 @@
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 2</div>
                             <div>2 weeks ago</div>
                         </div>
                         <div
                         role="button" 
                         aria-label="chapter"             
-                        tabindex="0" 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus:ring-2 focus:ring-sky-400">
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>

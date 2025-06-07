@@ -234,17 +234,19 @@
 
         
         <!-- Konten Utama -->
-        <section class="flex flex-col justify-center items-center min-[900px]">
-     
-            <HeroFilter />
-            <HeroShow />
+        <section class="max-xs:bg-zinc-900">
+            <div class="flex flex-col justify-center items-center min-[900px] max-xs:bg-zinc-200 max-xs:rounded-b-xl max-xs:pb-[0.2vw]">
+        
+                <HeroFilter />
+                <HeroShow />
+            </div>
         </section>
 
 
         <!-- Berita Terbaru -->
         <section>
             <div class="w-full flex flex-col items-center justify-center relative">
-                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden ring-sky-400 outline-none focus:ring-2
+                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden ring-sky-400 outline-none xs:focus:ring-2
                     font-semibold group
                     md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
                     px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
@@ -273,29 +275,33 @@
         </section>
 
         <!-- Slider Gokil -->
-        <div class="pt-6 flex justify-center items-center">
-            <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
-                <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
-                    <a href="/">Komik Terbaru</a>
-                    <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
+         <section class="max-xs:bg-zinc-900">
+            <div class="max-xs:bg-zinc-200 max-xs:rounded-t-xl">
+                <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
+                    <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
+                        <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
+                            <a href="/" class="outline-none underline-offset-1 focus:underline hover:underline focus:decoration-sky-400">Komik Terbaru</a>
+                            <a tabindex="-1" href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <Slaideres />
+                <Slaideres jenis="KOMIK" />
 
-        <div class="pt-6 flex justify-center items-center">
-            <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
-                <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
-                    <a href="/">Novel Terbaru</a>
-                    <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
+                <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
+                    <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
+                        <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
+                            <a href="/" class="outline-none underline-offset-1 focus:underline hover:underline focus:decoration-sky-400">Novel Terbaru</a>
+                            <a tabindex="-1" href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
+                        </div>
+                    </div>
                 </div>
+                <Slaideres jenis="NOVEL" />
             </div>
-        </div>
-        <Slaideres />
+        </section>
 
-        <div class="pt-6 flex justify-center items-center">
-            <div class="w-full md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] px-1.5">
-                <div class="text-xl font-work-sans font-[600] tracking-tight flex justify-between">
+        <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
+            <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
+                <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
                     <div>Mirror</div>
                     <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
                 </div>
