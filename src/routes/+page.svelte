@@ -9,7 +9,9 @@
     import Up from '$lib/components/util/up.svelte';
     import Icon from '@iconify/svelte';
     import { onMount } from 'svelte';
-    import { writable } from 'svelte/store';
+    import { writable } from 'svelte/store';    
+    import { update  } from '$lib/updatedummy';
+
 
 
     type Bacaan = {
@@ -45,12 +47,14 @@
 
     const [first] = bacaan;
 
+    const phone = writable(false);
     const desktop = writable(false);
     const desktopex = writable(false);
     const desktoplarge = writable(false);
 
     onMount(() => {
         const update = () => {
+            phone.set(window.innerWidth < 500);
             desktop.set(window.innerWidth >= 900);
             desktopex.set(window.innerWidth >= 1300);
             desktoplarge.set(window.innerWidth >= 1100);
@@ -102,6 +106,10 @@
     import Slaideres from '$lib/components/slaideres.svelte';
     import HeroFilter from '$lib/components/heroFilter.svelte';
     import HeroShow from '$lib/components/heroShow.svelte';
+    import MainConent from '$lib/sections/mainConent.svelte';
+    import TitleLink from '$lib/components/util/titleLink.svelte';
+    import SliderContent from '$lib/sections/sliderContent.svelte';
+    import News from '$lib/components/news.svelte';
     function formatLikes(n: number): string {
         if (n >= 1_000_000) {
         const v = n / 1_000_000;
@@ -233,434 +241,142 @@
     <!-- C  O  N  T  E  N  T -->
 
         
-        <!-- Konten Utama -->
-        <section class="max-xs:bg-zinc-900">
+        <!-- MAIN -->
+         <MainConent />
+
+        <!-- SLIDER -->
+         <SliderContent />
+
+        <section>
+            <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[0vw] max-xs:pb-[2.4vw] flex justify-center items-center max-xs:bg-gradient-to-b max-xs:from-zinc-200 max-xs:to-zinc-200/0">
+                <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
+                    <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
+                        <div>Semua Terbaru</div>
+                        <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
+                    </div>
+                </div>
+            </div>
             <div class="flex flex-col justify-center items-center min-[900px] max-xs:bg-zinc-200 max-xs:rounded-b-xl max-xs:pb-[0.2vw]">
-        
-                <HeroFilter />
-                <HeroShow />
-            </div>
-        </section>
+                <div class="grid grid-cols-2 xs:grid-cols-3 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] xs:px-[8px] gap-[8px] my-2 xs:my-[8px]
+                md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-5 xl:w-[1100px]">
 
+                    {#each update.slice( 0, $phone ? 1 : $desktop ? 4 : 3) as item, i}
+                        <Card item="{{...item, size: i === 0 ? ($desktoplarge ? '2x1' : $phone ? '2x1' : '1x1') : '1x1'}}" />
+                    {/each}
 
-        <!-- Berita Terbaru -->
-        <section>
-            <div class="w-full flex flex-col items-center justify-center relative">
-                <a href="/news" class="w-full flex flex-col items-center justify-center bg-zinc-900 relative overflow-hidden ring-sky-400 outline-none xs:focus:ring-2
-                    font-semibold group
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
-                    px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
-                    text-mainlight md:rounded-lg md:px-6">
-
-                    
-                    <div class="absolute w-full h-full md:rounded-lg flex justify-center items-center
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] bg-indigo-400
-                    translate-y-full group-hover:translate-y-0 transition-all duration-300 ease-out
-                    ">click me</div>
-
-                    <div class="w-full font-semibold flex justify-between items-center 
-                    
-                    text-mainlight bg-zinc-900 md:rounded-lg
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]">
-                        
-                        <div class="flex items-center space-x-[1vw] xs:space-x-[5px]">
-                            <div class="text-[3.6vw] xs:text-[18px] uppercase font-bold tracking-tight">PENGUMUMAN</div>
-                            <div><Icon icon="material-symbols:arrow-forward-ios" class="text-[3.6vw] xs:text-[18px]" /></div>
-                            <p class=" text-[2.8vw] xs:text-[16px] line-clamp-1 mr-[2vw] xs:mr-[10px]">Fitur komentar telah di perbaharui.</p>
-                        </div>
-                        <div class="text-[2.8vw] xs:text-[16px] text-mainlight/30 text-nowrap">32 Feb 2025</div>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <!-- Slider Gokil -->
-         <section class="max-xs:bg-zinc-900">
-            <div class="max-xs:bg-zinc-200 max-xs:rounded-t-xl">
-                <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
-                    <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
-                        <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
-                            <a href="/" class="outline-none underline-offset-1 focus:underline hover:underline focus:decoration-sky-400">Komik Terbaru</a>
-                            <a tabindex="-1" href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
-                        </div>
-                    </div>
-                </div>
-                <Slaideres jenis="KOMIK" />
-
-                <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
-                    <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
-                        <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
-                            <a href="/" class="outline-none underline-offset-1 focus:underline hover:underline focus:decoration-sky-400">Novel Terbaru</a>
-                            <a tabindex="-1" href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a>
-                        </div>
-                    </div>
-                </div>
-                <Slaideres jenis="NOVEL" />
-            </div>
-        </section>
-
-        <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[2vw] max-xs:pb-[0.4vw] flex justify-center items-center">
-            <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
-                <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
-                    <div>Mirror</div>
-                    <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
                 </div>
             </div>
-        </div>
+            <News title="TIPS" type="info" color="light" />
+            <section class="w-full flex justify-center py-2 mb-12">
+                <div class="w-full max-w-[675px] max-xs:px-[1.6vw] xs:px-[8px] md:px-0 md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
 
-        <section class="w-full flex justify-center py-2">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
+                    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[8px]">
+                        <!-- Left -->
+                        <div class="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3">
 
-                <div class="w-full">
-                    <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-5 relative">
-                        <div 
-                        class="relative bg-mainlight flex justify-center items-center p-3 col-span-2 rounded-lg overflow-hidden"
-                        style="direction:ltr"
-                        >
+                            {#each update.slice($phone ? 1 : 4, $phone ? 11 : $desktoplarge ? 19 : $desktop ? 18 : 19) as item}
+                                <Card item="{{...item, size: '1x1'}}" />
+                            {/each}
+                            
+                        </div>
 
-                            <!-- HOVER -->
-                            <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                <div class="absolute top-0 left-0 p-3">
-                                    <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                    <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                    <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                        Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                    </h4>
+                        <!-- Right -->
+                        <div class="flex flex-col items-center w-full md:w-[calc(770px/2-4px)] lg:w-[calc((946px/5*2)-5px)] xl:w-[calc((1100px/5*2)-5px)] lg:col-span-2">
+                            <div class="w-full p-2 bg-mainlight rounded-md border border-zinc-900/15 space-y-[1.6vw] xs:space-y-2">
+
+                                <!-- Tombol 'Papan Peringkat' -->
+                                <div class="p-2 pb-0">
+                                    <TitleLink title="Papan Peringkat" link="/" outer={false} />
                                 </div>
 
-                                <!-- TAGS -->
-                                <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                    <!-- GENRE -->
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        Fantasy
-                                    </span>
-                                    <!-- TYPE -->
-                                    <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        {type}
-                                    </span> -->
-                                    <!-- PAGES -->
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                    </span>
-                                    <!-- RATING -->
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                    </span>
-                                </div>
+                                <!-- Switch Peringkat -->
+                                <LeaderboardSwitch/>
+                                
                             </div>
 
-                            <!-- BACKGROUND IMAGE -->
-                            <div
-                                class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                            ></div>
 
-                            <!-- DISPLAYED -->
-                            <div class="relative w-full h-full z-3">
-                                <div class="absolute top-0 left-0 w-3/4">
-                                    <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                    <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                        <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                    </h4>
-                                </div>
-
-                                <!-- TAGS -->
-                                <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                        Fantasy
-                                    </span>
-                                    <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                        {type}
-                                    </span> -->
-                                    <!-- PAGES -->
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                    </span>
-                                    <!-- RATING -->
-                                    <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                        <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                    </span>
+                            <!-- Peringkat -->
+                            <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
+                                <!-- pertama -->
+                                {#if first}
+                                    <div class="w-full flex flex-col justify-center items-center">
+                                        <div class="flex justify-center items-center w-full xs:aspect-auto
+                                        px-[3.2vw] xs:px-[16px] 
+                                        pt-[0.8vw] xs:pt-[12px]
+                                        md:px-0 md:pt-[8px]">
+                                            <div class="w-full h-full">
+                                                <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center justify-between xs:max-w-[600px]
+                                        space-x-[3.2vw] xs:space-x-[16px]
+                                        pl-[4.8vw] xs:pl-[24px] 
+                                        pr-[7.2vw] xs:pr-[36px] 
+                                        pt-[3.2vw] xs:pt-[16px] 
+                                        pb-[4.8vw] xs:pb-[24px]
+                                        md:px-0
+                                        w-full">
+                                            <div class="font-bold 
+                                            text-[4.8vw] xs:text-[32px]
+                                            mr-[4.8vw] xs:mr-[24px]">
+                                                #{first.id}
+                                            </div>
+                                            <div class="flex-1 leading-[1.4] 
+                                            text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
+                                                <div class={genreColor(first.genre)}>{first.genre}</div>
+                                                <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
+                                                <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
+                                            </div>
+                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                                {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                {/if}
+                                <!-- 2 - 7 -->
+                                <div class="max-w-[600px] w-full">
+                                    <Breakline />
+                                    {#each bacaan.slice(1, 7) as item, i (item.id)}
+                                        <div class="flex items-center justify-between 
+                                        space-x-[3.2vw] xs:space-x-[16px] 
+                                        pl-[4.8vw] xs:pl-[24px]
+                                        pr-[7.2vw] xs:pr-[36px]
+                                        py-[1vw] xs:py-[5px]
+                                        md:px-0">
+                                            <div class="font-bold 
+                                            text-[4.8vw] xs:text-[24px] md:text-[20px]
+                                            mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
+                                                #{item.id}
+                                            </div>
+                                            <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
+                                            h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
+                                                
+                                            </div>
+                                            <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
+                                                <div class={genreColor(item.genre)}>{item.genre}</div>
+                                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
+                                                <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
+                                            </div>
+                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
+                                                {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                            </div>
+                                        </div>
+                                        {#if i < 5}
+                                            <Breakline />
+                                        {/if}
+                                    {/each}
                                 </div>
                             </div>
                         </div>
-                        {#each Array.from({ length: 3 }, (_, i) => i + 1) as n}
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        {/each}
-                        
                     </div>
                 </div>
-            </div>
+            </section>
         </section>
 
         <!-- Berita Terbaru -->
-        <section>
-            <div class="w-full flex flex-col items-center justify-center relative overflow-hidden">
-                <a href="/news" class="w-full flex flex-col items-center justify-center bg-mainlight relative overflow-hidden
-                    font-semibold group
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
-                    px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]
-                    text-zinc-900/70 md:rounded-lg md:px-6">
 
-                    
-                    <div class="absolute w-full h-full md:rounded-lg flex justify-center items-center
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] bg-indigo-400
-                    translate-y-full group-hover:translate-y-0 transition-all duration-300 ease-out
-                    ">click me</div>
-
-                    <div class="w-full font-semibold flex justify-between items-center 
-                    
-                    text-zinc-900/70 bg-mainlight md:rounded-lg
-                    md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]">
-                        
-                        <div class="flex items-center space-x-[1vw] xs:space-x-[5px]">
-                            <div class="text-[3.6vw] xs:text-[18px] uppercase font-bold tracking-tight">PENGUMUMAN</div>
-                            <div><Icon icon="material-symbols:arrow-forward-ios" class="text-[3.6vw] xs:text-[18px]" /></div>
-                            <p class=" text-[2.8vw] xs:text-[16px] line-clamp-1 mr-[2vw] xs:mr-[10px]">Fitur komentar telah di perbaharui.</p>
-                        </div>
-                        <div class="text-[2.8vw] xs:text-[16px] text-zinc-900/30 text-nowrap">32 Feb 2025</div>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section class="w-full flex justify-center py-2 mb-12">
-            <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[8px]">
-                    <div class="grid grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3" style="direction: rtl;">
-                        {#each Array.from({ length: 15 }, (_, i) => i + 1) as n}
-                            <div 
-                            class="relative bg-mainlight flex justify-center items-center p-3 col-span-1 rounded-lg overflow-hidden aspect-[1/1]"
-                            style="direction:ltr"
-                            >
-
-                                <!-- HOVER -->
-                                <div class="absolute w-full h-full top-0 left-0 z-10 opacity-0 hover:opacity-100 transition-opacity bg-purple-600">
-                                    <div class="absolute top-0 left-0 p-3">
-                                        <h3 class="text-left font-semibold line-clamp-1 text-mainlight text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                                        <h4 class="text-mainlight text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enim voluptatem laborum impedit placeat!
-                                            Aliqua error repudiandae commodi iusto a quasi similique quam...
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 p-3 w-full flex leading-[80%] space-x-1">
-                                        <!-- GENRE -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            Fantasy
-                                        </span>
-                                        <!-- TYPE -->
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-100 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- BACKGROUND IMAGE -->
-                                <div
-                                    class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
-                                    style="background-image: url('https://i.imgur.com/kyLUJIS.png');"
-                                ></div>
-
-                                <!-- DISPLAYED -->
-                                <div class="relative w-full h-full z-3">
-                                    <div class="absolute top-0 left-0 w-3/4">
-                                        <h3 class="text-left font-semibold line-clamp-3 text-zinc-900 text-[16px]">Return Of The Mount Hua Sect</h3>
-                                        <h4 class="flex items-center text-[14px] text-emerald-600/75">
-                                            <Icon icon="fa6-solid:heart" class="mr-1" /> 1.3K
-                                        </h4>
-                                    </div>
-
-                                    <!-- TAGS -->
-                                    <div class="absolute bottom-0 left-0 flex space-x-1 leading-[80%]">
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-800 text-purple-900 bg-purple-100 font-[600]">
-                                            Fantasy
-                                        </span>
-                                        <!-- <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-sky-600 text-sky-700 bg-sky-100 font-[600]">
-                                            {type}
-                                        </span> -->
-                                        <!-- PAGES -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:copy" class="mr-1" /> 150
-                                        </span>
-                                        <!-- RATING -->
-                                        <span class="text-[10px] py-0.5 px-1.5 rounded-full border-2 border-purple-900 text-purple-900 bg-purple-100 font-[600] flex items-center justify-center">
-                                            <Icon icon="fa6-solid:star" class="mr-1" /> 4.7
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        {/each}
-                        
-                    </div>
-
-                    <div class="flex flex-col items-center w-full md:w-[calc(770px/2)] lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)] lg:col-span-2">
-                        <!-- Tombol 'Papan Peringkat' -->
-                        <Linker 
-                            title="Papan Peringkat"
-                            link="leaderboard"
-                        />
-
-                        <!-- Switch Peringkat -->
-                        <LeaderboardSwitch/>
-
-                        <!-- Peringkat -->
-                        <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
-                            <!-- pertama -->
-                            {#if first}
-                                <div class="w-full flex flex-col justify-center items-center">
-                                    <div class="flex justify-center items-center w-full xs:aspect-auto
-                                    px-[3.2vw] xs:px-[16px] 
-                                    pt-[3.2vw] xs:pt-[48px]
-                                    md:px-0 md:pt-[32px]">
-                                        <div class="w-full h-full">
-                                            <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between xs:max-w-[600px]
-                                    space-x-[3.2vw] xs:space-x-[16px]
-                                    pl-[4.8vw] xs:pl-[24px] 
-                                    pr-[7.2vw] xs:pr-[36px] 
-                                    pt-[3.2vw] xs:pt-[16px] 
-                                    pb-[4.8vw] xs:pb-[24px]
-                                    md:px-0
-                                    w-full">
-                                        <div class="font-bold 
-                                        text-[4.8vw] xs:text-[32px]
-                                        mr-[4.8vw] xs:mr-[24px]">
-                                            #{first.id}
-                                        </div>
-                                        <div class="flex-1 leading-[1.4] 
-                                        text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
-                                            <div class={genreColor(first.genre)}>{first.genre}</div>
-                                            <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
-                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
-                                        </div>
-                                        <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                            {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                        </div>
-                                    </div>
-                                </div>
-                            {/if}
-                            <!-- 2 - 7 -->
-                            <div class="max-w-[600px] w-full">
-                                <Breakline />
-                                {#each bacaan.slice(1, 7) as item, i (item.id)}
-                                    <div class="flex items-center justify-between 
-                                    space-x-[3.2vw] xs:space-x-[16px] 
-                                    pl-[4.8vw] xs:pl-[24px]
-                                    pr-[7.2vw] xs:pr-[36px]
-                                    py-[1vw] xs:py-[5px]
-                                    md:px-0">
-                                        <div class="font-bold 
-                                        text-[4.8vw] xs:text-[24px] md:text-[20px]
-                                        mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
-                                            #{item.id}
-                                        </div>
-                                        <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
-                                        h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
-                                            
-                                        </div>
-                                        <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
-                                            <div class={genreColor(item.genre)}>{item.genre}</div>
-                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
-                                            <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
-                                        </div>
-                                        <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                            {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                        </div>
-                                    </div>
-                                    {#if i < 5}
-                                        <Breakline />
-                                    {/if}
-                                {/each}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
 
 

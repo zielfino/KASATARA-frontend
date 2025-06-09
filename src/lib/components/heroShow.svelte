@@ -1,6 +1,6 @@
 <script lang="ts">
     import Card from "./util/card.svelte";
-    import { cards } from '$lib/datadummy';
+    // import { cards } from '$lib/datadummy';
     import { top } from '$lib/topdummy';
     import { choice } from '$lib/choicedummy';
     import { newarr } from '$lib/newdummy';
@@ -29,7 +29,7 @@
     let updateCards: CardItem[] = [];
     
     function topShows() {
-        const size = window.innerWidth <= 899.9 ? window.innerWidth <= 499.9 ? '2x1' : '2x1' : '2x2';
+        const size = window.innerWidth <= 900 ? window.innerWidth <= 500 ? '2x1' : '2x1' : '2x2';
 
         topCard = {
             ...top,
@@ -40,7 +40,7 @@
     }
 
     function choiceShows() {
-        // const size = window.innerWidth <= 499.9 ? '1x1' : '2x1';
+        // const size = window.innerWidth <= 500 ? '1x1' : '2x1';
 
         choiceCard = {
             ...choice,
@@ -52,7 +52,7 @@
     }
 
     function newShows() {
-        const size = window.innerWidth <= 499.9 ? '1x1' : '2x1';
+        const size = window.innerWidth <= 500 ? '1x1' : '2x1';
         newCard = {
             ...newarr,
             idfe: 'new',
@@ -63,7 +63,7 @@
     }
     
     function updateShows() {
-        const limit = window.innerWidth > 1100 ? 7 : window.innerWidth < 899.9 ? window.innerWidth < 499.9 ? 7 : 9 : 8;
+        const limit = window.innerWidth > 1100 ? 7 : window.innerWidth < 900 ? window.innerWidth < 500 ? 7 : 9 : 8;
         updateCards = update.slice(0, limit).map((card, i) => ({
             ...card,
 		    idfe: `update-${i}`,
@@ -97,13 +97,13 @@
 
     onMount(() => {
         const update = () => {
-            phone.set(window.innerWidth <= 499.9);
-            desktop.set(window.innerWidth >= 899.9);
+            phone.set(window.innerWidth <= 500);
+            desktop.set(window.innerWidth >= 900);
             desktopex.set(window.innerWidth >= 1300);
             desktoplarge.set(window.innerWidth >= 1100);
         };
 
-        update(); // Initial check
+        update();
         window.addEventListener('resize', update);
 
         return () => window.removeEventListener('resize', update);
@@ -122,7 +122,7 @@
 		}
 
 		if (choiceCard) {
-			choiceCard.order = window.innerWidth >= 899.9 ? 2 : window.innerWidth <= 499.9 ? 18 : 12;
+			choiceCard.order = window.innerWidth >= 900 ? 2 : window.innerWidth <= 500 ? 18 : 12;
 			list.push(choiceCard);
 		}
 
@@ -132,7 +132,7 @@
 		});
 
 		if (newCard) {
-			newCard.order = window.innerWidth >= 899.9 ? 'last' : window.innerWidth <= 499.9 ? 2 : 18;
+			newCard.order = window.innerWidth >= 900 ? 'last' : window.innerWidth <= 499 ? 2 : 18;
 			list.push(newCard);
 		}
 
@@ -150,7 +150,7 @@
 	})();
 </script>
 <div class="grid grid-cols-2 xs:grid-cols-3 w-full max-w-[675px] md:max-w-[770px]
-px-[8px] gap-[8px] my-2 xs:my-[8px]
+max-xs:px-[1.6vw] px-[8px] gap-[8px] my-2 xs:my-[8px]
 md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
 lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
     

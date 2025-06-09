@@ -22,11 +22,13 @@
 
     const phone = writable(false);
     const desktop = writable(false);
+	const landscape = writable(false);
 
     onMount(() => {
         const update = () => {
-            phone.set(window.innerWidth <= 499.9);
+            phone.set(window.innerWidth <= 500);
             desktop.set(window.innerWidth >= 900);
+			landscape.set(window.innerWidth > window.innerHeight);
         };
 
         update();
@@ -36,16 +38,25 @@
     });
 </script>
 
-<div
+<button
+    role={item.type === 'VISUAL NOVEL' ? 'button' : undefined} 
+    aria-label="card"
+    tabindex={item.type === 'VISUAL NOVEL' ? item.disable === true ? -1 : 0 : -1}
     class={`group relative
     flex flex-col outline-none
     ${
-        item.size === '1x1'
-        ? 'col-span-1 xs:aspect-[1/1]'
+        item.size === '1x1' && item.type === "VISUAL NOVEL"
+        ? 'col-span-1 xs:h-full'
         : item.size === '2x1'
         ? 'col-span-2'
+        : item.size === '1x1'
+        ? 'col-span-1 xs:aspect-[1/1]'
         : 'col-span-2 row-span-2'
-    }`}
+    }
+    ${
+        item.type === "VISUAL NOVEL" ? 'portrait:xs:focus:ring-2 portrait:xs:focus:ring-sky-400 rounded-lg' : ''
+    }
+    `}
     style="direction:ltr"
 >   
     <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.2vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
@@ -156,6 +167,10 @@
             </div>
         {/if}
         
+        {#if item.type === "VISUAL NOVEL" && !$desktop && !$landscape}
+            <div class="absolute top-0 left-0 w-full h-full z-21 active:bg-stone-900/30 xs:group-focus-within:bg-stone-900/10 hover:bg-stone-900/20 cursor-pointer transition-all duration-200">
+            </div>
+        {/if}
 
         <!-- H O V E R E D -->
         {#if !$phone }
@@ -184,7 +199,7 @@
                 <div class={`absolute bottom-0 left-0 p-3 w-full flex leading-[80%]
                 ${item.size === '2x2' ? 'space-x-1.5' : 'space-x-1'}`}>
                     {#if item.size !== '1x1'}
-                        <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
+                        <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center whitespace-nowrap
                         ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'} 
                         ${item.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
                         item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
@@ -194,7 +209,7 @@
                         item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                         'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.genre[0] }</span>
 
-                        <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
+                        <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center whitespace-nowrap
                         ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'} 
                         ${item.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
                         item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
@@ -204,7 +219,7 @@
                         item.genre[0] === 'Romance' ? 'border-pink-100 text-pink-900 bg-pink-100' : 
                         'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.type }</span>
                     {/if}
-                    <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
+                    <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center whitespace-nowrap
                     ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'} 
                     ${item.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
                     item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
@@ -216,7 +231,7 @@
                         <Icon icon="fa6-solid:copy" class="mr-1" /> {item.pages}
                     </span>
                     
-                    <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center
+                    <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center whitespace-nowrap
                     ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'} 
                     ${item.genre[0] === 'Fantasy' ? 'border-purple-100 text-purple-900 bg-purple-100' : 
                     item.genre[0] === 'Action' ? 'border-indigo-100 text-indigo-900 bg-indigo-100' : 
@@ -305,7 +320,7 @@
                 <h3 class={`text-left font-semibold line-clamp-3
                 ${item.size === '1x1' ? 'text-zinc-900 max-xs:text-mainlight' : 'text-mainlight'} 
                 ${item.size === '2x1' ? 'max-xs:text-[3.6vw]' : 'max-xs:text-[3.2vw]'} 
-                ${item.size === '2x2' ? 'text-[24px] max-[500px]:text-[4.8vw]' : 'text-[16px]'}`}>
+                ${item.size === '2x2' ? 'text-[24px] max-xs:text-[4.8vw]' : 'text-[16px]'}`}>
                     {item.title}
                 </h3>
 
@@ -319,7 +334,7 @@
             <div class={`absolute bottom-0 left-0 flex space-x-1 leading-[80%]
             ${item.size === '2x2' ? 'space-x-1.5' : 'space-x-1'}`}>
                 <span class={`rounded-md max-xs:border-[0.3vw] border-2 font-[600] flex w-min
-                max-xs:rounded-[1.2vw]
+                max-xs:rounded-[1.2vw] whitespace-nowrap
                 ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'}
                 ${item.genre[0] === 'Fantasy' ? 'border-purple-800 text-purple-900 bg-purple-100' : 
                 item.genre[0] === 'Action' ? 'border-indigo-800 text-indigo-900 bg-indigo-100' : 
@@ -330,7 +345,7 @@
                 'border-gray-700 text-gray-700 bg-gray-100'}`}>{ item.genre[0] }</span>
 
                 <span class={`rounded-md max-xs:border-[0.3vw] border-2 font-[600] flex w-min
-                max-xs:rounded-[1.2vw]
+                max-xs:rounded-[1.2vw] whitespace-nowrap
                 ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'}
                 ${item.type === 'KOMIK' ? 'border-sky-600 text-sky-700 bg-sky-100' : 
                 item.type === 'NOVEL' ? 'border-amber-600 text-amber-700 bg-amber-100' : 
@@ -339,7 +354,7 @@
                 {#if $phone }
 
                     <span class={`rounded-md max-xs:border-[0.3vw] border-2 font-[600] flex w-min
-                    max-xs:rounded-[1.2vw]
+                    max-xs:rounded-[1.2vw] whitespace-nowrap
                     ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'}
                     border-gray-600 text-gray-600 bg-gray-100 flex justify-center items-center`}>
                         <Icon icon="fa6-solid:star" class="mr-1" /> { item.rating }
@@ -347,7 +362,7 @@
 
                     {#if item.size === '2x1' }
                         <span class={`rounded-md max-xs:border-[0.3vw] border-2 font-[600] flex w-min
-                        max-xs:rounded-[1.2vw]
+                        max-xs:rounded-[1.2vw] whitespace-nowrap
                         ${item.size === '2x2' ? 'text-[12px] max-xs:text-[2.4vw] max-xs:py-[0.6vw] py-[3px] max-xs:px-[1.4vw] px-[7px]' : 'max-xs:text-[2vw] text-[10px] max-xs:py-[0.2vw] py-[1px] max-xs:px-[0.6vw] px-[3px]'}
                         border-gray-600 text-gray-600 bg-gray-100 flex justify-center items-center`}>
                             <Icon icon="fa6-solid:copy" class="mr-1" /> {item.pages}
@@ -360,7 +375,7 @@
 
         
     </div>
-    {#if !$phone}
+    {#if !$phone && item.type !== 'VISUAL NOVEL'}
         <div class={`z-20 portrait:hidden absolute w-[calc(100%-2px)] translate-x-[1px] bottom-0 opacity-0 group-focus:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
         px-2 pb-1 space-x-1
         ${item.size === '2x2' ? 'text-[13px]' : 'text-[12px]'}
@@ -497,16 +512,16 @@
             {/if} -->
         </div>
     {/if}
-    <div>
-        {#if !$desktop}
+    <div class="w-full">
+        {#if !$desktop && item.type !== 'VISUAL NOVEL'}
             {#if item.size === '1x1'}
-                <div class="grid grid-cols-1 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
-                    <div class="space-y-[1vw] xs:space-y-[4px]">
+                <div class="grid grid-cols-1 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden w-full">
+                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>{item.disable}</div>
                             <div>1 hour ago</div>
                         </div>
@@ -514,7 +529,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 104</div>
                             <div>1 week ago</div>
                         </div>
@@ -522,7 +537,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 103</div>
                             <div>1 month ago</div>
                         </div>
@@ -530,12 +545,12 @@
                 </div>
             {:else}
                 <div class="grid grid-cols-2 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
-                    <div class="space-y-[1vw] xs:space-y-[4px]">
+                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
@@ -543,7 +558,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -553,7 +568,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 2</div>
                             <div>2 weeks ago</div>
                         </div>
@@ -561,7 +576,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between cursor-pointer whitespace-nowrap bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>
@@ -570,4 +585,4 @@
             {/if}
         {/if}
     </div>
-</div>
+</button>

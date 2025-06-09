@@ -2,9 +2,19 @@
 	import { onMount } from 'svelte';
 	import Breakline from './util/breakline.svelte';
 
-	let type: string = 'semua';
-	let by: string = 'trending';
-	let per: string = 'harian';
+    let currentType = 'komik';
+    let currentBy = 'trending';
+    let currentPer = 'harian';
+    const typeChoices = ['semua', 'komik', 'novel', 'visual novel'];
+    const perChoices = ['semua', 'harian', 'bulanan', 'tahunan'];
+
+    // function handleChange(value: string) {
+    //     console.log('You picked:', value);
+    // }
+
+	let type: string = currentType;
+	let by: string = currentBy;
+	let per: string = currentPer;
 
 	let translateType = '';
 	let translateBy = '';
@@ -16,8 +26,8 @@
 	function getTranslate(factor: number): string {
 		if (!isBrowser) return '';
 		return window.innerWidth > 500
-			? `translateX(calc((100% + 8px) * ${factor}))`
-			: `translateX(calc((100% + 1.6vw) * ${factor}))`;
+			? `translateX(  calc( (100% * ${factor}) + 8px * ${factor} )  )`
+			: `translateX(  calc( (100% * ${factor}) + 8px * ${factor} )  )`;
 	}
 
 	function updateAllTranslate() {
@@ -35,7 +45,7 @@
 
 		// Session restore
 		const storedType = sessionStorage.getItem('leaderboardSwitchType');
-		if (storedType && ['komik', 'novel', 'semua'].includes(storedType)) {
+		if (storedType && ['semua', 'komik', 'novel', 'visual novel'].includes(storedType)) {
 			type = storedType;
 		} else {
 			sessionStorage.setItem('leaderboardSwitchType', type);
@@ -49,7 +59,7 @@
 		}
 
 		const storedPer = sessionStorage.getItem('leaderboardSwitchPer');
-		if (storedPer && ['harian', 'bulanan', 'tahunan', 'semua'].includes(storedPer)) {
+		if (storedPer && ['semua', 'harian', 'bulanan', 'tahunan'].includes(storedPer)) {
 			per = storedPer;
 		} else {
 			sessionStorage.setItem('leaderboardSwitchPer', per);
@@ -62,6 +72,7 @@
 
 	// 💡 Update & tick for DOM sync
 	import { tick } from 'svelte';
+    import DropSelect from './DropSelect.svelte';
 
 	async function changeContentType(to: string) {
 		type = to;
@@ -88,14 +99,14 @@
 
 
 
-<div class="w-full text-[3.2vw] min-[500px]:text-[18px] md:text-[16px]">
-    <div class="grid grid-cols-3 w-full relative
-    h-[9.6vw] min-[500px]:h-[64px] md:h-[44px]
-    text-[3.2vw] min-[500px]:text-[18px] md:text-[16px]">
+<div class="w-full text-[3.2vw] min-xs:text-[18px] md:text-[16px] space-y-[1.6vw] xs:space-y-2">
+    <!-- <div class="grid grid-cols-3 w-full relative
+    h-[9.6vw] min-xs:h-[64px] md:h-[44px]
+    text-[3.2vw] min-xs:text-[18px] md:text-[16px]">
         <div class="h-full w-1/3 absolute inset-0 z-0
-        p-[0.8vw] min-[500px]:p-[4px]">
+        p-[0.8vw] min-xs:p-[4px]">
           <div
-            class="bg-mainred rounded-[2vw] min-[500px]:rounded-[10px] h-full transition-all"
+            class="bg-mainred rounded-[1.2vw] min-xs:rounded-md h-full transition-all"
             style:transform={translateType}
           ></div>
         </div>
@@ -114,42 +125,16 @@
         on:click={() => changeContentType('novel')}>
             Novel
         </button>
-    </div>
-    <Breakline />
-    <div class="grid grid-cols-3 w-full relative
-    h-[9.6vw] min-[500px]:h-[64px] md:h-[44px]
-    text-[3.2vw] min-[500px]:text-[18px] md:text-[16px]">
-        <div class="h-full w-1/3 absolute inset-0 z-0
-        p-[0.8vw] min-[500px]:p-[4px]">
-          <div
-            class="bg-mainred rounded-[2vw] min-[500px]:rounded-[10px] h-full transition-all"
-            style:transform={translateBy}
-          ></div>
-        </div>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${by === 'trending' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={by === 'trending'}
-        on:click={() => changeContentBy('trending')}>
-            Trending
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${by === 'sering' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={by === 'sering'}
-        on:click={() => changeContentBy('sering')}>
-            Sering
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${by === 'favorit' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={by === 'favorit'}
-        on:click={() => changeContentBy('favorit')}>
-            Favorit
-        </button>
-    </div>
-    <Breakline />
-    <div class="grid grid-cols-4 w-full relative
-    h-[9.6vw] min-[500px]:h-[64px] md:h-[44px]
-    text-[3.2vw] min-[500px]:text-[18px] md:text-[16px]">
+    </div> -->
+    <!-- <Breakline /> -->
+    <!-- <Breakline /> -->
+    <!-- <div class="grid grid-cols-4 w-full relative
+    h-[9.6vw] min-xs:h-[64px] md:h-[44px]
+    text-[3.2vw] min-xs:text-[18px] md:text-[16px]">
         <div class="h-full w-1/4 absolute inset-0 z-0
-        p-[0.8vw] min-[500px]:p-[4px]">
+        p-[0.8vw] min-xs:p-[4px]">
           <div
-            class="bg-mainred rounded-[2vw] min-[500px]:rounded-[10px] h-full transition-all"
+            class="bg-mainred rounded-[1.2vw] min-xs:rounded-md h-full transition-all"
             style:transform={translatePer}
           ></div>
         </div>
@@ -173,6 +158,44 @@
         on:click={() => changeContentPer('semua')}>
             Semua
         </button>
+    </div> -->
+    <!-- <Breakline /> -->
+
+    <div class="grid grid-cols-2 gap-[1.6vw] xs:gap-[8px]">
+        <DropSelect
+            options={typeChoices}
+            selected={currentType}
+            onChange={(value) => changeContentType(value)}
+        />
+        <DropSelect
+            options={perChoices}
+            selected={currentPer}
+            onChange={(value) => changeContentPer(value)}
+        />
     </div>
-    <Breakline />
+    <div class="grid grid-cols-3 w-full relative
+    h-[9.6vw] min-xs:h-[64px] md:h-[38px]
+    text-[3.2vw] min-xs:text-[18px] md:text-[14px] gap-[1.6vw] xs:gap-2">
+        <!-- <div class="h-full w-[calc((1/3*100%)-5.2px)] absolute inset-0 z-0">
+          <div
+            class="bg-zinc-900/30 rounded-md h-full transition-all"
+            style:transform={translateBy}
+          ></div>
+        </div> -->
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'trending' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+        disabled={by === 'trending'}
+        on:click={() => changeContentBy('trending')}>
+            Trending
+        </button>
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'sering' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+        disabled={by === 'sering'}
+        on:click={() => changeContentBy('sering')}>
+            Sering
+        </button>
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'favorit' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+        disabled={by === 'favorit'}
+        on:click={() => changeContentBy('favorit')}>
+            Favorit
+        </button>
+    </div>
 </div>

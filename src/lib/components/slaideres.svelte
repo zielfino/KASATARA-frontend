@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
     
   import { onMount, tick } from 'svelte';
   import Icon from '@iconify/svelte';
@@ -16,13 +16,12 @@
 
     return () => resizeObserver.disconnect();
   });
-    // export let bacaan;
 
 
+  export let totalGroup = 4;
   let sliderContainer: HTMLDivElement;
   let slideWidth = 0;
-$: currentGroup = $phone ? 0 : 1;
-  let totalGroup = 4;
+  $: currentGroup = $phone ? 0 : 1;
   let isDragging = false;
   let startX = 0;
   let scrollStart = 0;
@@ -92,7 +91,7 @@ function scrollToIndex(index: number, smooth: boolean = true) {
 
     scrollToIndex(currentGroup, true);
 
-    if (currentGroup === 5) {
+    if (currentGroup === totalGroup+1) {
       isTransitioning = true;
       setTimeout(() => {
         scrollToIndex(1, false); // ke grup 1 asli
@@ -111,8 +110,8 @@ function scrollToIndex(index: number, smooth: boolean = true) {
     if (currentGroup === 0) {
       isTransitioning = true;
       setTimeout(() => {
-        scrollToIndex(4, false); // ke grup 4 asli
-        currentGroup = 4;
+        scrollToIndex(totalGroup, false); // ke grup totalGroup asli
+        currentGroup = totalGroup;
         isTransitioning = false;
       }, 700);
     }
@@ -147,17 +146,17 @@ function scrollToIndex(index: number, smooth: boolean = true) {
     if (index === 0) {
       isTransitioning = true;
       setTimeout(() => {
-        scrollToIndex(4, false);
-        currentGroup = 4;
+        scrollToIndex(totalGroup, false);
+        currentGroup = totalGroup;
         isTransitioning = false;
-      }, 1000);
+      }, 700);
     } else if (index === 5) {
       isTransitioning = true;
       setTimeout(() => {
         scrollToIndex(1, false);
         currentGroup = 1;
         isTransitioning = false;
-      }, 1000);
+      }, 700);
     }
   }
     const phone = writable(false);
@@ -207,6 +206,7 @@ function scrollToIndex(index: number, smooth: boolean = true) {
     // ];
 
 
+    // export let slide = 4;
     export let jenis;
     import { update } from '$lib/updatedummy';
     // const komikCard = update.find(c => c.type === 'KOMIK');
@@ -241,8 +241,8 @@ function handleScroll() {
     if (index === 0) {
       isTransitioning = true;
       setTimeout(() => {
-        scrollToIndex(4, false);
-        currentGroup = 4;
+        scrollToIndex(totalGroup, false);
+        currentGroup = totalGroup;
         isTransitioning = false;
       }, 400);
     } else if (index === 5) {
@@ -285,16 +285,186 @@ function handleScroll() {
 //   }, 50);
 // }
 
+</script> -->
+
+<script lang="ts">
+    import { onMount, tick } from 'svelte';
+    import { writable } from 'svelte/store';
+    import Icon from '@iconify/svelte';
+    import Card from './util/card.svelte';
+    import { update } from '$lib/updatedummy';
+
+    // Props
+    export let totalGroup: number = 4;
+    export let jenis;
+
+    // Refs
+    let sliderContainer: HTMLDivElement;
+
+    // Stores for layout breakpoints
+    const phone = writable(false);
+    const desktop = writable(false);
+    const desktopex = writable(false);
+    const desktoplarge = writable(false);
+
+    // Reactive and local state
+    let widthKontainer = 0;
+    let slideWidth = 0;
+    // let currentGroup = 1;
+    $: currentGroup = $phone ? 0 : 1;
+    let displayGroup = 1;
+    let isDragging = false;
+    let isTransitioning = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
+    $: filterCards = update.filter(c => c.type === jenis);
+
+    // Initialize responsive stores
+    onMount(() => {
+        const updateSizes = () => {
+            const w = window.innerWidth;
+            phone.set(w <= 500);
+            desktop.set(w >= 900);
+            desktopex.set(w >= 1300);
+            desktoplarge.set(w >= 1100);
+        };
+
+        updateSizes();
+        window.addEventListener('resize', updateSizes);
+        return () => window.removeEventListener('resize', updateSizes);
+    });
+
+    // Setup container resize observer and initial measurements
+    onMount(() => {
+        (async () => {
+            await tick();
+            const updateMeasurements = () => {
+                const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
+                if (firstSlide) {
+                    slideWidth = firstSlide.offsetWidth + 8; // include gap
+                    scrollToIndex(currentGroup, true);
+                }
+            };
+
+            updateMeasurements();
+            scrollToIndex(1, false);
+
+            const observer = new ResizeObserver(updateMeasurements);
+            observer.observe(sliderContainer);
+            return () => observer.disconnect();
+        })();
+
+        const resizeObserver = new ResizeObserver(() => {
+            widthKontainer = sliderContainer.offsetWidth;
+        });
+        resizeObserver.observe(sliderContainer);
+        widthKontainer = sliderContainer.offsetWidth;
+        return () => resizeObserver.disconnect();
+    });
+
+    // Scroll utilities
+    function scrollToIndex(index: number, smooth: boolean = true) {
+        sliderContainer.style.scrollBehavior = smooth ? 'smooth' : 'auto';
+        sliderContainer.scrollTo({ left: index * slideWidth });
+        if (index >= 1 && index <= totalGroup) {
+            displayGroup = index;
+        }
+    }
+
+    function nextSlide() {
+        if (isTransitioning || window.innerWidth <= 500) return;
+        currentGroup++;
+        scrollToIndex(currentGroup, true);
+        if (currentGroup === totalGroup + 1) {
+            isTransitioning = true;
+            setTimeout(() => {
+                scrollToIndex(1, false);
+                currentGroup = 1;
+                isTransitioning = false;
+            }, 700);
+        }
+    }
+
+    function prevSlide() {
+        if (isTransitioning || window.innerWidth <= 500) return;
+        currentGroup--;
+        scrollToIndex(currentGroup, true);
+        if (currentGroup === 0) {
+            isTransitioning = true;
+            setTimeout(() => {
+                scrollToIndex(totalGroup, false);
+                currentGroup = totalGroup;
+                isTransitioning = false;
+            }, 700);
+        }
+    }
+
+    // Pointer & scroll handlers
+    function handlePointerDown(e: PointerEvent) {
+        if (isTransitioning || window.innerWidth <= 500) return;
+        isDragging = true;
+        startX = e.clientX;
+        scrollStart = sliderContainer.scrollLeft;
+        sliderContainer.setPointerCapture(e.pointerId);
+        sliderContainer.style.scrollBehavior = 'auto';
+    }
+
+    function handlePointerMove(e: PointerEvent) {
+        if (!isDragging || isTransitioning || window.innerWidth <= 500) return;
+        const dx = e.clientX - startX;
+        sliderContainer.scrollLeft = scrollStart - dx;
+    }
+
+    function handlePointerUp() {
+        if (isTransitioning || window.innerWidth <= 500) return;
+        isDragging = false;
+        sliderContainer.style.scrollBehavior = 'smooth';
+        const index = Math.round(sliderContainer.scrollLeft / slideWidth);
+        currentGroup = index;
+        scrollToIndex(currentGroup, true);
+        if (index === 0) {
+            resetTo(totalGroup);
+        } else if (index === totalGroup + 1) {
+            resetTo(1);
+        }
+    }
+
+    function handleScroll() {
+        if (isTransitioning || isDragging || window.innerWidth <= 500) return;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const index = Math.round(sliderContainer.scrollLeft / slideWidth);
+            currentGroup = index;
+            scrollToIndex(currentGroup, true);
+            if (index === 0) resetTo(totalGroup, 400);
+            else if (index === totalGroup + 1) resetTo(1, 400);
+        }, 100);
+    }
+
+    function resetTo(group: number, delay = 700) {
+        isTransitioning = true;
+        setTimeout(() => {
+            scrollToIndex(group, false);
+            currentGroup = group;
+            isTransitioning = false;
+        }, delay);
+    }
 </script>
 
 
+
 <section class="w-full flex justify-center py-2 max-xs:py-[1.6vw] portrait:py-0">
-    <div class="w-full max-w-[calc(675px-16px)] xs:portrait:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative max-xs:px-[2vw]">
+    <div class="w-full max-w-[calc(675px-16px)] xs:portrait:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative max-xs:px-[1.6vw] max-xs:overflow-hidden">
 
         <!-- Slider -->
-        <div class="w-full relative max-xs:min-h-[148vw] min-h-[calc((1100px/5)*2-8px)] xs:portrait:min-h-[calc((1550px/5)*2+9px)] md:min-h-[calc((930px/5)*2+9px)] lg:min-h-[calc((913px/5)*2+9px)] xl:min-h-[calc((1070px/5)*2+8px)]">
+        <div class={`w-full relative
+            ${jenis === 'VISUAL NOVEL' ? 
+            'max-xs:min-h-[98.4vw] min-h-[calc((1100px/5)*2)] xs:portrait:min-h-[calc(100vw-180px)] min-[600px]:portrait:min-h-[calc(95vw-180px)] sm:portrait:min-h-[calc((1550px/5)*2-180px)] md:min-h-[calc((930px/5)*2+9px)] lg:min-h-[calc((913px/5)*2+9px)] xl:min-h-[calc((1070px/5)*2+8px)]' : 
+            'max-xs:min-h-[145.65vw] min-h-[calc((1100px/5)*2)] xs:portrait:min-h-[calc(100vw)] min-[600px]:portrait:min-h-[calc(95vw)] sm:portrait:min-h-[calc((1550px/5)*2)] md:min-h-[calc((930px/5)*2+9px)] lg:min-h-[calc((913px/5)*2+9px)] xl:min-h-[calc((1070px/5)*2+8px)]'}
+        `}>
             <div
-                class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden xs:rounded-md"
+                class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-md max-xs:rounded-[1.2vw]"
                 bind:this={sliderContainer}
                 on:pointerdown={handlePointerDown}
                 on:pointermove={handlePointerMove}
@@ -302,64 +472,111 @@ function handleScroll() {
                 on:scroll={handleScroll}
             >
 
-                <!-- Slide Group 4 -->
-                {#if !$phone}
+                <!-- PREV -->
+            {#if !$phone}
+                {#if totalGroup === 2}
+                    <!-- Slide Group 2 -->
+                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5, $desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11) as card}
+                            <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
+                        {/each}
+                    </div>
+                {/if}
+                {#if totalGroup === 3}
+                    <!-- Slide Group 3 -->
+                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11, $desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17) as card}
+                            <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
+                        {/each}
+                    </div>
+                {/if}
+                {#if totalGroup === 4}
+                    <!-- Slide Group 4 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
                         {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17, $desktoplarge ? 39 : $desktop ? 31 : $phone ? 16 : 23) as card}
                             <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
                         {/each}
                     </div>
                 {/if}
-                
-                <!-- Slide Group 1 -->
-                <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                    <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short" }} />
-                    {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
-                        <Card item={{...card, size: '1x1', comments: "short"}} />
-                    {/each}
-                </div>
+            {/if}
 
-                <!-- Slide Group 2 -->
-                <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                    {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5, $desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11) as card}
-                        <Card item={{...card, size: '1x1', comments: "short"}} />
-                    {/each}
-                </div>
-
-                <!-- Slide Group 3 -->
-                <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                    {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11, $desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17) as card}
-                        <Card item={{...card, size: '1x1', comments: "short"}} />
-                    {/each}
-                </div>
-
-                <!-- Slide Group 4 -->
-                <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                    {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17, $desktoplarge ? 39 : $desktop ? 31 : $phone ? 16 : 23) as card}
-                        <Card item={{...card, size: '1x1', comments: "short"}} />
-                    {/each}
-                </div>
-
-                <!-- Slide Group 5 -->
-                {#if $phone}
-                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice(16, 20) as card}
+                    <!-- Slide Group 1 -->
+                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                        <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short" }} />
+                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
-                {/if}
-                
-                
-                <!-- Slide Group 1 -->
-                {#if !$phone}
+
+                    <!-- Slide Group 2 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short", disable: true }} />
-                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
-                            <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5, $desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11) as card}
+                            <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
-                {/if}
+
+                    {#if totalGroup >= 3}
+                    <!-- Slide Group 3 -->
+                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 19 : $desktop ? 15 : $phone ? 8 : 11, $desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17) as card}
+                            <Card item={{...card, size: '1x1', comments: "short"}} />
+                        {/each}
+                    </div>
+                    {/if}
+                    {#if totalGroup >= 4}
+                    <!-- Slide Group 4 -->
+                    <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 29 : $desktop ? 23 : $phone ? 12 : 17, $desktoplarge ? 39 : $desktop ? 31 : $phone ? 16 : 23) as card}
+                            <Card item={{...card, size: '1x1', comments: "short"}} />
+                        {/each}
+                    </div>
+                    {/if}
+
+                    <!-- Slide Group 5 -->
+                    {#if $phone && filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 16 : totalGroup >= 3 ? 12 :8, totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : 12).length}
+                        <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] mr-0 lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                            {#each filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 16 : totalGroup >= 3 ? 12 :8, totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : 12) as card}
+                                <Card item={{...card, size: '1x1', comments: "short"}} />
+                            {/each}
+                        </div>
+                    {/if}
+
+                    <!-- {#if totalGroup >= 4}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 16 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? ( totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : totalGroup >= 2 ? 12 : 29 ) : 29).length}
+                            <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 16 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 20 : 29) as card}
+                                    <Card item={{...card, size: '1x1', comments: "short"}} />
+                                {/each}
+                            </div>
+                        {/if}
+                    {:else if totalGroup >= 3}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 12 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 16 : 29).length}
+                            <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 12 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 16 : 29) as card}
+                                    <Card item={{...card, size: '1x1', comments: "short"}} />
+                                {/each}
+                            </div>
+                        {/if}
+                    {:else if totalGroup >= 2}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 12 : 29).length}
+                            <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 12 : 29) as card}
+                                    <Card item={{...card, size: '1x1', comments: "short"}} />
+                                {/each}
+                            </div>
+                        {/if}
+                    {/if} -->
                 
+            <!-- NEXT -->
+            {#if !$phone}
+                <!-- Slide Group 1 -->
+                <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
+                    <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short", disable: true }} />
+                    {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
+                        <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
+                    {/each}
+                </div>
+            {/if}
             </div>
         </div>
 
@@ -398,6 +615,8 @@ function handleScroll() {
 
 
         <!-- Dots -->
+        <!-- <p>Total Group: {totalGroup}</p>
+<p>+1 = {totalGroup + 1}</p> -->
         {#if $desktoplarge}
             <div class="space-y-2 absolute top-4 -right-5 lg:-right-7 xl:-right-11 z-10
             flex flex-col justify-center items-center max-xs:hidden">

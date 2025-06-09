@@ -181,7 +181,7 @@
 	}
 </style>
 
-<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] min-[500px]:pl-1.5 mt-3 md:mt-6">
+<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] xs:pl-1.5 mt-3 md:mt-6">
 	<div 
 		role="button" 
 		tabindex="-1"
@@ -197,13 +197,13 @@
 		aria-label="Kategori Filter"
 		class="
 		text-sm font-work-sans font-[400] tracking-tight space-x-2
-		min-[500px]:w-[calc(100%+16px)] min-[500px]:-translate-x-[16px]
+		xs:w-[calc(100%+16px)] xs:-translate-x-[16px]
 		flex overflow-x-scroll overflow-scroll-hidden
-		min-[500px]:mask-x-from-98% min-[500px]:mask-x-to-100%
+		xs:mask-x-from-98% xs:mask-x-to-100%
 		cursor-grab active:cursor-grabbing
 	">
 		<!-- LEFT FILLER -->
-		<div class="min-w-[16px] opacity-0 mr-0 max-xs:min-w-[8px]">•</div>
+		<div class="min-w-[16px] opacity-0 mr-0 max-xs:min-w-[1.6vw]">•</div>
 
 		<!-- LOOP FILTER -->
 		{#each filter as tag, i}
@@ -218,11 +218,11 @@
 			disabled="{tag.label === heroFilter}"
 			class={`  
 				flex justify-center items-center
-				max-[500px]:py-[0.8vw] py-1 
+				max-xs:py-[0.8vw] py-1 
 				text-nowrap rounded-full
 				border border-zinc-900/15
 				focus:outline-none 
-				max-[500px]:text-[2.8vw]
+				max-xs:text-[2.8vw]
 				${tag.label === heroFilter ? 
 				'text-mainlight bg-zinc-900' : 
 				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus:bg-zinc-900/6 active:bg-zinc-900/9 cursor-pointer'}
@@ -230,7 +230,7 @@
 				<!-- ICON -->
 				{#if tag.icon}
 					<Icon icon={tag.icon} class={`
-						max-[500px]:ml-[1.6vw] max-[500px]:mr-[0.8vw] ml-2 mr-1
+						max-xs:ml-[1.6vw] max-xs:mr-[0.8vw] ml-2 mr-1
 						${tag.label === heroFilter ? 
 						tag.color : 
 						''}
@@ -238,7 +238,7 @@
 				{/if}
 				<!-- LABEL -->
 				<span 
-					class={`${tag.icon ? 'max-[500px]:mr-[3.2vw] mr-4' : 'max-[500px]:mx-[3.2vw] mx-4'}`}
+					class={`${tag.icon ? 'max-xs:mr-[3.2vw] mr-4' : 'max-xs:mx-[3.2vw] mx-4'}`}
 				>
 					{tag.label}
 				</span>
