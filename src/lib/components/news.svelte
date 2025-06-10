@@ -14,7 +14,7 @@
     ${type === 'news' ? '' 
     : 'px-[1.6vw] xs:px-2'}
     `}>
-        <a href="/news" class={`w-full flex flex-col items-center justify-center relative overflow-hidden ring-sky-400 outline-none xs:focus:ring-2
+        <a href="/news" class={`w-full flex flex-col items-center justify-center relative overflow-hidden ring-sky-400 outline-none focus-visible:ring-1
             font-semibold group
             md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px]
             px-[3.2vw] py-[4.8vw] xs:px-[16px] xs:py-[14px]

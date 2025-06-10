@@ -221,11 +221,11 @@
 				max-xs:py-[0.8vw] py-1 
 				text-nowrap rounded-full
 				border border-zinc-900/15
-				focus:outline-none 
+				outline-none 
 				max-xs:text-[2.8vw]
 				${tag.label === heroFilter ? 
 				'text-mainlight bg-zinc-900' : 
-				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus:bg-zinc-900/6 active:bg-zinc-900/9 cursor-pointer'}
+				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
 			`}>
 				<!-- ICON -->
 				{#if tag.icon}

@@ -8,6 +8,12 @@
     const typeChoices = ['semua', 'komik', 'novel', 'visual novel'];
     const perChoices = ['semua', 'harian', 'bulanan', 'tahunan'];
 
+    let storedType = 'semua';
+    let storedPer = 'semua';
+    onMount(() => {
+        storedType = sessionStorage.getItem('leaderboardSwitchType') ?? 'semua';
+        storedPer = sessionStorage.getItem('leaderboardSwitchPer') ?? 'semua';
+    });
     // function handleChange(value: string) {
     //     console.log('You picked:', value);
     // }
@@ -99,100 +105,33 @@
 
 
 
-<div class="w-full text-[3.2vw] min-xs:text-[18px] md:text-[16px] space-y-[1.6vw] xs:space-y-2">
-    <!-- <div class="grid grid-cols-3 w-full relative
-    h-[9.6vw] min-xs:h-[64px] md:h-[44px]
-    text-[3.2vw] min-xs:text-[18px] md:text-[16px]">
-        <div class="h-full w-1/3 absolute inset-0 z-0
-        p-[0.8vw] min-xs:p-[4px]">
-          <div
-            class="bg-mainred rounded-[1.2vw] min-xs:rounded-md h-full transition-all"
-            style:transform={translateType}
-          ></div>
-        </div>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${type === 'semua' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={type === 'semua'}
-        on:click={() => changeContentType('semua')}>
-            Semua
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${type === 'komik' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={type === 'komik'}
-        on:click={() => changeContentType('komik')}>
-            Komik
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${type === 'novel' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={type === 'novel'}
-        on:click={() => changeContentType('novel')}>
-            Novel
-        </button>
-    </div> -->
-    <!-- <Breakline /> -->
-    <!-- <Breakline /> -->
-    <!-- <div class="grid grid-cols-4 w-full relative
-    h-[9.6vw] min-xs:h-[64px] md:h-[44px]
-    text-[3.2vw] min-xs:text-[18px] md:text-[16px]">
-        <div class="h-full w-1/4 absolute inset-0 z-0
-        p-[0.8vw] min-xs:p-[4px]">
-          <div
-            class="bg-mainred rounded-[1.2vw] min-xs:rounded-md h-full transition-all"
-            style:transform={translatePer}
-          ></div>
-        </div>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${per === 'harian' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={per === 'harian'}
-        on:click={() => changeContentPer('harian')}>
-            Harian
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${per === 'bulanan' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={per === 'bulanan'}
-        on:click={() => changeContentPer('bulanan')}>
-            Bulanan
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${per === 'tahunan' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={per === 'tahunan'}
-        on:click={() => changeContentPer('tahunan')}>
-            Tahunan
-        </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all ${per === 'semua' ? 'text-mainlight pointer-events-none' : 'cursor-pointer'}`}
-        disabled={per === 'semua'}
-        on:click={() => changeContentPer('semua')}>
-            Semua
-        </button>
-    </div> -->
-    <!-- <Breakline /> -->
-
+<div class="w-full text-[3.2vw] min-xs:text-[14px] md:text-[16px] space-y-[1.6vw] xs:space-y-2">
     <div class="grid grid-cols-2 gap-[1.6vw] xs:gap-[8px]">
         <DropSelect
             options={typeChoices}
-            selected={currentType}
+            selected={storedType}
             onChange={(value) => changeContentType(value)}
         />
         <DropSelect
             options={perChoices}
-            selected={currentPer}
+            selected={storedPer}
             onChange={(value) => changeContentPer(value)}
         />
     </div>
     <div class="grid grid-cols-3 w-full relative
-    h-[9.6vw] min-xs:h-[64px] md:h-[38px]
-    text-[3.2vw] min-xs:text-[18px] md:text-[14px] gap-[1.6vw] xs:gap-2">
-        <!-- <div class="h-full w-[calc((1/3*100%)-5.2px)] absolute inset-0 z-0">
-          <div
-            class="bg-zinc-900/30 rounded-md h-full transition-all"
-            style:transform={translateBy}
-          ></div>
-        </div> -->
-        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'trending' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+    h-[9.6vw] xs:h-[38px]
+    text-[3.2vw] min-xs:text-[14px] md:text-[14px] gap-[1.6vw] xs:gap-2">
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'trending' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer focus-visible:bg-sky-400/10 focus-visible:ring-sky-400/50 focus-visible:ring-1 xs:hover:bg-zinc-900/5'}`}
         disabled={by === 'trending'}
         on:click={() => changeContentBy('trending')}>
             Trending
         </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'sering' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'sering' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer focus-visible:bg-sky-400/10 focus-visible:ring-sky-400/50 focus-visible:ring-1 xs:hover:bg-zinc-900/5'}`}
         disabled={by === 'sering'}
         on:click={() => changeContentBy('sering')}>
             Sering
         </button>
-        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'favorit' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer xs:focus:bg-zinc-900/15 xs:hover:bg-zinc-900/5'}`}
+        <button class={`h-full flex justify-center items-center z-10 transition-all outline-none rounded-md ${by === 'favorit' ? 'bg-zinc-900/10 pointer-events-none' : 'cursor-pointer focus-visible:bg-sky-400/10 focus-visible:ring-sky-400/50 focus-visible:ring-1 xs:hover:bg-zinc-900/5'}`}
         disabled={by === 'favorit'}
         on:click={() => changeContentBy('favorit')}>
             Favorit

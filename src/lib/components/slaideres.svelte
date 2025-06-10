@@ -584,7 +584,7 @@ function handleScroll() {
         {#if !$phone}
             <div class="absolute xs:portrait:hidden h-full flex items-center -left-[6%] lg:-left-[4%] xl:-left-[5%] max-xs:hidden">
                 <button tabindex="-1" class="cursor-pointer" on:click={prevSlide}>
-                    <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl text-stone-400" />
+                    <Icon icon="material-symbols:arrow-back-ios-new-rounded" class="text-3xl text-stone-400" />
                 </button>
             </div>
             <div class="absolute xs:portrait:hidden h-full flex items-center -right-[6%] lg:-right-[4%] xl:-right-[5%] max-xs:hidden">

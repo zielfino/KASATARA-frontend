@@ -54,7 +54,7 @@
         : 'col-span-2 row-span-2'
     }
     ${
-        item.type === "VISUAL NOVEL" ? 'portrait:xs:focus:ring-2 portrait:xs:focus:ring-sky-400 rounded-lg' : ''
+        item.type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
     }
     `}
     style="direction:ltr"
@@ -174,7 +174,7 @@
 
         <!-- H O V E R E D -->
         {#if !$phone }
-            <div class={`absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer
+            <div class={`absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer
             ${item.genre[0] === 'Fantasy' ? 'bg-purple-600' : 
             item.genre[0] === 'Action' ? 'bg-indigo-600' : 
             item.genre[0] === 'Comedy' ? 'bg-amber-600' : 
@@ -376,7 +376,7 @@
         
     </div>
     {#if !$phone && item.type !== 'VISUAL NOVEL'}
-        <div class={`z-20 portrait:hidden absolute w-[calc(100%-2px)] translate-x-[1px] bottom-0 opacity-0 group-focus:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
+        <div class={`z-20 portrait:hidden absolute w-[calc(100%-2px)] translate-x-[1px] bottom-0 opacity-0 group-focus-visible:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus-visible:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
         px-2 pb-1 space-x-1
         ${item.size === '2x2' ? 'text-[13px]' : 'text-[12px]'}
         ${item.genre[0] === 'Fantasy' ? 'bg-purple-600 text-purple-900' : 
@@ -394,7 +394,7 @@
                         role="button" 
                         aria-label="chapter"
                         tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                         item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                         item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -411,7 +411,7 @@
                         role="button" 
                         aria-label="chapter"
                         tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                         item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                         item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -427,7 +427,7 @@
                         role="button" 
                         aria-label="chapter"
                         tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                         item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                         item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -443,7 +443,7 @@
                         role="button" 
                         aria-label="chapter"
                         tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                         item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                         item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -464,7 +464,7 @@
                     role="button" 
                     aria-label="chapter"             
                     tabindex={item.disable === true ? -1 : 0}
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -480,7 +480,7 @@
                     role="button" 
                     aria-label="chapter"             
                     tabindex={item.disable === true ? -1 : 0}
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -496,7 +496,7 @@
                     role="button" 
                     aria-label="chapter"             
                     tabindex={item.disable === true ? -1 : 0}
-                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none xs:focus:ring-2 xs:focus:ring-sky-400     
+                    class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                     ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
                     item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
                     item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
@@ -521,7 +521,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>{item.disable}</div>
                             <div>1 hour ago</div>
                         </div>
@@ -529,7 +529,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 104</div>
                             <div>1 week ago</div>
                         </div>
@@ -537,7 +537,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 103</div>
                             <div>1 month ago</div>
                         </div>
@@ -550,7 +550,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
@@ -558,7 +558,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -568,7 +568,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 2</div>
                             <div>2 weeks ago</div>
                         </div>
@@ -576,7 +576,7 @@
                         role="button" 
                         aria-label="chapter"             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none xs:focus:ring-2 xs:focus:ring-sky-400">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>

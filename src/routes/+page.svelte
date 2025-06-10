@@ -5,11 +5,12 @@
     import Breakline from '$lib/components/util/breakline.svelte';
     import Choice from '$lib/components/util/choice.svelte';
     import New from '$lib/components/util/new.svelte';
-    import Top from '$lib/components/util/top.svelte';
+    // import Top from '$lib/components/util/top.svelte';
     import Up from '$lib/components/util/up.svelte';
     import Icon from '@iconify/svelte';
     import { onMount } from 'svelte';
     import { writable } from 'svelte/store';    
+    import { top  } from '$lib/topdummy';
     import { update  } from '$lib/updatedummy';
 
 
@@ -33,12 +34,12 @@
     ];
 
     const genreClass: Record<string, string> = {
-        fantasy: 'text-purple-500',
-        romance: 'text-pink-500',
-        comedy: 'text-amber-500',
+        Fantasy: 'text-purple-500',
+        Romance: 'text-pink-500',
+        Comedy: 'text-amber-500',
         'slice of life': 'text-sky-500',
-        drama: 'text-emerald-500',
-        horror: 'text-red-500'
+        Drama: 'text-emerald-500',
+        Horror: 'text-red-500'
     };
 
     function genreColor(genre: string): string {
@@ -110,6 +111,9 @@
     import TitleLink from '$lib/components/util/titleLink.svelte';
     import SliderContent from '$lib/sections/sliderContent.svelte';
     import News from '$lib/components/news.svelte';
+    // import LastPag from '$lib/components/pagination.svelte';
+    import Pagination from '$lib/components/pagination.svelte';
+    import OtherContent from '$lib/sections/otherContent.svelte';
     function formatLikes(n: number): string {
         if (n >= 1_000_000) {
         const v = n / 1_000_000;
@@ -189,15 +193,15 @@
         <div class="relative">
             <button on:click={(e) => { historyShow = !historyShow }} class="fixed z-[101] translate-x-[2px] md:block top-[calc(100%/3)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
             border-2 border-r-0 border-zinc-400 hidden
-            peer focus:outline-none focus:border-sky-500">
+            peer focus-visible:outline-none focus-visible:border-sky-500">
                 <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class={`text-xl mx-3 transition-transform ${historyShow ? 'rotate-180' : ''}`} /></div>
             </button>
             <div tabindex="-1"
             class={`
                 fixed z-[100] w-[320px] right-0 translate-y-32 translate-x-full
                 h-[75dvh] bg-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400
-                p-3 focus:outline-none overflow-y-scroll
-                peer-focus:outline-none peer-focus:border-sky-500
+                p-3 focus-visible:outline-none overflow-y-scroll
+                peer-focus-visible:outline-none peer-focus-visible:border-sky-500
                 ${historyShow
                 ? 'shadow-2xl shadow-zinc-900/50'
                 : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
@@ -209,7 +213,7 @@
             `}>
                 <div tabindex="-1" class={`
                 h-[75dvh] bg-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400 transition-shadow group-focus-within:border-sky-500
-                p-3 focus:outline-none overflow-y-scroll
+                p-3 focus-visible:outline-none overflow-y-scroll
                 ${historyShow ? 'shadow-2xl shadow-zinc-900/50' : 'group-focus-within:shadow-2xl group-focus-within:shadow-zinc-900/50 group-hover:shadow-2xl group-hover:shadow-zinc-900/50'}
                 `}> -->
                     <!-- <div class=" overflow-y-scroll w-full h-full mask-b-from-[90%] mask-b-to-100% mask-t-from-[90%] mask-t-to-100%"> -->
@@ -247,434 +251,10 @@
         <!-- SLIDER -->
          <SliderContent />
 
-        <section>
-            <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[0vw] max-xs:pb-[2.4vw] flex justify-center items-center max-xs:bg-gradient-to-b max-xs:from-zinc-200 max-xs:to-zinc-200/0">
-                <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
-                    <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
-                        <div>Semua Terbaru</div>
-                        <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
-                    </div>
-                </div>
-            </div>
-            <div class="flex flex-col justify-center items-center min-[900px] max-xs:bg-zinc-200 max-xs:rounded-b-xl max-xs:pb-[0.2vw]">
-                <div class="grid grid-cols-2 xs:grid-cols-3 w-full max-w-[675px] md:max-w-[770px]
-                max-xs:px-[1.6vw] xs:px-[8px] gap-[8px] my-2 xs:my-[8px]
-                md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
-                lg:grid-cols-5 xl:w-[1100px]">
+        <!-- OTHER -->
+         <OtherContent />
 
-                    {#each update.slice( 0, $phone ? 1 : $desktop ? 4 : 3) as item, i}
-                        <Card item="{{...item, size: i === 0 ? ($desktoplarge ? '2x1' : $phone ? '2x1' : '1x1') : '1x1'}}" />
-                    {/each}
-
-                </div>
-            </div>
-            <News title="TIPS" type="info" color="light" />
-            <section class="w-full flex justify-center py-2 mb-12">
-                <div class="w-full max-w-[675px] max-xs:px-[1.6vw] xs:px-[8px] md:px-0 md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-[8px]">
-                        <!-- Left -->
-                        <div class="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-2 h-fit gap-[8px] lg:grid-cols-3 relative lg:col-span-3">
-
-                            {#each update.slice($phone ? 1 : 4, $phone ? 11 : $desktoplarge ? 19 : $desktop ? 18 : 19) as item}
-                                <Card item="{{...item, size: '1x1'}}" />
-                            {/each}
-                            
-                        </div>
-
-                        <!-- Right -->
-                        <div class="flex flex-col items-center w-full md:w-[calc(770px/2-4px)] lg:w-[calc((946px/5*2)-5px)] xl:w-[calc((1100px/5*2)-5px)] lg:col-span-2">
-                            <div class="w-full p-2 bg-mainlight rounded-md border border-zinc-900/15 space-y-[1.6vw] xs:space-y-2">
-
-                                <!-- Tombol 'Papan Peringkat' -->
-                                <div class="p-2 pb-0">
-                                    <TitleLink title="Papan Peringkat" link="/" outer={false} />
-                                </div>
-
-                                <!-- Switch Peringkat -->
-                                <LeaderboardSwitch/>
-                                
-                            </div>
-
-
-                            <!-- Peringkat -->
-                            <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
-                                <!-- pertama -->
-                                {#if first}
-                                    <div class="w-full flex flex-col justify-center items-center">
-                                        <div class="flex justify-center items-center w-full xs:aspect-auto
-                                        px-[3.2vw] xs:px-[16px] 
-                                        pt-[0.8vw] xs:pt-[12px]
-                                        md:px-0 md:pt-[8px]">
-                                            <div class="w-full h-full">
-                                                <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
-                                            </div>
-                                        </div>
-                                        <div class="flex items-center justify-between xs:max-w-[600px]
-                                        space-x-[3.2vw] xs:space-x-[16px]
-                                        pl-[4.8vw] xs:pl-[24px] 
-                                        pr-[7.2vw] xs:pr-[36px] 
-                                        pt-[3.2vw] xs:pt-[16px] 
-                                        pb-[4.8vw] xs:pb-[24px]
-                                        md:px-0
-                                        w-full">
-                                            <div class="font-bold 
-                                            text-[4.8vw] xs:text-[32px]
-                                            mr-[4.8vw] xs:mr-[24px]">
-                                                #{first.id}
-                                            </div>
-                                            <div class="flex-1 leading-[1.4] 
-                                            text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
-                                                <div class={genreColor(first.genre)}>{first.genre}</div>
-                                                <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
-                                                <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
-                                            </div>
-                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                                {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                {/if}
-                                <!-- 2 - 7 -->
-                                <div class="max-w-[600px] w-full">
-                                    <Breakline />
-                                    {#each bacaan.slice(1, 7) as item, i (item.id)}
-                                        <div class="flex items-center justify-between 
-                                        space-x-[3.2vw] xs:space-x-[16px] 
-                                        pl-[4.8vw] xs:pl-[24px]
-                                        pr-[7.2vw] xs:pr-[36px]
-                                        py-[1vw] xs:py-[5px]
-                                        md:px-0">
-                                            <div class="font-bold 
-                                            text-[4.8vw] xs:text-[24px] md:text-[20px]
-                                            mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
-                                                #{item.id}
-                                            </div>
-                                            <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
-                                            h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
-                                                
-                                            </div>
-                                            <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
-                                                <div class={genreColor(item.genre)}>{item.genre}</div>
-                                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
-                                                <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
-                                            </div>
-                                            <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                                {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                            </div>
-                                        </div>
-                                        {#if i < 5}
-                                            <Breakline />
-                                        {/if}
-                                    {/each}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </section>
-
-        <!-- Berita Terbaru -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- 2x1 -->
-                <!-- <div class="col-span-2 md:h-[186.5px] lg:h-full w-full max-md:order-1 bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
-                    <div class="absolute top-0 right-0 w-16 z-10">
-                        <Top/>
-                    </div>
-                    <div class="bg-black absolute top-0 left-0 w-full h-full z-[1] opacity-60"
-                    style="
-                        mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
-                        -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 40%, transparent 60%, black 100%);
-                    "></div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
-                        <div class="absolute top-0 left-0 p-3">
-                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">The Greatest Estate Developer</h3>
-                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                            <h3 class="text-justify font-semibold text-[12px] line-clamp-5 xl:line-clamp-6 text-mainlight">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi enim quod illo expedita sit nobis nostrum rerum. Neque, facere qui. Soluta alias aliquam, odio, nostrum quae deserunt consequatur est nisi eligendi ad voluptas dicta eum fugiat voluptatum, rem ullam nesciunt libero quas consequuntur vero placeat! Amet eius non id inventore architecto dolores tempora nesciunt facilis? Modi, ducimus cupiditate unde ad deserunt saepe! Magni, nesciunt ducimus. At reprehenderit, sapiente veniam, consectetur optio cupiditate corporis animi aliquam voluptatum officiis nihil qui, nisi praesentium est sit cum inventore aperiam modi! Architecto, reiciendis aspernatur? Tempora quisquam, placeat fugit sunt accusamus similique aliquam quam? Doloribus.</h3>
-                        </div>
-                        <div class="absolute flex bottom-0 left-0 p-3">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] mr-2">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] mr-2">KOMIK</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-2"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
-                        </div>
-                        <div class="absolute bottom-3 right-3 bg-mainlight text-[16px] rounded-md px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
-                    </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/essXhcj.png');"></div>
-                    <div class="relative w-full h-full z-[2]">
-                        <div class="absolute top-0 left-0 w-3/4">
-                            <h3 class="text-left text-mainlight font-semibold line-clamp-3">The Greatest Estate Developer</h3>
-                            <h4 class="flex items-center text-[14px] text-emerald-400"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
-                        </div>
-                        <div class="absolute bottom-0 left-0">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- 1x1 -->
-                <!-- <div class="col-span-1 aspect-[1/1] bg-mainlight flex justify-center items-center relative p-3" style="direction:ltr">
-                    <New />
-                    <div class="absolute w-full h-full top-0 left-0 bg-purple-600 z-10 opacity-0 hover:opacity-100 transition-opacity">
-                        <div class="absolute top-0 left-0 p-3">
-                            <h3 class="text-left font-semibold line-clamp-1 text-mainlight">Return Of The Mount Hua Sect</h3>
-                            <div class="bg-mainlight h-[0.5px] m-0.5"></div>
-                            <h4 class="items-center text-[12px] text-mainlight text-justify line-clamp-5 xl:line-clamp-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta enimusta voluptatem laborum asta quamimpedit placeat! Aliasaqila aliquam, error repudiandae commodi iusto a quasi similique quam, delectus totam adipisci deleniti sequi quas. Labore dignissimos illo, ratione commodi consectetur atque. Deleniti maiores cumque quo vel, iusto temporibus dicta ad tenetur, dolores sint quidem aliquam consequatur, error voluptates commodi minima consequuntur ea pariatur minus esse ipsa atque laborum ducimus vero. Facere tenetur omnis, pariatur ratione ullam nostrum, quam, dolor incidunt cum quo corrupti qui doloremque amet expedita atque deserunt quae neque dolore distinctio quaerat modi nisi! Maxime nostrum consequuntur tempora culpa voluptas blanditiis quod incidunt perspiciatis expedita adipisci nihil, doloremque reprehenderit amet debitis eaque, quos itaque iure pariatur eius exercitationem veniam cupiditate cum! Dolores voluptatibus deleniti quis. Numquam reiciendis consectetur ea quaerat qui corporis odio maiores modi soluta dicta. Eius a praesentium ducimus tenetur hic nulla rem illum sunt magni, quo molestias.</h4>
-                        </div>
-                        <div class="absolute flex bottom-0 left-0 p-3">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center mr-2"><Icon icon="fa6-solid:copy" class="mr-1" /> 150</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full text-purple-600 font-[600] flex items-center"><Icon icon="fa6-solid:star" class="mr-1" /> 4.7/5</span>
-                        </div>
-                        <div class="absolute bottom-0 xl:bottom-3 right-0 xl:right-3 bg-mainlight text-[16px] rounded-ss-xl xl:rounded-md px-2.5 py-1 text-purple-600 z-20 cursor-pointer">BACA</div>
-                    </div>
-                    <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/kyLUJIS.png');"></div>
-                    <div class="relative w-full h-full">
-                        <div class="absolute top-0 left-0 w-3/4">
-                            <h3 class="text-left font-semibold line-clamp-3">Return Of The Mount Hua Sect</h3>
-                            <h4 class="flex items-center text-[14px] text-emerald-600"><Icon icon="fa6-solid:heart" class="mr-1" />1.3K</h4>
-                        </div>
-                        <div class="absolute bottom-0 left-0">
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">GENRE</span>
-                            <span class="text-[10px] bg-mainlight py-0.5 px-1.5 rounded-full border-purple-600 border-2 text-purple-600 font-[600]">KOMIK</span>
-                        </div>
-                    </div>
-                </div> -->
-
-
-
-
-
-
-
-
-
-
-        <!-- TERBARU -->
-        <!-- {#if $desktop}
-            <section class="w-full flex justify-center py-16">
-                <div class="w-full max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative">
-
-                    <div class="w-min text-nowrap">
-                        <Linker title="Terbaru Dari Kita" link="latest" />
-                    </div>
-
-                    <div class="w-full relative min-h-[calc(770px/5)] lg:min-h-[calc(946px/5)] xl:min-h-[calc(1100px/5)]">
-                        {#each Array(totalSlides) as _, i (i)}
-                            {#if i === currentSlide}
-                                <div transition:fade class="absolute top-0 left-0 w-full flex justify-center overflow-hidden">
-                                    {#if i === 0}
-                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-fuchsia-600 flex justify-center items-center">
-                                                Slide 2 - A
-                                            </div>
-                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-300 flex justify-center items-center">B</div>
-                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">C</div>
-                                            {#if $desktoplarge}
-                                                <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">D</div>
-                                            {/if}
-                                        </div>
-                                    {:else if i === 1}
-                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-fuchsia-600 flex justify-center items-center">
-                                                Slide 2 - A
-                                            </div>
-                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-300 flex justify-center items-center">B</div>
-                                            <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">C</div>
-                                            {#if $desktoplarge}
-                                                <div class="col-span-1 aspect-[1/1] bg-fuchsia-400 flex justify-center items-center">D</div>
-                                            {/if}
-                                        </div>
-                                    {:else if i === 2}
-                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-sky-600 flex justify-center items-center">
-                                                Slide 3 - A
-                                            </div>
-                                            <div class="col-span-1 aspect-[1/1] bg-sky-300 flex justify-center items-center">B</div>
-                                            <div class="col-span-1 aspect-[1/1] bg-sky-400 flex justify-center items-center">C</div>
-                                            {#if $desktoplarge}
-                                                <div class="col-span-1 aspect-[1/1] bg-sky-400 flex justify-center items-center">D</div>
-                                            {/if}
-                                        </div>
-                                    {:else if i === 3}
-                                        <div class="grid grid-cols-4 min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] lg:grid-cols-5" style="direction: rtl;">
-                                            <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-cyan-600 flex justify-center items-center">
-                                                Slide 4 - A
-                                            </div>
-                                            <div class="col-span-1 aspect-[1/1] bg-cyan-300 flex justify-center items-center">B</div>
-                                            <div class="col-span-1 aspect-[1/1] bg-cyan-400 flex justify-center items-center">C</div>
-                                            {#if $desktoplarge}
-                                                <div class="col-span-1 aspect-[1/1] bg-cyan-400 flex justify-center items-center">D</div>
-                                            {/if}
-                                        </div>
-                                    {/if}
-                                </div>
-                            {/if}
-                        {/each}
-                    </div>
-
-
-                    <div class="absolute h-full flex items-center -left-[5%]">
-                        <button class="cursor-pointer" on:click={prevSlide}>
-                            <Icon icon="material-symbols:arrow-back-ios-rounded" class="text-3xl text-stone-400" />
-                        </button>
-                    </div>
-                    <div class="absolute h-full flex items-center -right-[5%]">
-                        <button class="cursor-pointer" on:click={nextSlide}>
-                            <Icon icon="material-symbols:arrow-forward-ios-rounded" class="text-3xl text-stone-400" />
-                        </button>
-                    </div>
-
-
-                    <div class="flex justify-center items-center space-x-4 mt-4">
-                        {#each Array(totalSlides) as _, i (i)}
-                            <button
-                                aria-label={`Pindah ke slide ${i + 1}`}
-                                tabindex="0"
-                                on:click={() => goToSlide(i)}
-                                class={`h-3 aspect-square rounded-full cursor-pointer ${i === currentSlide ? 'bg-zinc-900' : 'bg-stone-400'}`}
-                            ></button>
-                        {/each}
-                    </div>
-
-                </div>
-            </section>
-        {/if} -->
-
-        <!-- Konten Tambahan -->
-        <!-- <section class="flex flex-col md:flex-row justify-center items-center md:items-start md:my-8">
-             <div class="w-full max-w-[770px] md:w-[calc(770px/2)] lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)]">
-                { #if $desktop }
-                    <Linker 
-                    title="Terakhir di Update"
-                    link="latest"
-                    />
-                {/if}
-                <div class="grid grid-cols-3 w-full
-                xs:my-[5vw] xs:px-[5vw] xs:gap-[8px] md:m-0
-                md:grid-cols-2 lg:w-[946px] lg:max-w-[100%] md:p-0
-                lg:grid-cols-3 xl:w-[1100px] md:pr-1" style="direction: rtl;">
-                    <div class="col-span-2 md:h-[186.5px] lg:h-full w-full bg-emerald-600 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-500 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                    <div class="col-span-2 md:h-[186.5px] lg:h-full md:order-1 lg:order-none w-full bg-emerald-200 flex justify-center items-center"></div>
-                    <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                    {#if !$desktop}
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                    {/if}
-                    {#if $desktoplarge}
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-400 flex justify-center items-center"></div>
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                        <div class="col-span-2 w-full bg-emerald-400 flex justify-center items-center"></div>
-                        <div class="col-span-1 aspect-[1/1] bg-emerald-300 flex justify-center items-center"></div>
-                    {/if}
-                </div>
-            </div>
-
-            <div class="flex flex-col justify-center items-center w-full md:w-[calc(770px/2)] lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)] md:pl-4">
-                <Linker 
-                    title="Papan Peringkat"
-                    link="leaderboard"
-                />
-
-                 <LeaderboardSwitch/>
-
-                <div class="max-w-[700px] w-full xs:flex xs:flex-col xs:justify-center xs:items-center">
-                    {#if first}
-                        <div class="w-full flex flex-col justify-center items-center">
-                            <div class="flex justify-center items-center w-full xs:aspect-auto
-                            px-[3.2vw] xs:px-[16px] 
-                            pt-[3.2vw] xs:pt-[48px]
-                            md:px-0 md:pt-[32px]">
-                                <div class="w-full h-full">
-                                    <img src="https://i.imgur.com/1zbe9Fp.png" alt="first place" class="w-full">
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between xs:max-w-[600px]
-                            space-x-[3.2vw] xs:space-x-[16px]
-                            pl-[4.8vw] xs:pl-[24px] 
-                            pr-[7.2vw] xs:pr-[36px] 
-                            pt-[3.2vw] xs:pt-[16px] 
-                            pb-[4.8vw] xs:pb-[24px]
-                            md:px-0
-                            w-full">
-                                <div class="font-bold 
-                                text-[4.8vw] xs:text-[32px]
-                                mr-[4.8vw] xs:mr-[24px]">
-                                    #{first.id}
-                                </div>
-                                <div class="flex-1 leading-[1.4] 
-                                text-[3.2vw] xs:text-[16px] md:text-[16px] capitalize">
-                                    <div class={genreColor(first.genre)}>{first.genre}</div>
-                                    <div class="text-[4.8vw] xs:text-[24px] md:text-[20px] font-bold">{first.title}</div>
-                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[16px]">{first.author}</div>
-                                </div>
-                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                    {first.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                </div>
-                            </div>
-                        </div>
-                    {/if}
-                    <div class="max-w-[600px] w-full">
-                        <Breakline />
-                        {#each bacaan.slice(1, 7) as item, i (item.id)}
-                            <div class="flex items-center justify-between 
-                            space-x-[3.2vw] xs:space-x-[16px] 
-                            pl-[4.8vw] xs:pl-[24px]
-                            pr-[7.2vw] xs:pr-[36px]
-                            py-[1vw] xs:py-[5px]
-                            md:px-0">
-                                <div class="font-bold 
-                                text-[4.8vw] xs:text-[24px] md:text-[20px]
-                                mr-[4.8vw] xs:mr-[24px] md:mr-[16px]">
-                                    #{item.id}
-                                </div>
-                                <div class="bg-emerald-400 rounded-[1vw] xs:rounded-[5px] 
-                                h-[16vw] xs:h-[80px] md:h-[73px] xl:h-[88px] aspect-square">
-                                    
-                                </div>
-                                <div class="flex-1 leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] capitalize">
-                                    <div class={genreColor(item.genre)}>{item.genre}</div>
-                                    <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[16px] font-bold">{item.title}</div>
-                                    <div class="text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[14px] text-stone-500">{item.author}</div>
-                                </div>
-                                <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
-                                    {item.chapter} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
-                                </div>
-                            </div>
-                            {#if i < 5}
-                                <Breakline />
-                            {/if}
-                        {/each}
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
-        <!-- <div class="max-md:hidden"><Breakline/></div> -->
+         
 </section>
 <style>
     .trapezoid {
