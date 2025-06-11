@@ -272,7 +272,7 @@
                     <button
                     aria-hidden={!showNav}
                     tabindex={showNav ? 0 : -1}
-                    class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                    class="bg-zinc-900 text-mainlight outline-sky-500 focus-visible:outline-3 max-lg:portrait:hidden
                     rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
                         Publish
                     </button>
@@ -284,7 +284,7 @@
                         on:click={toggleDropdown}
                         aria-hidden={!showNav}
                         tabindex={showNav ? 0 : -1}
-                        class=" outline-sky-500 focus:outline-3 max-lg:portrait:hidden cursor-pointer
+                        class=" outline-sky-500 focus-visible:outline-3 max-lg:portrait:hidden cursor-pointer
                         h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
                             <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
                         </button>
@@ -493,23 +493,23 @@
                             <!-- Navigasi -->
                             {#if $desktop}
                                 <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] hover:underline">jelajahi</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">jelajahi</a>
                                 </div>
                                 <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] hover:underline">Jadwal</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">Jadwal</a>
                                 </div>
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] hover:underline">komik</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">komik</a>
                                 </div> -->
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] hover:underline">novel</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">novel</a>
                                 </div> -->
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/">buku</a>
                                 </div> -->
                                 {#if $desktoplarge}
                                     <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                        <a href="/" class="focus:underline outline-none focus:decoration-sky-400 underline-offset-1 focus:decoration-[0.1em] hover:underline">kreator</a>
+                                        <a href="/" class="focus-visible:underline outline-none focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">kreator</a>
                                     </div>
                                 {/if}
                             {/if}
@@ -573,9 +573,9 @@
                                     class="absolute translate-y-1 right-0 mt-3 rounded-lg shadow-lg bg-mainlight border-2 border-zinc-900 z-50 dropdown-panel">
                                         <div class="">
                                             <ul class="space-y-1 text-sm text-gray-700 whitespace-nowrap overflow-hidden rounded-lg">
-                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Profil</button></li>
-                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Aktifitas Saya</button></li>
-                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus:underline focus:decoration-sky-400 decoration-2">Pengaturan</button></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus-visible:bg-sky-400/20">Profil</button></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus-visible:bg-sky-400/20">Aktifitas Saya</button></li>
+                                                <li><button class="hover:bg-zinc-300 cursor-pointer w-full py-1.5 pl-4 pr-5 outline-none focus-visible:bg-sky-400/20">Pengaturan</button></li>
                                             </ul>
                                         </div>
                                     </div>

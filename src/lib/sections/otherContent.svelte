@@ -81,7 +81,7 @@
                         
                     </div>
 
-                    <Pagination ison={true} />
+                    <Pagination ison={true} totalPages={5} initialPage={1} />
                 </div>
 
                 <!-- Right -->
@@ -100,7 +100,7 @@
 
                     <!-- Peringkat -->
                     {#if top}
-                        <button on:click={() => window.location.href = '/'} class="outline-none focus-visible:bg-sky-100 h-fit hover:bg-zinc-200/80
+                        <button on:click={() => window.location.href = '/'} class="outline-none h-fit hover:bg-zinc-200/80 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                             w-full cursor-pointer flex flex-col justify-center items-center bg-mainlight rounded-md p-2 border border-zinc-900/15">
                             <div class="flex justify-center items-center w-full xs:aspect-auto
                             py-[1.6vw] xs:px-[16px] 
@@ -140,7 +140,7 @@
                         <div class="w-full overflow-scroll-hidden space-y-2 max-xs:space-y-[1.6vw] overflow-y-scroll">
                             {#each update.slice(1, 15) as item, i}
                                 <button class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
-                                w-full focus-visible:bg-sky-100 hover:bg-zinc-200/80 cursor-pointer gap-[2.4vw] pr-[4.8vw] xs:pr-8 xs:gap-4
+                                w-full hover:bg-zinc-200/80 cursor-pointer gap-[2.4vw] pr-[4.8vw] xs:pr-8 xs:gap-4 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                                 h-[24vw] xs:h-[96px] md:h-[95px] lg:h-[95px] xl:h-[98.1px]
                                 ${i === 0 ? 'border-t-0' : i === 13 ? 'border-b-0' : ''}
                                 `}>
@@ -162,7 +162,7 @@
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination totalPages={5} initialPage={1} />
 
 
                 </div>

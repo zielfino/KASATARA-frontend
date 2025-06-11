@@ -39,9 +39,9 @@
 </script>
 
 <button
-    role={item.type === 'VISUAL NOVEL' ? 'button' : undefined} 
+    role={'button'} 
     aria-label="card"
-    tabindex={item.type === 'VISUAL NOVEL' ? item.disable === true ? -1 : 0 : -1}
+    tabindex={item.disable === true ? -1 : 0}
     class={`group relative
     flex flex-col outline-none
     ${
@@ -153,8 +153,8 @@
             {#if item.size == '2x2' || item.size == '2x1' }
                 <div class="absolute top-0 left-0 w-full h-full z-[1] bg-stone-900/80"
                     style="
-                    mask-image: linear-gradient(to bottom, rgba(0, 0, 20, 0.8) 10%, transparent 60%, transparent 80%, rgba(0, 0, 20, 0.8) 100%);
-                    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 20, 0.8) 10%, transparent 60%, transparent 80%, rgba(0, 0, 20, 0.8) 100%);
+                    mask-image: linear-gradient(170deg, rgba(0, 0, 20, 0.8) 20%, transparent 80%, transparent 100%, rgba(0, 0, 20, 0.8) 100%);
+                    -webkit-mask-image: linear-gradient(170deg, rgba(0, 0, 20, 0.8) 20%, transparent 80%, transparent 100%, rgba(0, 0, 20, 0.8) 100%);
                     ">
                 </div>
             {/if}
@@ -325,7 +325,7 @@
                 </h3>
 
                 <!-- LIKES -->
-                <h4 class={`flex items-center text-[14px] max-xs:text-[2.8vw] ${item.size === '1x1' ? 'text-emerald-600/75  max-xs:text-emerald-400/85' : 'text-emerald-400/85'}`}>
+                <h4 class={`flex items-center text-[14px] max-xs:text-[2.8vw] ${item.size === '1x1' ? 'text-emerald-600/75  max-xs:text-emerald-400/85' : 'text-emerald-400 text-shadow-md text-shadow-zinc-900/10'}`}>
                     <Icon icon="fa6-solid:heart" class="mr-1" />{formatLikes(item.likes)}
                 </h4>
             </div>

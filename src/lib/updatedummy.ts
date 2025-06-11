@@ -1,5 +1,5 @@
 export const update = [ 
-  { title: "Return Of The Mount Hua Sect", excerpt: "lorem ipsum dolor...", likes: 1300, rating: 4.7, pages: 150, genre: ["Comedy","Adventure"], type: "NOVEL", label: "up", region: "KR", image: "https://i.imgur.com/kyLUJIS.png" },
+  { title: "Return Of The Mount Hua Sect", excerpt: "lorem ipsum dolor...", likes: 1800000, rating: 4.7, pages: 150, genre: ["Comedy","Adventure"], type: "NOVEL", label: "up", region: "KR", image: "https://i.imgur.com/kyLUJIS.png" },
   { title: "The Regressed Son Of A Duke Is An Assassin", excerpt: "lorem ipsum dolor...", likes: 920, rating: 4.5, pages: 102, genre: ["Fantasy","Drama"], type: "KOMIK", label: "up", region: "KR", image: "https://i.imgur.com/2f3nfuE.png" },
   { title: "Solo Leveling", excerpt: "lorem ipsum dolor...", likes: 3000, rating: 4.9, pages: 220, genre: ["Action","Sci-Fi"], type: "KOMIK", label: "up", region: "KR", image: "https://i.imgur.com/6IbtPWj.png" },
   { title: "Solo Max-Level Newbie", excerpt: "lorem ipsum dolor...", likes: 1300, rating: 4.7, pages: 150, genre: ["Fantasy","Adventure"], type: "KOMIK", label: "none", region: "KR", image: "https://i.imgur.com/vU3kZxL.png" },
