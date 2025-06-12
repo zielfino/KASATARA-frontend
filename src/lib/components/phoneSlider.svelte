@@ -35,7 +35,11 @@
   let currentIndex = fakeStart.length; // start at first real group
   let totalGroup = realGroups.length; // start at first real group
 
+  let sectionRef: HTMLElement;
+let isVisible = true;
+
   async function scrollToIndex(index: number, smooth = true) {
+    if (!isVisible) return;
     const el = items[index];
     if (!el) return;
 
@@ -58,22 +62,44 @@
   }
 
   function updateTabIndexes() {
+
     items.forEach((item, idx) => {
       const isVisible = Math.abs(idx - currentIndex) <= 1;
       item.setAttribute('tabindex', isVisible ? '0' : '-1');
       item.classList.toggle('pointer-events-none', !isVisible);
     });
+    // if (! isVisible) {
+    //   items.forEach(item => {
+    //     item.setAttribute('tabindex', '-1');
+    //     item.classList.add('pointer-events-none');
+    //   });
+    //   return;
+    // }
   }
 
-  function handleClick(index: number) {
-    if (index === currentIndex) {
-      if (index >= fakeStart.length && index < fakeStart.length + realGroups.length) {
-        window.location.href = '/komik';
-      }
-    } else {
-      scrollToIndex(index);
+function updateTabIndexesForVisibility() {
+  if (!items.length) return;
+
+  items.forEach((item, idx) => {
+    const isVisibleGroup = Math.abs(idx - currentIndex) <= 1;
+    const isActive = isVisible && isVisibleGroup;
+
+    item.setAttribute('tabindex', isActive ? '0' : '-1');
+    item.classList.toggle('pointer-events-none', !isActive);
+  });
+}
+
+function handleClick(index: number) {
+  if (!isVisible) return;
+
+  if (index === currentIndex) {
+    if (index >= fakeStart.length && index < fakeStart.length + realGroups.length) {
+      window.location.href = '/komik';
     }
+  } else {
+    scrollToIndex(index);
   }
+}
 
   function teleportToRealGroup(index: number) {
     const total = groups.length;
@@ -128,44 +154,59 @@ onMount(() => {
   // Debounced Resize Handler
   let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
-  const handleResize = () => {
-    if (resizeTimeout) clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      scrollToIndex(currentIndex, false);
-    }, 150); // delay after resize stops
-  };
+const handleResize = () => {
+  if (resizeTimeout) clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (isVisible) scrollToIndex(currentIndex, false);
+  }, 150);
+};
 
   window.addEventListener('resize', handleResize);
+
+  const observer = new IntersectionObserver(
+  ([entry]) => {
+    isVisible = entry.intersectionRatio >= 0.7;
+    updateTabIndexesForVisibility(); // refresh tabindex on visibility change
+  },
+  { threshold: Array.from({ length: 101 }, (_, i) => i / 100) } // threshold: [0, 0.01, ..., 1]
+);
+
+observer.observe(sectionRef);
 
   return () => {
     window.removeEventListener('resize', handleResize);
     if (resizeTimeout) clearTimeout(resizeTimeout);
+  observer.disconnect();
   };
 });
 
 </script>
-<div class="w-full p-[1.6vw] xs:p-2 overflow-hidden relative">
-  <div class="absolute h-[calc(100%-18px)] right-0 flex justify-center items-center">
-    <button on:click={() => scrollToIndex(currentIndex+1)} class="h-[9vw] xs:h-12 -translate-x-[4.8vw] xs:-translate-x-6 rounded-full aspect-square bg-zinc-900/40 hover:bg-zinc-900/60 text-[3.2vw] xs:text-[16px] text-mainlight z-4 flex justify-center items-center cursor-pointer">
-      <Icon icon="material-symbols:arrow-forward-ios-rounded" />
+<section bind:this={sectionRef} class="w-full p-[1.6vw] xs:p-2 pb-0 xs:pb-0 overflow-hidden relative">
+  <div class="absolute h-[calc(100%-18px)] left-0 flex justify-center items-center">
+    <button on:click={() => scrollToIndex(currentIndex-1)} 
+      tabindex={isVisible === true ? 0 : -1}
+      class={`h-[9vw] xs:h-12 outline-none focus-visible:ring-sky-400 focus-visible:ring-2 translate-x-[4.8vw] xs:translate-x-6 rounded-full aspect-square bg-zinc-600/40 hover:bg-zinc-600/60 text-[3.2vw] xs:text-[16px] text-mainlight z-4 flex justify-center items-center cursor-pointer`}>
+      <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
     </button>
   </div>
-  <div class="absolute h-[calc(100%-18px)] left-0 flex justify-center items-center">
-    <button on:click={() => scrollToIndex(currentIndex-1)} class="h-[9vw] xs:h-12 translate-x-[4.8vw] xs:translate-x-6 rounded-full aspect-square bg-zinc-900/40 hover:bg-zinc-900/60 text-[3.2vw] xs:text-[16px] text-mainlight z-4 flex justify-center items-center cursor-pointer">
-      <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
+  <div class="absolute h-[calc(100%-18px)] right-0 flex justify-center items-center">
+    <button on:click={() => scrollToIndex(currentIndex+1)} 
+      tabindex={isVisible === true ? 0 : -1}
+      class={`h-[9vw] xs:h-12 outline-none focus-visible:ring-sky-400 focus-visible:ring-2 -translate-x-[4.8vw] xs:-translate-x-6 rounded-full aspect-square bg-zinc-600/40 hover:bg-zinc-600/60 text-[3.2vw] xs:text-[16px] text-mainlight z-4 flex justify-center items-center cursor-pointer`}>
+      <Icon icon="material-symbols:arrow-forward-ios-rounded" />
     </button>
   </div>
   <!-- SCROLL CONTAINER -->
   <div
     bind:this={container}
-    class="rounded-md flex overflow-hidden w-full gap-[1.6vw] xs:gap-2 border-x border-zinc-900/20 drop-shadow-md"
+    class="rounded-xl outline-hidden flex overflow-hidden w-full gap-[1.6vw] xs:gap-2 border-x border-zinc-900/20 drop-shadow-md"
     style="scroll-snap-type: x mandatory; touch-action: none;"
   >
     {#each groups as group, index}
       <button
         data-group
         tabindex="-1"
-        class={`aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md focus-visible:border-sky-400 focus-visible:bg-sky-200/90 outline-none
+        class={`aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-xl focus-visible:border-sky-400 focus-visible:bg-sky-200/90 outline-none
         flex justify-center items-center border border-zinc-900/20 transition-all duration-300 ease-in-out cursor-pointer flex-col overflow-hidden pointer-events-auto
         `}
         on:click={() => handleClick(index)}
@@ -179,4 +220,4 @@ onMount(() => {
       </button>
     {/each}
   </div>
-</div>
+</section>
