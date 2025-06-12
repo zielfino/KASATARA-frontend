@@ -9,5 +9,6 @@ export const top = {
     genre: ["Fantasy", "Action"],
     type: "KOMIK",
     image: "https://i.imgur.com/HHe6hQi.png",
-    imageLarge: "https://i.imgur.com/1zbe9Fp.png"
+    // imageLarge: "https://i.imgur.com/1zbe9Fp.png"
+    imageLarge: "https://i.imgur.com/vfwwynV.png"
 };
