@@ -4,6 +4,7 @@
     import Choice from "./choice.svelte";
     import { writable } from "svelte/store";
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
 
     export let item;
     
@@ -39,6 +40,7 @@
 </script>
 
 <button
+    on:click={() => goto('/series')}
     role={'button'} 
     aria-label="card"
     tabindex={item.disable === true ? -1 : 0}

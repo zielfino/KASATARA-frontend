@@ -181,7 +181,7 @@
 	}
 </style>
 
-<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] xs:pl-1.5 mt-3 md:mt-6">
+<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] xs:pl-1.5 mt-3 md:mt-6 font-work-sans">
 	<div 
 		role="button" 
 		tabindex="-1"
