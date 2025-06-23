@@ -81,7 +81,7 @@
                         
                     </div>
 
-                    <Pagination ison={true} totalPages={5} initialPage={1} />
+                    <Pagination ison={'true'} totalPages={5} initialPage={1} />
                 </div>
 
                 <!-- Right -->

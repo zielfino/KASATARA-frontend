@@ -2,7 +2,7 @@
     import Icon from '@iconify/svelte';
   import { onMount } from 'svelte';
 
-  export let ison = false;
+  export let ison = 'false';
   export let totalPages: number = 10;
   export let initialPage: number = 1;
 
@@ -52,7 +52,7 @@
 </script>
 
 <div class={`w-full bg-mainlight border border-zinc-900/15 rounded-md h-[14vw] text-[3.2vw] xs:h-[64px] flex justify-center items-center xs:text-[16px] space-x-[1.6vw] xs:space-x-2 py-[3.2vw] xs:py-4
-${ ison === true ? 'md:hidden' : 'max-md:hidden'}`}>
+${ ison === 'true' ? 'md:hidden' : ison === 'false' ? 'max-md:hidden' : ''}`}>
     <button
         on:click={first}
         class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
