@@ -1,9 +1,28 @@
-<script>
+<script lang="ts">
     import Pagination from "$lib/components/pagination.svelte";
     import SeriesSidebar from "$lib/components/SeriesSidebar.svelte";
     import Breakline from "$lib/components/util/breakline.svelte";
     import Icon from "@iconify/svelte";
+    import { onMount } from "svelte";
 
+	let switchSeries: string = 'chapter';
+	let sinopsisToggle: boolean = false;
+
+	onMount(() => {
+		// Ambil dari sessionStorage kalau ada
+		const saved = sessionStorage.getItem('switchSeries');
+		if (saved) switchSeries = saved;
+		else sessionStorage.setItem('switchSeries', 'chapter');
+	});
+
+	function handleSeries(value: string) {
+		switchSeries = value;
+		sessionStorage.setItem('switchSeries', value);
+	}
+
+	function handleSinopsis() {
+		sinopsisToggle = true;
+	}
 </script>
 <div class="text-zinc-900 max-xs:px-[1.6vw]">
 
@@ -22,8 +41,12 @@
             <div class="min-h-[300px] max-xs:min-h-[50vw] relative z-10 max-lg:col-span-12">
                 <div class="w-full border border-zinc-900/15 bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] font-work-sans p-2 max-xs:p-[1.6vw] pl-6 max-xs:pl-[2.8vw] absolute bottom-0">
                     
-                    <div class="absolute -top-[1px] -right-[313px] xl:-right-[328px] max-w-[305px] xl:max-w-[318.5px] space-y-2 max-lg:hidden">            
-                        <SeriesSidebar />
+                    <div class="absolute -top-[1px] -right-[313px] xl:-right-[328px] max-w-[305px] xl:max-w-[318.5px] space-y-2 max-lg:hidden">    
+                        <div class="bg-mainlight rounded-2xl border border-zinc-900/15 
+                        flex flex-col justify-start items-center relative overflow-hidden h-fit text-[12px]
+                        text-center">                  
+                            <SeriesSidebar />
+                        </div>
                     </div>
                     
                     <div class="absolute flex xs:space-x-2 space-x-[1.6vw] lg:space-x-0
@@ -60,8 +83,8 @@
                     <!-- <div class="aspect-[2/3] w-[150px] rounded-lg bg-cover bg-center absolute bottom-2 ring-2 ring-zinc-900/15 -skew-y-6 -translate-y-6 drop-shadow-lg drop-shadow-zinc-900/30 -translate-x-3 bg-zinc-900 overflow-hidden"></div> -->
                     <!-- <div class="aspect-[2/3] w-[150px] rounded-lg bg-cover bg-center absolute bottom-2 ring-2 ring-zinc-900/15 -skew-y-6 -translate-y-5 drop-shadow-lg drop-shadow-zinc-900/30 -translate-x-1.5 bg-zinc-900 overflow-hidden"></div> -->
                     <div class="aspect-[2/3] w-[150px] max-xs:w-[25vw] rounded-lg max-xs:rounded-[1.6vw] bg-cover bg-center absolute bottom-2 max-xs:bottom-[1.6vw] xs:ring-2 ring-zinc-900/15 -skew-y-6 -translate-y-4 max-xs:-translate-y-[3.2vw] drop-shadow-lg drop-shadow-zinc-900/30" style={`background-image: url('https://storage.shngm.id/thumbnail/cover/f38bf1beaa3b.jpeg')`}></div>
-                    <div class="z-4 w-fit max-w-[calc(100%-(150px+8px))] max-xs:max-w-[calc(100%-(25vw+1.6vw))] flex justify-center flex-col translate-x-[calc(150px+8px)] max-xs:translate-x-[calc(25vw+1.6vw)] pl-4 py-4 max-xs:pl-[3.2vw] max-xs:py-[3.2vw]">
-                        <div class="text-[26px] font-semibold z-5 leading-[1] max-xs:text-[5.2vw] line-clamp-2 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nihil saepe, aliquid officia doloremque alias.</div>
+                    <div class="z-4 w-fit max-w-[calc(100%-(150px+8px))] max-xs:max-w-[calc(100%-(25vw+1.6vw))] flex justify-center flex-col translate-x-[calc(150px+8px)] max-xs:translate-x-[calc(25vw+1.6vw)] pl-4 pb-4 pt-3 max-xs:pl-[3.2vw] max-xs:py-[3.2vw]">
+                        <div class="text-[26px] font-semibold z-5 leading-[1.4] max-xs:text-[5.2vw] line-clamp-2 ">Overgeared</div>
                         <div class="text-[12px] font-light z-5 max-xs:text-[2.4vw] leading-3 mt-[1.6vw] xs:mt-2">Lee Dong‑Wook, Team Argo (REDICE)</div>
                         <div class="flex opacity-60 space-x-[1.6vw] xs:space-x-2 font-[400] mt-[1.2vw] xs:mt-1.5">
                             <!-- <div class="flex justify-center items-center"><Icon icon="mingcute:star-fill" class="text-[14px] max-xs:text-[2.8vw]" /></div> -->
@@ -85,17 +108,25 @@
             </div>
 
             <!-- Main Content Series -->
-            <div class="max-lg:col-span-12 max-lg:flex">
+            <div class={`max-lg:col-span-12 max-lg:flex 
+            ${switchSeries === 'info' ? 'gap-[1.6vw] xs:gap-2 lg:space-y-2 flex-col' : ''}`}>
 
+                { #if switchSeries !== 'info' }
                 <div class="max-lg:w-[40%] min-w-[300px] lg:hidden space-y-2 max-[800px]:hidden max-md:mr-2 order-1">
-                    <SeriesSidebar />
+                    <div class="bg-mainlight rounded-2xl border border-zinc-900/15 
+                    flex flex-col justify-start items-center relative overflow-hidden h-fit text-[12px]
+                    text-center">
+                        <SeriesSidebar />
+                    </div>  
                 </div>
-            
+                {/if}
+                { #if switchSeries === 'chapter' }
                 <div class="bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] max-md:order-2 max-lg:w-[60%] max-lg:mr-2 max-md:m-0 max-md:w-full">
                     <div class="flex justify-between items-center text-sm font-work-sans font-[400] tracking-tight w-full">
                         <div class="flex justify-center items-center space-x-2 max-xs:space-x-[1.6vw]">
                             <button
-                            disabled
+                            disabled={ switchSeries === 'chapter'}
+                            on:click={() => handleSeries('chapter')}
                             class={`  
                                 flex justify-center items-center
                                 max-xs:py-[0.8vw] py-1 
@@ -103,12 +134,15 @@
                                 border border-zinc-900/15
                                 outline-none 
                                 max-xs:text-[2.8vw] font-work-sans
-                                text-mainlight bg-zinc-900`}>
+                                ${ switchSeries === 'chapter' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
                                 <span class="max-xs:mx-[3.2vw] mx-4">
                                     Chapter
                                 </span>
                             </button>
                             <button
+                            disabled={ switchSeries === 'info'}
+                            on:click={() => handleSeries('info')}
                             class={`  
                                 flex justify-center items-center
                                 max-xs:py-[0.8vw] py-1 
@@ -116,12 +150,15 @@
                                 border border-zinc-900/15
                                 outline-none 
                                 max-xs:text-[2.8vw] font-work-sans
-                                max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer`}>
+                                ${ switchSeries === 'info' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
                                 <span class="max-xs:mx-[3.2vw] mx-4">
                                     Info
                                 </span>
                             </button>
                             <button
+                            disabled={ switchSeries === 'news'}
+                            on:click={() => handleSeries('news')}
                             class={`  
                                 flex justify-center items-center
                                 max-xs:py-[0.8vw] py-1 
@@ -129,18 +166,8 @@
                                 border border-zinc-900/15
                                 outline-none 
                                 max-xs:text-[2.8vw]
-                                max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer`}>
-                                <!-- ICON -->
-                                <!-- {#if tag.icon}
-                                    <Icon icon={tag.icon} class={`
-                                        max-xs:ml-[1.6vw] max-xs:mr-[0.8vw] ml-2 mr-1
-                                        ${tag.label === heroFilter ? 
-                                        tag.color : 
-                                        ''}
-                                    `} />
-                                {/if} -->
-                                <!-- LABEL -->
-                                <!-- <span class={`${tag.icon ? 'max-xs:mr-[3.2vw] mr-4' : 'max-xs:mx-[3.2vw] mx-4'}`}> -->
+                                ${ switchSeries === 'news' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
                                 <span class="max-xs:mx-[3.2vw] mx-4">
                                     News
                                 </span>
@@ -243,6 +270,222 @@
                     {/each}
                     <Pagination ison={'both'}  totalPages={5} initialPage={1} />
                 </div>
+                {/if}
+            
+                { #if switchSeries === 'info' }
+                <div class="bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] max-md:order-2 w-full max-md:m-0">
+                    <div class="flex justify-between items-center text-sm font-work-sans font-[400] tracking-tight w-full">
+                        <div class="flex justify-center items-center space-x-2 max-xs:space-x-[1.6vw]">
+                            <button
+                            disabled={ switchSeries === 'chapter'}
+                            on:click={() => handleSeries('chapter')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw] font-work-sans
+                                ${ switchSeries === 'chapter' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    Chapter
+                                </span>
+                            </button>
+                            <button
+                            disabled={ switchSeries === 'info'}
+                            on:click={() => handleSeries('info')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw] font-work-sans
+                                ${ switchSeries === 'info' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    Info
+                                </span>
+                            </button>
+                            <button
+                            disabled={ switchSeries === 'news'}
+                            on:click={() => handleSeries('news')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw]
+                                ${ switchSeries === 'news' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    News
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- info -->
+                    <div class="w-full bg-zinc-900/5 hover:bg-zinc-900/10 rounded-md flex justify-between items-center p-2 pr-4 cursor-pointer">
+                        <div class="text-[14px] font-[400] capitalize p-2">
+                            <span class="font-[700]">Peringkat mingguan kategori Fantasy</span>
+                            Peringkat 1
+                        </div>
+                        <div class="p-1 text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-0.25" /></div>
+                    </div>
+
+                    <!-- Sinopsis -->
+                    <div class={`p-2 overflow-hidden
+                    ${sinopsisToggle ? '' : 'max-h-[300px]  mask-b-from-70% mask-b-to-100%'}
+                    `}>
+                        <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Sinopsis</h3>
+                        <p class="text-sm text-justify">
+                            “Eh, lagi mati? Kali keberapa ini…”
+                            <br>“Tenang, ini bukan akhir—baru permulaan.”
+                            <br>
+                            <br>Dulu aku hanya pecundang.
+                            <br>Di dunia nyata impianku pupus,
+                            <br>di Satisfy namaku jadi bahan tertawaan.
+                            <br>Tiap loot besar, aku dapat reruntuhan.
+                            <br>
+                            <br>Tapi malam itu——
+                            <br>‘Pagma’s Hammer’ terjatuh ke tanganku.
+                            <br>Sekali ketuk, besi kasar berubah masterpiece.
+                            <br>Pedang legendaris kujadikan mainanku,
+                            <br>zirah tak tertandingi kubentuk dari bara panas.
+                            <br>
+                            <br>Desas-desus tentang “Grid si Pandai Besi”
+                            <br>membara di setiap sudut guild hall.
+                            <br>Guild elit menantang, intrik membayang,
+                            <br>namun paluku menuntunku meraih <br>kemenangan demi kemenangan.
+                            <br>
+                            <br>Kini aku Grid.
+                            <br>Pandai besi terkuat dan terhebat di jagat Satisfy.
+                            <br>Dari reruntuhan, aku memahat takdir—
+                            <br>menjadi legenda yang tak tergoyahkan.
+                        </p>
+                    </div>
+                    {#if sinopsisToggle === false}
+                        <button on:click={handleSinopsis} class="w-full flex justify-center items-center"><Icon icon="mingcute:down-fill" class="cursor-pointer -translate-y-1" /></button>
+                    {/if}
+                </div>
+
+                <div class="flex max-sm:flex-col sm:grid-cols-2 sm:grid gap-[1.6vw] xs:gap-2 max-md:order-2">
+
+                    <div class="order-1 row-span-2 lg:hidden bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 w-full max-md:m-0
+                    flex flex-col justify-start items-center relative overflow-hidden text-[12px]
+                    text-center h-full">
+                        <SeriesSidebar excerpt={false} />
+                    </div>
+
+                    <!-- Detail -->
+                    <div class="sm:order-1 sm:pl-4 bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] w-full max-md:m-0">
+
+                        <!-- button -->
+                        <!-- <div class="w-full bg-zinc-900/5 hover:bg-zinc-900/10 rounded-md flex justify-between items-center p-2 pr-4 cursor-pointer">
+                            <div class="text-[14px] font-[400] capitalize p-2">
+                                <span class="font-[700]">Peringkat mingguan kategori Fantasy</span>
+                                Peringkat 1
+                            </div>
+                            <div class="p-1 text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-0.25" /></div>
+                        </div> -->
+                        <div class="p-2">
+                            <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Detail</h3>
+                            <div class="text-xs tracking-wide font-[400] max-sm:flex">
+                                <div class="w-full">
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Name:</span>Overgeared, 템빨 <br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Genre:</span><span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Fantasy</span> <span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Action</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Type:</span><span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">KOMIK</span>
+                                </div>
+                                <div class="w-full">
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Author:</span><span class="hover:underline cursor-pointer">Park Saenal</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Scriptwriter:</span><span class="hover:underline cursor-pointer">Lee Dong-Wook</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Illustrator:</span><span class="hover:underline cursor-pointer">Team Agro</span> (<span class="hover:underline cursor-pointer">REDICE</span>)<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kata Kunci -->
+                    <div class="bg-mainlight sm:pl-4 lg:pl-2 rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] w-full max-md:m-0">
+                        <div class="p-2">
+                            <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Kata Kunci</h3>
+                            <div class="flex gap-2 text-xs flex-wrap">
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#sliceoflife</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#grinding</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#roleplay</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#cunubyu</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#game</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#kingdom</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#vr</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#overpowered</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#modern</div>
+                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#ranker</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+            
+                { #if switchSeries === 'news' }
+                <div class="bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] max-md:order-2 max-lg:w-[60%] max-lg:mr-2 max-md:m-0 max-md:w-full">
+                    <div class="flex justify-between items-center text-sm font-work-sans font-[400] tracking-tight w-full">
+                        <div class="flex justify-center items-center space-x-2 max-xs:space-x-[1.6vw]">
+                            <button
+                            disabled={ switchSeries === 'chapter'}
+                            on:click={() => handleSeries('chapter')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw] font-work-sans
+                                ${ switchSeries === 'chapter' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    Chapter
+                                </span>
+                            </button>
+                            <button
+                            disabled={ switchSeries === 'info'}
+                            on:click={() => handleSeries('info')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw] font-work-sans
+                                ${ switchSeries === 'info' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    Info
+                                </span>
+                            </button>
+                            <button
+                            disabled={ switchSeries === 'news'}
+                            on:click={() => handleSeries('news')}
+                            class={`  
+                                flex justify-center items-center
+                                max-xs:py-[0.8vw] py-1 
+                                text-nowrap rounded-full
+                                border border-zinc-900/15
+                                outline-none 
+                                max-xs:text-[2.8vw]
+                                ${ switchSeries === 'news' ? 'text-mainlight bg-zinc-900' : 'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                                `}>
+                                <span class="max-xs:mx-[3.2vw] mx-4">
+                                    News
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    news
+                </div>
+                {/if}
 
             </div>
         </div>
