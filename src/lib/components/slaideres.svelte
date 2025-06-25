@@ -1,292 +1,3 @@
-<!-- <script lang="ts">
-    
-  import { onMount, tick } from 'svelte';
-  import Icon from '@iconify/svelte';
-    import { writable } from 'svelte/store';
-    import Card from './util/card.svelte';
-
-  let widthKontainer = 0;
-
-  onMount(() => {
-    const resizeObserver = new ResizeObserver(() => {
-      widthKontainer = sliderContainer.offsetWidth;
-    });
-    resizeObserver.observe(sliderContainer);
-    widthKontainer = sliderContainer.offsetWidth;
-
-    return () => resizeObserver.disconnect();
-  });
-
-
-  export let totalGroup = 4;
-  let sliderContainer: HTMLDivElement;
-  let slideWidth = 0;
-  $: currentGroup = $phone ? 0 : 1;
-  let isDragging = false;
-  let startX = 0;
-  let scrollStart = 0;
-  let isTransitioning = false;
-let displayGroup = 1;
-    onMount(() => {
-        (async () => {
-            await tick();
-            const updateSlideWidth = () => {
-                const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
-                if (firstSlide) {
-                slideWidth = firstSlide.offsetWidth + 8; // include gap
-                scrollToIndex(currentGroup, true)
-                }
-            };
-
-            updateSlideWidth();       // inisialisasi pertama
-            scrollToIndex(1, false);  // scroll ke grup 1 asli
-
-            const observer = new ResizeObserver(updateSlideWidth);
-            observer.observe(sliderContainer);
-
-            return () => observer.disconnect();
-        })();
-
-        // return () => {
-        //     observer.disconnect()
-        // };
-    });
-
-// onMount(
-//     async () => {
-//         await tick(); // pastikan DOM sudah render
-
-//         const updateSlideWidth = () => {
-//             const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
-//             if (firstSlide) {
-//             slideWidth = firstSlide.offsetWidth + 8; // include gap
-//             scrollToIndex(currentGroup, true)
-//             }
-//         };
-
-//         updateSlideWidth();       // inisialisasi pertama
-//         scrollToIndex(1, false);  // scroll ke grup 1 asli
-
-//         const observer = new ResizeObserver(updateSlideWidth);
-//         observer.observe(sliderContainer);
-
-//         return () => observer.disconnect();
-//     }
-// );
-
-
-function scrollToIndex(index: number, smooth: boolean = true) {
-  sliderContainer.style.scrollBehavior = smooth ? 'smooth' : 'auto';
-  sliderContainer.scrollTo({ left: index * slideWidth });
-  
-  // update displayGroup hanya jika bukan clone
-  if (index >= 1 && index <= totalGroup) {
-    displayGroup = index;
-  }
-}
-
-  function nextSlide() {
-    if (isTransitioning || window.innerWidth <= 500) return;
-    currentGroup++;
-
-    scrollToIndex(currentGroup, true);
-
-    if (currentGroup === totalGroup+1) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(1, false); // ke grup 1 asli
-        currentGroup = 1;
-        isTransitioning = false;
-      }, 700); // delay harus sama seperti durasi scroll CSS
-    }
-  }
-
-  function prevSlide() {
-    if (isTransitioning || window.innerWidth <= 500) return;
-    currentGroup--;
-
-    scrollToIndex(currentGroup, true);
-
-    if (currentGroup === 0) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(totalGroup, false); // ke grup totalGroup asli
-        currentGroup = totalGroup;
-        isTransitioning = false;
-      }, 700);
-    }
-  }
-
-  function handlePointerDown(e: PointerEvent) {
-    if (isTransitioning || window.innerWidth <= 500) return;
-    isDragging = true;
-    startX = e.clientX;
-    scrollStart = sliderContainer.scrollLeft;
-    sliderContainer.setPointerCapture(e.pointerId);
-    sliderContainer.style.scrollBehavior = 'auto';
-  }
-
-  function handlePointerMove(e: PointerEvent) {
-    if (!isDragging || isTransitioning || window.innerWidth <= 500) return;
-    const dx = e.clientX - startX;
-    sliderContainer.scrollLeft = scrollStart - dx;
-  }
-
-  function handlePointerUp() {
-    if (isTransitioning || window.innerWidth <= 500) return;
-    isDragging = false;
-    sliderContainer.style.scrollBehavior = 'smooth';
-
-    const index = Math.round(sliderContainer.scrollLeft / slideWidth);
-    currentGroup = index;
-
-    scrollToIndex(currentGroup, true);
-
-    // Periksa apakah kita sedang di clone
-    if (index === 0) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(totalGroup, false);
-        currentGroup = totalGroup;
-        isTransitioning = false;
-      }, 700);
-    } else if (index === 5) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(1, false);
-        currentGroup = 1;
-        isTransitioning = false;
-      }, 700);
-    }
-  }
-    const phone = writable(false);
-    const desktop = writable(false);
-    const desktopex = writable(false);
-    const desktoplarge = writable(false);
-
-    onMount(() => {
-        const update = () => {
-            phone.set(window.innerWidth <= 500);
-            desktop.set(window.innerWidth >= 900);
-            desktopex.set(window.innerWidth >= 1300);
-            desktoplarge.set(window.innerWidth >= 1100);
-        };
-
-        update(); // Initial check
-        window.addEventListener('resize', update);
-
-        return () => window.removeEventListener('resize', update);
-    });
-
-
-
-
-    // type Tag = {
-    //     label: string;
-    //     icon?: string;
-    // };
-
-    // let filter: Tag[] = [
-    //     { label: 'Rekomendasi', icon: 'material-symbols:bolt' },
-    //     { label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill' },
-    //     { label: 'Ringan', icon: 'fa6-solid:feather-pointed' },
-    //     { label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
-    //     { label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
-    //     { label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
-    //     { label: 'Upload Bulanan', icon: 'mingcute:calendar-month-fill' },
-    //     { label: 'Upload Sesuai Mood Author', icon: 'material-symbols:person-rounded' },
-    //     { label: 'Komik Adaptasi Novel', icon: 'material-symbols:person-4-rounded'},
-    //     { label: 'Emosional' },
-    //     { label: 'Sedang Ramai' },
-    //     { label: 'Shounen' },
-    //     { label: 'Shoujo' },
-    //     { label: 'Sejarah' },
-    //     { label: 'Dewasa' },
-    //     { label: 'Lainnya' }
-    // ];
-
-
-    // export let slide = 4;
-    export let jenis;
-    import { update } from '$lib/updatedummy';
-    // const komikCard = update.find(c => c.type === 'KOMIK');
-    // const notwo = update.filter(c => c.type === 'KOMIK').at(1);
-    $: filterCards = update.filter(c => c.type === jenis);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    let scrollTimeout: ReturnType<typeof setTimeout>;
-
-function handleScroll() {
-  if (isTransitioning || isDragging || window.innerWidth <= 500) return;
-
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    const index = Math.round(sliderContainer.scrollLeft / slideWidth);
-    currentGroup = index;
-    scrollToIndex(currentGroup, true);
-
-    // Looping jika scroll terlalu ke ujung (infinite effect)
-    if (index === 0) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(totalGroup, false);
-        currentGroup = totalGroup;
-        isTransitioning = false;
-      }, 400);
-    } else if (index === 5) {
-      isTransitioning = true;
-      setTimeout(() => {
-        scrollToIndex(1, false);
-        currentGroup = 1;
-        isTransitioning = false;
-      }, 400);
-    }
-  }, 100); // debounce 100ms
-}
-
-// function handlePointerUp() {
-//   if (isTransitioning) return;
-//   isDragging = false;
-//   sliderContainer.style.scrollBehavior = 'smooth';
-
-//   // Delay sedikit agar scroll position settle
-//   setTimeout(() => {
-//     const index = Math.round(sliderContainer.scrollLeft / slideWidth);
-//     currentGroup = index;
-//     scrollToIndex(currentGroup, true);
-
-//     if (index === 0) {
-//       isTransitioning = true;
-//       setTimeout(() => {
-//         scrollToIndex(4, false);
-//         currentGroup = 4;
-//         isTransitioning = false;
-//       }, 400);
-//     } else if (index === 5) {
-//       isTransitioning = true;
-//       setTimeout(() => {
-//         scrollToIndex(1, false);
-//         currentGroup = 1;
-//         isTransitioning = false;
-//       }, 400);
-//     }
-//   }, 50);
-// }
-
-</script> -->
-
 <script lang="ts">
     import { onMount, tick } from 'svelte';
     import { writable } from 'svelte/store';
@@ -314,6 +25,7 @@ function handleScroll() {
     $: currentGroup = $phone ? 0 : 1;
     let displayGroup = 1;
     let isDragging = false;
+    let isPointerDown = false;
     let isTransitioning = false;
     let startX = 0;
     let scrollStart = 0;
@@ -400,34 +112,56 @@ function handleScroll() {
         }
     }
 
-    // Pointer & scroll handlers
+    const threshold = 2;   // 50px threshold sebelum drag
+    // ... existing vars: isTransitioning, slideWidth, currentGroup, totalGroup, scrollToIndex, resetTo
+
     function handlePointerDown(e: PointerEvent) {
         if (isTransitioning || window.innerWidth <= 500) return;
-        isDragging = true;
+
+        isPointerDown = true;
         startX = e.clientX;
         scrollStart = sliderContainer.scrollLeft;
-        sliderContainer.setPointerCapture(e.pointerId);
-        sliderContainer.style.scrollBehavior = 'auto';
+        // sliderContainer.setPointerCapture(e.pointerId);
+        // jangan set isDragging di sini
     }
 
     function handlePointerMove(e: PointerEvent) {
-        if (!isDragging || isTransitioning || window.innerWidth <= 500) return;
+        if (!isPointerDown || isTransitioning || window.innerWidth <= 500) return;
+
         const dx = e.clientX - startX;
+
+        if (!isDragging) {
+            if (Math.abs(dx) < threshold) {
+                return;
+            }
+            isDragging = true;
+            sliderContainer.setPointerCapture(e.pointerId);
+            sliderContainer.style.scrollBehavior = 'auto';
+        }
+
+        // kalau sudah dragging, scroll
         sliderContainer.scrollLeft = scrollStart - dx;
     }
 
-    function handlePointerUp() {
-        if (isTransitioning || window.innerWidth <= 500) return;
-        isDragging = false;
+    function handlePointerUp(e: PointerEvent) {
+        if (window.innerWidth <= 500) return;
+
+        sliderContainer.releasePointerCapture(e.pointerId);
+
+        if (isDragging) {
         sliderContainer.style.scrollBehavior = 'smooth';
         const index = Math.round(sliderContainer.scrollLeft / slideWidth);
         currentGroup = index;
         scrollToIndex(currentGroup, true);
         if (index === 0) {
-            resetTo(totalGroup);
-        } else if (index === totalGroup + 1) {
-            resetTo(1);
+                resetTo(totalGroup);
+            } else if (index === totalGroup + 1) {
+                resetTo(1);
+            }
         }
+
+        isPointerDown = false;
+        isDragging = false;
     }
 
     function handleScroll() {

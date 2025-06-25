@@ -27,7 +27,7 @@
 <div class="text-zinc-900 max-xs:px-[1.6vw]">
 
     <!-- content -->
-    <div class="grid grid-cols-12 xl:grid-cols-10 gap-2">
+    <div class="grid grid-cols-12 xl:grid-cols-10 gap-[1.6vw] xs:gap-2">
 
         <!-- Desktop Sidebar Ghost -->
         <div class="col-span-4 xl:col-span-3 space-y-2 max-lg:hidden mt-[180px] order-2">
@@ -43,7 +43,7 @@
                     
                     <div class="absolute -top-[1px] -right-[313px] xl:-right-[328px] max-w-[305px] xl:max-w-[318.5px] space-y-2 max-lg:hidden">    
                         <div class="bg-mainlight rounded-2xl border border-zinc-900/15 
-                        flex flex-col justify-start items-center relative overflow-hidden h-fit text-[12px]
+                        flex flex-col justify-start items-center relative overflow-hidden text-[12px]
                         text-center">                  
                             <SeriesSidebar />
                         </div>
@@ -114,7 +114,7 @@
                 { #if switchSeries !== 'info' }
                 <div class="max-lg:w-[40%] min-w-[300px] lg:hidden space-y-2 max-[800px]:hidden max-md:mr-2 order-1">
                     <div class="bg-mainlight rounded-2xl border border-zinc-900/15 
-                    flex flex-col justify-start items-center relative overflow-hidden h-fit text-[12px]
+                    flex flex-col justify-start items-center relative overflow-hidden h-full text-[12px]
                     text-center">
                         <SeriesSidebar />
                     </div>  
@@ -328,20 +328,20 @@
                     </div>
 
                     <!-- info -->
-                    <div class="w-full bg-zinc-900/5 hover:bg-zinc-900/10 rounded-md flex justify-between items-center p-2 pr-4 cursor-pointer">
-                        <div class="text-[14px] font-[400] capitalize p-2">
+                    <div class="w-full bg-zinc-900/5 hover:bg-zinc-900/10 rounded-md flex justify-between items-center p-[1.6vw] xs:p-2 pr-[3.2vw] xs:pr-4 cursor-pointer">
+                        <div class="text-[2.8vw] xs:text-[14px] font-[400] capitalize p-[1.6vw] xs:p-2">
                             <span class="font-[700]">Peringkat mingguan kategori Fantasy</span>
                             Peringkat 1
                         </div>
-                        <div class="p-1 text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-0.25" /></div>
+                        <div class="p-[0.8vw] xs:p-1 text-[4vw] xs:text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-[0.2vw] xs:translate-x-0.25" /></div>
                     </div>
 
                     <!-- Sinopsis -->
-                    <div class={`p-2 overflow-hidden
-                    ${sinopsisToggle ? '' : 'max-h-[300px]  mask-b-from-70% mask-b-to-100%'}
+                    <div class={`p-[1.6vw] xs:p-2 overflow-hidden
+                    ${sinopsisToggle ? '' : 'xs:max-h-[300px] max-h-[60vw] mask-b-from-70% mask-b-to-100%'}
                     `}>
-                        <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Sinopsis</h3>
-                        <p class="text-sm text-justify">
+                        <h3 class="text-[3.6vw] xs:text-lg font-[700] font-work-sans mb-[0.5em]">Sinopsis</h3>
+                        <p class="text-[2.8vw] xs:text-sm text-justify">
                             “Eh, lagi mati? Kali keberapa ini…”
                             <br>“Tenang, ini bukan akhir—baru permulaan.”
                             <br>
@@ -392,37 +392,37 @@
                             <div class="p-1 text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-0.25" /></div>
                         </div> -->
                         <div class="p-2">
-                            <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Detail</h3>
-                            <div class="text-xs tracking-wide font-[400] max-sm:flex">
+                            <h3 class="text-[3.6vw] xs:text-lg font-[700] font-work-sans mb-[0.5em]">Detail</h3>
+                            <div class="xs:text-xs text-[2.4vw] tracking-wide font-[400] max-sm:flex">
                                 <div class="w-full">
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Name:</span>Overgeared, 템빨 <br>
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Genre:</span><span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Fantasy</span> <span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Action</span><br>
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Type:</span><span class="px-2 rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">KOMIK</span>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Name:</span>Overgeared, 템빨 <br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Genre:</span><span class="px-[1.6vw] xs:px-2 rounded-[1.2vw] xs:rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Fantasy</span> <span class="px-[1.6vw] xs:px-2 rounded-[1.2vw] xs:rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">Action</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Type:</span><span class="px-[1.6vw] xs:px-2 rounded-[1.2vw] xs:rounded-md border border-zinc-900/10 bg-zinc-900/5 cursor-pointer hover:bg-zinc-900/10">KOMIK</span>
                                 </div>
                                 <div class="w-full">
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Author:</span><span class="hover:underline cursor-pointer">Park Saenal</span><br>
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Scriptwriter:</span><span class="hover:underline cursor-pointer">Lee Dong-Wook</span><br>
-                                    <span class="font-[600] mr-[0.5em] font-work-sans text-sm">Illustrator:</span><span class="hover:underline cursor-pointer">Team Agro</span> (<span class="hover:underline cursor-pointer">REDICE</span>)<br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Author:</span><span class="hover:underline cursor-pointer">Park Saenal</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Scriptwriter:</span><span class="hover:underline cursor-pointer">Lee Dong-Wook</span><br>
+                                    <span class="font-[600] mr-[0.5em] font-work-sans xs:text-sm text-[2.8vw]">Illustrator:</span><span class="hover:underline cursor-pointer">Team Agro</span> (<span class="hover:underline cursor-pointer">REDICE</span>)<br>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Kata Kunci -->
-                    <div class="bg-mainlight sm:pl-4 lg:pl-2 rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] w-full max-md:m-0">
-                        <div class="p-2">
-                            <h3 class="text-lg font-[700] font-work-sans mb-[0.5em]">Kata Kunci</h3>
-                            <div class="flex gap-2 text-xs flex-wrap">
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#sliceoflife</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#grinding</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#roleplay</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#cunubyu</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#game</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#kingdom</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#vr</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#overpowered</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#modern</div>
-                                <div class="px-3 py-1 bg-zinc-900/5 rounded-md border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#ranker</div>
+                    <div class="bg-mainlight sm:pl-4 lg:pl-2 rounded-2xl max-xs:rounded-[2.4vw] space-y-[1.6vw] xs:space-y-2 border border-zinc-900/15 p-[1.6vw] xs:p-2 w-full max-md:m-0">
+                        <div class="p-[1.6vw] xs:p-2 w-full">
+                            <h3 class="text-[3.6vw] xs:text-lg font-[700] font-work-sans mb-[0.5em]">Kata Kunci</h3>
+                            <div class="flex gap-[1.6vw] xs:gap-2 text-[2.4vw] xs:text-xs flex-wrap">
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#sliceoflife</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#grinding</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#roleplay</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#cunubyu</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#game</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#kingdom</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#vr</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#overpowered</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#modern</div>
+                                <div class="px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 bg-zinc-900/5 rounded-[1.2vw] xs:rounded-md border-[0.2vw] xs:border border-zinc-900/10 cursor-pointer hover:bg-zinc-900/10">#ranker</div>
                             </div>
                         </div>
                     </div>
@@ -430,7 +430,7 @@
                 {/if}
             
                 { #if switchSeries === 'news' }
-                <div class="bg-mainlight rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] max-md:order-2 max-lg:w-[60%] max-lg:mr-2 max-md:m-0 max-md:w-full">
+                <div class="bg-mainlight flex flex-col items-center justify-center rounded-2xl max-xs:rounded-[2.4vw] space-y-2 max-xs:space-y-[1.6vw] border border-zinc-900/15 p-2 max-xs:p-[1.6vw] max-md:order-2 max-lg:w-[60%] max-lg:mr-2 max-md:m-0 max-md:w-full min-h-[295px]">
                     <div class="flex justify-between items-center text-sm font-work-sans font-[400] tracking-tight w-full">
                         <div class="flex justify-center items-center space-x-2 max-xs:space-x-[1.6vw]">
                             <button
@@ -483,7 +483,35 @@
                             </button>
                         </div>
                     </div>
-                    news
+                    <div class="w-full bg-gradient-to-br from-purple-700 to-purple-500/75 text-mainlight rounded-md flex justify-between items-center p-[1.6vw] xs:p-2 pr-[3.2vw] xs:pr-4 cursor-pointer">
+                        <div class="text-[2.4vw] xs:text-[12px] p-[1.6vw] xs:p-2">
+                            <div class="font-[600] text-[2.8vw] xs:text-[14px]">I Killed An Academy Player</div>
+                            <div class="opacity-75">Ayo season 3-nya sekarang, Corin telah bangkit dari tidurnya!</div>
+                        </div>
+                        <div><img src="https://i.imgur.com/GrlvuUo.png" alt="" class="h-[50px]"></div>
+                        <!-- <div class="p-[0.8vw] xs:p-1 text-[4vw] xs:text-[20px] bg-zinc-900/15 rounded-full"><Icon icon="mingcute:right-fill" class="translate-x-[0.2vw] xs:translate-x-0.25" /></div> -->
+                    </div>
+
+                    <div class="px-[1.6vw] xs:px-2 mt-[3.2vw] xs:mt-4 text-sm w-full">
+                        <div class="flex items-center mb-[1.6vw] xs:mb-2 text-[3.2vw] xs:text-base"><div class="text-mainlight text-[2.4vw] xs:text-xs px-[1.6vw] xs:px-2 py-[0.4vw] xs:py-0.5 mr-[0.8vw] xs:mr-1 bg-zinc-900 rounded-full">Guide</div> Terbit Pada</div>
+                        <div class="text-[2.8vw] xs:text-sm">1 April 2020</div>
+                    </div>
+
+                    <div class="border-zinc-300 border-[0.2vw] xs:border w-[90%] my-[3.2vw] xs:my-4"></div>
+
+                    <div class="px-[1.6vw] xs:px-2 w-full text-[2.8vw] xs:text-sm mb-[1.6vw] xs:mb-2">
+                        <p>
+                            Halo, kami dari tim Agro. <br>
+                             <br>
+                            Overgeared adalah webtoon bergenre aksi fantasi <br>
+                            yang diperbarui setiap hari Senin malam pukul 22.00. <br>
+                            Kemudian untuk menjaga kwalitas gambar, <br>
+                            kita adakan libur regular 6 minggu sekali. <br>
+                             <br>
+                            Mohon dukungannya dan semoga kalian menikmati ceritanya. <br>
+                            Terima kasih.
+                        </p>
+                    </div>
                 </div>
                 {/if}
 
