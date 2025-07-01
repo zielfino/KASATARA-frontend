@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, tick } from 'svelte';
+    import { onDestroy, onMount, tick } from 'svelte';
     import { writable } from 'svelte/store';
     import Icon from '@iconify/svelte';
     import Card from './util/card.svelte';
@@ -48,13 +48,45 @@
     });
 
     // Setup container resize observer and initial measurements
+    // onMount(() => {
+    //     (async () => {
+    //         await tick();
+    //         const updateMeasurements = () => {
+    //             const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
+    //             if (firstSlide) {
+    //                 slideWidth = firstSlide.offsetWidth + 8; // include gap
+    //                 scrollToIndex(currentGroup, true);
+    //             }
+    //         };
+
+    //         updateMeasurements();
+    //         scrollToIndex(1, false);
+
+    //         const observer = new ResizeObserver(updateMeasurements);
+    //         observer.observe(sliderContainer);
+    //         return () => observer.disconnect();
+    //     })();
+
+    //     const resizeObserver = new ResizeObserver(() => {
+    //         widthKontainer = sliderContainer.offsetWidth;
+    //     });
+    //     resizeObserver.observe(sliderContainer);
+    //     widthKontainer = sliderContainer.offsetWidth;
+    //     return () => resizeObserver.disconnect();
+    // });
+
+    let observer: ResizeObserver;
+    let resizeObserver: ResizeObserver;
+    
     onMount(() => {
+        // Observer A (sliderContainer content changes)
         (async () => {
             await tick();
             const updateMeasurements = () => {
+                if (!sliderContainer) return;
                 const firstSlide = sliderContainer.querySelector('.slider-group') as HTMLElement;
                 if (firstSlide) {
-                    slideWidth = firstSlide.offsetWidth + 8; // include gap
+                    slideWidth = firstSlide.offsetWidth + 8;
                     scrollToIndex(currentGroup, true);
                 }
             };
@@ -62,17 +94,22 @@
             updateMeasurements();
             scrollToIndex(1, false);
 
-            const observer = new ResizeObserver(updateMeasurements);
+            observer = new ResizeObserver(updateMeasurements);
             observer.observe(sliderContainer);
-            return () => observer.disconnect();
         })();
 
-        const resizeObserver = new ResizeObserver(() => {
+        // Observer B (slider container width)
+        resizeObserver = new ResizeObserver(() => {
+            if (!sliderContainer) return;
             widthKontainer = sliderContainer.offsetWidth;
         });
         resizeObserver.observe(sliderContainer);
         widthKontainer = sliderContainer.offsetWidth;
-        return () => resizeObserver.disconnect();
+    });
+
+    onDestroy(() => {
+        observer?.disconnect();
+        resizeObserver?.disconnect();
     });
 
     // Scroll utilities

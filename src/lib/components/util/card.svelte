@@ -396,6 +396,13 @@
                         <div
                         role="button" 
                         aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}
                         tabindex={item.disable === true ? -1 : 0}
                         class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
@@ -413,6 +420,13 @@
                         <div
                         role="button" 
                         aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}
                         tabindex={item.disable === true ? -1 : 0}
                         class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
@@ -429,6 +443,13 @@
                         <div
                         role="button" 
                         aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}
                         tabindex={item.disable === true ? -1 : 0}
                         class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
@@ -445,6 +466,13 @@
                         <div
                         role="button" 
                         aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}
                         tabindex={item.disable === true ? -1 : 0}
                         class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
                         ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
@@ -522,7 +550,14 @@
                     <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>{item.disable}</div>
@@ -530,7 +565,14 @@
                         </div>
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 104</div>
@@ -538,7 +580,14 @@
                         </div>
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 103</div>
@@ -551,7 +600,14 @@
                     <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 4</div>
@@ -559,7 +615,14 @@
                         </div>
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
@@ -569,7 +632,14 @@
                     <div class="space-y-[1vw]">
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 2</div>
@@ -577,7 +647,14 @@
                         </div>
                         <div
                         role="button" 
-                        aria-label="chapter"             
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
                         tabindex={item.disable === true ? -1 : 0} 
                         class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 1</div>
