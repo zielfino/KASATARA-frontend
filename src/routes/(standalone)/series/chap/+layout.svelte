@@ -6,11 +6,29 @@
     import { fade } from "svelte/transition";
 
     
-    let speed = 1.0;
+    let speed:number = 1.0;
     const ticks = [0.5, 0.75, 1.0, 1.25, 1.5];
 
     // === State ===
     let autoPlay = false;
+    let showAutoPlayUI = false;
+
+    function toggleNonaktif() {
+        if (!autoPlay) {
+            showAutoPlayUI = true;
+            setTimeout(() => {
+                autoPlay = true;
+                handleAutoScroll()
+            }, 10);
+        } else {
+            autoPlay = false;
+            setTimeout(() => {
+                showAutoPlayUI = false;
+                handleAutoScroll()
+            }, 10);
+        }
+    }
+
     let navShow = true;
     let lastScrollY = 0;
     // let slotWrapper: HTMLDivElement;
@@ -57,8 +75,17 @@
     onMount(() => {
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
             // Restore autoPlay preference
-            const saved = localStorage.getItem("autoPlay");
-            autoPlay = saved === "true";
+            const savedReadQuality = localStorage.getItem("readQuality") || 'mid';
+            const savedScrollSpeed = localStorage.getItem("scrollSpeed") || '1';
+            // autoPlay = false;
+            localStorage.setItem("autoPlay", 'false');
+            localStorage.setItem("marathonMode", 'false');
+            localStorage.setItem("readQuality", savedReadQuality.toString());
+            localStorage.setItem("scrollSpeed", savedScrollSpeed.toString());
+            // speed = localStorage.setItem("scrollSpeed", savedScrollSpeed.toString());
+            if (savedScrollSpeed !== null) {
+                speed = parseFloat(savedScrollSpeed);
+            }
 
             // Slot height detection
             // if (slotWrapper) {
@@ -73,8 +100,8 @@
             updateDeviceFlags();
             window.addEventListener('resize', updateDeviceFlags);
             
-            window.addEventListener('scroll', updateScrollProgress);
-            updateScrollProgress();
+            // window.addEventListener('scroll', updateScrollProgress);
+            // updateScrollProgress();
         }
     });
 
@@ -82,7 +109,7 @@
         if (typeof window !== 'undefined') {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('resize', updateDeviceFlags);
-            window.removeEventListener('scroll', updateScrollProgress);
+            // window.removeEventListener('scroll', updateScrollProgress);
         }
     });
 
@@ -91,33 +118,33 @@
     let scrollPercent = 0;
     let hoverPercent: number | null = null;
 
-    function updateScrollProgress() {
-        if (typeof window !== 'undefined') {
-            if (!slotWrapper) return;
-            const contentHeight = slotWrapper.offsetHeight;
-            const viewportHeight = window.innerHeight;
-            const scrollY = window.scrollY;
-            const maxScroll = contentHeight - viewportHeight;
+    // function updateScrollProgress() {
+    //     if (typeof window !== 'undefined') {
+    //         if (!slotWrapper) return;
+    //         const contentHeight = slotWrapper.offsetHeight;
+    //         const viewportHeight = window.innerHeight;
+    //         const scrollY = window.scrollY;
+    //         const maxScroll = contentHeight - viewportHeight;
 
-            scrollPercent = Math.min(100, (scrollY / maxScroll) * 100);    
-        }    
-    }
+    //         scrollPercent = Math.min(100, (scrollY / maxScroll) * 100);    
+    //     }    
+    // }
 
-    function handleBarClick(event: MouseEvent) {
-        if (typeof window !== 'undefined') {
-            const bar = event.currentTarget as HTMLDivElement;
-            const rect = bar.getBoundingClientRect();
-            const clickX = event.clientX - rect.left;
-            const ratio = clickX / rect.width;
+    // function handleBarClick(event: MouseEvent) {
+    //     if (typeof window !== 'undefined') {
+    //         const bar = event.currentTarget as HTMLDivElement;
+    //         const rect = bar.getBoundingClientRect();
+    //         const clickX = event.clientX - rect.left;
+    //         const ratio = clickX / rect.width;
 
-            const contentHeight = slotWrapper.offsetHeight;
-            const viewportHeight = window.innerHeight;
-            const maxScroll = contentHeight - viewportHeight;
+    //         const contentHeight = slotWrapper.offsetHeight;
+    //         const viewportHeight = window.innerHeight;
+    //         const maxScroll = contentHeight - viewportHeight;
 
-            const targetScrollY = ratio * maxScroll;
-            window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
-        }
-    }
+    //         const targetScrollY = ratio * maxScroll;
+    //         window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+    //     }
+    // }
     
     function handleHoverMove(event: MouseEvent) {
         const bar = event.currentTarget as HTMLDivElement;
@@ -126,10 +153,221 @@
         const percent = (x / rect.width) * 100;
         hoverPercent = Math.max(0, Math.min(100, percent)); // Clamp antara 0–100
     }
+
+
+
+
+
+
+
+
+
+    function updateScroll() {
+        if (typeof window === 'undefined' || !slotWrapper) return;
+        const contentH = slotWrapper.offsetHeight;
+        const viewH = window.innerHeight;
+        const max = contentH - viewH;
+        scrollPercent = max > 0 ? (window.scrollY / max) * 100 : 0;
+    }
+
+    function handleRangeInput(e: Event) {
+        if (typeof window === 'undefined' || !slotWrapper) return;
+        const v = parseFloat((e.target as HTMLInputElement).value);
+        scrollPercent = v;
+        const contentH = slotWrapper.offsetHeight;
+        const viewH = window.innerHeight;
+        const max = contentH - viewH;
+        window.scrollTo({ top: (v / 100) * max, behavior: 'auto' });
+    }
+
+    function handleTouchMove(event: TouchEvent) {
+        if (!event.touches.length) return;
+
+        const touch = event.touches[0];
+        const bar = event.currentTarget as HTMLElement;
+        const rect = bar.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const percent = (x / rect.width) * 100;
+        hoverPercent = Math.max(0, Math.min(100, percent));
+    }
+
+    onMount(() => {
+        if (typeof window === 'undefined') return;
+        window.addEventListener('scroll', updateScroll);
+        updateScroll();
+    });
+
+    onDestroy(() => {
+        if (typeof window === 'undefined') return;
+        window.removeEventListener('scroll', updateScroll);
+    });
+
+
+
+
+    let marathonMode:boolean = false
+    // let marathonSave:boolean = false
+
+    function saveSettings () {
+        settings = !settings
+        localStorage.setItem("marathonMode", marathonMode.toString());
+        localStorage.setItem("readQuality", readQuality.toString());
+        localStorage.setItem("scrollSpeed", speed.toString());
+    }
+
+    // type ReadQuality = 'low' | 'mid' | 'high';
+    const validReadQualities = ['low', 'mid', 'high'] as const;
+    type ReadQuality = typeof validReadQualities[number];
+    let readQuality: ReadQuality = 'mid'; // default
+
+    // const validReadQualities: ReadQuality[] = ['low', 'mid', 'high'];
+
+    if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem("readQuality");
+        if (validReadQualities.includes(saved as ReadQuality)) {
+            readQuality = saved as ReadQuality;
+        }
+    }
+
+
+    // console.log(savedReadQuality)
+    // let slotWrapper: HTMLDivElement;
+    //   let autoPlay = false;  // toggle autoplay
+    let accSpeed = speed * 75;        // piksel per detik
+    $: accSpeed = speed * 75;
+
+    let intervalId: ReturnType<typeof setInterval>;
+
+    // function startAutoScroll() {
+    //     if (!slotWrapper) return;
+    //     stopAutoScroll();                      // clear interval sebelumnya
+    //     slotWrapper.style.overflowY = 'hidden';
+
+    //     intervalId = setInterval(() => {
+    //         if (!slotWrapper) return;
+    //         const max:number = slotWrapper.scrollHeight;
+    //         const left:number = slotWrapper.scrollHeight - Math.round(window.scrollY);
+    //         const curr:number = Math.round(window.scrollY) + Math.round(window.innerHeight);
+    //             console.log('Tinggi Container:' + max)
+    //             console.log('Sisa Move:' + left)
+    //             console.log('Posisi Sekarang:' + curr)
+    //             console.log('Posisi Sekarang:' + (max - 10))
+    //         if (curr < (max - 10)) {
+    //             slotWrapper.scrollTo({ top: Math.min(curr + accSpeed, max), behavior: 'smooth' });
+    //             console.log(slotWrapper.scrollTop)
+    //         } else {
+    //             slotWrapper.scrollTo({ top: max, behavior: 'smooth' });
+    //             stopAutoScroll();
+    //             autoPlay = false;
+    //         }
+    //     }, 250);
+    // }
+
+    function startAutoScroll() {
+        if (!slotWrapper) return;
+
+        stopAutoScroll(); // Clear interval sebelumnya
+
+        // Optional: Matikan scroll manual (misalnya dengan style overflow)
+        document.body.style.overflowY = 'hidden';
+
+        // intervalId = setInterval(() => {
+        //     if (!slotWrapper) return;
+
+        //     const max = slotWrapper.scrollHeight - window.innerHeight;
+        //     const curr = window.scrollY;
+        //     const next = Math.min(curr + accSpeed, max);
+
+        //     console.log('Tinggi Konten:', slotWrapper.scrollHeight);
+        //     console.log('Scroll Saat Ini:', curr);
+        //     console.log('Scroll Target:', next);
+
+        //     if (curr >= max - 10) {
+        //         window.scrollTo({ top: max, behavior: 'smooth' });
+        //         stopAutoScroll();
+        //         autoPlay = false;
+        //     } else {
+        //         window.scrollTo({ top: next, behavior: 'smooth' });
+        //     }
+        // }, 250);
+        intervalId = setInterval(() => {
+            if (!slotWrapper) return;
+
+            const max = slotWrapper.scrollHeight - window.innerHeight;
+            const curr = window.scrollY;
+            const next = Math.min(curr + accSpeed, max);
+
+            if (curr >= max - 10) {
+                scrollToSmoothly(max, 250); // scroll ke bawah selama 250ms
+                stopAutoScroll();
+                handleAutoScroll();
+                // autoPlay = false;
+            } else {
+                scrollToSmoothly(next, 250); // scroll 50px selama 250ms
+            }
+        }, 250);
+    }
+
+    function stopAutoScroll() {
+        if (typeof window !== 'undefined') {
+            clearInterval(intervalId);
+            document.body.style.overflowY = 'auto';
+        }
+    }
+
+    // Hanya trigger startAutoScroll sekali saat autoPlay berubah ke true
+    $: if (autoPlay) startAutoScroll();
+    // Trigger stopAutoScroll sekali saat autoPlay berubah ke false
+    $: if (!autoPlay) stopAutoScroll();
+
+    onDestroy(() => {
+        stopAutoScroll();
+    });
+
+    function scrollToSmoothly(target: number, duration: number = 250) {
+        const start = window.scrollY;
+        const distance = target - start;
+        const startTime = performance.now();
+
+        function step(currentTime: number) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = easeLinear(progress);
+
+            window.scrollTo(0, start + distance * ease);
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    function easeInOutQuad(t: number) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function easeLinear(t: number) {
+        return t; // langsung linear, tidak ada easing
+    }
+
+
+
+    function handleAutoScroll () {
+        navShow = !navShow 
+        if (autoPlay) {
+            autoPlay = false 
+            localStorage.setItem("autoPlay", 'false')    
+            setTimeout(() => {
+                navShow = !navShow;
+            }, 300);
+        }
+    }
 </script>
 
 
-<section class="bg-red-300 flex justify-center w-full relative">
+<section class="bg-zinc-900 flex justify-center w-full relative">
     {#if settings}
     <div transition:fade={{ duration: 150 }} class="fixed w-full h-full bg-zinc-900/80 z-150 text-mainlight flex justify-center items-center">
         <div class="min-w-64 min-h-64 bg-zinc-900 border-2 rounded-xl border-mainlight/30 flex flex-col items-center">
@@ -142,43 +380,49 @@
                 <div>
                     <div class="mb-2">Read Mode</div>
                     <div class="flex space-x-4 justify-center">
-                        <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-3 border-mainred bg-mainred/15 w-24 h-24 rounded-xl text-center">
+                        <button on:click={() => marathonMode = false} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
+                        ${marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-mainlight' 
+                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-4xl mb-1" icon="mingcute:walk-fill" />
                             Normal Mode
-                        </div>
-                        <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-[1.5px] hover:border-3 hover:bg-mainred/5 border-mainlight hover:border-mainred/30 transition-all w-24 h-24 rounded-xl text-center cursor-pointer">
+                        </button>
+                        <button on:click={() => marathonMode = true}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
+                        ${!marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-mainlight' 
+                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-4xl mb-1" icon="mingcute:run-fill" />
                             Marathon Mode
-                        </div>
-                        <!-- <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-[1.5px] hover:border-3 hover:bg-mainred/5 border-mainlight hover:border-mainred/30 transition-all w-24 h-24 rounded-xl text-center cursor-pointer">
-                            <Icon class="text-4xl mb-1" icon="mingcute:lightning" />
-                            Speed Mode
-                        </div> -->
+                        </button>
                     </div>
                 </div>
                 
                 <div>
                     <div class="mb-2">Read Quality</div>
                     <div class="flex space-x-4 justify-center">
-                        <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-3 border-mainred bg-mainred/15 w-24 h-24 rounded-xl text-center">
+                        <button on:click={() => readQuality = 'low'} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
+                        ${readQuality !== 'low' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-mainlight' 
+                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-5xl mb-1" icon="mdi:quality-low" />
                             Data Saver
-                        </div>
-                        <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-[1.5px] hover:border-3 hover:bg-mainred/5 border-mainlight hover:border-mainred/30 transition-all w-24 h-24 rounded-xl text-center cursor-pointer">
+                        </button>
+                        <button on:click={() => readQuality = 'mid'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
+                        ${readQuality !== 'mid' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-mainlight' 
+                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-5xl mb-1" icon="mdi:quality-medium" />
+                            Normal Quality
+                        </button>
+                        <button on:click={() => readQuality = 'high'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
+                        ${readQuality !== 'high' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-mainlight' 
+                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-5xl mb-1" icon="mdi:quality-high" />
                             Full Quality
-                        </div>
-                        <!-- <div class="flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide border-[1.5px] hover:border-3 hover:bg-mainred/5 border-mainlight hover:border-mainred/30 transition-all w-24 h-24 rounded-xl text-center cursor-pointer">
-                            <Icon class="text-4xl mb-1" icon="mingcute:lightning" />
-                            Speed Mode
-                        </div> -->
+                        </button>
                     </div>
                 </div>
 
-                <div>
+                <div class="w-full">
                     <div class="mb-2">Scroll Speed</div>
-                    <div class="flex space-x-4">
-                        <div class="w-64 text-white">
+                    <div class="flex space-x-4 w-full">
+                        <div class="min-w-64 w-full text-white">
                             <!-- <label for="autoscroll" class="block text-lg font-semibold mb-2">Autoscroll Speed</label> -->
                             
                             <div class="relative w-full flex flex-col items-center justify-center">
@@ -189,7 +433,7 @@
                                 max="1.5"
                                 step="0.05"
                                 bind:value={speed}
-                                class="w-[95%] h-2 bg-neutral-600 rounded-lg cursor-pointer accent-mainred"
+                                class="w-[94%] h-2 bg-neutral-600 rounded-lg cursor-pointer accent-mainred"
                                 />
                                 <div class="flex w-[95%] justify-between items-center mt-2">
                                     <Icon icon="ph:line-vertical" class="text-lg"/> 
@@ -225,10 +469,12 @@
                 </div>
             </div>
             <div class="bg-mainlight/30 h-[1.5px] w-[90%] rounded-full"></div>
+            {#if showAutoPlayUI}
             <div class="px-4 py-3 w-full space-x-2 flex justify-end">
-                <button on:click={() => settings = !settings} class="bg-mainred border-2 border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
+                <button on:click={saveSettings} class="bg-mainred border-2 border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
                 <button on:click={() => settings = !settings} class="bg-zinc-900 border-2 border-mainlight/30 hover:bg-mainred/15 transition-all hover:border-mainred cursor-pointer px-3 py-1 rounded-md">Later</button>
             </div>
+            {/if}
         </div>
     </div>
     {/if}
@@ -244,10 +490,10 @@
                 {#if !$tablet}    
                 <button on:click={toggleAutoPlay} class={`mx-3 cursor-pointer`}>
                     <div class="group">
-                        <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
+                        <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block' : 'hidden'}`} />
                     </div>
                     <div class="group">
-                        <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'hidden' : 'group-hover:block'}`} />
+                        <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'hidden' : 'group-hover:block'}`} />
                     </div>
                 </button>
                 <!-- <div class="mx-3 cursor-pointer group"><Icon icon="iconamoon:lightning-1" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="iconamoon:lightning-1-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div> -->
@@ -266,7 +512,7 @@
             </div>
         </div>
         <!-- <div class="absolute bg-zinc-50 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 cursor-pointer peer"><div class="w-1/3 bg-red-500 h-full"></div></div> -->
-        <div
+        <!-- <div
             class={`absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer`}
             role="button" tabindex="0" on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleBarClick}}
             on:click={handleBarClick}
@@ -277,14 +523,69 @@
                 class="bg-mainlight h-full"
                 style={`width: ${scrollPercent}%;`}
             ></div>
+        </div> -->
+
+
+
+
+
+
+
+
+
+        <div class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer xs:overflow-hidden">
+            <div class="absolute w-full h-full bg-zinc-500 overflow-hidden">
+                <div
+                class="h-full bg-mainred"
+                style={`width:${scrollPercent}%`}
+                ></div>
+            </div>
+
+            <!-- Thumb -->
+            <!-- <div
+                class="absolute bottom-0 h-3 w-3 bg-mainred rounded-full pointer-events-none"
+                style={`left:calc(${scrollPercent}% - 0.375rem); bottom: calc(0.5rem - 0.75rem);`}
+            ></div> -->
+
+            <!-- Invisible range overlay untuk drag/click -->
+            <input
+                type="range"
+                min="0" max="100" step="0.1"
+                value={scrollPercent}
+                on:input={handleRangeInput}
+                on:mousemove={handleHoverMove}
+                on:mouseleave={() => hoverPercent = null}
+                on:touchmove={handleTouchMove}
+                on:touchstart={handleTouchMove}
+                on:touchend={() => hoverPercent = null}
+                class={`absolute inset-x-0 w-full h-full appearance-none accent-mainred cursor-pointer transition-all ${navShow ? 'range-custom' : 'range-before'}`}
+            />
         </div>
+
+
+
+
+
+
+
+
         {#if hoverPercent !== null}
-        <div class="absolute bg-zinc-800 top-[calc(100%+24px)] py-0.5 px-1.5 rounded-md peer-hover:block hidden z-3">{Math.round(hoverPercent)}%</div>
+        <div class="absolute bg-zinc-800 top-[calc(100%+24px)] py-0.5 px-1.5 rounded-md z-3" transition:fade={{ duration: 150 }}>{Math.round(hoverPercent)}%</div>
         {/if}
         {#if navShow}
-        <div class="absolute bg-zinc-700/35 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 peer-hover:hidden" transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
+        <div class={`absolute bg-zinc-700/35 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${navShow?'':'opacity-0'} ${hoverPercent ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
         {/if}
     </div>
+    {#if autoPlay}
+    <div class={`fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${autoPlay ? 'delay-500' : 'translate-y-[16.8vw] xs:translate-y-[84px]'}`}>
+        <div class="absolute bottom-[16px] right-[16px] text-sm text-mainlight space-x-[2.4vw] xs:space-x-3">
+            <button on:click={toggleNonaktif} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
+                <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : ''}`} />
+                <Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
+            </button>
+        </div>
+    </div>
+    {/if}
     <div class={`${settings ? '' : ''} fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${navShow ? '' : 'translate-y-[16.8vw] xs:translate-y-[84px]'}`}>
         {#if !$tablet}
         <div class="absolute bottom-[16px] right-[16px] text-sm text-mainlight space-x-[2.4vw] xs:space-x-3">
@@ -314,10 +615,10 @@
             
             <button on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
                 <div class="relative">
-                    <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
+                    <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
                 </div>
                 <div class="relative">
-                    <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'hidden' : 'group-hover:block'}`} />
+                    <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'hidden' : 'group-hover:block'}`} />
                 </div>
             </button>
 
@@ -331,7 +632,7 @@
         </div>
         {/if}
     </div>
-    <div bind:this={slotWrapper} role="button" tabindex="0" on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') navShow = !navShow}} on:click={() => navShow = !navShow} class={`${settings ? '' : ''}`}>
+    <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth" role="button" tabindex="0" on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleAutoScroll}} on:click={handleAutoScroll}>
         <slot />
     </div>
 </section>  
@@ -357,4 +658,50 @@
     body::-webkit-scrollbar {
         display: none;
     } */
+
+    .range-custom::-webkit-slider-thumb {
+    background-color: #ff7261;
+    border: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1);
+    -webkit-appearance: none;
+    }
+
+    .range-custom[type="range"]::-moz-range-thumb {
+    background-color: #ff7261;
+    border: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(1);
+    }
+
+    .range-before::-webkit-slider-thumb {
+    background-color: #ff7261;
+    border: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(0);
+    -webkit-appearance: none;
+    }
+
+    .range-before[type="range"]::-moz-range-thumb {
+    background-color: #ff7261;
+    border: none;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    transform: scale(0);
+    }
 </style>
