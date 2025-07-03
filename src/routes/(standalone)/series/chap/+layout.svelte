@@ -11,23 +11,28 @@
 
     // === State ===
     let autoPlay = false;
-    let showAutoPlayUI = false;
-
-    function toggleNonaktif() {
-        if (!autoPlay) {
-            showAutoPlayUI = true;
-            setTimeout(() => {
-                autoPlay = true;
-                handleAutoScroll()
-            }, 10);
-        } else {
-            autoPlay = false;
-            setTimeout(() => {
-                showAutoPlayUI = false;
-                handleAutoScroll()
-            }, 10);
-        }
+    let stopButton: HTMLButtonElement | null = null;
+    $: if (autoPlay && stopButton) {
+        // Fokus ke tombol saat autoPlay aktif
+        stopButton.focus();
     }
+    // let showAutoPlayUI = false;
+
+    // function toggleNonaktif() {
+    //     if (!autoPlay) {
+    //         showAutoPlayUI = true;
+    //         setTimeout(() => {
+    //             autoPlay = true;
+    //             handleAutoScroll()
+    //         }, 10);
+    //     } else {
+    //         autoPlay = false;
+    //         setTimeout(() => {
+    //             showAutoPlayUI = false;
+    //             handleAutoScroll()
+    //         }, 10);
+    //     }
+    // }
 
     let navShow = true;
     let lastScrollY = 0;
@@ -433,7 +438,7 @@
                                 max="1.5"
                                 step="0.05"
                                 bind:value={speed}
-                                class="w-[94%] h-2 bg-neutral-600 rounded-lg cursor-pointer accent-mainred"
+                                class="w-[94%] h-2 bg-neutral-600 rounded-lg cursor-pointer accent-mainred outline-none"
                                 />
                                 <div class="flex w-[95%] justify-between items-center mt-2">
                                     <Icon icon="ph:line-vertical" class="text-lg"/> 
@@ -469,12 +474,12 @@
                 </div>
             </div>
             <div class="bg-mainlight/30 h-[1.5px] w-[90%] rounded-full"></div>
-            {#if showAutoPlayUI}
+            <!-- {#if showAutoPlayUI} -->
             <div class="px-4 py-3 w-full space-x-2 flex justify-end">
                 <button on:click={saveSettings} class="bg-mainred border-2 border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
                 <button on:click={() => settings = !settings} class="bg-zinc-900 border-2 border-mainlight/30 hover:bg-mainred/15 transition-all hover:border-mainred cursor-pointer px-3 py-1 rounded-md">Later</button>
             </div>
-            {/if}
+            <!-- {/if} -->
         </div>
     </div>
     {/if}
@@ -482,22 +487,25 @@
         <div class="w-[1200px] flex justify-between items-center">
             <div class="flex items-center">
                 <!-- Bacaan Series Page -->
-                <img src="data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M10.7552 3.17711C11.1549 2.93817 11.6542 2.9412 12.051 3.18498L19.9314 8.02706L20.7167 6.74904L12.8363 1.90696C11.9634 1.37064 10.8648 1.36396 9.98549 1.88965L2.83889 6.16218C2.00844 6.65865 1.5 7.555 1.5 8.52253V19.7509C1.5 21.2697 2.73122 22.5009 4.25 22.5009H7.44938V21.0009H4.25C3.55964 21.0009 3 20.4413 3 19.7509V8.52253C3 8.08275 3.23111 7.67531 3.60858 7.44965L10.7552 3.17711Z' fill='%23f8f9fa'/%3e %3cpath d='M11 12.5C11 11.9477 11.4477 11.5 12 11.5C12.5523 11.5 13 11.9477 13 12.5C13 13.0523 12.5523 13.5 12 13.5C11.4477 13.5 11 13.0523 11 12.5Z' fill='%23f8f9fa'/%3e %3cpath d='M22.5 13.25H14.5V11.75H22.5V13.25Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 17.5H22.5V16H14.5V17.5Z' fill='%23f8f9fa'/%3e %3cpath d='M11 16.75C11 16.1977 11.4477 15.75 12 15.75C12.5523 15.75 13 16.1977 13 16.75C13 17.3023 12.5523 17.75 12 17.75C11.4477 17.75 11 17.3023 11 16.75Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 21.75H22.5V20.25H14.5V21.75Z' fill='%23f8f9fa'/%3e %3cpath d='M11 21C11 20.4477 11.4477 20 12 20C12.5523 20 13 20.4477 13 21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21Z' fill='%23f8f9fa'/%3e %3c/svg%3e" class="p-[3.2vw] xs:p-4 max-xs:w-[11.2vw] hover:bg-zinc-50/15 active:bg-zinc-50/15 cursor-pointer" alt="">
+                <a tabindex={navShow ? 0 : -1} href="/series" class="outline-none focus-visible:bg-zinc-50/5 hover:bg-zinc-50/15 active:bg-zinc-50/15 cursor-pointer">
+                    <img src="data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M10.7552 3.17711C11.1549 2.93817 11.6542 2.9412 12.051 3.18498L19.9314 8.02706L20.7167 6.74904L12.8363 1.90696C11.9634 1.37064 10.8648 1.36396 9.98549 1.88965L2.83889 6.16218C2.00844 6.65865 1.5 7.555 1.5 8.52253V19.7509C1.5 21.2697 2.73122 22.5009 4.25 22.5009H7.44938V21.0009H4.25C3.55964 21.0009 3 20.4413 3 19.7509V8.52253C3 8.08275 3.23111 7.67531 3.60858 7.44965L10.7552 3.17711Z' fill='%23f8f9fa'/%3e %3cpath d='M11 12.5C11 11.9477 11.4477 11.5 12 11.5C12.5523 11.5 13 11.9477 13 12.5C13 13.0523 12.5523 13.5 12 13.5C11.4477 13.5 11 13.0523 11 12.5Z' fill='%23f8f9fa'/%3e %3cpath d='M22.5 13.25H14.5V11.75H22.5V13.25Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 17.5H22.5V16H14.5V17.5Z' fill='%23f8f9fa'/%3e %3cpath d='M11 16.75C11 16.1977 11.4477 15.75 12 15.75C12.5523 15.75 13 16.1977 13 16.75C13 17.3023 12.5523 17.75 12 17.75C11.4477 17.75 11 17.3023 11 16.75Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 21.75H22.5V20.25H14.5V21.75Z' fill='%23f8f9fa'/%3e %3cpath d='M11 21C11 20.4477 11.4477 20 12 20C12.5523 20 13 20.4477 13 21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21Z' fill='%23f8f9fa'/%3e %3c/svg%3e" 
+                    class="p-[3.2vw] xs:p-4 max-xs:w-[11.2vw]" alt="">
+                </a>
                 <!-- Chapter List Pop Up -->
-                <div class="ml-[3.2vw] xs:ml-4 cursor-pointer hover:underline active:underline line-clamp-1">Sky-Breaking Sword Saint (3)</div> 
+                <button tabindex={navShow ? 0 : -1} class="ml-[3.2vw] xs:ml-4 cursor-pointer focus-visible:underline outline-none hover:underline active:underline line-clamp-1">Sky-Breaking Sword Saint (3)</button> 
             </div>
             <div class="h-full flex items-center mr-4">
                 {#if !$tablet}    
-                <button on:click={toggleAutoPlay} class={`mx-3 cursor-pointer`}>
-                    <div class="group">
-                        <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block' : 'hidden'}`} />
+                <button tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class={`mx-3 cursor-pointer group outline-none`}>
+                    <div class="">
+                        <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
                     </div>
-                    <div class="group">
+                    <div class="">
                         <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'hidden' : 'group-hover:block'}`} />
                     </div>
                 </button>
                 <!-- <div class="mx-3 cursor-pointer group"><Icon icon="iconamoon:lightning-1" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="iconamoon:lightning-1-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div> -->
-                <button on:click={() => settings = !settings} class="mx-3 cursor-pointer group"><Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="iconamoon:settings-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></button>   
+                <button tabindex={navShow ? 0 : -1} on:click={() => settings = !settings} class="mx-3 cursor-pointer group outline-none"><Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl group-hover:hidden group-focus-visible:hidden`} /><Icon icon="iconamoon:settings-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block group-focus-visible:block`} /></button>   
                 <div class="mx-3 cursor-pointer group"><Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div>   
                 <!-- <div class="mx-3 cursor-pointer relative">
                     <Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl`} />
@@ -533,7 +541,7 @@
 
 
 
-        <div class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer xs:overflow-hidden">
+        <div class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer">
             <div class="absolute w-full h-full bg-zinc-500 overflow-hidden">
                 <div
                 class="h-full bg-mainred"
@@ -558,7 +566,7 @@
                 on:touchmove={handleTouchMove}
                 on:touchstart={handleTouchMove}
                 on:touchend={() => hoverPercent = null}
-                class={`absolute inset-x-0 w-full h-full appearance-none accent-mainred cursor-pointer transition-all ${navShow ? 'range-custom' : 'range-before'}`}
+                class={`absolute inset-x-0 w-full h-full cursor-pointer transition-all outline-none accent-mainred appearance-none focus-visible:appearance-auto focus-visible:accent-sky-400 ${navShow ? 'range-custom' : 'range-before'}`}
             />
         </div>
 
@@ -576,20 +584,20 @@
         <div class={`absolute bg-zinc-700/35 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${navShow?'':'opacity-0'} ${hoverPercent ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
         {/if}
     </div>
-    {#if autoPlay}
+    <!-- {#if autoPlay} -->
     <div class={`fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${autoPlay ? 'delay-500' : 'translate-y-[16.8vw] xs:translate-y-[84px]'}`}>
         <div class="absolute bottom-[16px] right-[16px] text-sm text-mainlight space-x-[2.4vw] xs:space-x-3">
-            <button on:click={toggleNonaktif} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
+            <button bind:this={stopButton} on:click={handleAutoScroll} tabindex={autoPlay ? 0 : -1} class="p-[2.4vw] outline-none focus-visible:bg-zinc-700 xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
                 <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : ''}`} />
                 <Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
             </button>
         </div>
     </div>
-    {/if}
+    <!-- {/if} -->
     <div class={`${settings ? '' : ''} fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${navShow ? '' : 'translate-y-[16.8vw] xs:translate-y-[84px]'}`}>
         {#if !$tablet}
         <div class="absolute bottom-[16px] right-[16px] text-sm text-mainlight space-x-[2.4vw] xs:space-x-3">
-            <button class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
+            <button tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
                 <Icon icon="mingcute:share-2-line" class={`text-2xl -translate-x-0.5`} />
             </button>
         </div>
@@ -597,11 +605,11 @@
         {#if $tablet}
         <div class="absolute bottom-[6.4vw] xs:bottom-[32px] text-sm text-mainlight space-x-[2.4vw] xs:space-x-3">
             
-            <button class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
                 <Icon icon="ph:caret-left-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
 
-            <button class="p-[2.4vw] xs:p-3 rounded-full bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
                 <!-- <div class="relative">
                     <Icon icon="iconamoon:comment" class={`text-[4.8vw] xs:text-2xl`} />
                     <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border-2 border-mainlight text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
@@ -613,7 +621,7 @@
                 </div>
             </button>
             
-            <button on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
+            <button on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700 group">
                 <div class="relative">
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? 'group-hover:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} />
                 </div>
@@ -622,17 +630,17 @@
                 </div>
             </button>
 
-            <button on:click={() => settings = !settings} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
+            <button on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
                 <Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
             
-            <button class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-800 active:bg-zinc-700 cursor-pointer hover:bg-zinc-700">
                 <Icon icon="ph:caret-right-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
         </div>
         {/if}
     </div>
-    <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth" role="button" tabindex="0" on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleAutoScroll}} on:click={handleAutoScroll}>
+    <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none" role="button" tabindex="0" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll}>
         <slot />
     </div>
 </section>  
