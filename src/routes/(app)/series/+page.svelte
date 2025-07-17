@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import Pagination from "$lib/components/pagination.svelte";
     import SeriesSidebar from "$lib/components/SeriesSidebar.svelte";
     import Breakline from "$lib/components/util/breakline.svelte";
@@ -227,7 +228,9 @@
                         </div>
                     </div>
                     {#each Array.from({ length: 3 }, (_, i) => i + 1) as n}
-                        <button class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
+                        <button
+                        on:click={() => goto('/series/chap')} 
+                        class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
                         w-full hover:bg-zinc-200/80 cursor-pointer gap-[2.4vw] pr-[4.8vw] xs:pr-8 xs:gap-4 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                         h-[24vw] xs:h-[96px] md:h-[95px] lg:h-[95px] xl:h-[98.1px]`}>
                             <div class="font-bold 
@@ -250,7 +253,9 @@
                         </button>
                     {/each}
                     {#each Array.from({ length: 4 }, (_, i) => i + 1) as n}
-                        <button class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
+                        <button 
+                        on:click={() => goto('/series/chap')}
+                        class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
                         w-full hover:bg-zinc-200/80 cursor-pointer gap-[2.4vw] pr-[4.8vw] xs:pr-8 xs:gap-4 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                         h-[24vw] xs:h-[96px] md:h-[95px] lg:h-[95px] xl:h-[98.1px]`}>
                             <div class="font-bold 
