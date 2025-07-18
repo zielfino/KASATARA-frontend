@@ -60,12 +60,16 @@
         localStorage.setItem("autoPlay", autoPlay.toString());
     }
 
+    let suppressScrollHandler = false;
     // === Scroll Handler ===
     function handleScroll() {
+        if (suppressScrollHandler) return;
+        
         const currentY = window.scrollY;
-        navShow = currentY < lastScrollY;
+        navShow = currentY < lastScrollY || currentY < 10;
         lastScrollY = currentY;
         chaplist = false;
+        // commentDisplay = false;
     }
 
     // === Resize Handler ===
@@ -123,8 +127,10 @@
 
 
     let slotWrapper: HTMLDivElement;
+    let contentH: number = 0;  
     let scrollPercent = 0;
     let hoverPercent: number | null = null;
+    let savedScrollPercent = 0;
 
     // function updateScrollProgress() {
     //     if (typeof window !== 'undefined') {
@@ -172,7 +178,7 @@
 
     function updateScroll() {
         if (typeof window === 'undefined' || !slotWrapper) return;
-        const contentH = slotWrapper.offsetHeight;
+        contentH = slotWrapper.offsetHeight;
         const viewH = window.innerHeight;
         const max = contentH - viewH;
         scrollPercent = max > 0 ? (window.scrollY / max) * 100 : 0;
@@ -364,10 +370,14 @@
 
     function handleAutoScroll () {
         if (settings) return;
-        navShow = !navShow 
+        if (window.scrollY > 10) {
+            navShow = !navShow;
+        }
         chaplist = false;
+        // commentDisplay = false;
         if (autoPlay) {
             chaplist = false;
+            // commentDisplay = false;
             autoPlay = false 
             localStorage.setItem("autoPlay", 'false')    
             setTimeout(() => {
@@ -425,16 +435,97 @@
     import { contentWidth } from '$lib/stores/contentWidth';
     let width = 500;
 
-    const unsubscribe = contentWidth.subscribe(val => width = val);
+    // const unsubscribe = contentWidth.subscribe(val => width = val);
+
+    // export function waitForLayout(): Promise<void> {
+    //     return new Promise(resolve => {
+    //         requestAnimationFrame(() => {
+    //             requestAnimationFrame(resolve);
+    //         });
+    //     });
+    // }
 
     function zoomIn() {
-        if (window.innerWidth > 500)
+        // const viewH = window.innerHeight;
+        // const contentH = slotWrapper.offsetHeight;
+        // const max = contentH - viewH;
+        updateScroll();
+        savedScrollPercent = scrollPercent;
+        // const pixel = (savedScrollPercent / 100) * max;
+
+        // if (window.innerWidth > 500)
         contentWidth.increase();
+        
+        suppressScrollHandler = true;
+
+        requestAnimationFrame(() => {
+            const viewH = window.innerHeight;
+            const newContentH = slotWrapper.offsetHeight;
+            const max = newContentH - viewH;
+            const pixel = (savedScrollPercent / 100) * max;
+
+            window.scrollTo({ top: pixel, behavior: 'auto' });
+
+            setTimeout(() => {
+                suppressScrollHandler = false;
+            }, 50);
+        });
+
+        // window.scrollTo({ top: pixel, behavior: 'smooth' });
     }
 
+    // function zoomOut() {
+    //     const viewH = window.innerHeight;
+    //     const contentH = slotWrapper.offsetHeight;
+    //     const max = contentH - viewH;
+    //     savedScrollPercent = scrollPercent;
+    //     const pixel = (savedScrollPercent / 100) * max;
+        
+    //     if (window.innerWidth > 500)
+    //     contentWidth.decrease();
+    //     window.scrollTo({ top: pixel, behavior: 'smooth' });
+    
+    // }
+
+    // async function zoomIn() {
+    //     if (window.innerWidth <= 500) return;
+
+    //     updateScroll();
+    //     savedScrollPercent = scrollPercent;
+
+    //     contentWidth.increase();
+
+    //     await waitForLayout(); // ✅ Tunggu layout selesai dulu
+
+    //     const viewH = window.innerHeight;
+    //     const newContentH = slotWrapper.offsetHeight;
+    //     const max = newContentH - viewH;
+    //     const pixel = (savedScrollPercent / 100) * max;
+
+    //     window.scrollTo({ top: pixel, behavior: 'auto' });
+    // }
+
     function zoomOut() {
-        if (window.innerWidth > 500)
+        if (window.innerWidth <= 500) return;
+
+        updateScroll();
+        savedScrollPercent = scrollPercent;
+
         contentWidth.decrease();
+        suppressScrollHandler = true;
+
+        requestAnimationFrame(() => {
+            const viewH = window.innerHeight;
+            const newContentH = slotWrapper.offsetHeight;
+            const max = newContentH - viewH;
+            const pixel = (savedScrollPercent / 100) * max;
+
+            window.scrollTo({ top: pixel, behavior: 'auto' });
+
+            setTimeout(() => {
+                suppressScrollHandler = false;
+            }, 50);
+        });
     }
 
 
@@ -446,19 +537,41 @@
         chaplist = !chaplist;
     }
 
-    onMount(() => {
-        if (typeof window !== 'undefined')
-        window.addEventListener('scroll', handleScroll);
-    });
 
-    onDestroy(() => {
-        if (typeof window !== 'undefined')
-        window.removeEventListener('scroll', handleScroll);
-    });
+    let commentDisplay = true
+
+    function togglecomment() {
+        suppressScrollHandler = true;
+        commentDisplay = !commentDisplay;
+
+        if (commentDisplay) {
+            updateScroll();
+            console.log(contentH)
+            console.log((scrollPercent/ 100) * contentH)
+            savedScrollPercent = scrollPercent;
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        } else {
+            const viewH = window.innerHeight;
+            const max = contentH - viewH;
+            const pixel = (savedScrollPercent / 100) * max;
+            console.log(pixel)
+
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: pixel, behavior: 'auto' });
+
+                setTimeout(() => {
+                    suppressScrollHandler = false;
+                }, 50);
+            });
+        }
+    }
+
 </script>
 
 
 <section class="bg-mainlight dark:bg-zinc-900 transition-colors duration-300 flex flex-col items-center justify-center w-full relative">
+
+    <!-- SETTINGS POP UP -->
     {#if settings}
     <div transition:fade={{ duration: 150 }} class="fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/80 text-zinc-700 dark:text-mainlight z-150 flex justify-center items-center">
         <div class="min-w-64 min-h-64 bg-stone-200 dark:bg-zinc-900 border-2 rounded-xl border-mainlight/30 flex flex-col items-center">
@@ -569,25 +682,32 @@
         </div>
     </div>
     {/if}
+
+    <!-- TOP NAV -->
+
     <div class={`${settings ? '' : ''} fixed w-full z-100 top-0 bg-mainlight xs:bg-stone-200 dark:bg-zinc-800 text-zinc-700 dark:text-mainlight text-[2.8vw] xs:text-sm flex justify-center transition duration-300 ${navShow ? '' : '-translate-y-[11.2vw] xs:-translate-y-[56px]'}`}>
+        
         <div class="w-[1200px] flex justify-between items-center">
 
+            <!-- PHONE -->
             {#if $phone}
             
-            <a href="/" tabindex="0" aria-label="home" class="flex items-center justify-center h-[11.2vw] w-full">
-                <svg class="h-[4.5vw] fill-mainred dark:fill-mainlight transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
-                    <g>
-                        <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
-                        <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
-                        <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                        <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
-                        <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
-                    </g> 
-                </svg>
-            </a>
+            <div class="flex items-center justify-center h-[11.2vw] w-full">
+                <a href="/" tabindex="0" aria-label="home">
+                    <svg class="h-[4.5vw] fill-mainred dark:fill-mainlight transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
+                        <g>
+                            <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
+                            <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                            <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                            <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
+                            <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
+                        </g> 
+                    </svg>
+                </a>
+            </div>
             
             <button tabindex={navShow ? 0 : -1} on:click={switchTheme} class={`absolute right-0 order-2 mx-3 cursor-pointer group outline-none`}>
                 <div class="">
@@ -599,6 +719,7 @@
             </button>
             {/if}
 
+            <!-- TABLET - DESKTOP -->
             {#if !$phone}
             <!-- LEFT -->
             <div class="flex items-center relative">
@@ -645,10 +766,20 @@
                     </div>
                 </button>
 
-                <!-- {#if !$phone} -->
-                <div class="order-3 mx-3 cursor-pointer group"><Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div>   
+                <button tabindex={navShow ? 0 : -1} on:click={togglecomment} class=" outline-none order-3 mx-3 cursor-pointer group">
+                    
+                    {#if commentDisplay}
+                    <Icon icon="mingcute:document-line" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} />
+                    <Icon icon="mingcute:document-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} />
+                    {:else if !commentDisplay}
+                    <Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} />
+                    <Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} />
+                    {/if}
+
+                </button>   
+                {#if !commentDisplay}
                 <button tabindex={navShow ? 0 : -1} on:click={() => settings = !settings} class="order-1 mx-3 cursor-pointer group outline-none"><Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl group-hover:hidden group-focus-visible:hidden`} /><Icon icon="iconamoon:settings-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block group-focus-visible:block`} /></button>   
-                <!-- {/if} -->
+                {/if}
 
                 {#if !$tablet}
                 <!-- <button tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class={`mx-3 cursor-pointer group outline-none`}>
@@ -661,19 +792,16 @@
                 </button> -->
                 <!-- <div class="mx-3 cursor-pointer group"><Icon icon="iconamoon:lightning-1" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="iconamoon:lightning-1-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div> -->
 
-                <!-- <div class="mx-3 cursor-pointer relative">
-                    <Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl`} />
-                    <span class="absolute -top-1.5 -right-1.5 bg-zinc-800 border-2 border-mainlight text-zinc-600 dark:text-mainlight text-[8px] font-semibold rounded-full w-5 h-5 flex items-center justify-center">
-                        1K
-                    </span>
-                </div> -->
                 <div class="order-3 flex items-center cursor-pointer ml-4"><Icon icon="ph:caret-left-bold" class={`text-[4.8vw] xs:text-2xl mr-3`} />Prev</div>
                 <div class="order-3 border-r border-[1.5px] rounded-full h-4 mx-4 opacity-40"></div>
                 <div class="order-3 flex items-center cursor-pointer">Next<Icon icon="ph:caret-right-bold" class={`text-[4.8vw] xs:text-2xl ml-3`} /></div>
                 {/if}
             </div>
             {/if}
+
         </div>
+
+
         <!-- <div class="absolute bg-zinc-50 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 cursor-pointer peer"><div class="w-1/3 bg-red-500 h-full"></div></div> -->
         <!-- <div
             class={`absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer`}
@@ -688,14 +816,8 @@
             ></div>
         </div> -->
 
-
-
-
-
-
-
-
-
+        <!-- PROGRESS BAR -->
+        {#if !commentDisplay}
         <div class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer">
             <div class="absolute w-full h-full bg-zinc-500 overflow-hidden">
                 <div
@@ -728,20 +850,20 @@
             <!-- {/if} -->
         </div>
 
-
-
-
-
-
-
-
+        <!-- FLYING OBJECT -->
         {#if hoverPercent !== null}
         <div class="absolute bg-zinc-800 text-mainlight top-[calc(100%+24px)] py-0.5 px-1.5 rounded-md z-3" transition:fade={{ duration: 150 }}>{Math.round(hoverPercent)}%</div>
         {/if}
         {#if navShow && scrollPercent <= 100}
         <div class={`absolute bg-zinc-700/55 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] text-mainlight xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${navShow?'':'opacity-0'} ${hoverPercent !== null ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
         {/if}
+        {/if}
+
     </div>
+
+
+
+    <!-- STOP BUTTON ON AUTOPLAY ACTIVE -->
     <!-- {#if autoPlay} -->
     <div class={`fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${autoPlay ? 'delay-500' : 'translate-y-[16.8vw] xs:translate-y-[84px] sm:translate-y-0 sm:translate-x-[84px]'}`}>
         <div class="absolute bottom-[3.2vw] right-[3.2vw] xs:bottom-[16px] xs:right-[16px] text-sm text-zinc-600 dark:text-mainlight space-x-[2.4vw] xs:space-x-3">
@@ -752,10 +874,19 @@
         </div>
     </div>
     <!-- {/if} -->
+
+
+    <!-- NAV SHIT IDONTKNOW HOW TO ORDER -->
+    <!-- {#if !commentDisplay} -->
     <div class={`${settings ? '' : ''} fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${navShow ? '' : 'translate-y-[16.8vw] xs:translate-y-[84px] sm:translate-x-[84px] sm:translate-y-[0]'}`}>
+
+
         <div class={`absolute bottom-[3.2vw] xs:bottom-[16px] right-[3.2vw] xs:right-[16px] text-sm text-zinc-600 dark:text-mainlight space-y-[2.4vw] flex flex-col xs:space-y-3 `}>
-        {#if !$tablet}
+
+        <!-- DESKTOP FLYTING NAV -->
+        {#if !$tablet && !commentDisplay}
             {#if scrollPercent <= 100}
+            <!-- PLAY BUTTON -->
             <button transition:fade={{ duration: 150 }} tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <div class="">
                     <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
@@ -764,6 +895,7 @@
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'hidden' : 'group-hover:block'}`} />
                 </div>
             </button>
+            <!-- MAG BUTTON -->
             <button transition:fade={{ duration: 150 }} on:click={zoomIn} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="ph:magnifying-glass-plus-bold" class={`text-2xl`} />
             </button>
@@ -774,9 +906,11 @@
             <!-- <button tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="mingcute:share-2-line" class={`text-2xl -translate-x-0.5`} />
             </button> -->
-            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0]' : navShow && !autoPlay && scrollPercent > 100 ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0]' : ''}`}>
+            <!-- GO TO TOP -->
+            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0] delay-300' : ''}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-2xl`} />
             </button>
+        
         {:else}
             <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] sm:-translate-x-[84px] xs:-translate-y-[84px] delay-150' : 'translate-y-[16.8vw] sm:translate-y-[0] sm:translate-x-[84px]'}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-[4.8vw] xs:text-2xl`} />
@@ -792,7 +926,7 @@
                 <Icon icon="ph:caret-left-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
 
-            <button tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group`}>
+            <button tabindex={navShow ? 0 : -1} on:click={togglecomment} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
                 <!-- <div class="relative">
                     <Icon icon="iconamoon:comment" class={`text-[4.8vw] xs:text-2xl`} />
                     <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border-2 border-mainlight text-zinc-600 dark:text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
@@ -800,17 +934,23 @@
                     </span>
                 </div> -->
                 <div class="relative">
-                    <Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden`} />
+                    
+                    {#if commentDisplay}
+                    <Icon icon="mingcute:document-line" class={`text-[4.8vw] xs:text-2xl`} />
+                    {:else if !commentDisplay}
+                    <Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl`} />
+                    {/if}
+
                 </div>
             </button>
 
-            <button disabled={scrollPercent > 100} on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
-                    <Icon icon="ph:magnifying-glass-plus-bold" class={`text-[4.8vw] xs:text-2xl`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden`} />
+                    <Icon icon="ph:magnifying-glass-plus-bold" class={`text-[4.8vw] xs:text-2xl`} />
                 </div>
             </button>
             
-            <button disabled={scrollPercent > 100} on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class={` ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class={` ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'} transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? '' : 'hidden'}`} />
                 </div>
@@ -819,13 +959,13 @@
                 </div>
             </button>
 
-            <button disabled={scrollPercent > 100} on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
-                    <Icon icon="ph:magnifying-glass-minus-bold" class={`text-[4.8vw] xs:text-2xl`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden`} />
+                    <Icon icon="ph:magnifying-glass-minus-bold" class={`text-[4.8vw] xs:text-2xl`} />
                 </div>
             </button>
 
-            <button on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
+            <button disabled={commentDisplay} on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
                 <Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
             
@@ -893,10 +1033,15 @@
         {/if}   
         {/if}
     </div>
+    <!-- {/if} -->
+
+    {#if !commentDisplay}
     <div bind:this={slotWrapper} class="w-full flex justify-center relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none" role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll}>
     <!-- <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none"> -->
         <slot />
     </div>
+
+
     <section class="w-full flex flex-col items-center justify-center py-8 space-y-2">
         <div class="mt-2">reaction & rate</div>
         <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
@@ -905,20 +1050,70 @@
         <div class="mt-2">reccoemntadion</div>
         <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
     </section>
+    {/if}
+
+    {#if commentDisplay}
+    <!-- <div class="h-[100dvh] w-full pt-[56px]"> -->
+        <!-- <div class="w-full h-full overflow-y-scroll scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 space-y-4"> -->
+        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} class={`w-full h-full space-y-4 pt-[16vw] xs:pt-24`}>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+            <div>comment sect goese here</div>
+        </div>
+    <!-- </div> -->
+    {/if}
 </section>  
 
 <style>
     /* Ini akan diterapkan ke html dan body secara global */
     :global(html),
     :global(body) {
-        scrollbar-width: none;      /* Firefox */
-        -ms-overflow-style: none;   /* IE 10+ / Edge */
+        scrollbar-width: none;      
+        -ms-overflow-style: none;   
     }
 
     :global(html::-webkit-scrollbar),
     :global(body::-webkit-scrollbar) {
-        display: none;              /* Chrome, Safari, Opera */
+        display: none;              
     }
+
+    /* :global(html.hide-scroll),
+    :global(html.hide-scroll body) {
+    scrollbar-width: none;         
+    -ms-overflow-style: none;    
+    }
+
+    :global(html.hide-scroll::-webkit-scrollbar),
+    :global(html.hide-scroll body::-webkit-scrollbar) {
+    display: none;               
+    } */
     
     /* html, body {
         scrollbar-width: none;
