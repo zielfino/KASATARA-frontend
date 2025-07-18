@@ -428,10 +428,12 @@
     const unsubscribe = contentWidth.subscribe(val => width = val);
 
     function zoomIn() {
+        if (window.innerWidth > 500)
         contentWidth.increase();
     }
 
     function zoomOut() {
+        if (window.innerWidth > 500)
         contentWidth.decrease();
     }
 
@@ -445,18 +447,20 @@
     }
 
     onMount(() => {
+        if (typeof window !== 'undefined')
         window.addEventListener('scroll', handleScroll);
     });
 
     onDestroy(() => {
+        if (typeof window !== 'undefined')
         window.removeEventListener('scroll', handleScroll);
     });
 </script>
 
 
-<section class="bg-mainlight dark:bg-zinc-900 transition-colors duration-300 flex justify-center w-full relative">
+<section class="bg-mainlight dark:bg-zinc-900 transition-colors duration-300 flex flex-col items-center justify-center w-full relative">
     {#if settings}
-    <div transition:fade={{ duration: 150 }} class="fixed w-full backdrop-blur-xs h-full bg-zinc-900/80 text-zinc-700 dark:text-mainlight z-150 flex justify-center items-center">
+    <div transition:fade={{ duration: 150 }} class="fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/80 text-zinc-700 dark:text-mainlight z-150 flex justify-center items-center">
         <div class="min-w-64 min-h-64 bg-stone-200 dark:bg-zinc-900 border-2 rounded-xl border-mainlight/30 flex flex-col items-center">
             <div class="w-full flex justify-between items-center">
                 <div class="px-6 py-4">Settings</div>
@@ -559,14 +563,44 @@
             <!-- {#if showAutoPlayUI} -->
             <div class="px-4 py-3 w-full space-x-2 flex justify-end">
                 <button on:click={saveSettings} class="text-mainlight bg-mainred border-2 border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
-                <button on:click={() => settings = !settings} class="text-mainlight bg-zinc-900 border-2 border-mainlight/30 hover:bg-zinc-900/15 transition-all hover:border-zinc-900 cursor-pointer px-3 py-1 rounded-md">Later</button>
+                <button on:click={() => settings = !settings} class="border-2 border-zinc-900/30 dark:border-mainlight/30 dark:hover:bg-mainlight/15 hover:bg-zinc-900/15 transition-all dark:hover:border-mainlight hover:border-zinc-900 cursor-pointer px-3 py-1 rounded-md">Later</button>
             </div>
             <!-- {/if} -->
         </div>
     </div>
     {/if}
-    <div class={`${settings ? '' : ''} fixed w-full z-100 top-0 bg-stone-200 dark:bg-zinc-800 text-zinc-700 dark:text-mainlight text-[2.8vw] xs:text-sm flex justify-center transition duration-300 ${navShow ? '' : '-translate-y-[11.2vw] xs:-translate-y-[56px]'}`}>
+    <div class={`${settings ? '' : ''} fixed w-full z-100 top-0 bg-mainlight xs:bg-stone-200 dark:bg-zinc-800 text-zinc-700 dark:text-mainlight text-[2.8vw] xs:text-sm flex justify-center transition duration-300 ${navShow ? '' : '-translate-y-[11.2vw] xs:-translate-y-[56px]'}`}>
         <div class="w-[1200px] flex justify-between items-center">
+
+            {#if $phone}
+            
+            <a href="/" tabindex="0" aria-label="home" class="flex items-center justify-center h-[11.2vw] w-full">
+                <svg class="h-[4.5vw] fill-mainred dark:fill-mainlight transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860.59 118.52">
+                    <g>
+                        <path d="m171.55.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L171.55.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <polygon points="312.24 69.44 264.81 118.2 224.41 118.2 267.58 73.82 219.56 73.82 209.18 49.25 256.95 .14 297.34 .14 253.83 44.87 301.86 44.87 312.24 69.44"/>
+                        <path d="m386.18.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L386.18.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <path d="m48.77,61.84c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98H0V.14h28.96v40.46C37.28,31.54,49.35,17.17,59.61.14h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                        <path d="m817.24.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L817.24.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <path d="m581.98.14h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84L581.98.14Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                        <polygon points="517.7 .23 517.7 29.18 486.51 29.18 486.51 118.29 451.76 118.29 451.76 29.18 420.57 29.18 420.57 .23 517.7 .23"/>
+                        <path d="m738.99,54.27c3.5-6.62,6.49-17.5.79-31.78C733.92,7.82,717.53.04,687.22.04c-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08s.74,6.25.34,7.01Z"/>
+                    </g> 
+                </svg>
+            </a>
+            
+            <button tabindex={navShow ? 0 : -1} on:click={switchTheme} class={`absolute right-0 order-2 mx-3 cursor-pointer group outline-none`}>
+                <div class="">
+                    <Icon icon="mingcute:moon-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="mingcute:moon-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
+                </div>
+                <div class="">
+                    <Icon icon="mingcute:sun-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="mingcute:sun-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'hidden' : 'group-hover:block'}`} />
+                </div>
+            </button>
+            {/if}
+
+            {#if !$phone}
+            <!-- LEFT -->
             <div class="flex items-center relative">
                 <!-- Bacaan Series Page -->
                 <a tabindex={navShow ? 0 : -1} href="/series" class="outline-none focus-visible:bg-zinc-50/5 hover:bg-zinc-50/15 active:bg-zinc-50/15 cursor-pointer h-[11.2vw] xs:h-[56px] aspect-square">
@@ -585,19 +619,21 @@
                     <div transition:fade={{ duration: 150 }} class="fixed z-101 pt-2 pl-3">
                         <div class="bg-stone-100 dark:bg-zinc-800 rounded-md border border-stone-300 dark:border-zinc-700 w-72 h-64 
                     scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 overflow-y-scroll transition-colors duration-300 p-2">
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> <span class="opacity-70 dark:opacity-40">#16</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (4)</span> <span class="opacity-70 dark:opacity-40">#15</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (3)</span> <span class="opacity-70 dark:opacity-40">#14</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (2)</span> <span class="opacity-70 dark:opacity-40">#13</span></div>
-                            <div class="w-full h-12 border-zinc-400 pl-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Load more...</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> <span class="opacity-70 dark:opacity-40">#16</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (4)</span> <span class="opacity-70 dark:opacity-40">#15</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (3)</span> <span class="opacity-70 dark:opacity-40">#14</span></div>
+                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (2)</span> <span class="opacity-70 dark:opacity-40">#13</span></div>
+                            <div class="w-full h-12 border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Load more...</span></div>
                         </div>
                     </div>
                     {/if}
                 </div>
             </div>
+
+            <!-- RIGHT -->
             <div class="h-full flex items-center mr-[1.6vw] xs:mr-4">
                 
                 <button tabindex={navShow ? 0 : -1} on:click={switchTheme} class={`order-2 mx-3 cursor-pointer group outline-none`}>
@@ -609,10 +645,10 @@
                     </div>
                 </button>
 
-                {#if !$phone}
+                <!-- {#if !$phone} -->
                 <div class="order-3 mx-3 cursor-pointer group"><Icon icon="mingcute:comment-line" class={`text-[4.8vw] xs:text-2xl group-hover:hidden`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block`} /></div>   
                 <button tabindex={navShow ? 0 : -1} on:click={() => settings = !settings} class="order-1 mx-3 cursor-pointer group outline-none"><Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl group-hover:hidden group-focus-visible:hidden`} /><Icon icon="iconamoon:settings-fill" class={`text-[4.8vw] xs:text-2xl hidden group-hover:block group-focus-visible:block`} /></button>   
-                {/if}
+                <!-- {/if} -->
 
                 {#if !$tablet}
                 <!-- <button tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class={`mx-3 cursor-pointer group outline-none`}>
@@ -636,6 +672,7 @@
                 <div class="order-3 flex items-center cursor-pointer">Next<Icon icon="ph:caret-right-bold" class={`text-[4.8vw] xs:text-2xl ml-3`} /></div>
                 {/if}
             </div>
+            {/if}
         </div>
         <!-- <div class="absolute bg-zinc-50 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 cursor-pointer peer"><div class="w-1/3 bg-red-500 h-full"></div></div> -->
         <!-- <div
@@ -674,6 +711,8 @@
             ></div> -->
 
             <!-- Invisible range overlay untuk drag/click -->
+             
+            <!-- {#if scrollPercent <= 100} -->
             <input
                 type="range"
                 min="0" max="100" step="0.1"
@@ -684,8 +723,9 @@
                 on:touchmove={handleTouchMove}
                 on:touchstart={handleTouchMove}
                 on:touchend={() => hoverPercent = null}
-                class={`absolute inset-x-0 w-full h-full cursor-pointer transition-all outline-none accent-mainred appearance-none focus-visible:appearance-auto focus-visible:accent-sky-400 ${navShow ? 'range-custom' : 'range-before'}`}
+                class={`absolute inset-x-0 w-full h-full cursor-pointer transition-all outline-none accent-mainred appearance-none focus-visible:appearance-auto focus-visible:accent-sky-400 ${navShow && scrollPercent <= 100 && !hoverPercent ? 'range-custom' : 'range-before'}`}
             />
+            <!-- {/if} -->
         </div>
 
 
@@ -698,7 +738,7 @@
         {#if hoverPercent !== null}
         <div class="absolute bg-zinc-800 text-mainlight top-[calc(100%+24px)] py-0.5 px-1.5 rounded-md z-3" transition:fade={{ duration: 150 }}>{Math.round(hoverPercent)}%</div>
         {/if}
-        {#if navShow}
+        {#if navShow && scrollPercent <= 100}
         <div class={`absolute bg-zinc-700/55 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] text-mainlight xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${navShow?'':'opacity-0'} ${hoverPercent !== null ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
         {/if}
     </div>
@@ -715,7 +755,8 @@
     <div class={`${settings ? '' : ''} fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${navShow ? '' : 'translate-y-[16.8vw] xs:translate-y-[84px] sm:translate-x-[84px] sm:translate-y-[0]'}`}>
         <div class={`absolute bottom-[3.2vw] xs:bottom-[16px] right-[3.2vw] xs:right-[16px] text-sm text-zinc-600 dark:text-mainlight space-y-[2.4vw] flex flex-col xs:space-y-3 `}>
         {#if !$tablet}
-            <button tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            {#if scrollPercent <= 100}
+            <button transition:fade={{ duration: 150 }} tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <div class="">
                     <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
                 </div>
@@ -723,32 +764,35 @@
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'hidden' : 'group-hover:block'}`} />
                 </div>
             </button>
-            <button on:click={zoomIn} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button transition:fade={{ duration: 150 }} on:click={zoomIn} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="ph:magnifying-glass-plus-bold" class={`text-2xl`} />
             </button>
-            <button on:click={zoomOut} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button transition:fade={{ duration: 150 }} on:click={zoomOut} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="ph:magnifying-glass-minus-bold" class={`text-2xl`} />
             </button>
+            {/if}
             <!-- <button tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="mingcute:share-2-line" class={`text-2xl -translate-x-0.5`} />
             </button> -->
-            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0] delay-300' : ''}`}>
+            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0]' : navShow && !autoPlay && scrollPercent > 100 ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0]' : ''}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-2xl`} />
             </button>
         {:else}
-            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] sm:-translate-x-[84px] xs:-translate-y-[84px] delay-300' : 'translate-y-[16.8vw] sm:translate-y-[0] sm:translate-x-[84px]'}`}>
+            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] sm:-translate-x-[84px] xs:-translate-y-[84px] delay-150' : 'translate-y-[16.8vw] sm:translate-y-[0] sm:translate-x-[84px]'}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
         {/if}
         </div>
+
+        <!-- NAV TABLET - MOBILE -->
         {#if $tablet}
-        <div class={`absolute bottom-[6.4vw] xs:bottom-[32px] text-sm text-zinc-600 dark:text-mainlight space-x-[2.4vw] xs:space-x-3 transition-all duration-300 ${navShow ? '' : ''}`}>
+        <div class={`absolute bottom-[calc(6.4vw+10vw)] xs:bottom-[32px] text-sm text-zinc-600 dark:text-mainlight space-x-[2.4vw] xs:space-x-3 transition-all duration-300 ${navShow ? '' : 'translate-y-[16.8vw]'}`}>
             
-            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="ph:caret-left-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
 
-            <button tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group`}>
+            <button tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group`}>
                 <!-- <div class="relative">
                     <Icon icon="iconamoon:comment" class={`text-[4.8vw] xs:text-2xl`} />
                     <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border-2 border-mainlight text-zinc-600 dark:text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
@@ -760,13 +804,13 @@
                 </div>
             </button>
 
-            <button on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group`}>
+            <button disabled={scrollPercent > 100} on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="ph:magnifying-glass-plus-bold" class={`text-[4.8vw] xs:text-2xl`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden`} />
                 </div>
             </button>
             
-            <button on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group">
+            <button disabled={scrollPercent > 100} on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class={` ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? '' : 'hidden'}`} />
                 </div>
@@ -775,26 +819,92 @@
                 </div>
             </button>
 
-            <button on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group`}>
+            <button disabled={scrollPercent > 100} on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="ph:magnifying-glass-minus-bold" class={`text-[4.8vw] xs:text-2xl`} /><Icon icon="mingcute:comment-fill" class={`text-[4.8vw] xs:text-2xl hidden`} />
                 </div>
             </button>
 
-            <button on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
+            <button on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
                 <Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
             
-            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
                 <Icon icon="ph:caret-right-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
         </div>
+        {#if $phone}
+        <div class={`absolute bottom-0 text-sm text-zinc-600 dark:text-mainlight transition-all duration-300 z-100 bg-mainlight dark:bg-zinc-800
+        border border-b-0 border-stone-300 dark:border-zinc-700 rounded-t-xl w-[80vw] h-[80vw] flex flex-col items-center ${chaplist ? '' : 'translate-y-[calc(80vw-13vw)]'}`}>
+            <div class="w-full text-[3.2vw]">
+                <a tabindex={navShow ? 0 : -1} href="/series" class="outline-none focus-visible:bg-zinc-50/5 hover:bg-zinc-50/15 active:bg-zinc-50/15 cursor-pointer w-auto aspect-square">
+                    {#if isDark}
+                    <img transition:fade={{ duration: 150 }} src="data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M10.7552 3.17711C11.1549 2.93817 11.6542 2.9412 12.051 3.18498L19.9314 8.02706L20.7167 6.74904L12.8363 1.90696C11.9634 1.37064 10.8648 1.36396 9.98549 1.88965L2.83889 6.16218C2.00844 6.65865 1.5 7.555 1.5 8.52253V19.7509C1.5 21.2697 2.73122 22.5009 4.25 22.5009H7.44938V21.0009H4.25C3.55964 21.0009 3 20.4413 3 19.7509V8.52253C3 8.08275 3.23111 7.67531 3.60858 7.44965L10.7552 3.17711Z' fill='%23f8f9fa'/%3e %3cpath d='M11 12.5C11 11.9477 11.4477 11.5 12 11.5C12.5523 11.5 13 11.9477 13 12.5C13 13.0523 12.5523 13.5 12 13.5C11.4477 13.5 11 13.0523 11 12.5Z' fill='%23f8f9fa'/%3e %3cpath d='M22.5 13.25H14.5V11.75H22.5V13.25Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 17.5H22.5V16H14.5V17.5Z' fill='%23f8f9fa'/%3e %3cpath d='M11 16.75C11 16.1977 11.4477 15.75 12 15.75C12.5523 15.75 13 16.1977 13 16.75C13 17.3023 12.5523 17.75 12 17.75C11.4477 17.75 11 17.3023 11 16.75Z' fill='%23f8f9fa'/%3e %3cpath d='M14.5 21.75H22.5V20.25H14.5V21.75Z' fill='%23f8f9fa'/%3e %3cpath d='M11 21C11 20.4477 11.4477 20 12 20C12.5523 20 13 20.4477 13 21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21Z' fill='%23f8f9fa'/%3e %3c/svg%3e" 
+                    class="p-[3.2vw] xs:p-4 max-xs:w-[13vw] absolute" alt="">
+                    {:else}
+                    <img transition:fade={{ duration: 150 }} src="data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M10.7552 3.17711C11.1549 2.93817 11.6542 2.9412 12.051 3.18498L19.9314 8.02706L20.7167 6.74904L12.8363 1.90696C11.9634 1.37064 10.8648 1.36396 9.98549 1.88965L2.83889 6.16218C2.00844 6.65865 1.5 7.555 1.5 8.52253V19.7509C1.5 21.2697 2.73122 22.5009 4.25 22.5009H7.44938V21.0009H4.25C3.55964 21.0009 3 20.4413 3 19.7509V8.52253C3 8.08275 3.23111 7.67531 3.60858 7.44965L10.7552 3.17711Z' fill='%233f3f46'/%3e %3cpath d='M11 12.5C11 11.9477 11.4477 11.5 12 11.5C12.5523 11.5 13 11.9477 13 12.5C13 13.0523 12.5523 13.5 12 13.5C11.4477 13.5 11 13.0523 11 12.5Z' fill='%233f3f46'/%3e %3cpath d='M22.5 13.25H14.5V11.75H22.5V13.25Z' fill='%233f3f46'/%3e %3cpath d='M14.5 17.5H22.5V16H14.5V17.5Z' fill='%233f3f46'/%3e %3cpath d='M11 16.75C11 16.1977 11.4477 15.75 12 15.75C12.5523 15.75 13 16.1977 13 16.75C13 17.3023 12.5523 17.75 12 17.75C11.4477 17.75 11 17.3023 11 16.75Z' fill='%233f3f46'/%3e %3cpath d='M14.5 21.75H22.5V20.25H14.5V21.75Z' fill='%233f3f46'/%3e %3cpath d='M11 21C11 20.4477 11.4477 20 12 20C12.5523 20 13 20.4477 13 21C13 21.5523 12.5523 22 12 22C11.4477 22 11 21.5523 11 21Z' fill='%233f3f46'/%3e %3c/svg%3e" 
+                    class="p-[3.2vw] xs:p-4 max-xs:w-[13vw] absolute" alt="">
+                    {/if}
+                </a>
+                <button on:click={toggleChaplist} class="h-[13vw] w-[calc(100%-13vw)] cursor-pointer ml-[13vw] flex items-center"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span></button>
+            </div>
+            <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%]"></div>
+            <div class="h-full w-full overflow-y-scroll text-[3.2vw]">
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> 
+                    <span class="opacity-70 dark:opacity-40">#19</span>
+                </div>
+                <!-- <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div> -->
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer bg-stone-200 dark:bg-zinc-700 transition-colors duration-300">
+                    <span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> 
+                    <span class="opacity-70 dark:opacity-40">#18</span>
+                </div>
+                <!-- <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div> -->
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> 
+                    <span class="opacity-70 dark:opacity-40">#17</span>
+                </div>
+                <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> 
+                    <span class="opacity-70 dark:opacity-40">#16</span>
+                </div>
+                <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Miracle testing (4)</span> 
+                    <span class="opacity-70 dark:opacity-40">#15</span>
+                </div>
+                <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Miracle testing (3)</span> 
+                    <span class="opacity-70 dark:opacity-40">#14</span>
+                </div>
+                <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Miracle testing (2)</span> 
+                    <span class="opacity-70 dark:opacity-40">#13</span>
+                </div>
+                <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
+                    <span class="line-clamp-1">Load more...</span>
+                </div>
+            </div>
+        </div>
+        {/if}   
         {/if}
     </div>
     <div bind:this={slotWrapper} class="w-full flex justify-center relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none" role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll}>
     <!-- <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none"> -->
         <slot />
     </div>
+    <section class="w-full flex flex-col items-center justify-center py-8 space-y-2">
+        <div class="mt-2">reaction & rate</div>
+        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
+        <div class="mt-2">comment</div>
+        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
+        <div class="mt-2">reccoemntadion</div>
+        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
+    </section>
 </section>  
 
 <style>
