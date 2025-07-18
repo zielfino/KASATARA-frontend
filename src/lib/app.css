@@ -3,6 +3,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@plugin 'tailwind-scrollbar';
+
 @theme {
     --color-mainred: #ff7261;
     --color-mainlight: #f8f9fa;

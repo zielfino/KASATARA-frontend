@@ -716,7 +716,7 @@ import { page } from '$app/stores';
 
 
         <section class="fixed bg-zinc-900/50 w-full h-[120dvh] top-0 z-51" class:hidden={!isSOpen}>
-            test
+            
         </section>
 
 
