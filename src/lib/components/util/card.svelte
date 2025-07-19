@@ -52,7 +52,7 @@
         : item.size === '2x1'
         ? 'col-span-2'
         : item.size === '1x1'
-        ? 'col-span-1 xs:aspect-[1/1]'
+        ? 'col-span-1 xs:aspect-square'
         : 'col-span-2 row-span-2'
     }
     ${

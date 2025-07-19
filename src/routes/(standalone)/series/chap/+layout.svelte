@@ -538,7 +538,7 @@
     }
 
 
-    let commentDisplay = true
+    let commentDisplay = false
 
     function togglecomment() {
         suppressScrollHandler = true;
@@ -546,15 +546,15 @@
 
         if (commentDisplay) {
             updateScroll();
-            console.log(contentH)
-            console.log((scrollPercent/ 100) * contentH)
+            // console.log(contentH)
+            // console.log((scrollPercent/ 100) * contentH)
             savedScrollPercent = scrollPercent;
             window.scrollTo({ top: 0, behavior: 'auto' });
         } else {
             const viewH = window.innerHeight;
             const max = contentH - viewH;
             const pixel = (savedScrollPercent / 100) * max;
-            console.log(pixel)
+            // console.log(pixel)
 
             requestAnimationFrame(() => {
                 window.scrollTo({ top: pixel, behavior: 'auto' });
@@ -1042,16 +1042,115 @@
     </div>
 
 
-    <section class="w-full flex flex-col items-center justify-center py-8 space-y-2">
-        <div class="mt-2">reaction & rate</div>
-        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
-        <div class="mt-2">comment</div>
-        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
-        <div class="mt-2">reccoemntadion</div>
-        <div class="bg-red-500 w-[90%] h-48 rounded-xl"></div>
+    <!-- AFTER READ -->
+    <section class="w-full flex justify-center">
+        <div class="w-full max-w-[700px] text-sm my-8 mx-8">
+            <div class="flex items-center my-8"><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-2 bg-amber-300 font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div></div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
+            <div class="flex flex-col items-center justify-center my-8">
+                <div class="font-semibold tracking-wide text-lg">Reaksi Mu</div>
+                <div class="font-semibold tracking-wide mb-6 text-zinc-400">1.2k reaksi</div>
+                <div class="grid grid-cols-3 w-fit gap-6">
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Sedih</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Senang</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Marah</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Wow</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Love</div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2">
+                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
+                        <div>Meh</div>
+                    </div>
+                </div>
+            </div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
+            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-8"><div>Comments (3.2K)</div><div>See all</div></div>
+            <div class="flex my-8">
+                <div><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div></div>
+                <div>
+                    <div class="flex text-zinc-900">username <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div> <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div> <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div> <div class="flex text-zinc-400 ml-2 font-[600] text-[12px] items-center font-work-sans tracking-tight"><Icon icon="material-symbols-light:crown-rounded" class={`text-[20px] mr-0.25`} /> top comment</div></div>
+                    <div>
+                        <div class="line-clamp-5 text-zinc-600 tracking-wide font-[400]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
+                        
+                        <div class="flex space-x-1 my-4 w-full hidden">
+                            <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px]`} />
+                            <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px]`} />
+                            <div class="ml-2">101</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col justify-start items-center ml-8 mr-4">
+                    <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500`} />
+                    <div class="my-2">101</div>
+                    <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400`} />
+                </div>
+                <div>
+                    <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                </div>
+            </div>
+            <div class="w-full flex justify-center rounded-md border border-zinc-300 p-4">
+                <div class="tracking-wide">Add a comment ></div>
+            </div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
+            
+            <div class="my-8">
+                <div class="font-semibold tracking-wide text-lg">Rekomendasi untukmu</div>
+                <!-- <div class="w-full bg-emerald-300 overflow-x-scroll"> -->
+                    <div class="my-2 gap-4 grid grid-cols-5">
+                        <div>
+                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        </div>
+                        <div>
+                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        </div>
+                        <div>
+                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor</div>
+                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        </div>
+                        <div>
+                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
+                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        </div>
+                        <div>
+                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
+                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
     </section>
     {/if}
 
+
+
+    <!-- COMMENTS -->
     {#if commentDisplay}
     <!-- <div class="h-[100dvh] w-full pt-[56px]"> -->
         <!-- <div class="w-full h-full overflow-y-scroll scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 space-y-4"> -->
