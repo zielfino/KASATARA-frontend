@@ -433,6 +433,7 @@
 
     
     import { contentWidth } from '$lib/stores/contentWidth';
+    import News from "$lib/components/news.svelte";
     let width = 500;
 
     // const unsubscribe = contentWidth.subscribe(val => width = val);
@@ -541,6 +542,7 @@
     let commentDisplay = false
 
     function togglecomment() {
+        navShow = true
         suppressScrollHandler = true;
         commentDisplay = !commentDisplay;
 
@@ -566,6 +568,27 @@
         }
     }
 
+
+
+
+    let rating: number = 0;
+    let hoverRating: number = 0;
+
+    function setRating(value: number) {
+        rating = value;
+    }
+
+    function setHover(value: number) {
+        if (rating === 0) {
+            hoverRating = value;
+        }
+    }
+
+    function clearHover() {
+        if (rating === 0) {
+            hoverRating = 0;
+        }
+    }
 </script>
 
 
@@ -817,8 +840,8 @@
         </div> -->
 
         <!-- PROGRESS BAR -->
-        {#if !commentDisplay}
-        <div class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer">
+        {#if !commentDisplay && scrollPercent <= 100}
+        <div transition:fade={{duration: 150}} class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer">
             <div class="absolute w-full h-full bg-zinc-500 overflow-hidden">
                 <div
                 class="h-full bg-mainred"
@@ -1043,48 +1066,110 @@
 
 
     <!-- AFTER READ -->
-    <section class="w-full flex justify-center">
+    <section class="w-full flex flex-col items-center justify-center">
         <div class="w-full max-w-[700px] text-sm my-8 mx-8">
-            <div class="flex items-center my-8"><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-2 bg-amber-300 font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div></div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
-            <div class="flex flex-col items-center justify-center my-8">
-                <div class="font-semibold tracking-wide text-lg">Reaksi Mu</div>
-                <div class="font-semibold tracking-wide mb-6 text-zinc-400">1.2k reaksi</div>
+            <div class="flex items-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300"><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-2 text-zinc-900 bg-amber-300 font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div></div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="font-semibold tracking-wide text-[16px] text-center">Kamu belum berikan rating untuk komik ini!</div>
+                <!-- <div class="flex space-x-2 my-4 cursor-pointer">
+                    <div class="group">
+                        <Icon icon="mingcute:star-line" class={`text-[32px] group-hover:hidden`} />
+                        <Icon icon="mingcute:star-fill" class={`text-[32px] group-hover:block hidden`} />
+                    </div>
+                    <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
+                    <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
+                    <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
+                    <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
+                </div> -->
+                <div class="flex pl-2 my-4 text-amber-400 dark:text-mainlight transition-colors duration-300">
+                    {#each Array(5) as _, i}
+                        <button
+                            on:click={() => setRating(i + 1)}
+                            on:mouseenter={() => setHover(i + 1)}
+                            on:mouseleave={clearHover}
+                        >
+                            <Icon
+                                icon={(rating > 0 ? rating : hoverRating) > i ? "mingcute:star-fill" : "mingcute:star-line"}
+                                class="text-[42px] pr-2 cursor-pointer"
+                            />
+                        </button>
+                    {/each}
+                </div>
+
+            </div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="font-semibold tracking-wide text-[16px]">Berikan Reaksi Mu</div>
+                <div class="font-semibold tracking-wide mb-6 text-zinc-400 text-[12px]">1.2k reaksi</div>
                 <div class="grid grid-cols-3 w-fit gap-6">
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Sedih</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Sedih</div>
                     </div>
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Senang</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Senang</div>
                     </div>
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Marah</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Marah</div>
                     </div>
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Wow</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Wow</div>
                     </div>
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Love</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Love</div>
                     </div>
                     <div class="flex flex-col items-center space-y-2">
                         <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div>Meh</div>
+                        <div class="text-[12px] tracking-wide font-work-sans">Meh</div>
                     </div>
                 </div>
             </div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
-            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-8"><div>Comments (3.2K)</div><div>See all</div></div>
-            <div class="flex my-8">
+            
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            
+            <div class="space-y-2 my-8">
+                <div class="flex justify-between items-center bg-purple-800 border border-purple-700 p-2 rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-6">
+                    <div class="flex items-center">
+                        <div class="h-10 rounded-sm aspect-square bg-red-400 mr-3"></div>
+                        <div>Baca versi novelnya</div>
+                    </div>
+                    <div class="bg-mainlight/30 h-[32px] flex items-center justify-center aspect-square rounded-full text-mainlight mr-2"><Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[16px] translate-x-[5%]`} /></div>
+                </div>
+                <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                    <div>
+                        <div class="text-[16px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
+                        <div class="text-[12px] opacity-50 font-[600]">HEATS(REDICE STUDIO), 이범근(REDICE STUDIO), 산지직송</div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-1 group-hover:hidden`} />
+                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1 group-hover:block hidden`} />
+                    </div>
+                </div>
+                <div class="flex items-center font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300"><Icon icon="mingcute:star-fill" class={`text-[20px] mr-1`} /><span class="mr-2">9.9</span><span class="opacity-40">2.231 Orange</span></div>
+                <!-- <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div> -->
+                <!-- <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div> -->
+                    
+            </div>
+
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+
+            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-4 font-work-sans w-full dark:text-zinc-400 transition-colors duration-300"><div>Comments (3.2K)</div><button on:click={togglecomment} class="hover:underline cursor-pointer">See all</button></div>
+            <div class="flex my-4">
                 <div><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div></div>
                 <div>
-                    <div class="flex text-zinc-900">username <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div> <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div> <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div> <div class="flex text-zinc-400 ml-2 font-[600] text-[12px] items-center font-work-sans tracking-tight"><Icon icon="material-symbols-light:crown-rounded" class={`text-[20px] mr-0.25`} /> top comment</div></div>
+                    <div class="flex text-zinc-900 dark:text-mainlight transition-colors duration-300">username 
+                        <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div> 
+                        <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div> 
+                        <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div> 
+                        <div class="flex text-amber-600/50 dark:text-amber-300/50 transition-all duration-300 ml-2 font-[600] text-[12px] items-center font-work-sans tracking-tight"><Icon icon="material-symbols-light:crown-rounded" class={`text-[20px] mr-0.25`} /> top comment</div>
+                    </div>
                     <div>
-                        <div class="line-clamp-5 text-zinc-600 tracking-wide font-[400]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
+                        <div class="line-clamp-5 text-zinc-600 dark:text-zinc-400 transition-colors duration-300 tracking-wide font-[400]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
                         
                         <div class="flex space-x-1 my-4 w-full hidden">
                             <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px]`} />
@@ -1094,56 +1179,84 @@
                     </div>
                 </div>
                 <div class="flex flex-col justify-start items-center ml-8 mr-4">
-                    <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500`} />
-                    <div class="my-2">101</div>
-                    <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400`} />
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500 group-hover:hidden`} />
+                        <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px] text-emerald-500 hidden group-hover:block`} />
+                    </div>
+                    <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300">101</div>
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400 group-hover:hidden`} />
+                        <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px] text-red-400 hidden group-hover:block`} />
+                    </div>
                 </div>
                 <div>
-                    <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                    <div class="cursor-pointer hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                        <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                    </div>
                 </div>
             </div>
-            <div class="w-full flex justify-center rounded-md border border-zinc-300 p-4">
-                <div class="tracking-wide">Add a comment ></div>
+            <div class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-4 hover:bg-zinc-100 cursor-pointer my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="tracking-wide">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[20px] inline-block`} /></div>
             </div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full"></div>
+            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+
+            <!-- <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="text-[16px] tracking-wide font-[700]">Omnicient Reader Viewpoint</div>
+                        <div class="text-[12px] text-zinc-500 font-[600]">HEATS(REDICE STUDIO),이범근(REDICE STUDIO),산지직송</div>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-1 group-hover:hidden`} />
+                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1 group-hover:block hidden`} />
+                    </div>
+                </div>
+                <div class="flex items-center font-work-sans"><Icon icon="mingcute:star-fill" class={`text-[20px] mr-1`} /><span class="mr-2">9.9</span><span class="opacity-40">2.231 Orange</span></div>
+                <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div>
+                <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div>
+                    
+            </div> -->
+
+            <!-- <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div> -->
             
-            <div class="my-8">
+            <div class="my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
                 <div class="font-semibold tracking-wide text-lg">Rekomendasi untukmu</div>
                 <!-- <div class="w-full bg-emerald-300 overflow-x-scroll"> -->
                     <div class="my-2 gap-4 grid grid-cols-5">
                         <div>
                             <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
                             <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                             <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
                         </div>
                         <div>
                             <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
                             <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                             <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
                         </div>
                         <div>
                             <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
                             <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor</div>
                             <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
                         </div>
                         <div>
                             <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
                             <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
                             <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
                         </div>
                         <div>
                             <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 text-[12px]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
                             <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
                             <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
                         </div>
                     </div>
                 <!-- </div> -->
             </div>
+
         </div>
     </section>
     {/if}
@@ -1188,6 +1301,67 @@
         </div>
     <!-- </div> -->
     {/if}
+
+
+
+    <!-- FOOTER -->
+    <div class="w-full">
+        <div class="w-full cursor-pointer border-y border-zinc-300 mt-8 py-4 flex justify-center dark:border-zinc-800 transition-colors duration-300 text-zinc-900 dark:text-mainlight">
+            <div class="w-full max-w-[80vw] min-w-full xs:min-w-[500px] flex justify-between items-center text-[14px]">
+                <div class="flex items-center">
+                    <div class="mr-3 font-work-sans font-[600]">Notice</div>
+                    <div class="text-[12px] opacity-60 tracking-wide">2025 WEBTOON Contest: Webcomic Legends - Deadline Extended</div>
+                </div>
+                <div class="opacity-30">
+                    May 16, 2025
+                </div>
+            </div>
+        </div>
+        <div class="w-full bg-zinc-200/60 dark:bg-zinc-800 transition-colors duration-300 py-8 flex flex-col items-center justify-center">
+            <div class="flex justify-center items-center space-x-6 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <Icon icon="fa6-brands:facebook" class="text-[24px]"/>
+                <Icon icon="fa6-brands:instagram" class="text-[24px]"/>
+                <Icon icon="fa6-brands:x-twitter" class="text-[24px]"/>
+                <Icon icon="fa6-brands:youtube" class="text-[24px]"/>
+            </div>
+            <div class="flex justify-center items-center space-x-1 text-[14px] my-8 tracking-wider text-zinc-900/60 dark:text-mainlight/60 transition-colors duration-300">
+                <div class="cursor-pointer hover:underline">About</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Feedback</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Help</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Terms</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Privacy</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Advertise</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="cursor-pointer hover:underline">Contact</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <div class="py-1 pl-3 rounded-md border bg-mainlight dark:bg-zinc-900 border-zinc-300 dark:border-zinc-800 transition-colors duration-300 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                    english
+                    <Icon icon="gridicons:dropdown" class="text-[24px] opacity-60 inline-block mx-1"/>
+                </div>
+            </div>
+            <div class="text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <svg class="h-[15vw] xs:h-[75px] fill-mainred dark:fill-mainlight transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
+                    <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                    <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
+                    <path d="m505.27,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                    <path d="m167.86,289.98c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98h-28.96v-118.06h28.96v40.46c8.33-9.06,20.4-23.42,30.66-40.46h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
+                    <path d="m936.33,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                    <path d="m701.07,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
+                    <polygon points="636.79 228.37 636.79 257.32 605.6 257.32 605.6 346.43 570.85 346.43 570.85 257.32 539.66 257.32 539.66 228.37 636.79 228.37"/>
+                    <path d="m858.08,282.41c3.5-6.62,6.49-17.5.79-31.78-5.85-14.67-22.25-22.45-52.56-22.45-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08,2.39,2.94.74,6.25.34,7.01Z"/>
+                    <polygon points="675.89 363.91 653.54 456.2 646.68 484.56 618.32 477.69 304.98 401.82 356.93 384.38 625.19 449.33 645.87 363.91 675.89 363.91"/>
+                    <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
+                    <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
+                </svg>
+                <div class="mt-4 font-work-sans text-[14px] tracking-wider opacity-60 text-center">&copy; agerr.studio</div>
+            </div>
+        </div>
+    </div>
 </section>  
 
 <style>
