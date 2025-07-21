@@ -597,24 +597,24 @@
     <!-- SETTINGS POP UP -->
     {#if settings}
     <div transition:fade={{ duration: 150 }} class="fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/80 text-zinc-700 dark:text-mainlight z-150 flex justify-center items-center">
-        <div class="min-w-64 min-h-64 bg-stone-200 dark:bg-zinc-900 border-2 rounded-xl border-mainlight/30 flex flex-col items-center">
+        <div class="min-w-64 min-h-64 bg-stone-200 dark:bg-zinc-900 border rounded-xl border-mainlight/20 flex flex-col items-center">
             <div class="w-full flex justify-between items-center">
                 <div class="px-6 py-4">Settings</div>
                 <button on:click={() => settings = !settings} class="cursor-pointer p-4 mr-2"><Icon icon="maki:cross" /></button>
             </div>
-            <div class="bg-zinc-700 dark:bg-mainlight/30 h-[1.5px] w-[90%] rounded-full"></div>
+            <div class="bg-zinc-400 dark:bg-mainlight/20 h-[1px] w-[90%] rounded-full"></div>
             <div class="px-4 py-3 pb-4 space-y-3">
                 <div>
                     <div class="mb-2">Read Mode</div>
                     <div class="flex space-x-4 justify-center">
                         <button on:click={() => marathonMode = false} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-zinc-700 dark:border-mainlight' 
+                        ${marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-4xl mb-1" icon="mingcute:walk-fill" />
-                            Normal Mode
+                            Normal <br>Mode
                         </button>
                         <button on:click={() => marathonMode = true}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${!marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-zinc-700 dark:border-mainlight' 
+                        ${!marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-4xl mb-1" icon="mingcute:run-fill" />
                             Marathon Mode
@@ -626,19 +626,19 @@
                     <div class="mb-2">Read Quality</div>
                     <div class="flex space-x-4 justify-center">
                         <button on:click={() => readQuality = 'low'} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'low' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-zinc-700 dark:border-mainlight' 
+                        ${readQuality !== 'low' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-5xl mb-1" icon="mdi:quality-low" />
                             Data Saver
                         </button>
                         <button on:click={() => readQuality = 'mid'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'mid' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-zinc-700 dark:border-mainlight' 
+                        ${readQuality !== 'mid' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-5xl mb-1" icon="mdi:quality-medium" />
                             Normal Quality
                         </button>
                         <button on:click={() => readQuality = 'high'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'high' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border-2 border-zinc-700 dark:border-mainlight' 
+                        ${readQuality !== 'high' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-5xl mb-1" icon="mdi:quality-high" />
                             Full Quality
@@ -695,11 +695,11 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-zinc-700 dark:bg-mainlight/30 h-[1.5px] w-[90%] rounded-full"></div>
+            <div class="bg-zinc-400 dark:bg-mainlight/20 h-[1px] w-[90%] rounded-full"></div>
             <!-- {#if showAutoPlayUI} -->
             <div class="px-4 py-3 w-full space-x-2 flex justify-end">
-                <button on:click={saveSettings} class="text-mainlight bg-mainred border-2 border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
-                <button on:click={() => settings = !settings} class="border-2 border-zinc-900/30 dark:border-mainlight/30 dark:hover:bg-mainlight/15 hover:bg-zinc-900/15 transition-all dark:hover:border-mainlight hover:border-zinc-900 cursor-pointer px-3 py-1 rounded-md">Later</button>
+                <button on:click={saveSettings} class="text-mainlight bg-mainred border border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
+                <button on:click={() => settings = !settings} class="border border-zinc-900/30 dark:border-mainlight/30 dark:hover:bg-mainlight/15 hover:bg-zinc-900/15 transition-all dark:hover:border-mainlight hover:border-zinc-900 cursor-pointer px-3 py-1 rounded-md">Later</button>
             </div>
             <!-- {/if} -->
         </div>
@@ -763,14 +763,14 @@
                     <div transition:fade={{ duration: 150 }} class="fixed z-101 pt-2 pl-3">
                         <div class="bg-stone-100 dark:bg-zinc-800 rounded-md border border-stone-300 dark:border-zinc-700 w-72 h-64 
                     scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 overflow-y-scroll transition-colors duration-300 p-2">
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> <span class="opacity-70 dark:opacity-40">#16</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (4)</span> <span class="opacity-70 dark:opacity-40">#15</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (3)</span> <span class="opacity-70 dark:opacity-40">#14</span></div>
-                            <div class="w-full h-12 border-b border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (2)</span> <span class="opacity-70 dark:opacity-40">#13</span></div>
-                            <div class="w-full h-12 border-zinc-400 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Load more...</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> <span class="opacity-70 dark:opacity-40">#16</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (4)</span> <span class="opacity-70 dark:opacity-40">#15</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (3)</span> <span class="opacity-70 dark:opacity-40">#14</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (2)</span> <span class="opacity-70 dark:opacity-40">#13</span></div>
+                            <div class="w-full h-12 border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Load more...</span></div>
                         </div>
                     </div>
                     {/if}
@@ -952,7 +952,7 @@
             <button tabindex={navShow ? 0 : -1} on:click={togglecomment} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
                 <!-- <div class="relative">
                     <Icon icon="iconamoon:comment" class={`text-[4.8vw] xs:text-2xl`} />
-                    <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border-2 border-mainlight text-zinc-600 dark:text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
+                    <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border border-mainlight text-zinc-600 dark:text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
                         1K
                     </span>
                 </div> -->
@@ -1066,12 +1066,14 @@
 
 
     <!-- AFTER READ -->
-    <section class="w-full flex flex-col items-center justify-center">
-        <div class="w-full max-w-[700px] text-sm my-8 mx-8">
-            <div class="flex items-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300"><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-2 text-zinc-900 bg-amber-300 font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Creator</div></div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
-            <div class="flex flex-col items-center justify-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                <div class="font-semibold tracking-wide text-[16px] text-center">Kamu belum berikan rating untuk komik ini!</div>
+    <section role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} 
+    class="w-full flex flex-col items-center justify-center border-t border-zinc-300 dark:border-zinc-800 transition-colors duration-300">
+        <div class="w-full max-w-[700px] px-[3.2vw] xs:px-4 text-sm my-[6.4vw] max-xs:mb-[0vw] xs:my-8 mx-8">
+            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+            class="flex items-center w-min whitespace-nowrap text-zinc-900 dark:text-mainlight transition-colors duration-300 max-xs:text-[2.8vw]"><div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-[1.6vw] xs:ml-2 text-zinc-900 bg-amber-300 font-[500] tracking-wide rounded-sm py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 text-[2vw] xs:text-[10px] font-work-sans">Creator</div></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px] text-center">Kamu belum berikan rating untuk komik ini!</div>
                 <!-- <div class="flex space-x-2 my-4 cursor-pointer">
                     <div class="group">
                         <Icon icon="mingcute:star-line" class={`text-[32px] group-hover:hidden`} />
@@ -1082,7 +1084,8 @@
                     <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
                     <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
                 </div> -->
-                <div class="flex pl-2 my-4 text-amber-400 dark:text-mainlight transition-colors duration-300">
+                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                 class="flex pl-[1.6vw] xs:pl-2 my-[3.2vw] xs:my-4 text-amber-400 dark:text-mainlight transition-colors duration-300">
                     {#each Array(5) as _, i}
                         <button
                             on:click={() => setRating(i + 1)}
@@ -1091,167 +1094,200 @@
                         >
                             <Icon
                                 icon={(rating > 0 ? rating : hoverRating) > i ? "mingcute:star-fill" : "mingcute:star-line"}
-                                class="text-[42px] pr-2 cursor-pointer"
+                                class="text-[10vw] xs:text-[42px] pr-[1.6vw] xs:pr-2 cursor-pointer"
                             />
                         </button>
                     {/each}
                 </div>
 
             </div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
-            <div class="flex flex-col items-center justify-center my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                <div class="font-semibold tracking-wide text-[16px]">Berikan Reaksi Mu</div>
-                <div class="font-semibold tracking-wide mb-6 text-zinc-400 text-[12px]">1.2k reaksi</div>
-                <div class="grid grid-cols-3 w-fit gap-6">
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Sedih</div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px]">Berikan Reaksi Mu</div>
+                <div class="font-semibold tracking-wide mb-[4.8vw] xs:mb-6 text-zinc-400 text-[2.4vw] xs:text-[12px]">1.2k reaksi</div>
+                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                class="grid grid-cols-3 w-fit gap-[4.8vw] xs:gap-6">
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Sedih</div>
                     </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Senang</div>
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Senang</div>
                     </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Marah</div>
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Marah</div>
                     </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Wow</div>
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Wow</div>
                     </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Love</div>
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Love</div>
                     </div>
-                    <div class="flex flex-col items-center space-y-2">
-                        <div class="bg-red-400 h-20 rounded-full aspect-square"></div>
-                        <div class="text-[12px] tracking-wide font-work-sans">Meh</div>
+                    <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
+                        <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
+                        <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Meh</div>
                     </div>
                 </div>
             </div>
             
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
             
-            <div class="space-y-2 my-8">
-                <div class="flex justify-between items-center bg-purple-800 border border-purple-700 p-2 rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-6">
+            <div class="space-y-[1.6vw] xs:space-y-2 my-[6.4vw] xs:my-8">
+                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                class="flex justify-between items-center bg-purple-800 border border-purple-700 p-[1.6vw] xs:p-2 rounded-[1.2vw] xs:rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-[4.8vw] xs:mb-6">
                     <div class="flex items-center">
-                        <div class="h-10 rounded-sm aspect-square bg-red-400 mr-3"></div>
-                        <div>Baca versi novelnya</div>
+                        <div class="h-[8vw] xs:h-10 rounded-[0.8vw] xs:rounded-sm aspect-square bg-red-400 mr-[2.4vw] xs:mr-3"></div>
+                        <div class="max-xs:text-[3.6vw]">Baca versi novelnya</div>
                     </div>
-                    <div class="bg-mainlight/30 h-[32px] flex items-center justify-center aspect-square rounded-full text-mainlight mr-2"><Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[16px] translate-x-[5%]`} /></div>
+                    <div class="bg-mainlight/30 h-[6.4vw] xs:h-[32px] flex items-center justify-center aspect-square rounded-full text-mainlight mr-[1.6vw] xs:mr-2"><Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[3.2vw] xs:text-[16px] translate-x-[5%]`} /></div>
                 </div>
                 <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-colors duration-300">
                     <div>
-                        <div class="text-[16px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
-                        <div class="text-[12px] opacity-50 font-[600]">HEATS(REDICE STUDIO), 이범근(REDICE STUDIO), 산지직송</div>
+                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                        class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-[0.8vw] xs:mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
+                        <div class="sm:text-[12px] xs:text-[10px] text-[2.4vw] opacity-50 font-[600]">HEATS(REDICE STUDIO), 이범근(REDICE STUDIO), 산지직송</div>
                     </div>
-                    <div class="group cursor-pointer">
-                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-1 group-hover:hidden`} />
-                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1 group-hover:block hidden`} />
+                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                    class="group cursor-pointer">
+                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:hidden`} />
+                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:block hidden`} />
                     </div>
                 </div>
-                <div class="flex items-center font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300"><Icon icon="mingcute:star-fill" class={`text-[20px] mr-1`} /><span class="mr-2">9.9</span><span class="opacity-40">2.231 Orange</span></div>
-                <!-- <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div> -->
-                <!-- <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div> -->
+                <div class="flex max-xs:mt-[3.2vw] items-center font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300 max-sm:text-[12px] max-xs:text-[3.2vw]"><Icon icon="mingcute:star-fill" class={`text-[4vw] xs:text-[20px] mr-[0.8vw] xs:mr-1 max-xs:-translate-y-[5%]`} /><span class="mr-2">9.9</span><span class="opacity-30">2.231 votes</span></div>
+                <!-- <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div> -->
+                <!-- <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div> -->
                     
             </div>
 
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
 
-            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-4 font-work-sans w-full dark:text-zinc-400 transition-colors duration-300"><div>Comments (3.2K)</div><button on:click={togglecomment} class="hover:underline cursor-pointer">See all</button></div>
-            <div class="flex my-4">
-                <div><div class="h-12 mr-4 bg-red-400 aspect-square rounded-full"></div></div>
-                <div>
-                    <div class="flex text-zinc-900 dark:text-mainlight transition-colors duration-300">username 
-                        <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div> 
-                        <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div> 
-                        <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div> 
-                        <div class="flex text-amber-600/50 dark:text-amber-300/50 transition-all duration-300 ml-2 font-[600] text-[12px] items-center font-work-sans tracking-tight"><Icon icon="material-symbols-light:crown-rounded" class={`text-[20px] mr-0.25`} /> top comment</div>
+            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-[3.2] xs:my-4 max-xs:text-[3.2vw] font-work-sans w-full dark:text-zinc-400 transition-colors duration-300"><div>Comments (3.2K)</div><button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer">See all</button></div>
+            <div class="flex max-xs:mt-[6.4vw] my-[3.2] xs:my-4 max-xs:text-[3.6vw]">
+                <div><div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full max-xs:hidden"></div></div>
+                <div class="">
+                    <div class="flex w-full items-center">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full xs:hidden"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-colors duration-300 xs:mb-2">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="flex text-amber-600/50 dark:text-amber-300/50 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 xs:hidden">
+                            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                            class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="line-clamp-5 text-zinc-600 dark:text-zinc-400 transition-colors duration-300 tracking-wide font-[400]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
-                        
-                        <div class="flex space-x-1 my-4 w-full hidden">
-                            <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px]`} />
-                            <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px]`} />
-                            <div class="ml-2">101</div>
+                    <div class="flex max-xs:mt-[2.4vw]">
+                        <div>
+                            <div class="line-clamp-7 text-zinc-600 dark:text-zinc-400 transition-colors duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
+                            
+                            <!-- <div class="flex space-x-1 my-[3.2] xs:my-4 max-xs:text-[3.2vw] w-full hidden">
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px]`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px]`} />
+                                <div class="ml-2">101</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="flex justify-end items-center space-x-[2.4vw] mr-[4.8vw] xs:mr-4 max-xs:mt-[1.6vw] xs:hidden h-fit">
+                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                        class="group cursor-pointer">
+                            <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500 group-hover:hidden`} />
+                            <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px] text-emerald-500 hidden group-hover:block`} />
+                        </div>
+                        <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300 max-xs:text-[3.2vw]">101</div>
+                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                        class="group cursor-pointer">
+                            <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400 group-hover:hidden`} />
+                            <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px] text-red-400 hidden group-hover:block`} />
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col justify-start items-center ml-8 mr-4">
-                    <div class="group cursor-pointer">
+                <div class="flex flex-col justify-start items-center ml-4 mr-[1.6vw] xs:mr-4 max-xs:mt-[1.6vw] max-xs:hidden h-fit">
+                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                    class="group cursor-pointer">
                         <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500 group-hover:hidden`} />
                         <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px] text-emerald-500 hidden group-hover:block`} />
                     </div>
                     <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300">101</div>
-                    <div class="group cursor-pointer">
+                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                    class="group cursor-pointer">
                         <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400 group-hover:hidden`} />
                         <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px] text-red-400 hidden group-hover:block`} />
                     </div>
                 </div>
-                <div>
-                    <div class="cursor-pointer hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="flex justify-end flex-1 max-xs:hidden h-fit">
+                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                    class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
                         <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
                     </div>
                 </div>
             </div>
-            <div class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-4 hover:bg-zinc-100 cursor-pointer my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                <div class="tracking-wide">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[20px] inline-block`} /></div>
+            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+            class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-[3.2vw] xs:p-4 hover:bg-zinc-100 cursor-pointer my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="tracking-wide max-sm:text-[12px] max-xs:text-[3.2vw]">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[4vw] xs:text-[20px] inline-block`} /></div>
             </div>
-            <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
 
             <!-- <div class="space-y-2">
                 <div class="flex items-center justify-between">
                     <div>
-                        <div class="text-[16px] tracking-wide font-[700]">Omnicient Reader Viewpoint</div>
+                        <div class="text-[3.2vw] xs:text-[16px] tracking-wide font-[700]">Omnicient Reader Viewpoint</div>
                         <div class="text-[12px] text-zinc-500 font-[600]">HEATS(REDICE STUDIO),이범근(REDICE STUDIO),산지직송</div>
                     </div>
                     <div class="group cursor-pointer">
-                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-1 group-hover:hidden`} />
-                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1 group-hover:block hidden`} />
+                        <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:hidden`} />
+                        <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:block hidden`} />
                     </div>
                 </div>
-                <div class="flex items-center font-work-sans"><Icon icon="mingcute:star-fill" class={`text-[20px] mr-1`} /><span class="mr-2">9.9</span><span class="opacity-40">2.231 Orange</span></div>
-                <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div>
-                <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-1`} /><span class="mr-2">3.9K</span></div>
+                <div class="flex items-center font-work-sans"><Icon icon="mingcute:star-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">9.9</span><span class="opacity-40">2.231 Orange</span></div>
+                <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div>
+                <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div>
                     
             </div> -->
 
-            <!-- <div class="h-[1px] w-full bg-zinc-300 my-8 mx-2 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div> -->
+            <!-- <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div> -->
             
-            <div class="my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                <div class="font-semibold tracking-wide text-lg">Rekomendasi untukmu</div>
+            <div class="my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px]">Rekomendasi untukmu</div>
                 <!-- <div class="w-full bg-emerald-300 overflow-x-scroll"> -->
-                    <div class="my-2 gap-4 grid grid-cols-5">
-                        <div>
-                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
-                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
-                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+                    class="my-[1.6vw] xs:my-2 gap-[3.2vw] xs:gap-4 xs:grid grid-cols-5 max-xs:overflow-x-scroll max-xs:flex overflow-hidden rounded-[1.2vw] xs:rounded-t-md">
+                        <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
+                            <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                            <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
-                        <div>
-                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
-                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
-                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
+                            <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                            <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
-                        <div>
-                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
-                            <div class="tracking-wide line-clamp-2">Lorem, ipsum dolor</div>
-                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
+                            <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor</div>
+                            <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
-                        <div>
-                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
-                            <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
-                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
+                            <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum </div>
+                            <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
-                        <div>
-                            <div class="bg-red-400 w-full rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px]">Gendre</div>
-                            <div class="tracking-wide line-clamp-2">Lorem, ipsum </div>
-                            <div class="text-emerald-400 flex items-center"><Icon icon="mingcute:bookmark-fill" class="text-[12px] mr-1"/><span>1.2K</span></div>
+                        <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
+                            <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum </div>
+                            <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
                     </div>
                 <!-- </div> -->
@@ -1306,45 +1342,49 @@
 
     <!-- FOOTER -->
     <div class="w-full">
-        <div class="w-full cursor-pointer border-y border-zinc-300 mt-8 py-4 flex justify-center dark:border-zinc-800 transition-colors duration-300 text-zinc-900 dark:text-mainlight">
-            <div class="w-full max-w-[80vw] min-w-full xs:min-w-[500px] flex justify-between items-center text-[14px]">
+        <div class="w-full cursor-pointer border-y border-zinc-300 py-[3.2vw] xs:py-4 flex justify-center dark:border-zinc-800 transition-colors duration-300 text-zinc-900 dark:text-mainlight">
+            <div class="w-full xs:max-w-[80vw] sm:min-w-[700px] max-xs:px-[3.2vw] xs:px-4 max-sm:px-6 flex justify-between items-center text-[14px]">
                 <div class="flex items-center">
-                    <div class="mr-3 font-work-sans font-[600]">Notice</div>
-                    <div class="text-[12px] opacity-60 tracking-wide">2025 WEBTOON Contest: Webcomic Legends - Deadline Extended</div>
+                    <div class="mr-[2.4vw] xs:mr-3 font-work-sans font-[600] max-sm:text-[12px] max-xs:text-[2.8vw]">Notice</div>
+                    <div class="text-[12px] max-sm:translate-y-0.5 max-xs:translate-y-0 max-sm:text-[10px] max-xs:text-[2.4vw] opacity-60 tracking-wide line-clamp-1 max-sm:mr-4 max-xs:mr-0">2025 WEBTOON Contest: Webcomic Legends - Deadline Extended</div>
                 </div>
-                <div class="opacity-30">
+                <div class="opacity-30 whitespace-nowrap max-sm:text-[12px] max-xs:text-[2.8vw] max-xs:hidden">
                     May 16, 2025
                 </div>
             </div>
         </div>
-        <div class="w-full bg-zinc-200/60 dark:bg-zinc-800 transition-colors duration-300 py-8 flex flex-col items-center justify-center">
-            <div class="flex justify-center items-center space-x-6 text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                <Icon icon="fa6-brands:facebook" class="text-[24px]"/>
-                <Icon icon="fa6-brands:instagram" class="text-[24px]"/>
-                <Icon icon="fa6-brands:x-twitter" class="text-[24px]"/>
-                <Icon icon="fa6-brands:youtube" class="text-[24px]"/>
+        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} 
+        class="w-full bg-zinc-200/60 dark:bg-zinc-800 transition-colors duration-300 py-8 flex flex-col items-center justify-center">
+            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+            class="flex justify-center items-center space-x-[6.4vw] xs:space-x-8 text-zinc-600 dark:text-mainlight transition-colors duration-300">
+                <Icon icon="fa6-brands:facebook" class="text-[4vw] xs:text-[20px]"/>
+                <Icon icon="fa6-brands:instagram" class="text-[4vw] xs:text-[20px]"/>
+                <Icon icon="fa6-brands:x-twitter" class="text-[4vw] xs:text-[20px]"/>
+                <Icon icon="fa6-brands:youtube" class="text-[4vw] xs:text-[20px]"/>
             </div>
-            <div class="flex justify-center items-center space-x-1 text-[14px] my-8 tracking-wider text-zinc-900/60 dark:text-mainlight/60 transition-colors duration-300">
+            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+            class="flex w-full max-sm:max-w-[350px] max-xs:max-w-[70vw] flex-wrap justify-center items-center space-x-0 xs:space-x-0.5 text-[2.4vw] xs:text-[12px] my-[6.4vw] xs:my-8 tracking-wider text-zinc-900/60 dark:text-mainlight/60 transition-colors duration-300">
                 <div class="cursor-pointer hover:underline">About</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30"/>
                 <div class="cursor-pointer hover:underline">Feedback</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30"/>
                 <div class="cursor-pointer hover:underline">Help</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30"/>
                 <div class="cursor-pointer hover:underline">Terms</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30"/>
                 <div class="cursor-pointer hover:underline">Privacy</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
-                <div class="cursor-pointer hover:underline">Advertise</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
-                <div class="cursor-pointer hover:underline">Contact</div>
-                <Icon icon="ph:line-vertical-thin" class="text-[24px] opacity-30"/>
-                <div class="py-1 pl-3 rounded-md border bg-mainlight dark:bg-zinc-900 border-zinc-300 dark:border-zinc-800 transition-colors duration-300 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:hidden"/>
+                <div class="cursor-pointer hover:underline max-sm:mt-2">Advertise</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
+                <div class="cursor-pointer hover:underline max-sm:mt-2">Contact</div>
+                <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
+                <div class="py-[0.8vw] xs:py-1 pl-[2.4vw] xs:pl-3 max-sm:mt-2 max-xs:mt-[1.6vw] rounded-[1.2vw] xs:rounded-md border bg-mainlight dark:bg-zinc-900 border-zinc-300 dark:border-zinc-800 transition-colors duration-300 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700">
                     english
-                    <Icon icon="gridicons:dropdown" class="text-[24px] opacity-60 inline-block mx-1"/>
+                    <Icon icon="gridicons:dropdown" class="text-[4.8vw] xs:text-[24px] opacity-60 inline-block mx-1"/>
                 </div>
             </div>
-            <div class="text-zinc-900 dark:text-mainlight transition-colors duration-300">
+            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
+            class="text-zinc-900 dark:text-mainlight transition-colors duration-300 flex flex-col items-center justify-center">
                 <svg class="h-[15vw] xs:h-[75px] fill-mainred dark:fill-mainlight transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
                     <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
                     <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
@@ -1358,7 +1398,7 @@
                     <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
                     <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
                 </svg>
-                <div class="mt-4 font-work-sans text-[14px] tracking-wider opacity-60 text-center">&copy; agerr.studio</div>
+                <div class="mt-[3.2vw] xs:mt-4 font-work-sans text-[2.8vw] xs:text-[14px] tracking-wider opacity-60 text-center">&copy; agerr.studio</div>
             </div>
         </div>
     </div>

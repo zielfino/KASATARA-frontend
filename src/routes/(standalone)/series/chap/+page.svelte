@@ -7,6 +7,8 @@
 </script>
 
 <section class="w-full bg-blue-500" style={`max-width: ${width}px;`}>
-    <img src="https://i.imgur.com/SNr4G69.jpeg" alt="" class="w-full opacity-50">
-    <img src="https://i.imgur.com/SNr4G69.jpeg" alt="" class="w-full opacity-50">
+    <img src="https://i.imgur.com/kv4R0Nn.jpeg" alt="" class="w-full">
+    <img src="https://i.imgur.com/fmCUxKc.jpeg" alt="" class="w-full">
+    <img src="https://i.imgur.com/TlK1Hbw.jpeg" alt="" class="w-full">
+    <img src="https://i.imgur.com/WC2nnWy.jpeg" alt="" class="w-full">
 </section>
