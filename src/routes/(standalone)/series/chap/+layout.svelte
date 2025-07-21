@@ -70,6 +70,7 @@
         lastScrollY = currentY;
         chaplist = false;
         // commentDisplay = false;
+        scrollY = window.scrollY;
     }
 
     // === Resize Handler ===
@@ -131,6 +132,30 @@
     let scrollPercent = 0;
     let hoverPercent: number | null = null;
     let savedScrollPercent = 0;
+    let scrollY = 0;
+    
+    // function handleScroll() {
+    //     scrollY = window.scrollY;
+    // }
+
+    onMount(() => {
+        window.addEventListener('scroll', handleScroll);
+        // panggil sekali biar scroll awal tetap terdeteksi
+        handleScroll();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+
+    $: if (slotWrapper && scrollY >= slotWrapper.offsetHeight - window.innerHeight) {
+        navShow = true;
+    }
+
+    // $: if (scrollY >= slotWrapper.offsetHeight) {
+    //     navShow = true;
+    // }
+
 
     // function updateScrollProgress() {
     //     if (typeof window !== 'undefined') {
@@ -215,7 +240,6 @@
         if (typeof window === 'undefined') return;
         window.removeEventListener('scroll', updateScroll);
     });
-
 
 
 
@@ -370,7 +394,7 @@
 
     function handleAutoScroll () {
         if (settings) return;
-        if (window.scrollY > 10) {
+        if (window.scrollY > 10 && scrollY < slotWrapper.offsetHeight - window.innerHeight) {
             navShow = !navShow;
         }
         chaplist = false;
@@ -539,7 +563,7 @@
     }
 
 
-    let commentDisplay = false
+    let commentDisplay = true
 
     function togglecomment() {
         navShow = true
@@ -592,64 +616,64 @@
 </script>
 
 
-<section class="bg-mainlight dark:bg-zinc-900 transition-colors duration-300 flex flex-col items-center justify-center w-full relative">
+<section class="bg-mainlight dark:bg-zinc-900 transition-all duration-300 flex flex-col items-center justify-center w-full relative">
 
     <!-- SETTINGS POP UP -->
     {#if settings}
     <div transition:fade={{ duration: 150 }} class="fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/80 text-zinc-700 dark:text-mainlight z-150 flex justify-center items-center">
-        <div class="min-w-64 min-h-64 bg-stone-200 dark:bg-zinc-900 border rounded-xl border-mainlight/20 flex flex-col items-center">
+        <div class="min-w-64 min-h-64 max-xs:min-w-[51.2vw] max-xs:min-h-[51.2vw] bg-zinc-200 dark:bg-zinc-900 border rounded-xl max-xs:rounded-[2.4vw] border-mainlight/20 flex flex-col items-center max-xs:text-[2.8vw]">
             <div class="w-full flex justify-between items-center">
-                <div class="px-6 py-4">Settings</div>
-                <button on:click={() => settings = !settings} class="cursor-pointer p-4 mr-2"><Icon icon="maki:cross" /></button>
+                <div class="px-6 max-xs:px-[4.8vw] py-4 max-xs:py-[4.8vw] max-xs:text-[3.2vw] font-work-sans">Settings</div>
+                <button on:click={() => settings = !settings} class="cursor-pointer p-[3.2vw] xs:p-4 mr-[1.6vw] xs:mr-2 max-xs:text-[4.8vw]"><Icon icon="maki:cross" /></button>
             </div>
             <div class="bg-zinc-400 dark:bg-mainlight/20 h-[1px] w-[90%] rounded-full"></div>
-            <div class="px-4 py-3 pb-4 space-y-3">
+            <div class="px-[3.2vw] xs:px-4 py-[2.4vw] xs:py-3 pb-[3.2vw] xs:pb-4 spaxe-y-[2.4] xs:space-y-3">
                 <div>
-                    <div class="mb-2">Read Mode</div>
-                    <div class="flex space-x-4 justify-center">
-                        <button on:click={() => marathonMode = false} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
-                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
-                            <Icon class="text-4xl mb-1" icon="mingcute:walk-fill" />
+                    <div class="mb-[1.6vw] xs:mb-2">Read Mode</div>
+                    <div class="flex space-x-[3.2vw] xs:space-x-4 justify-center">
+                        <button on:click={() => marathonMode = false} class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${marathonMode ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-[7.4vw] xs:text-4xl mb-[0.8vw] xs:mb-1" icon="mingcute:walk-fill" />
                             Normal <br>Mode
                         </button>
-                        <button on:click={() => marathonMode = true}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${!marathonMode ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
-                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
-                            <Icon class="text-4xl mb-1" icon="mingcute:run-fill" />
+                        <button on:click={() => marathonMode = true}  class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${!marathonMode ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-[7.4vw] xs:text-4xl mb-[0.8vw] xs:mb-1" icon="mingcute:run-fill" />
                             Marathon Mode
                         </button>
                     </div>
                 </div>
                 
                 <div>
-                    <div class="mb-2">Read Quality</div>
-                    <div class="flex space-x-4 justify-center">
-                        <button on:click={() => readQuality = 'low'} class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'low' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
-                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
-                            <Icon class="text-5xl mb-1" icon="mdi:quality-low" />
+                    <div class="mb-[1.6vw] xs:mb-2">Read Quality</div>
+                    <div class="flex space-x-[3.2vw] xs:space-x-4 justify-center">
+                        <button on:click={() => readQuality = 'low'} class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${readQuality !== 'low' ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-[12.8vw] xs:text-5xl mb-[0.8vw] xs:mb-1" icon="mdi:quality-low" />
                             Data Saver
                         </button>
-                        <button on:click={() => readQuality = 'mid'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'mid' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
-                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
-                            <Icon class="text-5xl mb-1" icon="mdi:quality-medium" />
+                        <button on:click={() => readQuality = 'mid'}  class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${readQuality !== 'mid' ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-[12.8vw] xs:text-5xl mb-[0.8vw] xs:mb-1" icon="mdi:quality-medium" />
                             Normal Quality
                         </button>
-                        <button on:click={() => readQuality = 'high'}  class={`flex flex-col justify-center items-center text-sm font-[400] leading-[1] tracking-wide w-24 h-24 rounded-xl text-center
-                        ${readQuality !== 'high' ? 'hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
-                        : 'border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
-                            <Icon class="text-5xl mb-1" icon="mdi:quality-high" />
+                        <button on:click={() => readQuality = 'high'}  class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${readQuality !== 'high' ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
+                            <Icon class="text-[9.6vw] xs:text-5xl mb-[0.8vw] xs:mb-1" icon="mdi:quality-high" />
                             Full Quality
                         </button>
                     </div>
                 </div>
 
                 <div class="w-full">
-                    <div class="mb-2">Scroll Speed</div>
-                    <div class="flex space-x-4 w-full">
-                        <div class="min-w-64 w-full">
+                    <div class="mb-[1.6vw] xs:mb-2">Scroll Speed</div>
+                    <div class="flex space-x-[3.2vw] xs:space-x-4 w-full">
+                        <div class="xs:min-w-64 min-w-[51.2vw] w-full">
                             <!-- <label for="autoscroll" class="block text-lg font-semibold mb-2">Autoscroll Speed</label> -->
                             
                             <div class="relative w-full flex flex-col items-center justify-center">
@@ -660,34 +684,34 @@
                                 max="1.5"
                                 step="0.05"
                                 bind:value={speed}
-                                class="w-[94%] h-2 bg-neutral-600 rounded-lg cursor-pointer accent-mainred outline-none"
+                                class="w-[94%] h-[1.6vw] xs:h-2 bg-neutral-600 rounded-[1.6vw] xs:rounded-lg cursor-pointer accent-mainred outline-none"
                                 />
-                                <div class="flex w-[95%] justify-between items-center mt-2">
-                                    <Icon icon="ph:line-vertical" class="text-lg"/> 
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical" class="text-lg"/> 
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical" class="text-lg"/> 
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical" class="text-lg"/> 
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical-bold" class="text-[12px]"/>
-                                    <Icon icon="ph:line-vertical" class="text-lg"/> 
+                                <div class="flex w-[93.5%] xs:w-[95%] justify-between items-center mt-[1.6vw] xs:mt-2">
+                                    <Icon icon="ph:line-vertical" class="text-[3.6vw] xs:text-lg"/> 
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical" class="text-[3.6vw] xs:text-lg"/> 
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical" class="text-[3.6vw] xs:text-lg"/> 
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical" class="text-[3.6vw] xs:text-lg"/> 
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical-bold" class="text-[2.4vw] xs:text-[12px]"/>
+                                    <Icon icon="ph:line-vertical" class="text-[3.6vw] xs:text-lg"/> 
                                 </div>
-                                <div class="flex w-full justify-between text-xs text-neutral-400 mt-1 px-1">
+                                <div class="flex w-full justify-between text-[2.4vw] xs:text-xs text-neutral-400 mt-[0.8vw] xs:mt-1 px-[0.8vw] xs:px-1">
                                     {#each ticks as tick}
-                                    <div class="w-5 flex justify-center">{tick}</div>
+                                    <div class="w-[4vw] xs:w-5 flex justify-center">{tick}</div>
                                     {/each}
                                 </div>
                             </div>
@@ -695,11 +719,11 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-zinc-400 dark:bg-mainlight/20 h-[1px] w-[90%] rounded-full"></div>
+            <div class="bg-zinc-400 dark:bg-mainlight/20 h-[0.2vw] xs:h-[1px] w-[90%] rounded-full"></div>
             <!-- {#if showAutoPlayUI} -->
-            <div class="px-4 py-3 w-full space-x-2 flex justify-end">
-                <button on:click={saveSettings} class="text-mainlight bg-mainred border border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-3 py-1 rounded-md">Save</button>
-                <button on:click={() => settings = !settings} class="border border-zinc-900/30 dark:border-mainlight/30 dark:hover:bg-mainlight/15 hover:bg-zinc-900/15 transition-all dark:hover:border-mainlight hover:border-zinc-900 cursor-pointer px-3 py-1 rounded-md">Later</button>
+            <div class="px-[3.2vw] xs:px-4 py-[2.4vw] xs:py-3 w-full space-x-[3.2vw] xs:space-x-2 flex justify-end">
+                <button on:click={saveSettings} class="text-mainlight bg-mainred border border-mainred hover:bg-mainred/30 transition-all cursor-pointer px-[3.2vw] xs:px-3 py-[1.6vw] xs:py-1 rounded-[1.2vw] xs:rounded-md">Save</button>
+                <button on:click={() => settings = !settings} class="border border-zinc-900/30 dark:border-mainlight/30 dark:hover:bg-mainlight/15 hover:bg-zinc-900/15 transition-all dark:hover:border-mainlight hover:border-zinc-900 cursor-pointer px-[3.2vw] xs:px-3 py-[1.6vw] xs:py-1 rounded-[1.2vw] xs:rounded-md">Later</button>
             </div>
             <!-- {/if} -->
         </div>
@@ -708,7 +732,7 @@
 
     <!-- TOP NAV -->
 
-    <div class={`${settings ? '' : ''} fixed w-full z-100 top-0 bg-mainlight xs:bg-stone-200 dark:bg-zinc-800 text-zinc-700 dark:text-mainlight text-[2.8vw] xs:text-sm flex justify-center transition duration-300 ${navShow ? '' : '-translate-y-[11.2vw] xs:-translate-y-[56px]'}`}>
+    <div class={`${settings ? '' : ''} border-b border-zinc-300 dark:border-zinc-700/40 fixed w-full z-100 top-0 bg-mainlight xs:bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-mainlight text-[2.8vw] xs:text-sm flex justify-center transition duration-300 ${navShow ? '' : '-translate-y-[11.2vw] xs:-translate-y-[56px]'}`}>
         
         <div class="w-[1200px] flex justify-between items-center">
 
@@ -761,8 +785,8 @@
                     <button on:click={toggleChaplist} tabindex={navShow ? 0 : -1} class="ml-[3.2vw] xs:ml-4 cursor-pointer focus-visible:underline outline-none hover:underline active:underline line-clamp-1">Sky-Breaking Sword Saint (3)</button> 
                     {#if chaplist}
                     <div transition:fade={{ duration: 150 }} class="fixed z-101 pt-2 pl-3">
-                        <div class="bg-stone-100 dark:bg-zinc-800 rounded-md border border-stone-300 dark:border-zinc-700 w-72 h-64 
-                    scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 overflow-y-scroll transition-colors duration-300 p-2">
+                        <div class="bg-zinc-100 dark:bg-zinc-800 rounded-md border border-zinc-300 dark:border-zinc-700 w-72 h-64 
+                    scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 overflow-y-scroll transition-all duration-300 p-2">
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
@@ -827,7 +851,7 @@
 
         <!-- <div class="absolute bg-zinc-50 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 cursor-pointer peer"><div class="w-1/3 bg-red-500 h-full"></div></div> -->
         <!-- <div
-            class={`absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer`}
+            class={`absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-300 cursor-pointer peer`}
             role="button" tabindex="0" on:keydown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleBarClick}}
             on:click={handleBarClick}
             on:mousemove={handleHoverMove}
@@ -841,7 +865,7 @@
 
         <!-- PROGRESS BAR -->
         {#if !commentDisplay && scrollPercent <= 100}
-        <div transition:fade={{duration: 150}} class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-150 cursor-pointer peer">
+        <div transition:fade={{duration: 150}} class="absolute bg-zinc-500 top-full w-full h-[0.8vw] xs:h-1 hover:h-3 transition-[height] duration-300 cursor-pointer peer">
             <div class="absolute w-full h-full bg-zinc-500 overflow-hidden">
                 <div
                 class="h-full bg-mainred"
@@ -877,9 +901,9 @@
         {#if hoverPercent !== null}
         <div class="absolute bg-zinc-800 text-mainlight top-[calc(100%+24px)] py-0.5 px-1.5 rounded-md z-3" transition:fade={{ duration: 150 }}>{Math.round(hoverPercent)}%</div>
         {/if}
-        {#if navShow && scrollPercent <= 100}
-        <div class={`absolute bg-zinc-700/55 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] text-mainlight xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${navShow?'':'opacity-0'} ${hoverPercent !== null ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
-        {/if}
+            {#if navShow && scrollPercent <= 100}
+            <div class={`absolute bg-zinc-700/55 top-[calc(100%+16px)] py-[0.4vw] xs:py-0.5 px-[1.2vw] text-mainlight xs:px-1.5 rounded-[1.2vw] xs:rounded-md text-[2.4vw] xs:text-xs z-2 transition ${hoverPercent !== null || navShow ? 'opacity-0' : ''}`} transition:fade={{ duration: 150 }}>Direkomendasikan 13 tahun ke atas</div>
+            {/if}
         {/if}
 
     </div>
@@ -890,7 +914,7 @@
     <!-- {#if autoPlay} -->
     <div class={`fixed w-full z-100 bottom-0 flex justify-center transition duration-300 ${autoPlay ? 'delay-500' : 'translate-y-[16.8vw] xs:translate-y-[84px] sm:translate-y-0 sm:translate-x-[84px]'}`}>
         <div class="absolute bottom-[3.2vw] right-[3.2vw] xs:bottom-[16px] xs:right-[16px] text-sm text-zinc-600 dark:text-mainlight space-x-[2.4vw] xs:space-x-3">
-            <button bind:this={stopButton} on:click={handleAutoScroll} tabindex={autoPlay ? 0 : -1} class="p-[2.4vw] outline-none focus-visible:bg-zinc-700 xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300 group">
+            <button bind:this={stopButton} on:click={handleAutoScroll} tabindex={autoPlay ? 0 : -1} class="p-[2.4vw] outline-none focus-visible:bg-zinc-700 xs:p-3 rounded-full relative bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300 group">
                 <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl`} />
                 <!-- <Icon icon="iconamoon:player-pause-fill" class={`text-[4.8vw] xs:text-2xl hidden ${autoPlay ? 'group-hover:block' : 'hidden'}`} /> -->
             </button>
@@ -910,7 +934,7 @@
         {#if !$tablet && !commentDisplay}
             {#if scrollPercent <= 100}
             <!-- PLAY BUTTON -->
-            <button transition:fade={{ duration: 150 }} tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button transition:fade={{ duration: 150 }} tabindex={navShow ? 0 : -1} on:click={toggleAutoPlay} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <div class="">
                     <Icon icon="iconamoon:player-play" class={`text-[4.8vw] xs:text-2xl ${!autoPlay ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="iconamoon:player-play-fill" class={`text-[4.8vw] xs:text-2xl hidden ${!autoPlay ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
                 </div>
@@ -919,23 +943,23 @@
                 </div>
             </button>
             <!-- MAG BUTTON -->
-            <button transition:fade={{ duration: 150 }} on:click={zoomIn} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button transition:fade={{ duration: 150 }} on:click={zoomIn} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <Icon icon="ph:magnifying-glass-plus-bold" class={`text-2xl`} />
             </button>
-            <button transition:fade={{ duration: 150 }} on:click={zoomOut} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button transition:fade={{ duration: 150 }} on:click={zoomOut} tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <Icon icon="ph:magnifying-glass-minus-bold" class={`text-2xl`} />
             </button>
             {/if}
-            <!-- <button tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <!-- <button tabindex={navShow ? 0 : -1} class="p-[2.4vw] xs:p-3 rounded-full relative bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <Icon icon="mingcute:share-2-line" class={`text-2xl -translate-x-0.5`} />
             </button> -->
             <!-- GO TO TOP -->
-            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0] delay-300' : ''}`}>
+            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] xs:-translate-x-[84px] xs:-translate-y-[0] delay-300' : ''}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-2xl`} />
             </button>
         
         {:else}
-            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] sm:-translate-x-[84px] xs:-translate-y-[84px] delay-150' : 'translate-y-[16.8vw] sm:translate-y-[0] sm:translate-x-[84px]'}`}>
+            <button on:click={scrollToTop} class={`p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300 ${!navShow && !autoPlay ? '-translate-y-[16.8vw] sm:translate-y-[0] sm:-translate-x-[84px] xs:-translate-y-[84px] delay-150' : 'translate-y-[16.8vw] sm:translate-y-[0] sm:translate-x-[84px]'}`}>
                 <Icon icon="mingcute:arrow-to-up-line" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
         {/if}
@@ -945,11 +969,11 @@
         {#if $tablet}
         <div class={`absolute bottom-[calc(6.4vw+10vw)] xs:bottom-[32px] text-sm text-zinc-600 dark:text-mainlight space-x-[2.4vw] xs:space-x-3 transition-all duration-300 ${navShow ? '' : 'translate-y-[16.8vw]'}`}>
             
-            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <Icon icon="ph:caret-left-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
 
-            <button tabindex={navShow ? 0 : -1} on:click={togglecomment} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
+            <button tabindex={navShow ? 0 : -1} on:click={togglecomment} class={`${ $phone ? '' : 'hidden'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300`}>
                 <!-- <div class="relative">
                     <Icon icon="iconamoon:comment" class={`text-[4.8vw] xs:text-2xl`} />
                     <span class="absolute -top-[1.2vw] xs:-top-1.5 -right-[1.2vw] xs:-right-1.5 bg-zinc-800 active:bg-zinc-700 border-[0.4 vw] xs:border border-mainlight text-zinc-600 dark:text-mainlight text-[1.6vw] xs:text-[8px] font-semibold rounded-full w-[4vw] xs:w-5 h-[4vw] xs:h-5 flex items-center justify-center">
@@ -967,13 +991,13 @@
                 </div>
             </button>
 
-            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomIn} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="ph:magnifying-glass-plus-bold" class={`text-[4.8vw] xs:text-2xl`} />
                 </div>
             </button>
             
-            <button disabled={scrollPercent > 100 || commentDisplay} on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class={` ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'} transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={toggleAutoPlay} tabindex={navShow ? 0 : -1} class={` ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700 cursor-pointer'} transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="iconamoon:player-pause" class={`text-[4.8vw] xs:text-2xl ${autoPlay ? '' : 'hidden'}`} />
                 </div>
@@ -982,23 +1006,23 @@
                 </div>
             </button>
 
-            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 group`}>
+            <button disabled={scrollPercent > 100 || commentDisplay} on:click={zoomOut} tabindex={navShow ? 0 : -1} class={`${ $phone ? 'hidden' : ''} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700 cursor-pointer'}  transition-all duration-300 outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 group`}>
                 <div class="relative">
                     <Icon icon="ph:magnifying-glass-minus-bold" class={`text-[4.8vw] xs:text-2xl`} />
                 </div>
             </button>
 
-            <button disabled={commentDisplay} on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-stone-200 dark:hover:bg-zinc-700 cursor-pointer'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300`}>
+            <button disabled={commentDisplay} on:click={() => settings = !settings} tabindex={navShow ? 0 : -1} class={`${ $phone ? '' : 'hidden'} ${scrollPercent > 100 || commentDisplay ? 'opacity-50 cursor-not-allowed' : 'hover:bg-zinc-200 dark:hover:bg-zinc-700 cursor-pointer'} outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300`}>
                 <Icon icon="iconamoon:settings" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
             
-            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-stone-100 dark:bg-zinc-800 active:bg-stone-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-stone-200 dark:hover:bg-zinc-700 border border-stone-300 dark:border-zinc-700 transition-colors duration-300">
+            <button tabindex={navShow ? 0 : -1} class="outline-none focus-visible:bg-zinc-700 p-[2.4vw] xs:p-3 rounded-full relative bg-mainlight xs:bg-zinc-100 dark:bg-zinc-800 active:bg-zinc-200 dark:active:bg-zinc-700 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 transition-all duration-300">
                 <Icon icon="ph:caret-right-bold" class={`text-[4.8vw] xs:text-2xl`} />
             </button>
         </div>
         {#if $phone}
         <div class={`absolute bottom-0 text-sm text-zinc-600 dark:text-mainlight transition-all duration-300 z-100 bg-mainlight dark:bg-zinc-800
-        border border-b-0 border-stone-300 dark:border-zinc-700 rounded-t-xl w-[80vw] h-[80vw] flex flex-col items-center ${chaplist ? '' : 'translate-y-[calc(80vw-13vw)]'}`}>
+        border border-b-0 border-zinc-300 dark:border-zinc-700 rounded-t-xl w-[80vw] h-[80vw] flex flex-col items-center ${chaplist ? '' : 'translate-y-[calc(80vw-13vw)]'}`}>
             <div class="w-full text-[3.2vw]">
                 <a tabindex={navShow ? 0 : -1} href="/series" class="outline-none focus-visible:bg-zinc-50/5 hover:bg-zinc-50/15 active:bg-zinc-50/15 cursor-pointer w-auto aspect-square">
                     {#if isDark}
@@ -1018,7 +1042,7 @@
                     <span class="opacity-70 dark:opacity-40">#19</span>
                 </div>
                 <!-- <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div> -->
-                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer bg-stone-200 dark:bg-zinc-700 transition-colors duration-300">
+                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer bg-zinc-200 dark:bg-zinc-700 transition-all duration-300">
                     <span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> 
                     <span class="opacity-70 dark:opacity-40">#18</span>
                 </div>
@@ -1066,13 +1090,12 @@
 
 
     <!-- AFTER READ -->
-    <section role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} 
-    class="w-full flex flex-col items-center justify-center border-t border-zinc-300 dark:border-zinc-800 transition-colors duration-300">
+    <section
+    class="w-full bg-zinc-100 dark:bg-zinc-800/30 flex flex-col items-center justify-center border-t border-zinc-300 dark:border-zinc-800 transition-all duration-300">
         <div class="w-full max-w-[700px] px-[3.2vw] xs:px-4 text-sm my-[6.4vw] max-xs:mb-[0vw] xs:my-8 mx-8">
-            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-            class="flex items-center w-min whitespace-nowrap text-zinc-900 dark:text-mainlight transition-colors duration-300 max-xs:text-[2.8vw]"><div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-[1.6vw] xs:ml-2 text-zinc-900 bg-amber-300 font-[500] tracking-wide rounded-sm py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 text-[2vw] xs:text-[10px] font-work-sans">Creator</div></div>
-            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
-            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+            <div class="flex items-center w-min whitespace-nowrap text-zinc-900 dark:text-mainlight transition-all duration-300 max-xs:text-[2.8vw]"><div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>Creator name <div class="flex ml-[1.6vw] xs:ml-2 text-zinc-900 bg-amber-300 font-[500] tracking-wide rounded-sm py-[0.4vw] xs:py-0.5 px-[1.2vw] xs:px-1.5 text-[2vw] xs:text-[10px] font-work-sans">Creator</div></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-all duration-300">
                 <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px] text-center">Kamu belum berikan rating untuk komik ini!</div>
                 <!-- <div class="flex space-x-2 my-4 cursor-pointer">
                     <div class="group">
@@ -1084,8 +1107,7 @@
                     <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
                     <div><Icon icon="mingcute:star-line" class={`text-[32px]`} /></div>
                 </div> -->
-                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                 class="flex pl-[1.6vw] xs:pl-2 my-[3.2vw] xs:my-4 text-amber-400 dark:text-mainlight transition-colors duration-300">
+                <div class="flex pl-[1.6vw] xs:pl-2 my-[3.2vw] xs:my-4 text-amber-400 dark:text-mainlight transition-all duration-300">
                     {#each Array(5) as _, i}
                         <button
                             on:click={() => setRating(i + 1)}
@@ -1101,12 +1123,11 @@
                 </div>
 
             </div>
-            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
-            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
+            <div class="flex flex-col items-center justify-center my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-all duration-300">
                 <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px]">Berikan Reaksi Mu</div>
                 <div class="font-semibold tracking-wide mb-[4.8vw] xs:mb-6 text-zinc-400 text-[2.4vw] xs:text-[12px]">1.2k reaksi</div>
-                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                class="grid grid-cols-3 w-fit gap-[4.8vw] xs:gap-6">
+                <div class="grid grid-cols-3 w-fit gap-[4.8vw] xs:gap-6">
                     <div class="flex flex-col items-center space-y-[1.6vw] xs:space-y-2">
                         <div class="bg-red-400 h-[16vw] xs:h-20 rounded-full aspect-square"></div>
                         <div class="text-[2.4vw] xs:text-[12px] tracking-wide font-work-sans">Sedih</div>
@@ -1134,106 +1155,90 @@
                 </div>
             </div>
             
-            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
             
             <div class="space-y-[1.6vw] xs:space-y-2 my-[6.4vw] xs:my-8">
-                <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                class="flex justify-between items-center bg-purple-800 border border-purple-700 p-[1.6vw] xs:p-2 rounded-[1.2vw] xs:rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-[4.8vw] xs:mb-6">
+                <div class="flex justify-between items-center bg-purple-800 border border-purple-700 p-[1.6vw] xs:p-2 rounded-[1.2vw] xs:rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-[4.8vw] xs:mb-6">
                     <div class="flex items-center">
                         <div class="h-[8vw] xs:h-10 rounded-[0.8vw] xs:rounded-sm aspect-square bg-red-400 mr-[2.4vw] xs:mr-3"></div>
                         <div class="max-xs:text-[3.6vw]">Baca versi novelnya</div>
                     </div>
                     <div class="bg-mainlight/30 h-[6.4vw] xs:h-[32px] flex items-center justify-center aspect-square rounded-full text-mainlight mr-[1.6vw] xs:mr-2"><Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[3.2vw] xs:text-[16px] translate-x-[5%]`} /></div>
                 </div>
-                <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-colors duration-300">
+                <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-all duration-300">
                     <div>
-                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                        class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-[0.8vw] xs:mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
+                        <div class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-[0.8vw] xs:mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
                         <div class="sm:text-[12px] xs:text-[10px] text-[2.4vw] opacity-50 font-[600]">HEATS(REDICE STUDIO), 이범근(REDICE STUDIO), 산지직송</div>
                     </div>
-                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                    class="group cursor-pointer">
+                    <div class="group cursor-pointer">
                         <Icon icon="mingcute:bookmark-line" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:hidden`} />
                         <Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1 group-hover:block hidden`} />
                     </div>
                 </div>
-                <div class="flex max-xs:mt-[3.2vw] items-center font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300 max-sm:text-[12px] max-xs:text-[3.2vw]"><Icon icon="mingcute:star-fill" class={`text-[4vw] xs:text-[20px] mr-[0.8vw] xs:mr-1 max-xs:-translate-y-[5%]`} /><span class="mr-2">9.9</span><span class="opacity-30">2.231 votes</span></div>
+                <div class="flex max-xs:mt-[3.2vw] items-center font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 max-sm:text-[12px] max-xs:text-[3.2vw]"><Icon icon="mingcute:star-fill" class={`text-[4vw] xs:text-[20px] mr-[0.8vw] xs:mr-1 max-xs:-translate-y-[5%]`} /><span class="mr-2">9.9</span><span class="opacity-30">2.231 votes</span></div>
                 <!-- <div class="flex items-center font-work-sans"><Icon icon="mingcute:bookmark-fill" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div> -->
                 <!-- <div class="flex items-center font-work-sans"><Icon icon="icon-park-solid:slightly-smiling-face" class={`text-[20px] mr-[0.8vw] xs:mr-1`} /><span class="mr-2">3.9K</span></div> -->
                     
             </div>
 
-            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
 
-            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-[3.2] xs:my-4 max-xs:text-[3.2vw] font-work-sans w-full dark:text-zinc-400 transition-colors duration-300"><div>Comments (3.2K)</div><button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer">See all</button></div>
+            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-[3.2] xs:my-4 max-xs:text-[3.2vw] font-work-sans w-full dark:text-zinc-400 transition-all duration-300"><div>Comments (3.2K)</div><button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer">See all</button></div>
             <div class="flex max-xs:mt-[6.4vw] my-[3.2] xs:my-4 max-xs:text-[3.6vw]">
                 <div><div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full max-xs:hidden"></div></div>
                 <div class="">
                     <div class="flex w-full items-center">
                         <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full xs:hidden"></div>
-                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-colors duration-300 xs:mb-2">username 
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300 xs:mb-2">username 
                             <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
                             <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
                             <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
-                            <div class="flex text-amber-600/50 dark:text-amber-300/50 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                            <div class="flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
                         </div>
                         <div class="flex justify-end flex-1 xs:hidden">
-                            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                            class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                            <div class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-all duration-300">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
                             </div>
                         </div>
                     </div>
                     <div class="flex max-xs:mt-[2.4vw]">
                         <div>
-                            <div class="line-clamp-7 text-zinc-600 dark:text-zinc-400 transition-colors duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
-                            
-                            <!-- <div class="flex space-x-1 my-[3.2] xs:my-4 max-xs:text-[3.2vw] w-full hidden">
-                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px]`} />
-                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px]`} />
-                                <div class="ml-2">101</div>
-                            </div> -->
+                            <div class="line-clamp-7 text-zinc-600 dark:text-zinc-400 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
                         </div>
                     </div>
                     <div class="flex justify-end items-center space-x-[2.4vw] mr-[4.8vw] xs:mr-4 max-xs:mt-[1.6vw] xs:hidden h-fit">
-                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                        class="group cursor-pointer">
-                            <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500 group-hover:hidden`} />
-                            <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px] text-emerald-500 hidden group-hover:block`} />
+                        <div class="group cursor-pointer">
+                            <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                            <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
                         </div>
-                        <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300 max-xs:text-[3.2vw]">101</div>
-                        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                        class="group cursor-pointer">
-                            <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400 group-hover:hidden`} />
-                            <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px] text-red-400 hidden group-hover:block`} />
+                        <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                        <div class="group cursor-pointer">
+                            <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                            <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col justify-start items-center ml-4 mr-[1.6vw] xs:mr-4 max-xs:mt-[1.6vw] max-xs:hidden h-fit">
-                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                    class="group cursor-pointer">
-                        <Icon icon="mingcute:large-arrow-up-line" class={`text-[20px] text-emerald-500 group-hover:hidden`} />
-                        <Icon icon="mingcute:large-arrow-up-fill" class={`text-[20px] text-emerald-500 hidden group-hover:block`} />
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                        <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
                     </div>
-                    <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-colors duration-300">101</div>
-                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                    class="group cursor-pointer">
-                        <Icon icon="mingcute:large-arrow-down-line" class={`text-[20px] text-red-400 group-hover:hidden`} />
-                        <Icon icon="mingcute:large-arrow-down-fill" class={`text-[20px] text-red-400 hidden group-hover:block`} />
+                    <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300">101</div>
+                    <div class="group cursor-pointer">
+                        <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                        <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
                     </div>
                 </div>
                 <div class="flex justify-end flex-1 max-xs:hidden h-fit">
-                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                    class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-colors duration-300">
-                        <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[20px]`} />
+                    <div class="cursor-pointer h-fit hover:bg-zinc-200/50 dark:hover:bg-zinc-700/50 p-1 rounded-full text-zinc-900 dark:text-mainlight transition-all duration-300">
+                        <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
                     </div>
                 </div>
             </div>
-            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-            class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-[3.2vw] xs:p-4 hover:bg-zinc-100 cursor-pointer my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+            <div class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-[3.2vw] xs:p-4 hover:bg-zinc-100 cursor-pointer my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-all duration-300">
                 <div class="tracking-wide max-sm:text-[12px] max-xs:text-[3.2vw]">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[4vw] xs:text-[20px] inline-block`} /></div>
             </div>
-            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div>
+            <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
 
             <!-- <div class="space-y-2">
                 <div class="flex items-center justify-between">
@@ -1252,40 +1257,39 @@
                     
             </div> -->
 
-            <!-- <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-colors duration-300"></div> -->
+            <!-- <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div> -->
             
-            <div class="my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-colors duration-300">
+            <div class="my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-all duration-300">
                 <div class="font-semibold tracking-wide text-[3.2vw] xs:text-[16px]">Rekomendasi untukmu</div>
                 <!-- <div class="w-full bg-emerald-300 overflow-x-scroll"> -->
-                    <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-                    class="my-[1.6vw] xs:my-2 gap-[3.2vw] xs:gap-4 xs:grid grid-cols-5 max-xs:overflow-x-scroll max-xs:flex overflow-hidden rounded-[1.2vw] xs:rounded-t-md">
+                    <div class="my-[1.6vw] xs:my-2 gap-[3.2vw] xs:gap-4 xs:grid grid-cols-5 max-xs:overflow-x-scroll max-xs:flex overflow-hidden rounded-[1.2vw] xs:rounded-t-md">
                         <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
                             <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-all duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
                             <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                             <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
                         <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
                             <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-all duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
                             <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                             <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
                         <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
                             <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-all duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
                             <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum dolor</div>
                             <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
                         <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
                             <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-all duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
                             <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum </div>
                             <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
                         <div class="max-xs:min-w-[28vw] max-xs:pb-[4vw]">
                             <div class="bg-red-400 w-full max-xs:w-[28vw] rounded-[1.2vw] xs:rounded-md aspect-[3/4] mb-[1.6vw] xs:mb-2"></div>
-                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-colors duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
+                            <div class="tracking-tight text-zinc-400 dark:text-zinc-500 transition-all duration-300 text-[12px] max-sm:text-[10px] max-xs:text-[2.4vw]">Gendre</div>
                             <div class="tracking-wide line-clamp-2 max-sm:text-[12px] max-xs:text-[3.2vw]">Lorem, ipsum </div>
                             <div class="text-emerald-400 flex items-center max-sm:text-[12px] max-xs:text-[2.4vw]"><Icon icon="mingcute:bookmark-fill" class="text-[12px] max-xs:text-[2.4vw] mr-[0.8vw] xs:mr-1"/><span>1.2K</span></div>
                         </div>
@@ -1303,37 +1307,421 @@
     {#if commentDisplay}
     <!-- <div class="h-[100dvh] w-full pt-[56px]"> -->
         <!-- <div class="w-full h-full overflow-y-scroll scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 space-y-4"> -->
-        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} class={`w-full h-full space-y-4 pt-[16vw] xs:pt-24`}>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
-            <div>comment sect goese here</div>
+        <div class={`w-full h-full pt-[16vw] xs:pt-24 p-[3.2vw] xs:p-4 max-w-[800px] to-zinc-900 dark:text-mainlight`}>
+            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-[3.2] xs:my-4 max-xs:text-[3.2vw] font-work-sans w-full dark:text-zinc-400 transition-all duration-300">
+                <div>Comments (3.2K)</div>
+                <!-- <button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer">See all</button> -->
+            </div>
+
+            <div class="border space-y-[1.6vw] xs:space-y-2 rounded-md border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px] p-[3.2vw] xs:p-4 my-[6.4] xs:my-8">
+                <div class="h-[19.2vw] xs:h-24">Please log in to leave a comment</div>
+                <div>spoiler</div>
+                <div class="flex justify-between">
+                    <div class="flex space-x-[1.6vw] xs:space-x-2">
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">A</div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">B</div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">C</div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">D</div>
+                    </div>
+                    <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">send</div>
+                </div>
+            </div>
+
+            <!-- induk -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-3 h-[40px] space-x-[2.4vw] xs:space-x-3 mb-[3.2vw] xs:mb-4">
+                        <div class="flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-4 rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px]">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:bg-zinc-300 dark:hover:bg-zinc-700 aspect-square text-zinc-900 dark:text-mainlight bg-zinc-200/70 dark:bg-zinc-800 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- reply -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="hidden flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">
+                                is it true like that? just thas all?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-1 mb-[3.2vw] xs:mb-2 h-[4vw] xs:h-[20px] space-x-[2.4vw] xs:space-x-3">
+                        <div class="hidden flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:opacity-100 cursor-pointer rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px] opacity-45 dark:opacity-30">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:opacity-100 aspect-square text-zinc-900 dark:text-mainlight rounded-[1.2vw] xs:rounded-md h-full opacity-30">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- reply reply -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="hidden flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">
+                                ofc thats all what do you want?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-1 mb-[3.2vw] xs:mb-2 h-[4vw] xs:h-[20px] space-x-[2.4vw] xs:space-x-3">
+                        <div class="hidden flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:opacity-100 cursor-pointer rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px] opacity-45 dark:opacity-30">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:opacity-100 aspect-square text-zinc-900 dark:text-mainlight rounded-[1.2vw] xs:rounded-md h-full opacity-30">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                            <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+                                
+                            </div>
+                        </div>
+                        <div class="opacity-40 dark:opacity-30 hover:opacity-100 cursor-pointer font-open-sans text-[2.8vw] xs:text-[14px]">show reply (102)...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- reply reply -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="hidden flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">
+                                no just asking
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-1 mb-[3.2vw] xs:mb-2 h-[4vw] xs:h-[20px] space-x-[2.4vw] xs:space-x-3">
+                        <div class="hidden flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:opacity-100 cursor-pointer rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px] opacity-45 dark:opacity-30">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:opacity-100 aspect-square text-zinc-900 dark:text-mainlight rounded-[1.2vw] xs:rounded-md h-full opacity-30">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex hidden">
+                        <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                            <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+                                
+                            </div>
+                        </div>
+                        <div class="opacity-40 dark:opacity-30 hover:opacity-100 cursor-pointer font-open-sans text-[2.8vw] xs:text-[14px]">show reply (102)...</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- reply reply reply -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="hidden flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">
+                                maybe he want her to get something better
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-1 mb-[3.2vw] xs:mb-2 h-[4vw] xs:h-[20px] space-x-[2.4vw] xs:space-x-3">
+                        <div class="hidden flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:opacity-100 cursor-pointer rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px] opacity-45 dark:opacity-30">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:opacity-100 aspect-square text-zinc-900 dark:text-mainlight rounded-[1.2vw] xs:rounded-md h-full opacity-30">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- reply -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="hidden flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">
+                                thanks for da spiler
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-1 mb-[3.2vw] xs:mb-2 h-[4vw] xs:h-[20px] space-x-[2.4vw] xs:space-x-3">
+                        <div class="hidden flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:opacity-100 cursor-pointer rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px] opacity-45 dark:opacity-30">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:opacity-100 aspect-square text-zinc-900 dark:text-mainlight rounded-[1.2vw] xs:rounded-md h-full opacity-30">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                            <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+                                
+                            </div>
+                        </div>
+                        <div class="opacity-40 dark:opacity-30 hover:opacity-100 cursor-pointer font-open-sans text-[2.8vw] xs:text-[14px]">show reply (102)...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+                        
+                    </div>
+                </div>
+                <div class="mt-[3.2vw] mb-[1.6vw] xs:mt-4 xs:mb-2 opacity-40 dark:opacity-30 font-open-sans text-[2.8vw] xs:text-[14px] hover:opacity-100 cursor-pointer">show more reply...</div>
+            </div>
+
+            <!-- induk -->
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="">
+                    <div class="flex w-full items-center mb-[2.4vw] xs:mb-3 mt-[3.2vw] xs:mt-4">
+                        <div class="h-[9.6vw] xs:h-12 mr-[3.2vw] xs:mr-4 bg-red-400 aspect-square rounded-full"></div>
+                        <div class="flex items-center text-zinc-900 dark:text-mainlight transition-all duration-300">username 
+                            <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
+                            <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
+                            <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
+                            <div class="flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                        </div>
+                        <div class="flex justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
+                            12 Hours ago
+                        </div>
+                    </div>
+                    <div class="flex">
+                        <div>
+                            <div class="text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px]">comments Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque, saepe ad enim rerum doloremque labore! Odit dolorum mollitia incidunt veritatis. Voluptatem doloremque corporis sequi cumque quaerat tempore excepturi debitis aut nesciunt dolores recusandae exercitationem possimus saepe hic incidunt fuga, optio earum sit ad cupiditate velit est? Facere praesentium quod aut commodi, nisi neque saepe expedita maxime sit numquam doloribus quia tempora obcaecati sequi, repellat deserunt nulla incidunt officiis dolorem. Neque, eveniet, vero assumenda vel accusantium dignissimos aliquam nisi, quae at recusandae perspiciatis accusamus quo sunt dicta itaque distinctio voluptatibus. Eligendi eos tenetur esse voluptatum, consectetur atque est magni nemo sequi a? Modi, qui ea! Ea sint molestiae dolores dignissimos ipsam, cum voluptatem velit, voluptate obcaecati rem ullam saepe in molestias odio, labore ut.</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-[1.6vw] xs:mt-3 h-[40px] space-x-[2.4vw] xs:space-x-3 mb-[3.2vw] xs:mb-4">
+                        <div class="flex items-center space-x-[3.2vw] xs:space-x-3 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-up-line" class={`text-[4vw] xs:text-[20px] text-emerald-500 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-up-fill" class={`text-[4vw] xs:text-[20px] text-emerald-500 hidden group-hover:block`} />
+                            </div>
+                            <div class="my-2 font-work-sans text-zinc-900 dark:text-mainlight transition-all duration-300 text-[2.8vw] xs:text-[14px]">101</div>
+                            <div class="group cursor-pointer">
+                                <Icon icon="mingcute:large-arrow-down-line" class={`text-[4vw] xs:text-[20px] text-red-400 group-hover:hidden`} />
+                                <Icon icon="mingcute:large-arrow-down-fill" class={`text-[4vw] xs:text-[20px] text-red-400 hidden group-hover:block`} />
+                            </div>
+                        </div>
+                        <div class="font-work-sans flex items-center justify-center tracking-wide transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-4 rounded-[1.2vw] xs:rounded-md h-full text-[2.8vw] xs:text-[14px]">reply?</div>
+                        <div class="flex justify-end flex-1 h-full">
+                            <div class="cursor-pointer flex justify-center items-center hover:bg-zinc-300 dark:hover:bg-zinc-700 aspect-square text-zinc-900 dark:text-mainlight bg-zinc-200/70 dark:bg-zinc-800 rounded-[1.2vw] xs:rounded-md transition-all duration-300 h-full">
+                                <Icon icon="ph:dots-three-outline-vertical-fill" class={`text-[4vw] xs:text-[20px]`} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex max-xs:text-[3.6vw]">
+                <div class="pl-[2.4vw] xs:pl-3 pr-[4.8vw] xs:pr-6">
+                    <div class="bg-zinc-400 dark:bg-zinc-500 h-full w-[1.5px]">
+                        
+                    </div>
+                </div>
+                <div class="mt-[3.2vw] mb-[1.6vw] xs:mt-4 xs:mb-2 opacity-40 dark:opacity-30 font-open-sans text-[2.8vw] xs:text-[14px] hover:opacity-100 cursor-pointer">show more reply...</div>
+            </div>
+
+            <div class="flex justify-center w-full my-[3.2vw] xs:my-4">
+                <div class="flex items-center justify-center transition-colors duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-2 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">show more...</div>
+            </div>
+
         </div>
     <!-- </div> -->
     {/if}
@@ -1342,7 +1730,7 @@
 
     <!-- FOOTER -->
     <div class="w-full">
-        <div class="w-full cursor-pointer border-y border-zinc-300 py-[3.2vw] xs:py-4 flex justify-center dark:border-zinc-800 transition-colors duration-300 text-zinc-900 dark:text-mainlight">
+        <div class="w-full bg-zinc-200 dark:bg-zinc-800 cursor-pointer border-y border-zinc-300 py-[3.2vw] xs:py-4 flex justify-center dark:border-zinc-700/40 transition-all duration-300 text-zinc-900 dark:text-mainlight">
             <div class="w-full xs:max-w-[80vw] sm:min-w-[700px] max-xs:px-[3.2vw] xs:px-4 max-sm:px-6 flex justify-between items-center text-[14px]">
                 <div class="flex items-center">
                     <div class="mr-[2.4vw] xs:mr-3 font-work-sans font-[600] max-sm:text-[12px] max-xs:text-[2.8vw]">Notice</div>
@@ -1353,17 +1741,15 @@
                 </div>
             </div>
         </div>
-        <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll} 
-        class="w-full bg-zinc-200/60 dark:bg-zinc-800 transition-colors duration-300 py-8 flex flex-col items-center justify-center">
-            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-            class="flex justify-center items-center space-x-[6.4vw] xs:space-x-8 text-zinc-600 dark:text-mainlight transition-colors duration-300">
+        <div
+        class="w-full bg-zinc-200 dark:bg-zinc-800 transition-all duration-300 py-8 flex flex-col items-center justify-center">
+            <div class="flex justify-center items-center space-x-[6.4vw] xs:space-x-8 text-zinc-600 dark:text-mainlight transition-all duration-300">
                 <Icon icon="fa6-brands:facebook" class="text-[4vw] xs:text-[20px]"/>
                 <Icon icon="fa6-brands:instagram" class="text-[4vw] xs:text-[20px]"/>
                 <Icon icon="fa6-brands:x-twitter" class="text-[4vw] xs:text-[20px]"/>
                 <Icon icon="fa6-brands:youtube" class="text-[4vw] xs:text-[20px]"/>
             </div>
-            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-            class="flex w-full max-sm:max-w-[350px] max-xs:max-w-[70vw] flex-wrap justify-center items-center space-x-0 xs:space-x-0.5 text-[2.4vw] xs:text-[12px] my-[6.4vw] xs:my-8 tracking-wider text-zinc-900/60 dark:text-mainlight/60 transition-colors duration-300">
+            <div class="flex w-full max-sm:max-w-[350px] max-xs:max-w-[70vw] flex-wrap justify-center items-center space-x-0 xs:space-x-0.5 text-[2.4vw] xs:text-[12px] my-[6.4vw] xs:my-8 tracking-wider text-zinc-900/60 dark:text-mainlight/60 transition-all duration-300">
                 <div class="cursor-pointer hover:underline">About</div>
                 <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30"/>
                 <div class="cursor-pointer hover:underline">Feedback</div>
@@ -1378,14 +1764,13 @@
                 <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
                 <div class="cursor-pointer hover:underline max-sm:mt-2">Contact</div>
                 <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
-                <div class="py-[0.8vw] xs:py-1 pl-[2.4vw] xs:pl-3 max-sm:mt-2 max-xs:mt-[1.6vw] rounded-[1.2vw] xs:rounded-md border bg-mainlight dark:bg-zinc-900 border-zinc-300 dark:border-zinc-800 transition-colors duration-300 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-700">
+                <div class="py-[0.8vw] xs:py-1 pl-[2.4vw] xs:pl-3 max-sm:mt-2 max-xs:mt-[1.6vw] rounded-[1.2vw] xs:rounded-md border bg-zinc-100/70 dark:bg-zinc-700/40 border-zinc-300 dark:border-zinc-900/40 transition-all duration-300 cursor-pointer hover:bg-zinc-300/70 dark:hover:bg-zinc-700">
                     english
                     <Icon icon="gridicons:dropdown" class="text-[4.8vw] xs:text-[24px] opacity-60 inline-block mx-1"/>
                 </div>
             </div>
-            <div role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();} }} on:click={(e) => {e.preventDefault();e.stopPropagation();}} 
-            class="text-zinc-900 dark:text-mainlight transition-colors duration-300 flex flex-col items-center justify-center">
-                <svg class="h-[15vw] xs:h-[75px] fill-mainred dark:fill-mainlight transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
+            <div class="text-zinc-900 dark:text-mainlight transition-all duration-300 flex flex-col items-center justify-center">
+                <svg class="h-[15vw] xs:h-[75px] fill-mainred dark:fill-mainlight transition-all duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
                     <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
                     <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
                     <path d="m505.27,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
