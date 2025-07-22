@@ -231,8 +231,8 @@
         <!-- Slider -->
         <div class={`w-full relative
             ${jenis === 'VISUAL NOVEL' ? 
-            'max-xs:min-h-[98.4vw] min-h-[calc((1100px/5)*2)] xs:portrait:min-h-[calc(100vw-180px)] min-[600px]:portrait:min-h-[calc(95vw-180px)] sm:portrait:min-h-[calc((1550px/5)*2-180px)] md:min-h-[calc((930px/5)*2+9px)] lg:min-h-[calc((913px/5)*2+9px)] xl:min-h-[calc((1070px/5)*2+8px)]' : 
-            'max-xs:min-h-[145.65vw] min-h-[calc((1100px/5)*2)] xs:portrait:min-h-[calc(100vw)] min-[600px]:portrait:min-h-[calc(95vw)] sm:portrait:min-h-[calc((1550px/5)*2)] md:min-h-[calc((930px/5)*2+9px)] lg:min-h-[calc((913px/5)*2+9px)] xl:min-h-[calc((1070px/5)*2+8px)]'}
+            'max-xs:min-h-[128.4091vw] min-h-[calc((1385px/5)*2)] xs:portrait:min-h-[calc(120vw-180px)] min-[600px]:portrait:min-h-[calc(115vw-180px)] sm:portrait:min-h-[calc((1950px/5)*2-180px)] md:min-h-[calc((1215px/5)*2+9px)] lg:min-h-[calc((1195px/5)*2+9px)] xl:min-h-[calc((1440px/5)*2+8px)]' : 
+            'max-xs:min-h-[177.65vw] min-h-[calc((1425px/5)*2)] xs:portrait:min-h-[calc(120vw)] min-[600px]:portrait:min-h-[calc(115vw)] sm:portrait:min-h-[calc((1950px/5)*2)] md:min-h-[calc((1215px/5)*2+9px)] lg:min-h-[calc((1195px/5)*2+9px)] xl:min-h-[calc((1400px/5)*2+8px)]'}
         `}>
             <div
                 class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-md max-xs:rounded-[1.2vw]"
@@ -274,7 +274,7 @@
                     <!-- Slide Group 1 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
                         <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short" }} />
-                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 8 : $desktop ? 6 : $phone ? 4 : 4) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
@@ -343,7 +343,7 @@
                 <!-- Slide Group 1 -->
                 <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
                     <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short", disable: true }} />
-                    {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 9 : $desktop ? 7 : $phone ? 4 : 5) as card}
+                    {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 8 : $desktop ? 6 : $phone ? 3 : 4) as card}
                         <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
                     {/each}
                 </div>
@@ -410,14 +410,15 @@
 </section>
 
 <style>    
-	.overflow-scroll-hidden {
-		overflow: auto;
-		scrollbar-width: none;       /* Firefox */
-		-ms-overflow-style: none;    /* Internet Explorer 10+ */
-	}
+	@media (min-width: 500px) {
+		.overflow-scroll-hidden {
+			overflow: auto;
+			scrollbar-width: none;       /* Firefox */
+			-ms-overflow-style: none;    /* IE 10+ */
+		}
 
-	.overflow-scroll-hidden::-webkit-scrollbar {
-		display: none;               /* Safari & Chrome */
+		.overflow-scroll-hidden::-webkit-scrollbar {
+			display: none;               /* Safari & Chrome */
+		}
 	}
-    
 </style>

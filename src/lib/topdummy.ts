@@ -8,7 +8,7 @@ export const top = {
     pages: 150,
     genre: ["Fantasy", "Action"],
     type: "KOMIK",
-    image: "https://i.imgur.com/HHe6hQi.png",
+    image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
     // imageLarge: "https://i.imgur.com/1zbe9Fp.png"
     imageLarge: "https://i.imgur.com/vfwwynV.png"
 };

@@ -7,8 +7,11 @@
 <section class="max-xs:bg-zinc-900">
     <div class="max-xs:bg-zinc-200 max-xs:rounded-t-xl max-xs:px-0 max-md:px-2">
         
-        <TitleLink title="Komik Terbaru" link="/" />
+        <div class="max-xs:pl-[1.6vw]"><TitleLink title="Komik Terbaru" link="/" /></div>
         <Slaideres jenis="KOMIK" />
+
+        <div class="max-xs:pl-[1.6vw]"><TitleLink title="Novel Terbaru" link="/" /></div>
+        <Slaideres totalGroup={3} jenis="NOVEL" />
 
         <!-- <TitleLink title="Novel Terbaru" link="/" />
         <Slaideres totalGroup={3} jenis="NOVEL" /> -->

@@ -29,7 +29,7 @@
     let updateCards: CardItem[] = [];
     
     function topShows() {
-        const size = window.innerWidth <= 900 ? window.innerWidth <= 500 ? '2x1' : '2x1' : '2x2';
+        const size = window.innerWidth <= 900 ? window.innerWidth <= 500 ? '2x1' : '1x1' : '2x2';
 
         topCard = {
             ...top,
@@ -40,19 +40,19 @@
     }
 
     function choiceShows() {
-        // const size = window.innerWidth <= 500 ? '1x1' : '2x1';
+        const size = window.innerWidth <= 900 ? '1x1' : '2x1';
 
         choiceCard = {
             ...choice,
             idfe: 'choice',
-            size: '2x1',
-            // size,
+            // size: '2x1',
+            size,
             label: 'choice'
         };
     }
 
     function newShows() {
-        const size = window.innerWidth <= 500 ? '1x1' : '2x1';
+        const size = window.innerWidth <= 900 ? '1x1' : '2x1';
         newCard = {
             ...newarr,
             idfe: 'new',
@@ -63,7 +63,7 @@
     }
     
     function updateShows() {
-        const limit = window.innerWidth > 1100 ? 7 : window.innerWidth < 900 ? window.innerWidth < 500 ? 7 : 9 : 8;
+        const limit = window.innerWidth > 1100 ? 10 : window.innerWidth < 900 ? window.innerWidth < 500 ? 2 : 6 : 14;
         updateCards = update.slice(0, limit).map((card, i) => ({
             ...card,
 		    idfe: `update-${i}`,
@@ -122,7 +122,7 @@
 		}
 
 		if (choiceCard) {
-			choiceCard.order = window.innerWidth >= 900 ? 2 : window.innerWidth <= 500 ? 18 : 12;
+			choiceCard.order = window.innerWidth >= 900 ? 1 : window.innerWidth <= 500 ? 2 : 1;
 			list.push(choiceCard);
 		}
 
@@ -132,7 +132,7 @@
 		});
 
 		if (newCard) {
-			newCard.order = window.innerWidth >= 900 ? 'last' : window.innerWidth <= 499 ? 2 : 18;
+			newCard.order = window.innerWidth >= 900 ? 2 : window.innerWidth <= 499 ? 2 : 2;
 			list.push(newCard);
 		}
 
@@ -155,7 +155,7 @@ md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
 lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
     
     {#each orderedCards as card}
-        <Card item={card} />
+        <Card item={card} showChapter={false} />
     {/each}
     <!-- {#if topCard}
         <Card item={topCard} />

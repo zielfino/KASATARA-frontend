@@ -48,7 +48,7 @@
 <section>
     <div class="pt-4 max-xs:pt-[3vw] max-xs:mb-[0vw] max-xs:pb-[2.4vw] flex justify-center items-center max-xs:bg-gradient-to-b max-xs:from-zinc-200 max-xs:to-zinc-200/0">
         <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[4vw] px-1.5">
-            <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
+            <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between xs:pl-2">
                 <div>Semua Terbaru</div>
                 <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
             </div>
@@ -60,7 +60,7 @@
         md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
         lg:grid-cols-5 xl:w-[1100px]">
 
-            {#each update.slice( 0, $phone ? 1 : $desktop ? 4 : 3) as item, i}
+            {#each update.slice( 0, $phone ? 1 : $desktop ? 3 : 3) as item, i}
                 <Card item="{{...item, size: i === 0 ? ($desktoplarge ? '2x1' : $phone ? '2x1' : '1x1') : '1x1'}}" />
             {/each}
 

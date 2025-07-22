@@ -7,6 +7,7 @@
     import { goto } from "$app/navigation";
 
     export let item;
+    export let showChapter = true;
     
     function formatLikes(n: number): string {
         if (n >= 1_000_000) {
@@ -50,9 +51,9 @@
         item.size === '1x1' && item.type === "VISUAL NOVEL"
         ? 'col-span-1 xs:h-full'
         : item.size === '2x1'
-        ? 'col-span-2'
+        ? 'col-span-2 xs:col-span-3'
         : item.size === '1x1'
-        ? 'col-span-1 xs:aspect-square'
+        ? 'col-span-1 xs:aspect-[3/4]'
         : 'col-span-2 row-span-2'
     }
     ${
@@ -65,8 +66,8 @@
      portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
     ${
         item.size === '2x1'
-        ? 'min-h-[50vw] xs:min-h-0 md:h-[186.5px] lg:h-full'
-        : 'aspect-square'
+        ? 'min-h-[50vw] xs:min-h-[221px] xs:aspect-[2/1] xs:portrait:aspect-auto xs:portrait:min-h-[40vw] sm:portrait::min-h-[283.83px] sm:aspect-auto sm:min-h-[285.76px] md:min-h-[248.66px] lg:min-h-[243.73px] xl:min-h-[284.8px] h-full'
+        : 'aspect-[3/4]'
     }`}>
         <!-- LABLE -->
         {#if item.label !== 'none'}
@@ -187,7 +188,7 @@
             'bg-gray-600'}`}>
 
                 <!-- MAIN HOVER -->
-                <div class="absolute top-0 left-0 p-3">
+                <div class="absolute top-0 left-0 p-3 min-w-full">
                     <h3 class={`text-left font-semibold line-clamp-1 text-mainlight 
                     ${item.size === '2x2' ? 'text-[24px]' : 'text-[16px] max-xs:text-[3.2vw]'}
                     ${item.size === '2x1' ? 'max-xs:text-[3.6vw]' : 'max-xs:text-[3.2vw]'} `}>{item.title}</h3>
@@ -390,7 +391,7 @@
         item.genre[0] === 'Romance' ? 'bg-pink-600 text-pink-900' : 
         'bg-gray-600 text-gray-700'}
         `}>
-            {#each Array(item.size !== '1x1' ? 2 : 1) as _, i}
+            {#each Array(item.size !== '1x1' ? item.size == '2x2' ? 2 : 3 :  1) as _, i}
                 <div class="w-full">
                     {#if item.comments === 'short'}
                         <div
@@ -543,6 +544,9 @@
             {/if} -->
         </div>
     {/if}
+
+    <!-- Chapter List -->
+    {#if showChapter}
     <div class="w-full">
         {#if !$desktop && item.type !== 'VISUAL NOVEL'}
             {#if item.size === '1x1'}
@@ -595,8 +599,58 @@
                         </div>
                     </div>
                 </div>
+            <!-- {:else if item.size === '2x2'}
+                <div class="grid grid-cols-1 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden w-full">
+                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>{item.disable}</div>
+                            <div>1 hour ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 104</div>
+                            <div>1 week ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 103</div>
+                            <div>1 month ago</div>
+                        </div>
+                    </div>
+                </div> -->
             {:else}
-                <div class="grid grid-cols-2 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
+                <div class="grid grid-cols-2 xs:grid-cols-3 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
                     <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
@@ -628,8 +682,71 @@
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 3</div>
+                            <div>1 week ago</div>
+                        </div>
                     </div>
-                    <div class="space-y-[1vw]">
+                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 4</div>
+                            <div>1 hour ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 3</div>
+                            <div>1 week ago</div>
+                        </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 3</div>
+                            <div>1 week ago</div>
+                        </div>
+                    </div>
+                    {#if !$phone}
+                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
                         <div
                         role="button" 
                         aria-label="chapter"
@@ -660,9 +777,26 @@
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>
+                        <div
+                        role="button" 
+                        aria-label="chapter"
+                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:keydown|stopPropagation={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                            console.log('Klik dengan keyboard');
+                            e.preventDefault(); // untuk Space biar gak scroll
+                            }
+                        }}             
+                        tabindex={item.disable === true ? -1 : 0} 
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-200 bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                            <div>Chapter 1</div>
+                            <div>1 month ago</div>
+                        </div>
                     </div>
+                    {/if}
                 </div>
             {/if}
         {/if}
     </div>
+    {/if}
 </button>
