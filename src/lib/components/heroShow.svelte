@@ -122,7 +122,7 @@
 		}
 
 		if (choiceCard) {
-			choiceCard.order = window.innerWidth >= 900 ? 1 : window.innerWidth <= 500 ? 2 : 1;
+			choiceCard.order = window.innerWidth >= 900 ? window.innerWidth >= 1100 ? 1 : 22 : window.innerWidth <= 500 ? 2 : 1;
 			list.push(choiceCard);
 		}
 
@@ -132,7 +132,7 @@
 		});
 
 		if (newCard) {
-			newCard.order = window.innerWidth >= 900 ? 2 : window.innerWidth <= 499 ? 2 : 2;
+			newCard.order = window.innerWidth >= 900 ? window.innerWidth >= 1100 ? 1 : 20 : window.innerWidth <= 499 ? 2 : 2;
 			list.push(newCard);
 		}
 

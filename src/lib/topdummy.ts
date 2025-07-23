@@ -8,7 +8,9 @@ export const top = {
     pages: 150,
     genre: ["Fantasy", "Action"],
     type: "KOMIK",
+    color: "#672f41",
+    chapter: [101, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88],
     image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
-    // imageLarge: "https://i.imgur.com/1zbe9Fp.png"
+    imageLong: "https://i.imgur.com/HHe6hQi.png",
     imageLarge: "https://i.imgur.com/vfwwynV.png"
 };
