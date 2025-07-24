@@ -104,7 +104,7 @@
         : item.size === '2x1'
         ? 'col-span-2 xs:col-span-3'
         : item.size === '1x1'
-        ? 'col-span-1 xs:aspect-[3/4]'
+        ? 'col-span-1 aspect-[3/4]'
         : 'col-span-2 row-span-2'
     }
     ${
@@ -113,11 +113,11 @@
     `}
     style="direction:ltr"
 >   
-    <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.2vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+    <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
      portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
     ${
         item.size === '2x1'
-        ? 'aspect-[9.2/4] xs:min-h-[221px] xs:aspect-[2/1] xs:portrait:aspect-auto xs:portrait:min-h-[40vw] sm:portrait:min-h-[283.83px] sm:aspect-auto sm:min-h-[285.76px] md:min-h-[248.66px] lg:min-h-[243.73px] xl:min-h-[284.8px] h-full'
+        ? 'min-h-[calc((50vw*4/3)-(1.2vw*3))] xs:min-h-[221px] xs:aspect-[2/1] xs:portrait:aspect-auto xs:portrait:min-h-[40vw] sm:portrait:min-h-[283.83px] sm:aspect-auto sm:min-h-[285.76px] md:min-h-[248.66px] lg:min-h-[243.73px] xl:min-h-[284.8px] h-full'
         : 'aspect-[3/4]'
     }`}>
         <!-- LABLE -->
@@ -202,6 +202,54 @@
                 </div>
             {/if}
         {/if}
+
+        <!-- FLAG -->
+        <div class="z-10 absolute h-[5vw] xs:h-5 top-[2.4vw] xs:top-3 left-[2.4vw] xs:left-3">
+            {#if item.region === "KR"}
+            <svg class="h-full w-max drop-shadow-lg drop-shadow-zinc-900/30" width="45" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.4" y="0.4" width="44.2" height="31.2" rx="2.8" fill="white" stroke="#F5F5F5" stroke-width="0.8"></rect>
+                <mask id="mask0_2108_628" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="32" style="mask-type: luminance;">
+                    <rect x="0.4" y="0.4" width="44.2" height="31.2" rx="2.8" fill="white" stroke="white" stroke-width="0.8"></rect>
+                </mask>
+                <g mask="url(#mask0_2108_628)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22.5002 23.4666C26.6424 23.4666 30.0002 20.1237 30.0002 16C30.0002 11.8762 26.6424 8.53331 22.5002 8.53331C18.3581 8.53331 15.0002 11.8762 15.0002 16C15.0002 20.1237 18.3581 23.4666 22.5002 23.4666Z" fill="#E01B41"></path>
+                    <mask id="mask1_2108_628" maskUnits="userSpaceOnUse" x="15" y="8" width="16" height="16" style="mask-type: luminance;">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M22.5002 23.4666C26.6424 23.4666 30.0002 20.1237 30.0002 16C30.0002 11.8762 26.6424 8.53331 22.5002 8.53331C18.3581 8.53331 15.0002 11.8762 15.0002 16C15.0002 20.1237 18.3581 23.4666 22.5002 23.4666Z" fill="white"></path>
+                    </mask>
+                    <g mask="url(#mask1_2108_628)">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.0001 17.0666C17.143 19.0666 20.3573 20.2666 22.5001 17.0666C24.643 13.8666 28.9287 13.8666 30.0001 17.0666C31.0715 20.2666 30.0001 23.4666 30.0001 23.4666H15.0001C15.0001 23.4666 12.8573 15.0666 15.0001 17.0666Z" fill="#0E4B9C"></path>
+                    </g>
+                    <path opacity="0.75" fill-rule="evenodd" clip-rule="evenodd" d="M9.92138 5.69009C10.0691 5.43529 10.396 5.34772 10.6513 5.49451L11.5823 6.02962C11.8377 6.1764 11.9249 6.50196 11.7771 6.75676L9.09798 11.3766C8.95021 11.6314 8.6234 11.719 8.36802 11.5722L7.43704 11.0371C7.18167 10.8903 7.09444 10.5647 7.24221 10.3099L9.92138 5.69009ZM33.4177 6.02965C33.1623 6.17644 33.0751 6.50199 33.2228 6.75679L35.902 11.3766C36.0498 11.6314 36.3766 11.719 36.632 11.5722L37.5629 11.0371C37.8183 10.8903 37.9055 10.5648 37.7578 10.31L35.0786 5.69013C34.9308 5.43532 34.604 5.34775 34.3487 5.49454L33.4177 6.02965ZM30.634 7.62965C30.3787 7.77644 30.2914 8.10199 30.4392 8.35679L33.1184 12.9766C33.2661 13.2314 33.593 13.319 33.8483 13.1722L34.7793 12.6371C35.0347 12.4903 35.1219 12.1648 34.9741 11.91L32.295 7.29013C32.1472 7.03532 31.8204 6.94775 31.565 7.09454L30.634 7.62965ZM7.24221 21.6901C7.09444 21.4353 7.18167 21.1097 7.43704 20.963L8.36803 20.4278C8.6234 20.2811 8.95021 20.3686 9.09798 20.6234L11.7771 25.2433C11.9249 25.4981 11.8377 25.8236 11.5823 25.9704L10.6513 26.5055C10.396 26.6523 10.0691 26.5647 9.92138 26.3099L7.24221 21.6901ZM10.2207 19.363C9.96529 19.5097 9.87806 19.8353 10.0258 20.0901L12.705 24.7099C12.8528 24.9647 13.1796 25.0523 13.4349 24.9055L14.3659 24.3704C14.6213 24.2236 14.7085 23.8981 14.5608 23.6433L11.8816 19.0234C11.7338 18.7686 11.407 18.6811 11.1516 18.8278L10.2207 19.363ZM33.1184 19.0234C33.2661 18.7686 33.593 18.681 33.8483 18.8278L34.7793 19.3629C35.0347 19.5097 35.1219 19.8353 34.9741 20.0901L32.295 24.7099C32.1472 24.9647 31.8204 25.0523 31.565 24.9055L30.634 24.3704C30.3787 24.2236 30.2914 23.898 30.4392 23.6432L33.1184 19.0234ZM36.632 20.4278C36.3766 20.281 36.0498 20.3686 35.902 20.6234L33.2228 25.2432C33.0751 25.498 33.1623 25.8236 33.4177 25.9704L34.3486 26.5055C34.604 26.6523 34.9308 26.5647 35.0786 26.3099L37.7578 21.6901C37.9055 21.4353 37.8183 21.1097 37.5629 20.9629L36.632 20.4278ZM13.4349 7.09451C13.1796 6.94772 12.8528 7.03529 12.705 7.29009L10.0258 11.9099C9.87806 12.1647 9.96529 12.4903 10.2207 12.6371L11.1516 13.1722C11.407 13.319 11.7338 13.2314 11.8816 12.9766L14.5608 8.35676C14.7085 8.10196 14.6213 7.7764 14.3659 7.62962L13.4349 7.09451Z" fill="#262626"></path>
+                </g>
+            </svg>
+            {:else if item.region === "CN"}
+                <svg class="h-full w-max drop-shadow-lg drop-shadow-zinc-900/30" width="45" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="45" height="32" rx="3.2" fill="white"></rect><mask id="mask0_2108_614" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="32" style="mask-type: luminance;"><rect width="45" height="32" rx="3.2" fill="white"></rect></mask><g mask="url(#mask0_2108_614)"><rect width="45" height="32" fill="#F1361D"></rect><path fill-rule="evenodd" clip-rule="evenodd" d="M16.1881 4.96107L17.7445 5.22524L18.9119 6.28363L19.1772 4.73412L20.2403 3.57198L18.6839 3.30781L17.5166 2.24942L17.2512 3.79893L16.1881 4.96107ZM20.357 10.3807L21.7057 9.56348L23.2842 9.59983L22.4634 8.25709L22.4999 6.68564L21.1511 7.50284L19.5727 7.4665L20.3935 8.80924L20.357 10.3807ZM18.5274 19.1532L17.2081 20.0168L17.1895 18.445L16.3221 17.1316L17.9009 17.1131L19.2201 16.2495L19.2387 17.8213L20.1061 19.1347L18.5274 19.1532ZM19.6731 15.0902L21.2424 14.917L22.6576 15.6141L22.4836 14.0518L23.1838 12.6429L21.6145 12.8161L20.1994 12.119L20.3733 13.6813L19.6731 15.0902Z" fill="#FFDC42"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7142 13.1625L6.9356 15.8442L8.32978 11.4378L4.60028 8.6888L9.24055 8.6472L10.7142 4.26651L12.1879 8.6472L16.8282 8.6888L13.0987 11.4378L14.4928 15.8442L10.7142 13.1625Z" fill="#FFDC42"></path></g></svg>
+            {:else if item.region === "JP"}
+            <svg class="h-full w-max drop-shadow-lg drop-shadow-zinc-900/30" width="45" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0.4" y="0.4" width="44.2" height="31.2" rx="2.8" fill="white" stroke="#F5F5F5" stroke-width="0.8"></rect>
+                <!-- <mask id="mask0_2108_624" maskUnits="userSpaceOnUse" x="0" y="0" width="45" height="32" style="mask-type: luminance;">
+                    <rect x="0.4" y="0.4" width="44.2" height="31.2" rx="2.8" fill="white" stroke="white" stroke-width="0.8"></rect>
+                </mask> -->
+                
+                <g mask="url(#mask0_2108_624)">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22.4999 25.6C27.8255 25.6 32.1428 21.3019 32.1428 16C32.1428 10.6981 27.8255 6.40001 22.4999 6.40001C17.1743 6.40001 12.8571 10.6981 12.8571 16C12.8571 21.3019 17.1743 25.6 22.4999 25.6Z" fill="url(#paint0_linear_2108_624)"></path>
+                </g>
+                <defs>
+                    <linearGradient id="paint0_linear_2108_624" x1="12.8571" y1="6.40001" x2="12.8571" y2="25.6" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#D81441"></stop><stop offset="1" stop-color="#BB0831"></stop>
+                    </linearGradient>
+                </defs>
+            </svg>
+            {:else if item.region === "ID"}
+            <svg class="h-full w-max drop-shadow-lg drop-shadow-zinc-900/30 rounded-[1.8px]" width="45" height="32" viewBox="0 0 45 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="45" height="32" rx="2.8" fill="#FF0000" />
+                <rect y="16" width="45" height="16" fill="#FFFFFF" />
+            </svg>
+
+            {:else}
+                <div  class="h-full aspect-[4/3] rounded-[0.4vw] xs:rounded-xs drop-shadow-lg drop-shadow-zinc-900/30 bg-gray-600" ></div>
+            {/if}
+        </div>
 
         <!-- BACKGROUND DIM -->
         {#if !$phone}
@@ -543,11 +591,11 @@
 
         <!-- BACKGROUND IMAGE -->
         <!-- <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center"></div>    -->
-        <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center"
+        <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101"
         style={`${!item.imageLong && item.size === "2x1" ? `background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("${item.image}");` : ""}`}>
             <img src="{item.imageLong && item.size === "2x1" ? item.imageLong : item.image}" alt="" 
-            class={`w-full h-full object-center duration-150 transition-all landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-105
-            ${!item.imageLong && item.size === "2x1" ? "object-contain backdrop-blur-md" : "object-cover"}`} />
+            class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+            ${!item.imageLong && item.size === "2x1" ? "object-contain backdrop-blur-md" : "object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-105"}`} />
         </div>
 
         <!-- D I S P L A Y E D -->
@@ -618,9 +666,12 @@
 
     <!-- CHAPTER HOVER -->
     {#if !$phone && item.type !== 'VISUAL NOVEL'}
-        <div class={`z-20 portrait:hidden absolute w-[calc(100%-0.7%)] translate-x-[0.4%] md:w-[calc(100%-0.4%)] md:translate-x-[0.2%] bottom-0 opacity-0 group-focus-visible:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus-visible:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
+        <div class={`z-20 portrait:hidden absolute bottom-0 opacity-0 group-focus-visible:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus-visible:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
         px-2 pb-1 space-x-1
         ${item.size === '2x2' ? 'text-[13px]' : 'text-[12px]'}
+        ${item.size === '2x2' ? 'w-[calc(100%-0.7%)] translate-x-[0.4%] md:w-[calc(100%-0.4%)] md:translate-x-[0.2%]' : 
+        item.size === '2x1' ? 'w-[calc(100%-0.16%)] translate-x-[0.1%] md:w-[calc(100%-0.2%)] md:translate-x-[0.1%]' :
+        'w-[calc(100%-0.7%)] translate-x-[0.4%] md:w-[calc(100%-0.57%)] md:translate-x-[0.3%]'}
         `}
         style={`
         color: ${

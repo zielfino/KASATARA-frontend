@@ -7,9 +7,11 @@
     import { update } from '$lib/updatedummy';
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
+    import { heroFilter } from '$lib/stores/heroFilter';
 
     type CardItem = {
 		idfe: string;
+		id?: number;
         title: string;
         excerpt: string;
         likes: number;
@@ -17,6 +19,7 @@
         pages: number;
         genre: string[];
         type: string;
+        chapter?: number[];
         label: string;
         size?: string;
         image: string;
@@ -63,12 +66,41 @@
     }
     
     function updateShows() {
-        const limit = window.innerWidth > 1100 ? 10 : window.innerWidth < 900 ? window.innerWidth < 500 ? 2 : 6 : 14;
-        updateCards = update.slice(0, limit).map((card, i) => ({
-            ...card,
-		    idfe: `update-${i}`,
-            size: '1x1'
-        }));
+        if ($heroFilter === "Rekomendasi") {
+            const limit = typeof window !== 'undefined' ? window.innerWidth > 1100 ? 10 : window.innerWidth < 900 ? window.innerWidth < 500 ? 2 : 6 : 14 : 14;
+            updateCards = update.slice(0, limit).map((card, i) => ({
+                ...card,
+                idfe: `update-${i}`,
+                size: '1x1'
+            }));
+        } else {
+            // opsional: apa yang dilakukan jika bukan Rekomendasi
+            const limit = typeof window !== 'undefined' ? window.innerWidth < 1100 ? window.innerWidth < 900 ? window.innerWidth < 500 ? 6 : 9 : 12 : 15 : 15;
+            
+            updateCards = update
+                .filter(card => {
+                    if ($heroFilter === "Banyak Chapter") {
+                        return (card.chapter?.[0] ?? 0) > 100;
+                    } else if ($heroFilter === "Novel") {
+                        return card.type === "NOVEL";
+                    } else if ($heroFilter === "Komik") {
+                        return card.type === "KOMIK";
+                    }
+                    return true;
+                })
+                .sort((a, b) => {
+                    if ($heroFilter === "Banyak Chapter") {
+                        return ((b.chapter?.[0] ?? 0) - (a.chapter?.[0] ?? 0));
+                    }
+                    return 0; 
+                })
+                .slice(0, limit)
+                .map((card, i) => ({
+                ...card,
+                idfe: `update-${i}`,
+                size: '1x1'
+            }));
+        }
     }
 
     onMount(() => {
@@ -122,7 +154,7 @@
 		}
 
 		if (choiceCard) {
-			choiceCard.order = window.innerWidth >= 900 ? window.innerWidth >= 1100 ? 1 : 22 : window.innerWidth <= 500 ? 2 : 1;
+			choiceCard.order = window.innerWidth >= 900 ? window.innerWidth >= 1100 ? 1 : 28 : window.innerWidth <= 500 ? 2 : 1;
 			list.push(choiceCard);
 		}
 
@@ -148,15 +180,42 @@
 
 		return list;
 	})();
+
+    $: {
+        $heroFilter;
+        updateShows();
+    }
 </script>
 <div class="grid grid-cols-2 xs:grid-cols-3 w-full max-w-[675px] md:max-w-[770px]
 max-xs:px-[1.6vw] px-[8px] gap-[8px] my-2 xs:my-[8px]
 md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
-lg:grid-cols-5 xl:w-[1100px]" style="direction:rtl">
+lg:grid-cols-5 xl:w-[1100px]" style={`direction: ${$heroFilter === "Rekomendasi" ? 'rtl' : 'ltr'}`}>
     
-    {#each orderedCards as card}
-        <Card item={card} showChapter={false} />
-    {/each}
+    {#if $heroFilter === 'Rekomendasi'}
+        {#each orderedCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {:else if $heroFilter === 'Baru Rilis'}
+        {#each updateCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {:else if $heroFilter === 'Banyak Chapter'}
+        {#each updateCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {:else if $heroFilter === 'Komik'}
+        {#each updateCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {:else if $heroFilter === 'Novel'}
+        {#each updateCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {:else}
+        {#each updateCards as card}
+            <Card item={card} showChapter={false} />
+        {/each}
+    {/if}
     <!-- {#if topCard}
         <Card item={topCard} />
     {/if}

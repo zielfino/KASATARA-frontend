@@ -5,9 +5,10 @@ export const choice = {
     rating: 4.9,
     pages: 220,
     genre: ["Fantasy", "Sci-Fi"],
+    region: 'KR',
     type: "NOVEL",
     color: "#252b4d",
-    chapter: [101, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88],
+    chapter: [501, 500, 499, 498, 497, 496, 495, 494, 493, 492, 491, 490, 489, 488],
     image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg",
-    imageLong: "https://i.imgur.com/eglaRcC.jpeg",
+    // imageLong: "https://i.imgur.com/eglaRcC.jpeg",
 };

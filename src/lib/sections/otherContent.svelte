@@ -60,7 +60,7 @@
         md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
         lg:grid-cols-5 xl:w-[1100px]">
 
-            {#each update.slice( 0, $phone ? 1 : $desktop ? 3 : 3) as item, i}
+            {#each update.slice( 0, $phone ? 1 : $desktop ? $desktoplarge ? 3 : 4 : 3) as item, i}
                 <Card item="{{...item, size: i === 0 ? ($desktoplarge ? '2x1' : $phone ? '2x1' : '1x1') : '1x1'}}" />
             {/each}
 

@@ -288,6 +288,7 @@ console.log('🔥 Root layout active');
 //   $: hideRootLayout = $page.url.pathname.startsWith('/series');
 
 import { page } from '$app/stores';
+    import Footer from "$lib/components/Footer.svelte";
 </script>
 
 <style>
@@ -736,78 +737,6 @@ import { page } from '$app/stores';
 
 
 
-
-        <!-- Footer -->
-        <footer class="wf-full">
-            <section class="bg-mainlight rounded-t-2xl overflow-hidden pb-[8vw] xs:pb-0 border border-zinc-900/15">
-                <!-- Karya (Canvas) -->
-                <section class="w-full flex justify-center md:pb-12 md:pt-18">
-                    <div class="w-full flex flex-col min-[650px]:flex-row justify-center min-[650px]:items-start items-center xs:h-full max-w-[700px] md:max-w-[100%] xs:p-[50px]
-                    md:p-0 md:w-[770px] lg:w-[946px] xl:w-[1100px]">
-                        <div class="w-2/3 min-[650px]:w-1/2 flex justify-center items-center flex-col text-center min-[650px]:text-left min-[650px]:items-start space-y-[3.2vw] min-[650px]:pr-[16px] xs:mb-[32px] min-[650px]:pb-[0px] min-[650px]:pt-[32px] h-[75vw] xs:h-fit lg:w-[calc(946px/5*2)] xl:w-[calc(1100px/5*2)]">
-                            <h6 class="text-[4.8vw] xs:text-[24px] font-nunito font-black xs:mb-[8px] leading-none">KARYA</h6>
-                            <p class="text-[3.2vw] xs:text-[14px] xs:mb-[24px]">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum laboriosam aut iusto, consequuntur quam dignissimos!</p>
-                            <button class="text-[3.2vw] xs:text-[14px] bg-mainred 
-                            px-[3.2vw] xs:px-[16px]
-                            py-[2.8vw] xs:py-[14px]
-                            text-mainlight rounded-[2vw] xs:rounded-[10px]">Lihat Karya Lai nnya</button>
-                        </div>
-                        <div class="w-full min-[650px]:w-1/2 grid grid-cols-3 min-[650px]:grid-cols-2 xs:gap-[8px] md:pl-1 lg:grid-cols-4 lg:w-[calc(946px/5*3)] xl:w-[calc(1100px/5*3)] xl:grid-cols-5">
-                            <div class="bg-emerald-500 w-full min-[650px]:h-[186.5px] lg:h-full col-span-2"></div>
-                            <div class="bg-emerald-400 w-full aspect-square"></div>
-                            <div class="bg-emerald-300 w-full aspect-square"></div>
-                            <div class="bg-emerald-500 w-full aspect-square"></div>
-                            <div class="bg-emerald-600 w-full aspect-square"></div>
-                            {#if $desktopex}
-                                <div class="bg-emerald-500 w-full aspect-square"></div>
-                                <div class="bg-emerald-600 w-full aspect-square"></div>
-                            {/if}
-                            {#if $desktoplarge}
-                                <div class="bg-emerald-500 w-full aspect-square"></div>
-                                <div class="bg-emerald-600 w-full aspect-square"></div>
-                            {/if}
-                        </div>
-                    </div>
-                </section>
-                <div class="flex flex-col justify-center items-center space-y-[3.2vw] xs:space-y-[12px] py-[4.8vw] xs:py-[24px] text-[3.2vw] xs:text-[16px]">
-                    <div class="space-x-[2vw] xs:space-x-[10px] flex text-mainred [&>a]:hover:text-red-800">
-                        <a href="/" target="_blank" class="
-                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                            <Icon icon="fa6-brands:facebook-f" class="text-[6vw] xs:text-[24px]"/>
-                        </a>
-                        <a href="/" target="_blank" class="
-                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                            <Icon icon="fa6-brands:x-twitter" class="text-[6vw] xs:text-[24px]"/>
-                        </a>
-                        <a href="/" target="_blank" class="
-                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                            <Icon icon="fa6-brands:instagram" class="text-[6vw] xs:text-[24px]"/>
-                        </a>
-                        <a href="/" target="_blank" class="
-                        h-[10vw] xs:h-[32px] aspect-square flex justify-center items-center">
-                            <Icon icon="fa6-brands:youtube" class="text-[6vw] xs:text-[24px]"/>
-                        </a>
-                    </div>
-                    <div>About   |   Feedback   |   Help   |   Terms   |   Privacy    |   Contact</div>
-                    <div>&copy; agerr.co 2025 | KASATARA</div>
-                    <div class="mt-[6.4vw] xs:mt-[32px]">
-                        <svg class="h-[20vw] xs:h-[100px] fill-mainred" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 979.68 484.56">
-                            <path d="m290.64,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                            <polygon points="431.33 297.58 383.9 346.34 343.51 346.34 386.67 301.96 338.65 301.96 328.27 277.39 376.04 228.28 416.43 228.28 372.92 273.01 420.95 273.01 431.33 297.58"/>
-                            <path d="m505.27,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                            <path d="m167.86,289.98c9.82,11.17,25.24,30.6,39.25,56.36h-33.5c-9.38-15.09-18.76-27.03-25.57-34.98v34.98h-28.96v-118.06h28.96v40.46c8.33-9.06,20.4-23.42,30.66-40.46h33.04c-13.4,26.91-32.3,49.32-43.88,61.7Z"/>
-                            <path d="m936.33,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                            <path d="m701.07,228.28h-30.85l-43.42,118.24h30.85l10.78-29.35h34.43l10.71,29.18h30.84l-43.35-118.06Zm-24.13,65.72l8.71-23.72,8.71,23.72h-17.42Z"/>
-                            <polygon points="636.79 228.37 636.79 257.32 605.6 257.32 605.6 346.43 570.85 346.43 570.85 257.32 539.66 257.32 539.66 228.37 636.79 228.37"/>
-                            <path d="m858.08,282.41c3.5-6.62,6.49-17.5.79-31.78-5.85-14.67-22.25-22.45-52.56-22.45-18.54,0-39.86-.09-40.59,0l-14.39,17.77c.03.17,7.39,17.15,9.96,47.22,1.92,22.48-2.82,43.98-3.56,53.49h29.05c.49-6.66,1.08-16.3,1.45-28.06,7.46-1.7,14.26-3.46,20.44-5.3,3.38,6.4,8.77,18.02,12.69,33.36h29.73c-4.12-19.31-10.53-34.47-15.29-43.95,10.96-5.8,18.13-12.43,22.3-20.3Zm-25.58-13.56c-2.13,4.01-10.76,11.66-43.98,19.92-.19-13.3-.85-23.85-1.55-31.58,4.39-.27,9.46-.47,14.67-.44,20.42.09,28.14,2.14,30.52,5.08,2.39,2.94.74,6.25.34,7.01Z"/>
-                            <polygon points="675.89 363.91 653.54 456.2 646.68 484.56 618.32 477.69 304.98 401.82 356.93 384.38 625.19 449.33 645.87 363.91 675.89 363.91"/>
-                            <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
-                            <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="h-[20vw] xs:h-[100px] lg:h-[10px] md:landscape:h-[10px]"></div>
-            </section>
-        </footer>
+        <Footer />
     </section>
 </section>

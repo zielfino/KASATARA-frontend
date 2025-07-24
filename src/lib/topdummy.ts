@@ -7,6 +7,7 @@ export const top = {
     rating: 4.7,
     pages: 150,
     genre: ["Fantasy", "Action"],
+    region: 'ID',
     type: "KOMIK",
     color: "#672f41",
     chapter: [101, 100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88],

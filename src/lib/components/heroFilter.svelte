@@ -14,9 +14,11 @@
 	const filter: Tag[] = [
 		{ label: 'Rekomendasi', icon: 'material-symbols:bolt', color: 'text-amber-300' },
 		{ label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill', color: 'text-emerald-400' },
+		{ label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
+		{ label: 'Komik', icon: 'mingcute:calendar-month-fill' },
+		{ label: 'Novel', icon: 'mingcute:calendar-month-fill' },
 		{ label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
 		{ label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
-		{ label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
 		{ label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
 		{ label: 'Upload Bulanan', icon: 'mingcute:calendar-month-fill' },
 		{ label: 'Upload Sesuai Mood Author', icon: 'material-symbols:person-rounded' },
@@ -67,12 +69,14 @@
 
 	// DRAG CONTROL
 	function startDrag(e: MouseEvent | TouchEvent) {
+		if (window.innerWidth < 500) return;
 		isDragging = true;
 		startX = e instanceof MouseEvent ? e.pageX : e.touches[0].pageX;
 		scrollStart = scroller.scrollLeft;
 	}
 
 	function duringDrag(e: MouseEvent | TouchEvent) {
+		if (window.innerWidth < 500) return;
 		if (!isDragging) return;
 		const x = e instanceof MouseEvent ? e.pageX : e.touches[0].pageX;
 		const walk = startX - x;
@@ -81,6 +85,7 @@
 	}
 
 	function endDrag() {
+		if (window.innerWidth < 500) return;
 		if (!isDragging) return;
 		isDragging = false;
 		setTimeout(() => (preventClick = false), 0);
@@ -137,6 +142,7 @@
 	// SCROLL CONTROL
 	let scrollTimeout: ReturnType<typeof setTimeout>;
 	function onScroll() {
+		if (window.innerWidth < 500) return;
 		if (!isSnapEnabled) return;
 		clearTimeout(scrollTimeout);
 		scrollTimeout = setTimeout(snapToNearest, 80);
@@ -147,25 +153,44 @@
 	});
 
 	// CLICK CONTROL
-	import { tick } from 'svelte';
-	const isBrowser = typeof window !== 'undefined';
-	let heroFilter: string = filter[0].label;
+	// import { tick } from 'svelte';
+	// const isBrowser = typeof window !== 'undefined';
+	// let heroFilter: string = filter[0].label;
 	
-	onMount(() => {
-		if (!isBrowser) return;
-		sessionStorage.setItem('heroFilter', heroFilter);
-		const storedType = sessionStorage.getItem('heroFilter');
+	// onMount(() => {
+	// 	if (!isBrowser) return;
+	// 	sessionStorage.setItem('heroFilter', heroFilter);
+	// 	const storedType = sessionStorage.getItem('heroFilter');
 
-		if (storedType && filter.map(item => item.label).includes(storedType)) {
-			heroFilter = storedType;
-		} else {
-			sessionStorage.setItem('heroFilter', heroFilter);
+	// 	if (storedType && filter.map(item => item.label).includes(storedType)) {
+	// 		heroFilter = storedType;
+	// 	} else {
+	// 		sessionStorage.setItem('heroFilter', heroFilter);
+	// 	}
+	// });
+
+	// async function changeHeroFilter(to: string) {
+	// 	heroFilter = to;
+	// 	sessionStorage.setItem('heroFilter', to);
+	// 	await tick();
+	// }
+
+	import { tick } from 'svelte';
+	import { heroFilter } from '$lib/stores/heroFilter';
+
+	let current: string;
+	const unsubscribe = heroFilter.subscribe(v => current = v);
+
+	onMount(() => {
+		// pastikan nilai awal sudah tercache
+		if (!filter.find(tag => tag.label === current)) {
+		heroFilter.set(filter[0].label);
 		}
+		return unsubscribe;
 	});
 
 	async function changeHeroFilter(to: string) {
-		heroFilter = to;
-		sessionStorage.setItem('heroFilter', to);
+		heroFilter.set(to);
 		await tick();
 	}
 </script>
@@ -215,7 +240,7 @@
 				}
 			}}
 			on:click={() => changeHeroFilter(tag.label)}
-			disabled="{tag.label === heroFilter}"
+			disabled="{tag.label === current }"
 			class={`  
 				flex justify-center items-center
 				max-xs:py-[0.8vw] py-1 
@@ -223,7 +248,7 @@
 				border border-zinc-900/15
 				outline-none 
 				max-xs:text-[2.8vw]
-				${tag.label === heroFilter ? 
+				${tag.label === current  ? 
 				'text-mainlight bg-zinc-900' : 
 				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
 			`}>
@@ -231,7 +256,7 @@
 				{#if tag.icon}
 					<Icon icon={tag.icon} class={`
 						max-xs:ml-[1.6vw] max-xs:mr-[0.8vw] ml-2 mr-1
-						${tag.label === heroFilter ? 
+						${tag.label === current  ? 
 						tag.color : 
 						''}
 					`} />

@@ -229,13 +229,13 @@
     <div class="w-full max-w-[calc(675px-16px)] xs:portrait:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] flex flex-col items-center justify-center relative max-xs:px-[1.6vw] max-xs:overflow-hidden">
 
         <!-- Slider -->
-        <div class={`w-full relative
+        <div class={`w-full relative rounded-md max-xs:rounded-[1.6vw] max-xs:overflow-hidden
             ${jenis === 'VISUAL NOVEL' ? 
-            'max-xs:min-h-[128.4091vw] min-h-[580px] xs:portrait:min-h-[calc(90vw+155px-32vw)] min-[600px]:portrait:min-h-[calc((90vw+155px)-(90px*2)-(8px))] min-[690px]:portrait:min-h-[calc(777px-(90px*2)-(8px))] md:min-h-[505px] lg:min-h-[495px] xl:min-h-[580px]' : 
-            'max-xs:min-h-[177.65vw] min-h-[580px] xs:portrait:min-h-[calc(90vw+155px)] min-[600px]:portrait:min-h-[calc(90vw+155px)] min-[690px]:portrait:min-h-[777px] md:min-h-[505px] lg:min-h-[495px] xl:min-h-[580px]'}
+            'max-xs:min-h-[calc((128.4091vw/2)-1vw)] min-h-[580px] xs:portrait:min-h-[calc(90vw+155px-32vw)] min-[600px]:portrait:min-h-[calc((90vw+155px)-(90px*2)-(8px))] min-[690px]:portrait:min-h-[calc(777px-(90px*2)-(8px))] md:min-h-[505px] lg:min-h-[495px] xl:min-h-[580px]' : 
+            'max-xs:min-h-[calc((177.65vw/2)-1vw)] min-h-[580px] xs:portrait:min-h-[calc(90vw+155px)] min-[600px]:portrait:min-h-[calc(90vw+155px)] min-[690px]:portrait:min-h-[777px] md:min-h-[505px] lg:min-h-[495px] xl:min-h-[580px]'}
         `}>
             <div
-                class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-md max-xs:rounded-[1.2vw]"
+                class="absolute top-0 left-0 w-full flex overflow-x-scroll scroll-smooth overflow-scroll-hidden overflow-hidden rounded-md max-xs:rounded-[1.6vw]"
                 bind:this={sliderContainer}
                 on:pointerdown={handlePointerDown}
                 on:pointermove={handlePointerMove}
@@ -248,7 +248,7 @@
                 {#if totalGroup === 2}
                     <!-- Slide Group 2 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 8 : $desktop ? 7 : $phone ? 4 : 5, $desktoplarge ? 18 : $desktop ? 15 : $phone ? 8 : 11) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 8 : $desktop ? 7 : $phone ? 2 : 5, $desktoplarge ? 18 : $desktop ? 15 : $phone ? 4 : 11) as card}
                             <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
                         {/each}
                     </div>
@@ -256,7 +256,7 @@
                 {#if totalGroup === 3}
                     <!-- Slide Group 3 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 18 : $desktop ? 15 : $phone ? 8 : 11, $desktoplarge ? 28 : $desktop ? 23 : $phone ? 12 : 17) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 18 : $desktop ? 15 : $phone ? 4 : 11, $desktoplarge ? 28 : $desktop ? 23 : $phone ? 6 : 17) as card}
                             <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
                         {/each}
                     </div>
@@ -264,7 +264,7 @@
                 {#if totalGroup === 4}
                     <!-- Slide Group 4 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 28 : $desktop ? 23 : $phone ? 12 : 17, $desktoplarge ? 38 : $desktop ? 31 : $phone ? 16 : 23) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 28 : $desktop ? 23 : $phone ? 6 : 17, $desktoplarge ? 38 : $desktop ? 31 : $phone ? 8 : 23) as card}
                             <Card item={{...card, size: '1x1', comments: "short", disable: true}} />
                         {/each}
                     </div>
@@ -274,14 +274,14 @@
                     <!-- Slide Group 1 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
                         <Card item={{ ...filterCards[0], size: $phone ? '1x1' : '2x1', comments: "short" }} />
-                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 8 : $desktop ? 6 : $phone ? 4 : 4) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice(1, $desktoplarge ? 8 : $desktop ? 6 : $phone ? 2 : 4) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
 
                     <!-- Slide Group 2 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 8 : $desktop ? 7 : $phone ? 4 : 5, $desktoplarge ? 18 : $desktop ? 15 : $phone ? 8 : 11) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 8 : $desktop ? 7 : $phone ? 2 : 5, $desktoplarge ? 18 : $desktop ? 15 : $phone ? 4 : 11) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
@@ -289,7 +289,7 @@
                     {#if totalGroup >= 3}
                     <!-- Slide Group 3 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 18 : $desktop ? 15 : $phone ? 8 : 11, $desktoplarge ? 28 : $desktop ? 23 : $phone ? 12 : 17) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 18 : $desktop ? 15 : $phone ? 4 : 11, $desktoplarge ? 28 : $desktop ? 23 : $phone ? 6 : 17) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
@@ -297,41 +297,41 @@
                     {#if totalGroup >= 4}
                     <!-- Slide Group 4 -->
                     <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative mr-[8px] landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 28 : $desktop ? 23 : $phone ? 12 : 17, $desktoplarge ? 38 : $desktop ? 31 : $phone ? 16 : 23) as card}
+                        {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 28 : $desktop ? 23 : $phone ? 6 : 17, $desktoplarge ? 38 : $desktop ? 31 : $phone ? 8 : 23) as card}
                             <Card item={{...card, size: '1x1', comments: "short"}} />
                         {/each}
                     </div>
                     {/if}
 
                     <!-- Slide Group 5 -->
-                    {#if $phone && filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 16 : totalGroup >= 3 ? 12 :8, totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : 12).length}
+                    {#if $phone && filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 8 : totalGroup >= 3 ? 6 :4, totalGroup >= 4 ? 10 : totalGroup >= 3 ? 8 : 6).length}
                         <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] mr-0 lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                            {#each filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 16 : totalGroup >= 3 ? 12 :8, totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : 12) as card}
+                            {#each filterCards.filter(c => c.type === jenis).slice(totalGroup >= 4 ? 8 : totalGroup >= 3 ? 6 :4, totalGroup >= 4 ? 10 : totalGroup >= 3 ? 8 : 6) as card}
                                 <Card item={{...card, size: '1x1', comments: "short"}} />
                             {/each}
                         </div>
                     {/if}
 
                     <!-- {#if totalGroup >= 4}
-                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 16 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? ( totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : totalGroup >= 2 ? 12 : 29 ) : 29).length}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? ( totalGroup >= 4 ? 20 : totalGroup >= 3 ? 16 : totalGroup >= 2 ? 12 : 29 ) : 29).length}
                             <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 16 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 20 : 29) as card}
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 20 : 29) as card}
                                     <Card item={{...card, size: '1x1', comments: "short"}} />
                                 {/each}
                             </div>
                         {/if}
                     {:else if totalGroup >= 3}
-                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 12 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 16 : 29).length}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 6 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 8 : 29).length}
                             <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 12 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 16 : 29) as card}
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 6 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 8 : 29) as card}
                                     <Card item={{...card, size: '1x1', comments: "short"}} />
                                 {/each}
                             </div>
                         {/if}
                     {:else if totalGroup >= 2}
-                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 12 : 29).length}
+                        {#if $phone && filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 39 : $desktop ? 31 : $phone ? 4 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 6 : 29).length}
                             <div class="slider-group grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 min-w-[100%] md:min-w-[770px] lg:min-w-[946px] xl:min-w-[1100px] gap-[8px] max-xs:gap-[1.6vw] lg:grid-cols-5 relative landscape:pb-[30px] xs:portrait:p-[2.2px]">
-                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 8 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 12 : 29) as card}
+                                {#each filterCards.filter(c => c.type === jenis).slice($desktoplarge ? 49 : $desktop ? 31 : $phone ? 4 : 23, $desktoplarge ? 49 : $desktop ? 39 : $phone ? 6 : 29) as card}
                                     <Card item={{...card, size: '1x1', comments: "short"}} />
                                 {/each}
                             </div>

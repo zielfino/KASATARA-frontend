@@ -185,6 +185,7 @@
 <section>
 
     <!-- H I S T O R Y -->
+    {#if !$phone}
     <div tabindex="-1" class={`group fixed h-screen z-[100] transition-all right-0 top-0 duration-300 ease-in-out
             ${historyShow
             ? '-translate-x-[320px]'
@@ -239,6 +240,7 @@
             </div>
         </div>
     </div>
+    {/if}
 
 
 
