@@ -6,7 +6,7 @@
 </script>
 
 <section class="max-xs:bg-zinc-900">
-    <div class="flex flex-col justify-center items-center min-[900px] max-xs:bg-zinc-200 max-xs:rounded-b-xl max-xs:pb-[0.2vw]">
+    <div class="flex flex-col justify-center items-center min-[900px] max-xs:bg-zinc-200 max-xs:rounded-b-[1.8vw]">
 
         <HeroFilter />
         <HeroShow />

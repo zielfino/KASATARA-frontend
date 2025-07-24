@@ -360,35 +360,8 @@ import { page } from '$app/stores';
                         </button>
                     </div> 
                 </section>
-            {/if}
-            
-            {#if $touchscreen}
-                <!-- <section class="w-full relative flex justify-center bg-stone-500 md:landscape:hidden overflow-hidden max-lg:landscape:hidden">
-                    <div class="absolute w-full h-full bg-cover bg-center filter blur-xl" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
-                    <div class="w-full max-w-[400px] 
-                    aspect-square bg-mainred text-zinc-900 relative">
-                        <div class="flex justify-center items-center w-full h-full">
-                            SLIDER MOBILE
-                        </div>
-                    </div>
-                </section> -->
-                <!-- <section>
-                    <div class="w-full p-[1.6vw] xs:p-2">
-                        <div class="rounded-md flex overflow-hidden overflow-x-scroll w-full overflow-scroll-hidden gap-[1.6vw] xs:gap-2 border-x border-zinc-900/20">
-                            <div class="bg-blue-400 aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP3</div>
-                            <div class="bg-mainred aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP4</div>
-                            <div class="bg-blue-400 aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP1</div>
-                            <div class="bg-mainred aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP2</div>
-                            <div class="bg-blue-400 aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP3</div>
-                            <div class="bg-mainred aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP4</div>
-                            <div class="bg-blue-400 aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP1</div>
-                            <div class="bg-mainred aspect-[4/5] w-full min-w-[70vw] xs:min-w-[350px] rounded-md flex justify-center items-center border border-zinc-900/20">GROUP2</div>
-                        </div>
-                    </div>
-                </section> -->
-                {#if $touchscreen}
-                    <PhoneSlider />
-                {/if}
+            {:else}
+                <PhoneSlider />
             {/if}
         {/if}
         
@@ -738,5 +711,6 @@ import { page } from '$app/stores';
 
 
         <Footer />
+        <div class="h-[15vw] xs:hidden"></div>
     </section>
 </section>

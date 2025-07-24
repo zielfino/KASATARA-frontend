@@ -540,57 +540,7 @@
             </div>
         {/if}
 
-        <!-- PHONE -->
-        <!-- <div class="absolute w-full bottom-0 left-0 z-11 transition-opacity cursor-pointer">
-            <div class="bg-zinc-900/50">
-                {#if $phone}
-                    {#if item.size === '1x1'}
-                        <div class="grid grid-cols-1 m-[1vw] gap-[1vw]">
-                            <div class="space-y-[1vw]">
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    {:else}
-                        <div class="grid grid-cols-2 m-[1vw] gap-[1vw]">
-                            <div class="space-y-[1vw]">
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                            </div>
-                            <div class="space-y-[1vw]">
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                                <div class="flex justify-between bg-zinc-900 text-mainlight text-[3.2vw] px-[2vw] py-[1vw] rounded-md max-xs:rounded-[1.2vw]">
-                                    <div>Chapter 1</div>
-                                    <div>1 hour ago</div>
-                                </div>
-                            </div>
-                        </div>
-                    {/if}
-                {/if}
-            </div>
-        </div> -->
-
         <!-- BACKGROUND IMAGE -->
-        <!-- <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center"></div>    -->
         <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101"
         style={`${!item.imageLong && item.size === "2x1" ? `background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("${item.image}");` : ""}`}>
             <img src="{item.imageLong && item.size === "2x1" ? item.imageLong : item.image}" alt="" 
@@ -695,10 +645,6 @@
                 item.genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' : 
                 '#4a5565'
         };`}>
-        <!-- <div class={`z-20 portrait:hidden absolute w-[calc(100%-0.7%)] translate-x-[0.4%] md:w-[calc(100%-0.4%)] md:translate-x-[0.2%] bottom-0 opacity-0 group-focus-visible:opacity-100 group-focus-within:opacity-100 group-hover:opacity-100 transition-all ease-out group-hover:translate-y-[calc(100%-8px)] group-focus-visible:translate-y-[calc(100%-8px)] group-focus-within:translate-y-[calc(100%-8px)] rounded-b-lg flex justify-center items-center
-        px-2 pb-1 space-x-1 bg-zinc-700 text-zinc-900
-        ${item.size === '2x2' ? 'text-[13px]' : 'text-[12px]'}
-        `}> -->
             {#each Array(item.size !== '1x1' ? item.size == '2x2' ? 2 : 3 :  1) as _, i}
                 <div class="w-full">
                     {#if item.comments === 'short'}
@@ -1145,124 +1091,6 @@
                                 <div>1 {i===1 ?  'week' : 'hour'} ago</div>
                             </div>
                         {/if}
-                        <!-- <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}
-                        tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 duration-300 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90`}
-                        style={` 
-                        background-color:
-                            ${item.color ? lightenHexColor(item.color) :
-                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :         
-                            item.genre[0] === 'Action' ? '#e0e7ff' :        
-                            item.genre[0] === 'Comedy' ? '#fef3c7' :      
-                            item.genre[0] === 'Drama' ? '#cffafe' :         
-                            item.genre[0] === 'Horror' ? '#ffe4e6' :          
-                            item.genre[0] === 'Romance' ? '#fce7f3' :        
-                            '#f5f5f5'}                             
-                        `}
-                        on:mouseover={(e) => {
-                            e.currentTarget.style.backgroundColor =
-                            item.color ? lightenHexColor(item.color, 0.7) :
-                            item.genre[0] === 'Fantasy' ? '#e9d5ff' :
-                            item.genre[0] === 'Action' ? '#c7d2fe' :
-                            item.genre[0] === 'Comedy' ? '#fde68a' :
-                            item.genre[0] === 'Drama' ? '#a5f3fc' :
-                            item.genre[0] === 'Horror' ? '#fecdd3' :
-                            item.genre[0] === 'Romance' ? '#fbcfe8' :
-                            '#e5e5e5';
-                        }}
-                        on:focus={(e) => {
-                            // Sama dengan hover
-                            e.currentTarget.style.backgroundColor =
-                            item.color ? lightenHexColor(item.color, 0.7) :
-                            item.genre[0] === 'Fantasy' ? '#e9d5ff' :
-                            item.genre[0] === 'Action' ? '#c7d2fe' :
-                            item.genre[0] === 'Comedy' ? '#fde68a' :
-                            item.genre[0] === 'Drama' ? '#a5f3fc' :
-                            item.genre[0] === 'Horror' ? '#fecdd3' :
-                            item.genre[0] === 'Romance' ? '#fbcfe8' :
-                            '#e5e5e5';
-                        }}
-                        on:mouseout={(e) => {
-                            e.currentTarget.style.backgroundColor =
-                            item.color ? lightenHexColor(item.color) :
-                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :
-                            item.genre[0] === 'Action' ? '#e0e7ff' :
-                            item.genre[0] === 'Comedy' ? '#fef3c7' :
-                            item.genre[0] === 'Drama' ? '#cffafe' :
-                            item.genre[0] === 'Horror' ? '#ffe4e6' :
-                            item.genre[0] === 'Romance' ? '#fce7f3' :
-                            '#f5f5f5';
-                        }}
-                        on:blur={(e) => {
-                            // Sama dengan mouseout
-                            e.currentTarget.style.backgroundColor =
-                            item.color ? lightenHexColor(item.color) :
-                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :
-                            item.genre[0] === 'Action' ? '#e0e7ff' :
-                            item.genre[0] === 'Comedy' ? '#fef3c7' :
-                            item.genre[0] === 'Drama' ? '#cffafe' :
-                            item.genre[0] === 'Horror' ? '#ffe4e6' :
-                            item.genre[0] === 'Romance' ? '#fce7f3' :
-                            '#f5f5f5';
-                        }}>
-                            <div>Chapter {102+i*-3}</div>
-                            <div>1 hour ago</div>   
-                        </div> -->
-                        <!-- <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}
-                        tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
-                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
-                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
-                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
-                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
-                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
-                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
-                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
-                        `}>
-                            <div>Chapter {101+i*-3}</div>
-                            <div>1 day ago</div>
-                        </div>
-                        <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}
-                        tabindex={item.disable === true ? -1 : 0}
-                        class={`flex justify-between my-1 px-2 py-1 rounded-md cursor-pointer transition-colors outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90     
-                        ${item.genre[0] === 'Fantasy' ? 'bg-purple-100 hover:bg-purple-200' : 
-                        item.genre[0] === 'Action' ? 'bg-indigo-100 hover:bg-indigo-200' : 
-                        item.genre[0] === 'Comedy' ? 'bg-amber-100 hover:bg-amber-200' : 
-                        item.genre[0] === 'Drama' ? 'bg-cyan-100 hover:bg-cyan-200' : 
-                        item.genre[0] === 'Horror' ? 'bg-rose-100 hover:bg-rose-200' : 
-                        item.genre[0] === 'Romance' ? 'bg-pink-100 hover:bg-pink-200' : 
-                        'text-gray-700 bg-gray-100 hover:bg-gray-200'}
-                        `}>
-                            <div>Chapter {100+i*-3}</div>
-                            <div>6 days ago</div>
-                        </div> -->
                     {/if}
                 </div>
             {/each}
@@ -1339,7 +1167,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>{item.disable}</div>
                             <div>1 hour ago</div>
                         </div>
@@ -1354,7 +1182,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 104</div>
                             <div>1 week ago</div>
                         </div>
@@ -1369,62 +1197,12 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 103</div>
                             <div>1 month ago</div>
                         </div>
                     </div>
                 </div>
-            <!-- {:else if item.size === '2x2'}
-                <div class="grid grid-cols-1 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden w-full">
-                    <div class="space-y-[1vw] xs:space-y-[4px] w-full">
-                        <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}             
-                        tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
-                            <div>{item.disable}</div>
-                            <div>1 hour ago</div>
-                        </div>
-                        <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}             
-                        tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
-                            <div>Chapter 104</div>
-                            <div>1 week ago</div>
-                        </div>
-                        <div
-                        role="button" 
-                        aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
-                        on:keydown|stopPropagation={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                            console.log('Klik dengan keyboard');
-                            e.preventDefault(); // untuk Space biar gak scroll
-                            }
-                        }}             
-                        tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
-                            <div>Chapter 103</div>
-                            <div>1 month ago</div>
-                        </div>
-                    </div>
-                </div> -->
             {:else}
                 <div class="grid grid-cols-2 xs:grid-cols-3 mt-[1vw] xs:mt-[4px] gap-[1vw] xs:gap-[4px] landscape:hidden">
                     <div class="space-y-[1vw] xs:space-y-[4px] w-full">
@@ -1439,7 +1217,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
@@ -1454,7 +1232,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -1469,7 +1247,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -1486,7 +1264,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 4</div>
                             <div>1 hour ago</div>
                         </div>
@@ -1501,7 +1279,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -1516,7 +1294,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 3</div>
                             <div>1 week ago</div>
                         </div>
@@ -1534,7 +1312,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 2</div>
                             <div>2 weeks ago</div>
                         </div>
@@ -1549,7 +1327,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>
@@ -1564,7 +1342,7 @@
                             }
                         }}             
                         tabindex={item.disable === true ? -1 : 0} 
-                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.2vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
+                        class="flex justify-between w-full cursor-pointer whitespace-nowrap transition-all duration-300 ease-out bg-white text-zinc-900 border border-zinc-900/15 hover:bg-mainlight/90 xs:drop-shadow-xs active:bg-zinc-200 text-[3.2vw] xs:text-[12px] px-[2vw] xs:px-[8px] py-[1vw] xs:py-[4px] rounded-md max-xs:rounded-[1.6vw] outline-none focus-visible:ring-1 focus-visible:ring-sky-400 focus-visible:bg-sky-200/90">
                             <div>Chapter 1</div>
                             <div>1 month ago</div>
                         </div>
