@@ -6,30 +6,31 @@
 
 	// DUMMY DATA SEMENTARA
 	type Tag = {
+		disabled: boolean;
 		label: string;
 		icon?: string;
 		color?: string;
 	};
 
 	const filter: Tag[] = [
-		{ label: 'Rekomendasi', icon: 'material-symbols:bolt', color: 'text-amber-300' },
-		{ label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill', color: 'text-emerald-400' },
-		{ label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
-		{ label: 'Komik', icon: 'mingcute:calendar-month-fill' },
-		{ label: 'Novel', icon: 'mingcute:calendar-month-fill' },
-		{ label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
-		{ label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
-		{ label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
-		{ label: 'Upload Bulanan', icon: 'mingcute:calendar-month-fill' },
-		{ label: 'Upload Sesuai Mood Author', icon: 'material-symbols:person-rounded' },
-		{ label: 'Komik Adaptasi Novel', icon: 'material-symbols:person-4-rounded' },
-		{ label: 'Emosional' },
-		{ label: 'Sedang Ramai' },
-		{ label: 'Shounen' },
-		{ label: 'Shoujo' },
-		{ label: 'Sejarah' },
-		{ label: 'Dewasa' },
-		{ label: 'Lainnya' }
+		{ disabled: false,label: 'Rekomendasi', icon: 'material-symbols:bolt', color: 'text-amber-300' },
+		{ disabled: false,label: 'Baru Rilis', icon: 'mingcute:large-arrow-up-fill', color: 'text-emerald-400' },
+		{ disabled: false,label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
+		{ disabled: false,label: 'Komik', icon: 'mingcute:calendar-month-fill' },
+		{ disabled: false,label: 'Novel', icon: 'mingcute:calendar-month-fill' },
+		{ disabled: true,label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
+		{ disabled: true,label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
+		{ disabled: true,label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
+		{ disabled: true,label: 'Upload Bulanan', icon: 'mingcute:calendar-month-fill' },
+		{ disabled: true,label: 'Upload Sesuai Mood Author', icon: 'material-symbols:person-rounded' },
+		{ disabled: true,label: 'Komik Adaptasi Novel', icon: 'material-symbols:person-4-rounded' },
+		{ disabled: true,label: 'Emosional' },
+		{ disabled: true,label: 'Sedang Ramai' },
+		{ disabled: true,label: 'Shounen' },
+		{ disabled: true,label: 'Shoujo' },
+		{ disabled: true,label: 'Sejarah' },
+		{ disabled: true,label: 'Dewasa' },
+		{ disabled: true,label: 'Lainnya' }
 	];
 
 
@@ -225,22 +226,22 @@
 		xs:w-[calc(100%+16px)] xs:-translate-x-[16px]
 		flex overflow-x-scroll overflow-scroll-hidden
 		xs:mask-x-from-98% xs:mask-x-to-100%
-		cursor-grab active:cursor-grabbing
-	">
+		cursor-grab active:cursor-grabbing outline-none">
 		<!-- LEFT FILLER -->
 		<div class="min-w-[16px] opacity-0 mr-0 max-xs:min-w-[1.6vw]">•</div>
 
 		<!-- LOOP FILTER -->
 		{#each filter as tag, i}
 			<button
-			on:click|preventDefault={e => {
-				if (preventClick) {
+			tabindex={tag.label === current || tag.disabled ? -1 : 0}
+			on:click={(e) => {
+				if (preventClick || tag.label === current || tag.disabled) {
+					e.preventDefault();
 					e.stopPropagation();
 					return;
 				}
+				changeHeroFilter(tag.label);
 			}}
-			on:click={() => changeHeroFilter(tag.label)}
-			disabled="{tag.label === current }"
 			class={`  
 				flex justify-center items-center
 				max-xs:py-[0.8vw] py-1 
@@ -248,8 +249,8 @@
 				border border-zinc-900/15
 				outline-none 
 				max-xs:text-[2.8vw]
-				${tag.label === current  ? 
-				'text-mainlight bg-zinc-900' : 
+				${tag.label === current ? 'text-mainlight bg-zinc-900 cursor-grab active:cursor-grabbing pointer-events-none' : 
+				tag.disabled ? 'opacity-30 cursor-grab active:cursor-grabbing pointer-events-none' :
 				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
 			`}>
 				<!-- ICON -->

@@ -231,7 +231,7 @@
         {#each groups as group, index}
             <button
             data-group
-            tabindex="-1"
+            tabindex={currentIndex === index ? 0 : -1}
             class={`aspect-[3/4] w-full min-w-[70vw] xs:min-w-[350px] rounded-xl focus-visible:border-sky-400 focus-visible:bg-sky-200/90 outline-none
             flex justify-center items-center border border-zinc-900/20 transition-all duration-300 ease-in-out cursor-pointer flex-col overflow-hidden pointer-events-auto
             `}

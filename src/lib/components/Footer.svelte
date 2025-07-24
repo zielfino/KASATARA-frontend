@@ -60,5 +60,6 @@
             </svg>
             <div class="mt-[3.2vw] xs:mt-4 font-work-sans text-[2.8vw] xs:text-[14px] tracking-wider opacity-60 text-center">&copy; agerr.studio</div>
         </div>
+        <div class="h-[20vw] xs:hidden"></div>
     </div>
 </div>

@@ -370,7 +370,8 @@ import { page } from '$app/stores';
 
 
         <!-- Top Nav -->
-        <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15 portrait:px-[1.6vw] portrait:xs:px-2 portrait:pt-2 portrait:xs:pt-[1.6vw] transition-all duration-300" class:translate-y-[50%]={touchscreen && (isSOpen && scrollY <= 300 && scrollY > 200)} class:translate-y-[150%]={touchscreen && (isSOpen && scrollY > 300)}>
+        <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15 portrait:px-[1.6vw] portrait:xs:px-2 portrait:pt-2 portrait:xs:pt-[1.6vw] transition-all duration-300" 
+        class:translate-y-[50%]={touchscreen && (isSOpen && scrollY <= 300 && scrollY > 200)} class:translate-y-[150%]={touchscreen && (isSOpen && scrollY > 300)} class:-translate-y-[100%]={touchscreen && (isSOpen && scrollY <= 300)}>
             <section class="flex flex-col justify-center items-center bg-mainlight min-[900px]:bg-zinc-200 portrait:rounded-lg portrait:overflow-hidden portrait:border border-zinc-900/30 landscape:border-y relative">
                 <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
                     <div class="w-full  text-mainred fill-mainred flex items-center justify-between 
@@ -399,10 +400,7 @@ import { page } from '$app/stores';
                             <!-- Navigasi -->
                             {#if !$phone}
                                 <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">jelajahi</a>
-                                </div>
-                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">Jadwal</a>
+                                    <a href="/browse" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">jelajahi</a>
                                 </div>
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">komik</a>
@@ -413,9 +411,12 @@ import { page } from '$app/stores';
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/">buku</a>
                                 </div> -->
+                                <div class="text-[18px] cursor-not-allowed font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden opacity-30">
+                                    <div class="outline-none underline-offset-1">Jadwal</div>
+                                </div>
                                 {#if $desktoplarge}
-                                    <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                        <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">kreator</a>
+                                    <div class="text-[18px] cursor-not-allowed font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden opacity-30">
+                                        <div class="outline-none underline-offset-1">kreator</div>
                                     </div>
                                 {/if}
                             {/if}
@@ -452,11 +453,11 @@ import { page } from '$app/stores';
                                 {/if}
 
                                 {#if $touchscreen && !$desktop}
-                                    <!-- Diamond -->
-                                    <button class="flex justify-center items-center focus-visible:bg-sky-400 outline-none cursor-pointer bg-zinc-900 text-mainlight rounded-3xl px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 max-xs:mr-[3.2vw]">
+                                    <!-- Diamond Currency -->
+                                    <!-- <button class="flex justify-center items-center focus-visible:bg-sky-400 outline-none cursor-pointer bg-zinc-900 text-mainlight rounded-3xl px-[2.4vw] xs:px-3 py-[0.8vw] xs:py-1 max-xs:mr-[3.2vw]">
                                         <span class="mr-[1.2vw] xs:mr-1.5 text-[3.2vw] xs:text-[16px]">100</span>
                                         <Icon icon="material-symbols:diamond-rounded" class="text-[4.8vw] xs:text-[20px] translate-y-[5%]" />
-                                    </button>
+                                    </button> -->
                                     <!-- Circle Search -->
                                     <div class="relative landscape:hidden">
                                         <button on:click={isSOpenToggle}
@@ -470,8 +471,10 @@ import { page } from '$app/stores';
                                 <!-- Publish Button -->
                                 {#if $desktoplarge}
                                     <button
-                                    class="bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
-                                    rounded-lg px-4 py-2 cursor-pointer font-work-sans flex justify-center items-center relative overflow-hidden">
+                                    disabled
+                                    class="opacity-30 cursor-not-allowed
+                                    bg-zinc-900 text-mainlight outline-sky-500 focus:outline-3 max-lg:portrait:hidden
+                                    rounded-lg px-4 py-2 font-work-sans flex justify-center items-center relative overflow-hidden">
                                         Publish
                                     </button>
                                 {/if}
@@ -479,14 +482,24 @@ import { page } from '$app/stores';
                                 {#if !$touchscreen && !$phone}
                                     <!-- Profile Picture -->
                                     <div class="relative">
-                                        <button 
+                                        <!-- <button 
                                         bind:this={profileButton}
                                         on:click={toggleDropdown}
                                         class=" outline-sky-500 focus:outline-3 cursor-pointer
                                         h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
                                             <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
-                                        </button>
-                                        {#if showDropdown}
+                                        </button> -->
+                                        <!-- <a href="/proile"
+                                        class=" outline-sky-500 focus:outline-3 cursor-pointer
+                                        h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
+                                            <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
+                                        </a> -->
+                                        <div
+                                        class=" outline-sky-500 focus:outline-3 cursor-not-allowed opacity-30
+                                        h-[50px] rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden">
+                                            <Icon icon="material-symbols:person" class="text-[60px] translate-y-1.5 absolute" />
+                                        </div>
+                                        <!-- {#if showDropdown}
                                             <div bind:this={profileDropdown}
                                             class="absolute translate-y-1 right-0 mt-3 rounded-lg shadow-lg bg-mainlight border-2 border-zinc-900 z-50 dropdown-panel">
                                                 <div class="">
@@ -497,7 +510,7 @@ import { page } from '$app/stores';
                                                     </ul>
                                                 </div>
                                             </div>
-                                        {/if}
+                                        {/if} -->
                                     </div>
                                 {/if}
                             <!-- {:else} -->
@@ -548,7 +561,7 @@ import { page } from '$app/stores';
                                     tabindex={isSOpen ? 0 : -1}
                                 />
                                 <!-- <button type="button" tabindex="-1" class="outline-none cursor-pointer"  on:click={() => { if (!isSOpen) { isSOpen = false; searchInput?.blur();} }}><Icon icon="iconamoon:sign-times-bold" class="text-[4.8vw]" /></button> -->
-                                 <button
+                                <button
                                 type="button"
                                 tabindex="-1"
                                 class="outline-none cursor-pointer"
@@ -560,9 +573,9 @@ import { page } from '$app/stores';
                                     <Icon icon="iconamoon:sign-times-bold" class="text-[4.8vw]" />
                                 </button>
                             </div>
-                            <div class="shortcut max-[1100px]:hidden">
+                            <!-- <div class="shortcut max-[1100px]:hidden">
                                 <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 {/if}
@@ -571,8 +584,8 @@ import { page } from '$app/stores';
 
         <!-- Bot Nav -->
         {#if !$desktoplarge}
-            <nav class="fixed bottom-0 w-full z-[50] xs:pb-[16px] flex justify-center landscape:hidden portrait:px-[1.6vw] portrait:xs:px-2 portrait:pb-2 portrait:xs:pb-[1.6vw]">
-                <div class="h-[20vw] xs:h-[76px] xs:rounded-[16px] xs:max-w-[400px] portrait:border border-zinc-900/30 landscape:border-y
+            <nav class="fixed bottom-0 w-full z-[50] xs:pb-[16px] flex justify-center landscape:hidden portrait:px-0 portrait:xs:px-2 portrait:pb-0 portrait:xs:pb-2">
+                <div class="h-[12.5vw] xs:h-[76px] xs:rounded-[16px] xs:max-w-[400px] portrait:border border-zinc-900/30 landscape:border-y max-xs:portrait:border-b-0 max-xs:portrait:border-x-0 max-xs:portrait:rounded-none
                 w-full drop-shadow-md shadow-black bg-mainlight text-zinc-900 fill-zinc-900 grid grid-cols-5 portrait:rounded-lg portrait:overflow-hidden">
                     <!-- <div>
                         <div class="flex justify-center items-center flex-col 
@@ -631,29 +644,38 @@ import { page } from '$app/stores';
                             </div>
                         </div>
                     </div> -->
-                    <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <Icon icon="material-symbols:home-rounded" class="text-[8vw] xs:text-[35px] absolute" />
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76.6318339501961 80.04623387654848" class="w-1/2 aspect-square">
-                            <g stroke-linecap="round">
-                                <g transform="translate(10.257518941929675 34.878757027045765) rotate(0 28.18281437969563 5.140170465332133)" fill-rule="evenodd">
-                                    <path d="M-1.3 -1.39 L29.06 -25.53 L55.54 0.47 L57.86 34.49 L39.23 34.3 L37.15 12.1 L21.79 13.95 L19.03 34.7 L0.81 36.86 L1.56 0.39" stroke="none" stroke-width="0" fill="#fa5252" fill-rule="evenodd"></path>
-                                    <path d="M0 0 C10.89 -9.71, 18.85 -16.29, 28.14 -24.88 M0 0 C6.67 -5.74, 13.11 -11.36, 28.14 -24.88 M28.14 -24.88 C37.69 -17.02, 47.86 -6.06, 55.81 -0.58 M28.14 -24.88 C34.94 -17.89, 41.98 -11.35, 55.81 -0.58 M55.81 -0.58 C55.67 10.65, 56.47 20.38, 56.37 34.89 M55.81 -0.58 C56.66 10.9, 55.37 22.23, 56.37 34.89 M56.37 34.89 C51.87 33.5, 44.29 35.92, 38.51 34.83 M56.37 34.89 C51.44 34.34, 47.91 35.76, 38.51 34.83 M38.51 34.83 C38.73 26.67, 39.57 18.81, 38.57 12.89 M38.51 34.83 C37.48 26.45, 37.43 17.9, 38.57 12.89 M38.57 12.89 C30.43 12.78, 24.8 12.44, 20.36 13.02 M38.57 12.89 C34.4 12.79, 28.94 12.98, 20.36 13.02 M20.36 13.02 C20.75 20.55, 20 30.57, 19.73 34.87 M20.36 13.02 C21.09 20.94, 19.53 28.03, 19.73 34.87 M19.73 34.87 C14.87 35.67, 6.66 33.71, 0.42 35.16 M19.73 34.87 C13.35 35.8, 7.1 34.15, 0.42 35.16 M0.42 35.16 C2.06 25.18, -1.05 15.46, 0 0 M0.42 35.16 C-0.02 24.88, -0.6 12.96, 0 0 M0 0 C0 0, 0 0, 0 0 M0 0 C0 0, 0 0, 0 0" stroke="#fa5252" stroke-width="5" fill="none"></path>
-                                </g>
-                            </g>
-                        </svg> -->
+                    <a href="/" class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <Icon icon="mingcute:home-4-line" class="text-[7vw] xs:text-[35px]  group-hover:hidden" />
+                        <Icon icon="mingcute:home-4-fill" class="text-[7vw] xs:text-[35px]  hidden group-hover:block" />
+                    </a>
+                    <a href="/browse" class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <Icon icon="mingcute:calendar-line" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />
+                        <Icon icon="mingcute:calendar-fill" class="text-[7vw] xs:text-[35px] absolute hidden group-hover:block" />
+                    </a>
+                    <button on:click={() => console.log('clicked')} class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <Icon icon="material-symbols:browse-outline" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />
+                        <Icon icon="material-symbols:browse" class="text-[7vw] xs:text-[35px] absolute hidden group-hover:block" />
                     </button>
-                    <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <Icon icon="material-symbols:calendar-today-rounded" class="text-[8vw] xs:text-[35px] absolute" />
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 79.90193329959584 70.31634381568136" class="w-1/2 aspect-square">
-                            <g stroke-linecap="round">
-                                <g transform="translate(10.605492152565489 10.006453227626594) rotate(0 29.43193044398049 25.154945294027385)">
-                                    <path d="M0 0 C22.52 1.51, 40.31 0.01, 58.86 0.31 M0 0 C11.62 0.41, 23.09 -0.42, 58.86 0.31 M58.86 0.31 C58.8 7.72, 60.14 17.51, 58.4 31.58 M58.86 0.31 C59.64 10.91, 58.83 20.12, 58.4 31.58 M58.4 31.58 C54.26 31.31, 50.68 33.47, 43.04 33.75 M58.4 31.58 C54.42 31.76, 51.2 33.07, 43.04 33.75 M43.04 33.75 C44.53 37.99, 45.45 44.99, 47.34 50.31 M43.04 33.75 C44.24 39, 46.34 43.73, 47.34 50.31 M47.34 50.31 C44.58 46.29, 38.7 45.35, 29.1 36.75 M47.34 50.31 C41.92 46.45, 38.01 43.59, 29.1 36.75 M29.1 36.75 C17.77 38.73, 10.25 38.18, 0.31 41.35 M29.1 36.75 C19.1 38.5, 10.21 39.38, 0.31 41.35 M0.31 41.35 C0.61 26.25, -1.64 11.41, 0 0 M0.31 41.35 C-0.08 26.18, 0.74 11.4, 0 0" stroke="#fa5252" stroke-width="5" fill="none"></path>
-                                </g>
-                            </g>
-                        </svg> -->
+                    <button on:click={() => console.log('clicked')} class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <Icon icon="material-symbols:notifications-outline-rounded" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />
+                        <Icon icon="material-symbols:notifications-rounded" class="text-[7vw] xs:text-[35px] absolute hidden group-hover:block" />
                     </button>
-                    <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                    <!-- <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group"> -->
                         <!-- <Icon icon="material-symbols:person" class="text-[12vw] xs:text-[50px] absolute" /> -->
+                        <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.12377844690377 83.65464768345012" class="w-1/2 aspect-square">
+                            <g stroke-linecap="round">
+                                <g transform="translate(62.56705659498198 7.754143913107356) rotate(16.150310021680614 -7.765904571119677 10.293427525460274)">
+                                    <path d="M0 0 C-1.26 0.35, -4.98 0.75, -7.53 2.11 C-10.08 3.48, -13.88 5.76, -15.3 8.21 C-16.72 10.65, -17.3 14.7, -16.07 16.76 C-14.84 18.83, -10.52 20.42, -7.94 20.59 C-5.35 20.75, -1.97 19.32, -0.56 17.76 C0.86 16.19, 0.87 13.23, 0.54 11.18 C0.21 9.14, -2.45 7.34, -2.54 5.48 C-2.63 3.62, -0.42 0.91, 0 0 M0 0 C-1.26 0.35, -4.98 0.75, -7.53 2.11 C-10.08 3.48, -13.88 5.76, -15.3 8.21 C-16.72 10.65, -17.3 14.7, -16.07 16.76 C-14.84 18.83, -10.52 20.42, -7.94 20.59 C-5.35 20.75, -1.97 19.32, -0.56 17.76 C0.86 16.19, 0.87 13.23, 0.54 11.18 C0.21 9.14, -2.45 7.34, -2.54 5.48 C-2.63 3.62, -0.42 0.91, 0 0" stroke="#fa5252" stroke-width="5" fill="none"></path>
+                                </g>
+                            </g>
+                            <g stroke-linecap="round">
+                                <g transform="translate(40.89827917904199 24.84969486563196) rotate(0 -9.25990071061176 23.7444720981576)">
+                                    <path d="M0 0 C0.55 0.93, 1.46 3.48, 3.28 5.6 C5.1 7.71, 13.3 8.03, 10.92 12.71 C8.54 17.39, -4.98 27.86, -11.01 33.67 C-17.04 39.49, -22.2 46.11, -25.27 47.6 C-28.34 49.1, -33.41 50.62, -29.44 42.67 C-25.47 34.71, -6.13 7.02, -1.47 -0.12 M0 0 C0.55 0.93, 1.46 3.48, 3.28 5.6 C5.1 7.71, 13.3 8.03, 10.92 12.71 C8.54 17.39, -4.98 27.86, -11.01 33.67 C-17.04 39.49, -22.2 46.11, -25.27 47.6 C-28.34 49.1, -33.41 50.62, -29.44 42.67 C-25.47 34.71, -6.13 7.02, -1.47 -0.12" stroke="#fa5252" stroke-width="5" fill="none"></path>
+                                </g>
+                            </g>
+                        </svg> -->
+                    <!-- </button> -->
+                    <!-- <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.12377844690377 83.65464768345012" class="w-1/2 aspect-square">
                             <g stroke-linecap="round">
                                 <g transform="translate(62.56705659498198 7.754143913107356) rotate(16.150310021680614 -7.765904571119677 10.293427525460274)">
@@ -666,35 +688,28 @@ import { page } from '$app/stores';
                                 </g>
                             </g>
                         </svg>
-                    </button>
-                    <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <!-- <Icon icon="material-symbols:person" class="text-[12vw] xs:text-[50px] absolute" /> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.12377844690377 83.65464768345012" class="w-1/2 aspect-square">
-                            <g stroke-linecap="round">
-                                <g transform="translate(62.56705659498198 7.754143913107356) rotate(16.150310021680614 -7.765904571119677 10.293427525460274)">
-                                    <path d="M0 0 C-1.26 0.35, -4.98 0.75, -7.53 2.11 C-10.08 3.48, -13.88 5.76, -15.3 8.21 C-16.72 10.65, -17.3 14.7, -16.07 16.76 C-14.84 18.83, -10.52 20.42, -7.94 20.59 C-5.35 20.75, -1.97 19.32, -0.56 17.76 C0.86 16.19, 0.87 13.23, 0.54 11.18 C0.21 9.14, -2.45 7.34, -2.54 5.48 C-2.63 3.62, -0.42 0.91, 0 0 M0 0 C-1.26 0.35, -4.98 0.75, -7.53 2.11 C-10.08 3.48, -13.88 5.76, -15.3 8.21 C-16.72 10.65, -17.3 14.7, -16.07 16.76 C-14.84 18.83, -10.52 20.42, -7.94 20.59 C-5.35 20.75, -1.97 19.32, -0.56 17.76 C0.86 16.19, 0.87 13.23, 0.54 11.18 C0.21 9.14, -2.45 7.34, -2.54 5.48 C-2.63 3.62, -0.42 0.91, 0 0" stroke="#fa5252" stroke-width="5" fill="none"></path>
-                                </g>
-                            </g>
-                            <g stroke-linecap="round">
-                                <g transform="translate(40.89827917904199 24.84969486563196) rotate(0 -9.25990071061176 23.7444720981576)">
-                                    <path d="M0 0 C0.55 0.93, 1.46 3.48, 3.28 5.6 C5.1 7.71, 13.3 8.03, 10.92 12.71 C8.54 17.39, -4.98 27.86, -11.01 33.67 C-17.04 39.49, -22.2 46.11, -25.27 47.6 C-28.34 49.1, -33.41 50.62, -29.44 42.67 C-25.47 34.71, -6.13 7.02, -1.47 -0.12 M0 0 C0.55 0.93, 1.46 3.48, 3.28 5.6 C5.1 7.71, 13.3 8.03, 10.92 12.71 C8.54 17.39, -4.98 27.86, -11.01 33.67 C-17.04 39.49, -22.2 46.11, -25.27 47.6 C-28.34 49.1, -33.41 50.62, -29.44 42.67 C-25.47 34.71, -6.13 7.02, -1.47 -0.12" stroke="#fa5252" stroke-width="5" fill="none"></path>
-                                </g>
-                            </g>
-                        </svg>
-                    </button>
-                    <button on:click={() => console.log('clicked')} class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <div class=" outline-sky-500 focus:outline-[0.6vw] h-[10vw] xs:h-10 rounded-full aspect-square bg-zinc-500 text-mainlight border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden group-focus-visible:ring-2 group-focus-visible:ring-sky-400">
-                            <Icon icon="material-symbols:person" class="text-[12vw] xs:text-[50px] translate-y-[1.2vw] xs:translate-y-[6px] absolute" />
+                    </button> -->
+                    <button on:click={() => console.log('clicked')} class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <div class=" outline-sky-500 focus:outline-[0.6vw] h-[8vw] xs:h-10 rounded-full aspect-square bg-zinc-500 text-mainlight border-[0.6vw] xs:border-2 border-zinc-900 flex justify-center items-center relative overflow-hidden group-focus-visible:ring-2 group-focus-visible:ring-sky-400">
+                            <Icon icon="material-symbols:person" class="text-[10vw] xs:text-[50px] translate-y-[1.2vw] xs:translate-y-[6px] absolute" />
                         </div>
                     </button>
                 </div>
             </nav>   
         {/if}
 
+        <div
+            aria-label="background-search"
+            role="presentation"
+            tabindex="-1"
+            on:click={() => {
+                isSOpen = false;
+                searchInput?.blur();
+            }}
+            class="fixed bg-zinc-900/50 w-full h-[120dvh] top-0 z-51 outline-none backdrop-blur-[2px]"
+            class:hidden={!isSOpen}
+        ></div>
 
-        <section class="fixed bg-zinc-900/50 w-full h-[120dvh] top-0 z-51" class:hidden={!isSOpen}>
-            
-        </section>
 
 
         <!-- 4vw = 20px -->
@@ -711,6 +726,5 @@ import { page } from '$app/stores';
 
 
         <Footer />
-        <div class="h-[15vw] xs:hidden"></div>
     </section>
 </section>
