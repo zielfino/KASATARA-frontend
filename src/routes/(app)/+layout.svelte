@@ -1,4 +1,7 @@
 <script lang="ts">
+    // export const ssr = false;
+    // export const prerender = true;
+
     import { onMount, onDestroy, tick } from "svelte";
     import "$lib/app.css";
     import Icon from "@iconify/svelte";

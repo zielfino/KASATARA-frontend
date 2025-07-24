@@ -1,6 +1,10 @@
-<script>
+<script lang="ts">
     // import "$lib/bacaan.css";
     // console.log('📚 Series layout active');
+
+    // export const ssr = false;
+    // export const prerender = true;
+
 </script>
 
 <section>
