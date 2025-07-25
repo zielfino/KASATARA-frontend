@@ -340,8 +340,8 @@ import { page } from '$app/stores';
         <!-- HERO SECTION -->
         {#if $page.url.pathname === '/'}
             {#if $mousecontrol}
-                <section class="w-full relative flex justify-center bg-zinc-200 max-lg:portrait:hidden">
-                    <div class="absolute w-full h-full bg-cover bg-center filter opacity-40 blur-sm" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
+                <section class="w-full relative flex justify-center bg-zinc-500 max-lg:portrait:hidden overflow-hidden">
+                    <div class="absolute w-full h-full bg-cover bg-center filter opacity-40 blur-xl scale-110" style="background-image: url('https://upload-os-bbs.hoyolab.com/upload/2024/05/23/365304258/d1adb95d30664a78ff88407d92cac6e2_198581824676022933.jpg');"></div>
                     <div class="h-[210px] sm:h-[300px] md:h-[350px] lg:h-[430px] xl:h-[500px] aspect-[5/2] flex justify-center items-center relative">
                         <!-- <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
                         <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
@@ -360,7 +360,7 @@ import { page } from '$app/stores';
                         </button>
                     </div> 
                 </section>
-            {:else}
+            {:else if $touchscreen}
                 <PhoneSlider />
             {/if}
         {/if}

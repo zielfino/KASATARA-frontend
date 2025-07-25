@@ -168,7 +168,7 @@
                         text-right text-mainlight
                         text-[14px] max-xs:text-[2.8vw] font-[700] 
                         rounded-es-[80%]
-                        pt-[9%] pr-[9%]"
+                        pt-[14%] pr-[18%]"
                         >UP</div>
                     {:else if item.label === 'top'}<Top />
                     {:else if item.label === 'choice'}<Choice />

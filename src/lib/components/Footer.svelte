@@ -6,7 +6,7 @@
 <!-- FOOTER -->
 <div class="w-full">
     <div class="w-full bg-zinc-200 dark:bg-zinc-800 cursor-pointer border-y border-zinc-300 py-[3.2vw] xs:py-4 flex justify-center dark:border-zinc-700/40 transition-all duration-300 text-zinc-900 dark:text-mainlight">
-        <div class="w-full xs:max-w-[80vw] sm:min-w-[700px] max-xs:px-[3.2vw] xs:px-4 max-sm:px-6 flex justify-between items-center text-[14px]">
+        <div class="w-full xs:max-w-[80vw] sm:w-[700px] max-xs:px-[3.2vw] xs:px-4 max-sm:px-6 flex justify-between items-center text-[14px]">
             <div class="flex items-center">
                 <div class="mr-[2.4vw] xs:mr-3 font-work-sans font-[600] max-sm:text-[12px] max-xs:text-[2.8vw]">Notice</div>
                 <div class="text-[12px] max-sm:translate-y-0.5 max-xs:translate-y-0 max-sm:text-[10px] max-xs:text-[2.4vw] opacity-60 tracking-wide line-clamp-1 max-sm:mr-4 max-xs:mr-0">2025 WEBTOON Contest: Webcomic Legends - Deadline Extended</div>
