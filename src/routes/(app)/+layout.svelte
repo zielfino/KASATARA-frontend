@@ -136,66 +136,66 @@
 
 
     $: if (!isSOpen && searchInput && touchscreen) {
-  searchInput.blur();
-}
-    let isSOpen = false;
-  function isSOpenToggle() {
-    if (!touchscreen) return;
-    isSOpen = true;
-  tick().then(() => {
-    searchInput?.focus();
-  });
-  }
-
-onMount(() => {
-  if (!browser || !touchscreen) return;
-  const originalState = history.state;
-
-  function handleBackButton(e: PopStateEvent) {
-    if (isSOpen) {
-      isSOpen = false;
-      // prevent actual navigation back
-      history.pushState(originalState, '', location.href);
+        searchInput.blur();
+        }
+            let isSOpen = false;
+        function isSOpenToggle() {
+            if (!touchscreen) return;
+            isSOpen = true;
+        tick().then(() => {
+            searchInput?.focus();
+        });
     }
-  }
 
-  if (isSOpen) {
-    history.pushState({ modalOpen: true }, '', location.href);
-  }
+    onMount(() => {
+        if (!browser || !touchscreen) return;
+        const originalState = history.state;
 
-  window.addEventListener('popstate', handleBackButton);
+        function handleBackButton(e: PopStateEvent) {
+            if (isSOpen) {
+            isSOpen = false;
+            // prevent actual navigation back
+            history.pushState(originalState, '', location.href);
+            }
+        }
 
-  return () => {
-    window.removeEventListener('popstate', handleBackButton);
-  };
-});
+        if (isSOpen) {
+            history.pushState({ modalOpen: true }, '', location.href);
+        }
+
+        window.addEventListener('popstate', handleBackButton);
+
+        return () => {
+            window.removeEventListener('popstate', handleBackButton);
+        };
+    });
 
 
 
 
-function lockScroll() {
-  document.body.style.overflow = 'hidden';
-  document.body.style.touchAction = 'none';
-}
+    function lockScroll() {
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    }
 
-function unlockScroll() {
-  document.body.style.overflow = '';
-  document.body.style.touchAction = '';
-}
+    function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    }
 
-let mounted = false;
+    let mounted = false;
 
-onMount(() => {
-  mounted = true;
-});
+    onMount(() => {
+    mounted = true;
+    });
 
-$: if (mounted && typeof window !== 'undefined') {
-  if ($touchscreen && (isSOpen || document.activeElement === searchInput)) {
-    lockScroll();
-  } else {
-    unlockScroll();
-  }
-}
+    $: if (mounted && typeof window !== 'undefined') {
+    if ($touchscreen && (isSOpen || document.activeElement === searchInput)) {
+        lockScroll();
+    } else {
+        unlockScroll();
+    }
+    }
 
 
 
@@ -254,41 +254,67 @@ $: if (mounted && typeof window !== 'undefined') {
 //   });
 
 
- function closeSearch() {
-    isSOpen = false;
-    searchInput?.blur();
-  }
-
-  function handlePopState() {
-    if (document.activeElement === searchInput) {
-      // Jangan benar-benar navigate ke back, tapi tutup dulu panel
-      closeSearch();
-
-      // Optional: dorong kembali satu step ke depan biar nggak balik route
-      history.pushState(null, '', location.href);
+    function closeSearch() {
+        isSOpen = false;
+        searchInput?.blur();
     }
-  }
 
-onMount(() => {
-  if (typeof window !== 'undefined') {
-    history.pushState(null, '', location.href);
-    window.addEventListener('popstate', handlePopState);
-  }
-});
+    function handlePopState() {
+        if (document.activeElement === searchInput) {
+        // Jangan benar-benar navigate ke back, tapi tutup dulu panel
+        closeSearch();
 
-onDestroy(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('popstate', handlePopState);
-  }
-});
-console.log('🔥 Root layout active');
+        // Optional: dorong kembali satu step ke depan biar nggak balik route
+        history.pushState(null, '', location.href);
+        }
+    }
 
-// import { page } from '$app/stores';
+    onMount(() => {
+    if (typeof window !== 'undefined') {
+        history.pushState(null, '', location.href);
+        window.addEventListener('popstate', handlePopState);
+    }
+    });
 
-//   $: hideRootLayout = $page.url.pathname.startsWith('/series');
+    onDestroy(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener('popstate', handlePopState);
+    }
+    });
+    console.log('🔥 Root layout active');
 
-import { page } from '$app/stores';
+    // import { page } from '$app/stores';
+
+    //   $: hideRootLayout = $page.url.pathname.startsWith('/series');
+
+    import { page } from '$app/stores';
     import Footer from "$lib/components/Footer.svelte";
+
+    //   let searchInput: HTMLInputElement;
+    // let searchText = '';
+
+    // function handleInput(e) {
+    //     searchText = e.target.value;
+    // }	
+    // import { goto } from '$app/navigation';
+	// import { searchText } from '$lib/stores/searchText'; // jika disimpan global
+	// let searchInput: HTMLInputElement;
+	// let searchForm: HTMLFormElement;
+	import { searchText } from '$lib/stores/searchText';
+    import { searchFilter } from "$lib/stores/searchFilter";
+    import { sortAsc } from "$lib/stores/sortOrder";
+	$: keyword = $searchText;
+	let localSearch = ''; // lokal kalau tidak pakai store
+
+    function handleSubmit(e: Event) {
+        searchText.set(localSearch);
+        if (localSearch === '') {
+        searchFilter.set('Daily');
+        } else {
+        searchFilter.set('Semua');
+        }
+        goto('/browse');
+    }
 </script>
 
 <style>
@@ -399,26 +425,34 @@ import { page } from '$app/stores';
 
                             <!-- Navigasi -->
                             {#if !$phone}
-                                <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/browse" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">jelajahi</a>
+                                <div class={`text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden
+                                `}>
+                                    <button on:click={async () => {
+                                        searchText.set('');
+                                        searchFilter.set('Daily');
+                                        sortAsc.set(true);
+                                        await goto('/browse');
+                                    }} 
+                                    disabled={$page.url.pathname === '/browse'} class={`focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 decoration-[0.1em] hover:underline
+                                    ${$page.url.pathname === '/browse' ? 'underline' : 'cursor-pointer'}`}>jelajahi</button>
                                 </div>
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">komik</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 decoration-[0.1em] hover:underline">komik</a>
                                 </div> -->
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
-                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 focus-visible:decoration-[0.1em] hover:underline">novel</a>
+                                    <a href="/" class="focus-visible:underline outline-none focus-visible:text-sky-400 focus-visible:decoration-sky-400 underline-offset-1 decoration-[0.1em] hover:underline">novel</a>
                                 </div> -->
                                 <!-- <div class="text-[18px] font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden">
                                     <a href="/">buku</a>
                                 </div> -->
                                 <div class="text-[18px] cursor-not-allowed font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden opacity-30">
-                                    <div class="outline-none underline-offset-1">Jadwal</div>
+                                    <div class="outline-none underline-offset-1">Sosmed</div>
                                 </div>
-                                {#if $desktoplarge}
+                                <!-- {#if $desktoplarge}
                                     <div class="text-[18px] cursor-not-allowed font-work-sans font-[600] tracking-tight capitalize text-zinc-900 max-lg:portrait:hidden opacity-30">
                                         <div class="outline-none underline-offset-1">kreator</div>
                                     </div>
-                                {/if}
+                                {/if} -->
                             {/if}
                         </div>
 
@@ -426,30 +460,45 @@ import { page } from '$app/stores';
                         <div class="space-x-[2vw] md:space-x-[10px] flex xs:justify-center xs:items-center">
                             <!-- {#if !$phone} -->
                                 {#if !$touchscreen && !$phone}
+                                <button on:click={() => console.log('clicked')} disabled class="text-zinc-900 disabled:cursor-not-allowed opacity-30 aspect-square h-[40px] flex justify-center items-center cursor-pointer outline-none focus-visible:text-sky-400 group">
+                                    <Icon icon="material-symbols:notifications-outline-rounded" class="text-[7vw] xs:text-[28px] absolute group-hover:hidden" />
+                                    <Icon icon="material-symbols:notifications-rounded" class="text-[7vw] xs:text-[28px] absolute hidden group-hover:block" />
+                                </button>
                                 <!-- Search Bar -->
-                                    <form bind:this={searchForm}
-                                    class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
-                                    focus-within:outline-3 focus-within:outline-sky-400
-                                    rounded-lg pl-3 pr-4 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
-                                    focus-within:[&_.shortcut]:hidden max-sm:hidden
-                                    cursor-text
-                                    ">
+                                    <!-- {#if $page.url.pathname !== '/browse'} -->
+                                     
+                                     <form
+                                        on:submit|preventDefault={handleSubmit}
+                                        bind:this={searchForm}
+                                        class="bg-mainlight border-2 border-zinc-900 text-zinc-900 fill-zinc-900
+                                        focus-within:outline-3 focus-within:outline-sky-400
+                                        rounded-lg pl-3 pr-4 h-[40px] font-work-sans items-center relative overflow-hidden w-[250px] flex justify-between text-[12px]
+                                        focus-within:[&_.shortcut]:hidden max-sm:hidden
+                                        cursor-text
+                                        ">
+
+
                                         <div class="flex justify-center items-center flex-1">
                                             <Icon icon="fa6-solid:magnifying-glass" class="text-[16px] mr-2" />
                                             <input
                                                 name="kasantaraSearchInput"
-                                                id="kasantaraSearchInput"   
+                                                id="kasantaraSearchInput"
                                                 bind:this={searchInput}
                                                 type="text"
+                                                bind:value={localSearch}
                                                 class="outline-none bg-transparent w-full py-2"
                                                 placeholder="Cari Bacaan"
                                                 maxlength="25"
                                             />
                                         </div>
+
+                                        {#if !localSearch}
                                         <div class="shortcut max-[1100px]:hidden">
                                             <span class="bg-zinc-300 px-2 py-1 rounded-sm">ctrl</span> + <span class="bg-zinc-300 px-2 py-1 rounded-sm">k</span>
                                         </div>
+                                        {/if}
                                     </form>
+                                    <!-- {/if} -->
                                 {/if}
 
                                 {#if $touchscreen && !$desktop}
@@ -644,17 +693,24 @@ import { page } from '$app/stores';
                             </div>
                         </div>
                     </div> -->
-                    <a href="/" class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <Icon icon="mingcute:home-4-line" class="text-[7vw] xs:text-[35px]  group-hover:hidden" />
-                        <Icon icon="mingcute:home-4-fill" class="text-[7vw] xs:text-[35px]  hidden group-hover:block" />
-                    </a>
-                    <a href="/browse" class="w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <Icon icon="mingcute:calendar-line" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />
-                        <Icon icon="mingcute:calendar-fill" class="text-[7vw] xs:text-[35px] absolute hidden group-hover:block" />
-                    </a>
-                    <button on:click={() => console.log('clicked')} class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
-                        <Icon icon="material-symbols:browse-outline" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />
-                        <Icon icon="material-symbols:browse" class="text-[7vw] xs:text-[35px] absolute hidden group-hover:block" />
+                    <button on:click={() => goto('/')} disabled={$page.url.pathname === '/'} class={`w-full h-full flex justify-center items-center outline-none focus-visible:text-sky-400 group ${$page.url.pathname === '/' ? 'pointer-events-none cursor-default' : 'cursor-pointer hover:bg-zinc-200'}`}>
+                        <Icon icon="mingcute:home-4-line" class={`text-[7vw] xs:text-[35px] absolute ${$page.url.pathname === '/' ? 'hidden' : 'group-hover:hidden'}`} />
+                        <Icon icon="mingcute:home-4-fill" class={`text-[7vw] xs:text-[35px] absolute ${$page.url.pathname === '/' ? '' : 'hidden group-hover:block'}`} />
+                    </button>
+                    <button on:click={() => goto('/browse')} disabled={$page.url.pathname === '/browse'} class={`w-full h-full flex justify-center items-center outline-none focus-visible:text-sky-400 group ${$page.url.pathname === '/browse' ? 'pointer-events-none cursor-default' : 'cursor-pointer hover:bg-zinc-200'}`}>
+                        <Icon icon="material-symbols:browse-outline" class={`text-[7vw] xs:text-[35px] absolute ${$page.url.pathname === '/browse' ? 'hidden' : 'group-hover:hidden'}`} />
+                        <Icon icon="material-symbols:browse" class={`text-[7vw] xs:text-[35px] absolute ${$page.url.pathname === '/browse' ? '' : 'hidden group-hover:block'}`} />
+                    </button>
+                    <button aria-label="home" class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
+                        <svg class="w-12 max-xs:w-[10vw]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+                            <g>
+                                <polygon points="894.25 824.4 875.36 922.01 869.82 950.66 841.17 945.11 513.87 881.78 575.73 864.03 846.72 916.47 864.68 823.64 894.25 824.4"/>
+                                <polygon points="293.23 839.09 214.38 823.83 185.75 818.28 191.29 789.64 226.65 606.94 244.39 668.8 219.93 795.18 284.21 807.62 293.23 839.09"/>
+                                <polygon points="576.96 271.85 515.11 289.59 324.89 252.78 306.17 349.52 274.71 358.55 296.24 247.24 301.79 218.6 330.43 224.14 576.96 271.85"/>
+                                <polygon points="862.6 347.63 832.71 349.25 824.24 319.69 807.83 262.53 695.44 294.77 633.58 312.52 294.51 409.77 263.05 418.8 232.12 427.67 249.56 488.47 267.31 550.32 344.46 819.28 353.49 850.74 358.82 869.34 395.4 858.85 466.32 841.96 551.5 844.42 520.44 853.34 467.64 871.92 366.86 897.39 338.82 905.44 330.78 877.39 321.35 844.52 312.32 813.06 255.08 613.51 237.34 551.66 204.08 435.71 196.04 407.67 224.08 399.63 269.27 386.66 300.73 377.65 570.39 300.29 632.25 282.54 799.78 234.49 827.83 226.44 835.88 254.49 856.36 325.91 862.6 347.63"/>
+                            </g>
+                            <path d="m664.32,642.61c40.03,45.53,102.89,124.74,160,229.75h-136.56c-38.24-61.51-76.47-110.18-104.23-142.59v165.1l-118.01-22.51v-481.26h118.05v164.93c33.92-36.93,83.12-95.51,124.94-164.93h134.68c-54.62,109.7-131.67,201.05-178.87,251.51Z"/>
+                        </svg>
                     </button>
                     <button on:click={() => console.log('clicked')} class="opacity-30 w-full h-full flex justify-center items-center cursor-pointer hover:bg-zinc-200 outline-none focus-visible:text-sky-400 group">
                         <Icon icon="material-symbols:notifications-outline-rounded" class="text-[7vw] xs:text-[35px] absolute group-hover:hidden" />

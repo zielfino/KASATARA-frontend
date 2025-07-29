@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
 
   // export let ison = 'false';
-  export let totalPages: number = 10;
+  export let totalPages: number = 3 ;
   export let initialPage: number = 1;
 
   import { page } from '$lib/stores/page';
@@ -75,16 +75,13 @@
   }
 
   onMount(() => {
+    const path = window.location.pathname;
+    const key = path === '/' ? 'page' : path.replace('/', '') + 'page';
+
     currentPage = initialPage;
-    // const stored = sessionStorage.getItem('page');
-    // const parsed = stored ? parseInt(stored) : NaN;
-    // if (!isNaN(parsed) && parsed >= 1 && parsed <= totalPages) {
-    //   currentPage = parsed;
-    // } else {
-      // sessionStorage.setItem('page', currentPage.toString());
-      sessionStorage.setItem('page', currentPage.toString());
-    // }
+    sessionStorage.setItem(key, currentPage.toString());
   });
+
 
 
 
