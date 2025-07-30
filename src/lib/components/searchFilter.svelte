@@ -212,7 +212,12 @@
 		await tick();
 	}
 
-  import { page } from '$lib/stores/page';
+  import { page } from '$lib/stores/page';	
+//   import { createPageStore } from '$lib/stores/page';
+
+// import { browser } from '$app/environment';
+// import { writable } from 'svelte/store';
+// export const page = browser ? createPageStore(window.location.pathname).page : writable(1);
 
 </script>
 

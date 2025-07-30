@@ -5,10 +5,8 @@
 	import { searchText } from '$lib/stores/searchText';
     import SearchFilter from "$lib/components/searchFilter.svelte";
     import Pagination from "$lib/components/pagination.svelte";
-    import Card from "$lib/components/util/card.svelte";
 	$: keyword = $searchText;
 
-    import { searchFilter } from '$lib/stores/searchFilter';
 
     const phone = writable(false);
     const desktop = writable(false);
@@ -45,85 +43,95 @@
         image: string;
 		order?: number | 'first' | 'last';
     };
-    
-    // let updateCards: CardItem[] = [];
 
-    // let width = 0;
-    // let limit = 12;
-    // $: limit = typeof window !== 'undefined' ? width < 1100 ? width < 900 ? width < 500 ? 6 : 9 : 12 : 15 : 15;
-
-    let perPage = 15;
-    import { page as paginationPage } from '$lib/stores/page';
+    import { page as currentPageStore } from '$lib/stores/page';
     import { writable } from "svelte/store";
-    let currentPage: number;
-    $: currentPage = $paginationPage;
-    // $: console.log('currentPage from store =', currentPage);
+    import { searchFilter } from '$lib/stores/searchFilter';
+    
+    let currentPage = 1;
+    // $currentPageStore;
+    let unsubscribePage: () => void;
 
+    function forceUpdateItems() {
+        const offset = (currentPage - 1) * perPage;
+        updateItems = updateCards.slice(updateStart + offset, updateEnd + offset);
+    }
+    $: {
+        if (updateCards.length) forceUpdateItems();
+    }
     onMount(() => {
-        // page = Number(sessionStorage.getItem('page') ?? '1');
-        if (window.innerWidth < 500) {
-            perPage = 11;
-        } else if (window.innerWidth < 900) {
-            perPage = 18;
-        } else if (window.innerWidth < 1100) {
-            perPage = 14;
-        }
+        unsubscribePage = currentPageStore.subscribe((val) => {
+            currentPage = val;
+            forceUpdateItems();
+        });
     });
 
-    $: updateStart = 0;
-	$: updateEnd = typeof window !== 'undefined' ? window.innerWidth < 1100 ? window.innerWidth < 900 ? window.innerWidth < 500 ? 6 : 9 : 12 : 15 : 15;
+    onDestroy(() => {
+        unsubscribePage?.();
+    });
 
-    $: offset = (currentPage - 1) * perPage;
+	let width = 0;
+	let perPage = 18;
+
+	let updateCards: any[] = [];
+	let updateItems: any[] = [];
+
+	// updateStart dan updateEnd
+	$: updateStart = 0;
+
+	$: updateEnd =
+		width < 500 ? 12 :
+		width < 900 ? 9 :
+		width < 1100 ? 12 : 18;
+
+	// perPage responsif terhadap width
+	$: {
+		if (width < 500) perPage = 11;
+		else if (width < 900) perPage = 18;
+		else if (width < 1100) perPage = 14;
+		else perPage = 18;
+	}
     
-    let updateCards = update
-    let updateItems = updateCards
-    $: if (update) {
-         updateCards = update
-        .filter(card => {
-            if ($searchFilter === "Novel") {
-                return card.type === "NOVEL";
-            } else if ($searchFilter === "Komik") {
-                return card.type === "KOMIK";
-            } else if ($searchFilter === "Visual Novel") {
-                return card.type === "VISUAL NOVEL";
-            }
-            return true;
-        })
-        // .slice(0, limit)
-        .map((card, i) => ({
-            ...card,
-            idfe: `update-${i}`,
-            size: '1x1'
-        }));
-        type Tag = {
-            disabled: boolean;
-            label: string;
-        };
+	$: offset = (currentPage - 1) * perPage;
+
+	// Filter updateCards berdasarkan searchFilter
+	$: {
+		if (update) {
+			const filtered = update.filter(card => {
+				if ($searchFilter === "Novel") return card.type === "NOVEL";
+				if ($searchFilter === "Komik") return card.type === "KOMIK";
+				if ($searchFilter === "Visual Novel") return card.type === "VISUAL NOVEL";
+				return true;
+			});
+
+			updateCards = filtered.map((card, i) => ({
+				...card,
+				idfe: `update-${i}`,
+				size: '1x1'
+			}));
+		}
+	}
+
+	$: {
+		updateItems = updateCards.slice(updateStart + offset, updateEnd + offset);
+	}
+
+	// Reaktif width di-resize
+	onMount(() => {
+		width = window.innerWidth;
+
+		const handleResize = () => {
+			width = window.innerWidth;
+		};
+
+		window.addEventListener('resize', handleResize);
+		onDestroy(() => window.removeEventListener('resize', handleResize));
+	});
     
-        updateItems = updateCards.slice(updateStart + offset, updateEnd + offset);
-        // $: updateItemsLength = updateItems.length;
-        console.log(update)
-        console.log(updateCards)
-        console.log(updateItems)
-        // console.log(updateItemsLength)
-    }
-
-
-
-    // function handleResize() {
-    //     width = window.innerWidth;
-    // }
-
-    // onMount(() => {
-    //     if (typeof window !== 'undefined')
-    //     handleResize();
-    //     window.addEventListener('resize', handleResize);
-    // });
-
-    // onDestroy(() => {
-    //     if (typeof window !== 'undefined')
-    //     window.removeEventListener('resize', handleResize);
-    // });
+    import { maxPage } from '$lib/stores/page';
+    let totalPages = 1;
+    $: totalPages = Math.max(1, Math.ceil(updateCards.length / perPage));
+    $: maxPage.set(totalPages);
 
 	const weekly = [
 		{ disabled: false, label: 'Mon' },
@@ -161,6 +169,23 @@
 	function toggleSort() {
 		sortAsc.update(v => !v);
 	}
+
+
+    function lightenHexColor(hex: string, amount: number = 0.85) {
+        const parsed = hex.replace('#', '');
+        if (parsed.length !== 6) return hex;
+
+        const r = parseInt(parsed.slice(0, 2), 16);
+        const g = parseInt(parsed.slice(2, 4), 16);
+        const b = parseInt(parsed.slice(4, 6), 16);
+
+        // Interpolasi linear ke putih
+        const newR = Math.round(r + (255 - r) * amount);
+        const newG = Math.round(g + (255 - g) * amount);
+        const newB = Math.round(b + (255 - b) * amount);
+
+        return `rgb(${newR}, ${newG}, ${newB})`;
+    }
 </script>
 
 <section class="max-xs:bg-zinc-900">
@@ -249,7 +274,8 @@
 
             <div class="w-full px-2 md:px-0">
                 <div class="w-full flex items-end justify-between border-b pb-[1.6vw] xs:pb-2">
-                    <div class="ml-[2.4vw] xs:ml-3">
+                    <!-- LEFT FILLER -->
+                    <div class="ml-[2.4vw] xs:ml-3 max-xs:text-[3.2vw]">
                         {#if $searchFilter !== 'Daily' && $searchFilter !== 'Weekly'}
                             {updateCards.length} series
                         {:else}
@@ -262,7 +288,7 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[2.8vw] text-xl aspect-square w-10
+                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
@@ -277,7 +303,7 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[2.8vw] text-xl aspect-square w-10
+                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
@@ -292,7 +318,7 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[2.8vw] text-xl aspect-square w-10
+                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
@@ -309,15 +335,80 @@
             </div>
             
             {#if $searchFilter !== 'Daily' && $searchFilter !== 'Weekly'}
-                <div class="grid grid-cols-2 xs:grid-cols-3 w-full max-w-[675px] md:max-w-[770px]
-                max-xs:px-[1.6vw] px-[8px] gap-[8px] my-2 xs:my-[8px]
-                md:grid-cols-4 lg:w-[946px] lg:max-w-[100%] md:p-0
-                lg:grid-cols-5 xl:w-[1100px]">
-                    {#each updateItems as card}
-                        <Card item={{ ...card, size: '1x1' }} showChapter={false} />
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each updateItems as item}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                item.type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${item.color ? item.color :
+                                        item.genre[0] === 'Fantasy' ? '#9810fa' :
+                                        item.genre[0] === 'Action'  ? '#4f46e5' :
+                                        item.genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        item.genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        item.genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        item.genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            item.color ? lightenHexColor(item.color) :
+                                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            item.genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            item.genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            item.genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            item.genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            item.genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {item.title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{item.image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
                     {/each}
                 </div>
-                <Pagination totalPages={Math.ceil(updateCards.length / perPage)}/>
+                <Pagination totalPages={totalPages}/>
             {/if}
         </div>
     </div>
