@@ -96,13 +96,14 @@
 
 	// Filter updateCards berdasarkan searchFilter
 	$: {
-		if (update) {
-			const filtered = update.filter(card => {
+		if (masterDummy) {
+			const filtered = masterDummy.filter(card => {
 				if ($searchFilter === "Novel") return card.type === "NOVEL";
 				if ($searchFilter === "Komik") return card.type === "KOMIK";
 				if ($searchFilter === "Visual Novel") return card.type === "VISUAL NOVEL";
-				if ($searchFilter === "Official") return card.type === "NOVEL";
-				if ($searchFilter === "Indie") return card.type === "KOMIK";
+				if ($searchFilter === "Official") return card.release === 1;
+				if ($searchFilter === "Indie") return card.release === 2;
+				if ($searchFilter === "Mirror") return card.release === 3;
 				return true;
 			});
 
@@ -193,6 +194,8 @@
 
 	import { sortAsc } from '$lib/stores/sortOrder';
     import { weeklySchedule, setDayforWeekly, validDays  } from "$lib/stores/weeklySchedule";
+    import { masterDummy } from "$lib/masterdatadummy";
+    import Card from "$lib/components/util/card.svelte";
 	$: isAsc = $sortAsc;
 
 	function toggleSort() {
@@ -944,20 +947,19 @@
                                     )`}
                                     >
 
-                                        <!-- MAIN HOVER -->
                                         <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
                                             <h3 class={`text-center font-semibold line-clamp-3 leading-tight
                                             text-[16px] max-xs:text-[3.2vw]
                                             `}
                                             style={`color: ${
                                             item.color ? lightenHexColor(item.color) :
-                                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
-                                            item.genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
-                                            item.genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
-                                            item.genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
-                                            item.genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
-                                            item.genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
-                                            '#f5f5f5'                                       // text-gray-100
+                                            item.genre[0] === 'Fantasy' ? '#f3e8ff' :      
+                                            item.genre[0] === 'Action' ? '#e0e7ff' :      
+                                            item.genre[0] === 'Comedy' ? '#fef3c7' :      
+                                            item.genre[0] === 'Drama' ? '#cffafe' :       
+                                            item.genre[0] === 'Horror' ? '#ffe4e6' :      
+                                            item.genre[0] === 'Romance' ? '#fce7f3' :      
+                                            '#f5f5f5'                                      
                                             }`}>
                                                 {item.title}
                                             </h3>
@@ -966,7 +968,6 @@
                                 {/if}
 
 
-                                <!-- BACKGROUND IMAGE -->
                                 <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
                                     <img src="{item.image}" alt="" 
                                     class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
@@ -974,7 +975,17 @@
                                 </div>
 
                             </div>
+                            <!-- <div>
+                                <div class="whitespace-nowrap text-red-400">{ item.genre[0] }</div>
+                                <div class="whitespace-nowrap text-blue-400">{ item.chapter?.[0]?.number ?? "[Invalid]" } chaps</div>
+                                <div class="whitespace-nowrap text-green-400">{ item.chapter?.[0]?.title ?? "[Invalid]" }</div>
+                                <div class="whitespace-nowrap text-orange-400">{ item.authors ?? '[unknown]' } auth</div>
+                                <div class="whitespace-nowrap text-purple-400">{item.artists?.[0] && item.artists[0] !== '' ? item.artists[0] : "[unknown]"} art</div>
+                                <div class="line-clamp-5 mt-4 text-yellow-400">{ item.excerpt ?? "[unknown]" }</div>
+                                <div class="whitespace-nowrap text-cyan-400">{ item.color ?? "[unknown]" } color</div>
+                            </div> -->
                         </button>
+                    <!-- <Card item={{...item, size: '1x1'}}/> -->
                     {/each}
                 </div>
                 <Pagination totalPages={totalPages}/>
