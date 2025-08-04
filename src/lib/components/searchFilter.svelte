@@ -14,26 +14,14 @@
 
 	const filter: Tag[] = [
 		{ disabled: false,label: 'Semua' },
-		{ disabled: false,label: 'Daily' },
-		{ disabled: false,label: 'Weekly' },
+		// { disabled: false,label: 'Weekly' },
+		// { disabled: false,label: 'Monthly' },
 		{ disabled: false,label: 'Komik' },
 		{ disabled: false,label: 'Novel' },
 		{ disabled: false,label: 'Visual Novel' },
-		{ disabled: true,label: 'Official' },
-		{ disabled: true,label: 'Indie' },
-		// { disabled: true,label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
-		// { disabled: true,label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
-		// { disabled: true,label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },
-		// { disabled: true,label: 'Upload Bulanan', icon: 'mingcute:calendar-month-fill' },
-		// { disabled: true,label: 'Upload Sesuai Mood Author', icon: 'material-symbols:person-rounded' },
-		// { disabled: true,label: 'Komik Adaptasi Novel', icon: 'material-symbols:person-4-rounded' },
-		// { disabled: true,label: 'Emosional' },
-		// { disabled: true,label: 'Sedang Ramai' },
-		// { disabled: true,label: 'Shounen' },
-		// { disabled: true,label: 'Shoujo' },
-		// { disabled: true,label: 'Sejarah' },
-		// { disabled: true,label: 'Dewasa' },
-		// { disabled: true,label: 'Lainnya' }
+		{ disabled: false,label: 'Official' },
+		{ disabled: false,label: 'Indie' },
+		{ disabled: false,label: 'Mirror' },
 	];	
 	const genrelist: Tag[] = [
 		{ disabled: false, label: 'Action' },
@@ -197,7 +185,7 @@
 	$: keyword = $searchText;
 	$: visibleTags = keyword === ""
 		? filter.filter(tag => tag.label !== 'Semua')
-		: filter.filter(tag => tag.label !== 'Daily' && tag.label !== 'Weekly');
+		: filter.filter(tag => tag.label !== 'Monthly' && tag.label !== 'Weekly');
 
 	onMount(() => {
 		// pastikan nilai awal sudah tercache
@@ -221,56 +209,42 @@
 
 </script>
 
-<style>
-	.overflow-scroll-hidden {
-		overflow: auto;
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-	.overflow-scroll-hidden::-webkit-scrollbar {
-		display: none;
-	}
-</style>
 
-<div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] font-work-sans
-flex justify-between">
-	<div class="items-center
-		text-sm font-work-sans font-[400] tracking-tight space-x-2
-		flex overflow-x-scroll overflow-scroll-hidden
-		outline-none">
 
-		<!-- LOOP FILTER -->
-		{#each visibleTags  as tag, i}
-			<button
-			tabindex={tag.label === current || tag.disabled ? -1 : 0}
-			on:click={(e) => {
-				if (tag.label === current || tag.disabled) {
-					e.preventDefault();
-					e.stopPropagation();
-					return;
-				}
-				searchgeHeroFilter(tag.label);
-				page.set(1)
-			}}
-			class={`  
-				flex justify-center items-center
-				max-xs:py-[0.8vw] py-1 h-fit
-				text-nowrap rounded-full
-				border border-zinc-900/15
-				outline-none 
-				max-xs:text-[2.8vw]
-				${tag.label === current ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
-				tag.disabled ? 'opacity-30 pointer-events-none' :
-				'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
-			`}>
-				<!-- LABEL -->
-				<span 
-					class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
-				>
-					{tag.label}
-				</span>
-			</button>
-		{/each}
-	</div>
 
+<div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex items-center outline-none my-2 xs:my-[8px]">
+	<div class="font-[600] flex justify-between space-x-2"><span>Type</span><span>:</span></div>  
+
+	<!-- LOOP FILTER -->
+	{#each filter  as tag, i}
+		<button
+		tabindex={tag.label === current || tag.disabled ? -1 : 0}
+		on:click={(e) => {
+			if (tag.label === current || tag.disabled) {
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+			searchgeHeroFilter(tag.label);
+			page.set(1)
+		}}
+		class={`  
+			flex justify-center items-center
+			max-xs:py-[0.8vw] py-1 h-fit
+			text-nowrap rounded-full
+			border border-zinc-900/15
+			outline-none 
+			max-xs:text-[2.8vw]
+			${tag.label === current ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
+			tag.disabled ? 'opacity-30 pointer-events-none' :
+			'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+		`}>
+			<!-- LABEL -->
+			<span 
+				class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
+			>
+				{tag.label}
+			</span>
+		</button>
+	{/each}
 </div>

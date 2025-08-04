@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 const STORAGE_KEY = 'searchFilter';
-const DEFAULT = 'Rekomendasi';
+const DEFAULT = 'Semua';
 
 const initial = browser
   ? window.sessionStorage.getItem(STORAGE_KEY) ?? DEFAULT

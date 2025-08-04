@@ -80,9 +80,9 @@
 	$: updateStart = 0;
 
 	$: updateEnd =
-		width < 500 ? 12 :
-		width < 900 ? 9 :
-		width < 1100 ? 12 : 18;
+		width < 500 ? 15 :
+		width < 900 ? 16 :
+		width < 1100 ? 15 : 18;
 
 	// perPage responsif terhadap width
 	$: {
@@ -101,6 +101,8 @@
 				if ($searchFilter === "Novel") return card.type === "NOVEL";
 				if ($searchFilter === "Komik") return card.type === "KOMIK";
 				if ($searchFilter === "Visual Novel") return card.type === "VISUAL NOVEL";
+				if ($searchFilter === "Official") return card.type === "NOVEL";
+				if ($searchFilter === "Indie") return card.type === "KOMIK";
 				return true;
 			});
 
@@ -133,6 +135,28 @@
     $: totalPages = Math.max(1, Math.ceil(updateCards.length / perPage));
     $: maxPage.set(totalPages);
 
+	const schedule = [
+		// { disabled: false, label: 'All' },
+		{ disabled: false, label: 'Weekly' },
+		{ disabled: false, label: 'Monthly' },
+		// { disabled: false, label: 'On Going' },
+		// { disabled: false, label: 'Complete' },
+		// { disabled: false, label: 'Official' },
+		// { disabled: false, label: 'Indie' },
+		// { disabled: false, label: 'Axed' },
+	];
+
+	const status = [
+		// { disabled: false, label: 'All' },
+		// { disabled: false, label: 'Weekly' },
+		// { disabled: false, label: 'Monthly' },
+		{ disabled: false, label: 'On Going' },
+		{ disabled: false, label: 'Complete' },
+		// { disabled: false, label: 'Official' },
+		// { disabled: false, label: 'Indie' },
+		// { disabled: false, label: 'Axed' },
+	];
+
 	const weekly = [
 		{ disabled: false, label: 'Mon' },
 		{ disabled: false, label: 'Tue' },
@@ -151,19 +175,24 @@
 	];
 
 	const genrelist = [
-		{ disabled: false, label: 'Action' },
+		{ disabled: false, label: 'Fantasy' },
 		{ disabled: false, label: 'Romance' },
-		{ disabled: false, label: 'Horror' },
 		{ disabled: false, label: 'Comedy' },
-		{ disabled: false, label: 'Drama' },
+		{ disabled: false, label: 'Action' },
+		// { disabled: false, label: 'Drama' },
+		// { disabled: false, label: 'Adventure' },
+		{ disabled: false, label: 'Crime & Mystery' },
+		{ disabled: false, label: 'Horror & Thriller' },
+		{ disabled: false, label: 'Show All' },
+		// { disabled: false, label: 'Thriller' },
+		// { disabled: false, label: 'Sci-Fi' },
+		// { disabled: false, label: 'Mystery' },
 		// { disabled: true, label: 'Short' },
 	];
-
     let currentGenre:string = '';    
 
 	import { sortAsc } from '$lib/stores/sortOrder';
-
-	// reactive dapat nilai terbaru
+    import { weeklySchedule, setDayforWeekly, validDays  } from "$lib/stores/weeklySchedule";
 	$: isAsc = $sortAsc;
 
 	function toggleSort() {
@@ -186,6 +215,24 @@
 
         return `rgb(${newR}, ${newG}, ${newB})`;
     }
+
+    onMount(() => {
+	    const key = 'searchFilter';
+        if (!sessionStorage.getItem(key)) {
+            searchFilter.set('Daily');
+            sessionStorage.setItem(key, 'true');
+        }
+    })
+
+    function getToday(): typeof validDays[number] {
+        const map = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        return map[new Date().getDay()] as typeof validDays[number];
+    }
+    onMount(() => {
+        const today = getToday();
+        weeklySchedule.set(today);
+        sessionStorage.setItem('weeklySchedule', today);
+    });
 </script>
 
 <section class="max-xs:bg-zinc-900">
@@ -195,91 +242,70 @@
                 <div class="w-full bg-zinc-400">
                     Hasil pencarian dari "{keyword}"
                 </div>
-            {/if}
-            <div>
-                <SearchFilter />
-            {#if $searchFilter !== 'Daily' && $searchFilter !== 'Weekly'}
-                <div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex outline-none my-2 xs:my-[8px]">
-                    {#each genrelist  as genre, i}
-                    <button
-                    tabindex={genre.label === currentGenre || genre.disabled ? -1 : 0}
-                    class={`  
-                        flex justify-center items-center
-                        max-xs:py-[0.8vw] py-1 h-fit
-                        text-nowrap rounded-full
-                        border border-zinc-900/15
-                        outline-none 
-                        max-xs:text-[2.8vw]
-                        ${genre.label === currentGenre ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
-                        genre.disabled ? 'opacity-30 pointer-events-none' :
-                        'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
-                    `}>
-                        <span 
-                            class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
-                        >
-                            {genre.label}
-                        </span>
-                    </button>
-                    {/each}
-                </div>
-            {:else if $searchFilter === 'Weekly'}
-                <div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex outline-none my-2 xs:my-[8px]">
-                    {#each monthly  as genre, i}
-                    <button
-                    tabindex={genre.label === currentGenre || genre.disabled ? -1 : 0}
-                    class={`  
-                        flex justify-center items-center
-                        max-xs:py-[0.8vw] py-1 h-fit
-                        text-nowrap rounded-full
-                        border border-zinc-900/15
-                        outline-none 
-                        max-xs:text-[2.8vw]
-                        ${genre.label === currentGenre ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
-                        genre.disabled ? 'opacity-30 pointer-events-none' :
-                        'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
-                    `}>
-                        <span 
-                            class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
-                        >
-                            {genre.label}
-                        </span>
-                    </button>
-                    {/each}
-                </div>
             {:else}
-                <div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex outline-none my-2 xs:my-[8px]">
-                    {#each weekly  as genre, i}
-                    <button
-                    tabindex={genre.label === currentGenre || genre.disabled ? -1 : 0}
-                    class={`  
-                        flex justify-center items-center
-                        max-xs:py-[0.8vw] py-1 h-fit
-                        text-nowrap rounded-full
-                        border border-zinc-900/15
-                        outline-none 
-                        max-xs:text-[2.8vw]
-                        ${genre.label === currentGenre ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
-                        genre.disabled ? 'opacity-30 pointer-events-none' :
-                        'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
-                    `}>
-                        <span 
-                            class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
-                        >
-                            {genre.label}
-                        </span>
-                    </button>
-                    {/each}
+                <!-- FILTER -->
+                <div class="w-full flex space-x-[3.2vw] xs:space-x-4 flex-wrap">
+                    <SearchFilter />
+                    <div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex items-center outline-none my-2 xs:my-[8px]">
+                        <div class="font-[600] flex justify-between space-x-2 text-nowrap"><span>Release</span><span>:</span></div>  
+                        {#each schedule  as genre, i}
+                        <button
+                        tabindex={genre.label === currentGenre || genre.disabled ? -1 : 0}
+                        class={`  
+                            flex justify-center items-center
+                            max-xs:py-[0.8vw] py-1 h-fit
+                            text-nowrap rounded-full
+                            border border-zinc-900/15
+                            outline-none 
+                            max-xs:text-[2.8vw]
+                            ${genre.label === currentGenre ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
+                            genre.disabled ? 'opacity-30 pointer-events-none' :
+                            'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                        `}>
+                            <span 
+                                class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
+                            >
+                                {genre.label}
+                            </span>
+                        </button>
+                        {/each}
+                    </div>
+                    <div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex items-center outline-none my-2 xs:my-[8px]">
+                        <div class="font-[600] flex justify-between space-x-2 text-nowrap"><span>Genre</span><span>:</span></div>  
+                        {#each genrelist  as genre, i}
+                        <button
+                        tabindex={genre.label === currentGenre || genre.disabled ? -1 : 0}
+                        class={`  
+                            flex justify-center items-center
+                            max-xs:py-[0.8vw] py-1 h-fit
+                            text-nowrap rounded-full
+                            border border-zinc-900/15
+                            outline-none 
+                            max-xs:text-[2.8vw]
+                            ${genre.label === currentGenre ? 'text-mainlight bg-zinc-900 pointer-events-none' : 
+                            genre.disabled ? 'opacity-30 pointer-events-none' :
+                            'max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 active:bg-zinc-900/9 cursor-pointer'}
+                        `}>
+                            <span 
+                                class={`max-xs:mx-[3.2vw] mx-4 h-fit`}
+                            >
+                                {genre.label}
+                            </span>
+                        </button>
+                        {/each}
+                    </div>
                 </div>
             {/if}
 
+            <!-- SEOERATOR -->
             <div class="w-full px-2 md:px-0">
                 <div class="w-full flex items-end justify-between border-b pb-[1.6vw] xs:pb-2">
                     <!-- LEFT FILLER -->
                     <div class="ml-[2.4vw] xs:ml-3 max-xs:text-[3.2vw]">
-                        {#if $searchFilter !== 'Daily' && $searchFilter !== 'Weekly'}
-                            {updateCards.length} series
-                        {:else}
+                        {#if $searchFilter === 'Weekly'}
                             else
+                        {:else}
+                            {updateCards.length} series
                         {/if}
                     </div>
                     
@@ -288,22 +314,37 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
+                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
                         aria-label="Toggle sort order"
                         >
                         {#if isAsc}
-                            <Icon icon="material-symbols:do-not-disturb-on-rounded" />
+                            <Icon icon="mingcute:large-arrow-up-fill" />
                         {:else}
-                            <Icon icon="material-symbols:do-not-disturb-on-outline-rounded" />
+                            <Icon icon="mingcute:large-arrow-up-line" />
                         {/if}
                         </button>
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
+                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
+                                max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
+                                hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
+                                active:bg-zinc-900/9 cursor-pointer"
+                        aria-label="Toggle sort order"
+                        >
+                        {#if isAsc}
+                            <Icon icon="mingcute:axe-fill" />
+                        {:else}
+                            <Icon icon="mingcute:axe-line" />
+                        {/if}
+                        </button>
+                        <button
+                        on:click={toggleSort}
+                        class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
+                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
@@ -318,7 +359,7 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square w-[8vw] xs:w-10
+                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
                                 active:bg-zinc-900/9 cursor-pointer"
@@ -334,7 +375,535 @@
                 </div>
             </div>
             
-            {#if $searchFilter !== 'Daily' && $searchFilter !== 'Weekly'}
+
+            <!-- SCHEDULE -->
+            {#if $searchFilter === 'Weekly'}
+                { $weeklySchedule }
+            {/if}
+            {#if $searchFilter === 'Monthly'}
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Monday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Tuesday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Wednesday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Thursday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Friday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Saturday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+                <div class="mt-[3.2vw] xs:mt-4 ml-[3.2vw] xs:ml-2">Sunday</div>
+                <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
+                max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
+                md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
+                lg:grid-cols-6 xl:w-[1100px]">
+                    {#each Array(3) as _, i}
+                        <button
+                            role={'button'} 
+                            aria-label="card"
+                            class={`group relative
+                            flex flex-col outline-none
+                            col-span-1 aspect-[3/5]
+                            ${
+                                updateItems[1].type === "VISUAL NOVEL" ? 'portrait:focus-visible:ring-1 portrait:focus-visible:ring-sky-400 focus-visible:bg-sky-200/90 rounded-lg' : ''
+                            }
+                            `}
+                            style="direction:ltr"
+                        >   
+                            <div class={`z-10 xs:drop-shadow-xs landscape:lg:drop-shadow-none xs:bg-mainlight xs:border xs:border-zinc-900/15 relative w-full h-full p-3 max-xs:p-[2.4vw] rounded-md max-xs:rounded-[1.6vw] xs:rounded-lg flex justify-center items-center max-xs:border max-xs:border-zinc-900/30 overflow-hidden
+                            portrait:group-focus-visible:border-1 portrait:group-focus-visible:ring-1 portrait:group-focus-visible:border-sky-400 portrait:group-focus-visible:ring-sky-400 portrait:group-focus-visible:bg-sky-200/90
+                            aspect-[3/4]`}>
+
+
+                                {#if !$phone }
+                                    <div class="absolute w-full h-full top-0 left-0 z-20 opacity-0 landscape:group-hover:opacity-100 landscape:group-focus-visible:opacity-100 landscape:group-focus-within:opacity-100 transition-opacity cursor-pointer duration-300 ease-out"
+                                    style={`background-image:
+                                   
+                                    linear-gradient(180deg,
+                                        transparent 35%,
+                                        ${updateItems[1].color ? updateItems[1].color :
+                                        updateItems[1].genre[0] === 'Fantasy' ? '#9810fa' :
+                                        updateItems[1].genre[0] === 'Action'  ? '#4f46e5' :
+                                        updateItems[1].genre[0] === 'Comedy'  ? 'oklch(66.6% 0.179 58.318)' :
+                                        updateItems[1].genre[0] === 'Drama'   ? 'oklch(60.9% 0.126 221.723)' :
+                                        updateItems[1].genre[0] === 'Horror'  ? 'oklch(57.7% 0.245 27.325)' :
+                                        updateItems[1].genre[0] === 'Romance' ? 'oklch(58.6% 0.253 17.585)' :
+                                        '#4a5565'
+                                        } 85%
+                                    )`}
+                                    >
+
+                                        <!-- MAIN HOVER -->
+                                        <div class="absolute bottom-0 left-0 h-[5em] p-[1em] flex items-center justify-center min-w-full">
+                                            <h3 class={`text-center font-semibold line-clamp-3 leading-tight
+                                            text-[16px] max-xs:text-[3.2vw]
+                                            `}
+                                            style={`color: ${
+                                            updateItems[1].color ? lightenHexColor(updateItems[1].color) :
+                                            updateItems[1].genre[0] === 'Fantasy' ? '#f3e8ff' :       // text-purple-100
+                                            updateItems[1].genre[0] === 'Action' ? '#e0e7ff' :        // text-indigo-100
+                                            updateItems[1].genre[0] === 'Comedy' ? '#fef3c7' :        // text-amber-100
+                                            updateItems[1].genre[0] === 'Drama' ? '#cffafe' :         // text-cyan-100
+                                            updateItems[1].genre[0] === 'Horror' ? '#ffe4e6' :        // text-rose-100
+                                            updateItems[1].genre[0] === 'Romance' ? '#fce7f3' :       // text-pink-100
+                                            '#f5f5f5'                                       // text-gray-100
+                                            }`}>
+                                                {updateItems[1].title}
+                                            </h3>
+                                        </div>
+                                    </div>
+                                {/if}
+
+
+                                <!-- BACKGROUND IMAGE -->
+                                <div class="absolute w-full h-full top-0 left-0 bg-cover bg-center max-xs:scale-101">
+                                    <img src="{updateItems[1].image}" alt="" 
+                                    class={`w-full h-full object-center duration-150 transition-all rounded-md max-xs:rounded-[1.4vw]
+                                    object-cover landscape:group-hover:scale-105 landscape:group-focus-visible:scale-105 landscape:group-focus-within:scale-110`} />
+                                </div>
+
+                            </div>
+                        </button>
+                    {/each}
+                </div>
+            {/if}
+
+
+            <!-- NOT SCHEDULE -->
+            {#if $searchFilter !== 'Weekly' && $searchFilter !== 'Monthly'}
                 <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
                 max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
                 md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
