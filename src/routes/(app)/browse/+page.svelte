@@ -60,75 +60,86 @@
 
     // 3. Reactive filtering & paging
     $: {
-        if (masterDummy && $contentFilter !== 'Schedule') {
-        // filter by content
-        const byRelease = masterDummy.filter(card => {
-            if ($contentFilter === 'Official') return card.release === 1;
-            if ($contentFilter === 'Indie')    return card.release === 2;
-            if ($contentFilter === 'Mirror')   return card.release === 3;
-            return true;
-        });
-        // filter by type
-        const byType = byRelease.filter(card => {
-            if ($typeFilter === 'Novel')        return card.type === 'NOVEL';
-            if ($typeFilter === 'Komik')        return card.type === 'KOMIK';
-            if ($typeFilter === 'Visual Novel') return card.type === 'VISUAL NOVEL';
-            return true;
-        });
-        noCutCards = byType.map((card, i) => ({
-            ...card,
-            idfe: `update-${i}`
-        }));
-        } else {
-        // schedule mode
-        const bySchedule = masterDummy.filter(card => {
-            const p = card.schedule?.[0]?.period;
-            if ($scheduleFilter === 'Daily')   return p === 'daily';
-            if ($scheduleFilter === 'Weekly')  return p === 'weekly';
-            if ($scheduleFilter === 'Monthly') return p === 'monthly';
-            return true;
-        });
-
-        let byOn: any[] = [];
-
-        if ($scheduleFilter === 'Daily') {
-            byOn = bySchedule.filter(card => {
-                const p = card.schedule?.[0]?.on;
-                if ($dailySchedule === '03:00')   return p === '03:00';
-                if ($dailySchedule === '09:00')   return p === '09:00';
-                if ($dailySchedule === '15:00')   return p === '15:00';
-                if ($dailySchedule === '21:00')   return p === '21:00';
+        if ($searchText.trim()) {
+            const q = $searchText.toLowerCase();
+            const bySearch = masterDummy.filter(card => {
+                const title   = card.title.toLowerCase();
+                const authors = card.authors?.join(' ').toLowerCase()   ?? '';
+                const artists = card.artists?.join(' ').toLowerCase()   ?? '';
+                return title.includes(q) || authors.includes(q) || artists.includes(q);
+            });
+            noCutCards = bySearch.map((card,i) => ({ ...card, idfe: `update-${i}` }));
+            console.log('active :' + $searchText.trim())
+        } else if (masterDummy && $contentFilter !== 'Schedule') {
+            // filter by content
+            const byRelease = masterDummy.filter(card => {
+                if ($contentFilter === 'Official') return card.release === 1;
+                if ($contentFilter === 'Indie')    return card.release === 2;
+                if ($contentFilter === 'Mirror')   return card.release === 3;
                 return true;
             });
-        } else if ($scheduleFilter === 'Weekly') {
-            byOn = bySchedule.filter(card => {
-                const p = card.schedule?.[0]?.on;
-                if ($weeklySchedule === 'Mon')   return p === 'Mon';;
-                if ($weeklySchedule === 'Tue')   return p === 'Tue';;
-                if ($weeklySchedule === 'Wed')   return p === 'Wed';;
-                if ($weeklySchedule === 'Thu')   return p === 'Thu';;
-                if ($weeklySchedule === 'Fri')   return p === 'Fri';;
-                if ($weeklySchedule === 'Sat')   return p === 'Sat';;
-                if ($weeklySchedule === 'Sun')   return p === 'Sun';;
+            // filter by type
+            const byType = byRelease.filter(card => {
+                if ($typeFilter === 'Novel')        return card.type === 'NOVEL';
+                if ($typeFilter === 'Komik')        return card.type === 'KOMIK';
+                if ($typeFilter === 'Visual Novel') return card.type === 'VISUAL NOVEL';
                 return true;
             });
-        } else if ($scheduleFilter === 'Monthly') {
-            byOn = bySchedule.filter(card => {
-                const p = card.schedule?.[0]?.on;
-                if ($monthySchedule === 'Week 1')   return p === 'Week 1';
-                if ($monthySchedule === 'Week 2')   return p === 'Week 2';
-                if ($monthySchedule === 'Week 3')   return p === 'Week 3';
-                if ($monthySchedule === 'Week 4')   return p === 'Week 4';
-                return true;
-            });
-        }
-
-        noCutCards = byOn
-            .filter(card => card.status === 1)
-            .map((card, i) => ({
-            ...card,
-            idfe: `update-${i}`
+            noCutCards = byType.map((card, i) => ({
+                ...card,
+                idfe: `update-${i}`
             }));
+            console.log($searchText.trim())
+        } else {
+            // schedule mode
+            const bySchedule = masterDummy.filter(card => {
+                const p = card.schedule?.[0]?.period;
+                if ($scheduleFilter === 'Daily')   return p === 'daily';
+                if ($scheduleFilter === 'Weekly')  return p === 'weekly';
+                if ($scheduleFilter === 'Monthly') return p === 'monthly';
+                return true;
+            });
+
+            let byOn: any[] = [];
+
+            if ($scheduleFilter === 'Daily') {
+                byOn = bySchedule.filter(card => {
+                    const p = card.schedule?.[0]?.on;
+                    if ($dailySchedule === '03:00')   return p === '03:00';
+                    if ($dailySchedule === '09:00')   return p === '09:00';
+                    if ($dailySchedule === '15:00')   return p === '15:00';
+                    if ($dailySchedule === '21:00')   return p === '21:00';
+                    return true;
+                });
+            } else if ($scheduleFilter === 'Weekly') {
+                byOn = bySchedule.filter(card => {
+                    const p = card.schedule?.[0]?.on;
+                    if ($weeklySchedule === 'Mon')   return p === 'Mon';;
+                    if ($weeklySchedule === 'Tue')   return p === 'Tue';;
+                    if ($weeklySchedule === 'Wed')   return p === 'Wed';;
+                    if ($weeklySchedule === 'Thu')   return p === 'Thu';;
+                    if ($weeklySchedule === 'Fri')   return p === 'Fri';;
+                    if ($weeklySchedule === 'Sat')   return p === 'Sat';;
+                    if ($weeklySchedule === 'Sun')   return p === 'Sun';;
+                    return true;
+                });
+            } else if ($scheduleFilter === 'Monthly') {
+                byOn = bySchedule.filter(card => {
+                    const p = card.schedule?.[0]?.on;
+                    if ($monthySchedule === 'Week 1')   return p === 'Week 1';
+                    if ($monthySchedule === 'Week 2')   return p === 'Week 2';
+                    if ($monthySchedule === 'Week 3')   return p === 'Week 3';
+                    if ($monthySchedule === 'Week 4')   return p === 'Week 4';
+                    return true;
+                });
+            }
+
+            noCutCards = byOn
+                .filter(card => card.status === 1)
+                .map((card, i) => ({
+                ...card,
+                idfe: `update-${i}`
+                }));
         }
     }
 
@@ -275,12 +286,12 @@
 
 
             <!-- NOT SCHEDULE -->
-            {#if $contentFilter === 'Schedule'}
+            {#if $searchText !== "" || $contentFilter === 'Schedule'}
                 <div class="grid grid-cols-3 xs:grid-cols-4 w-full max-w-[675px] md:max-w-[770px]
                 max-xs:px-[1.6vw] px-[8px] gap-[0.8vw] my-2 xs:my-[8px]
                 md:grid-cols-5 lg:w-[946px] lg:max-w-[100%] md:p-0
                 lg:grid-cols-6 xl:w-[1100px]">
-                    {#each noCutCards as item}
+                    {#each noCutCards  as item}
                         <button
                             role={'button'} 
                             aria-label="card"

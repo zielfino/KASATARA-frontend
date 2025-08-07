@@ -1604,29 +1604,29 @@ export const masterDummy = [
             { number: 92,  title: "chap 92"  }
         ]
     },
-    {
-        id: 70,
-        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
-        title: "Overgeared",
-        excerpt: "lorem ipsum dolor...",
-        likes: 1700,
-        rating: 4.5,
-        genre: ["Action", "Game"],
-        type: "KOMIK",
-        region: "KR",
-        image: "https://i.imgur.com/HHe6hQi.png",
-        chapter: [
-            { number: 100, title: "chap 100" },
-            { number: 99,  title: "chap 99"  },
-            { number: 98,  title: "chap 98"  },
-            { number: 97,  title: "chap 97"  },
-            { number: 96,  title: "chap 96"  },
-            { number: 95,  title: "chap 95"  },
-            { number: 94,  title: "chap 94"  },
-            { number: 93,  title: "chap 93"  },
-            { number: 92,  title: "chap 92"  }
-        ]
-    },
+    // {
+    //     id: 70,
+    //     status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+    //     title: "Overgeared",
+    //     excerpt: "lorem ipsum dolor...",
+    //     likes: 1700,
+    //     rating: 4.5,
+    //     genre: ["Action", "Game"],
+    //     type: "KOMIK",
+    //     region: "KR",
+    //     image: "https://i.imgur.com/HHe6hQi.png",
+    //     chapter: [
+    //         { number: 100, title: "chap 100" },
+    //         { number: 99,  title: "chap 99"  },
+    //         { number: 98,  title: "chap 98"  },
+    //         { number: 97,  title: "chap 97"  },
+    //         { number: 96,  title: "chap 96"  },
+    //         { number: 95,  title: "chap 95"  },
+    //         { number: 94,  title: "chap 94"  },
+    //         { number: 93,  title: "chap 93"  },
+    //         { number: 92,  title: "chap 92"  }
+    //     ]
+    // },
     {
         id: 71,
         status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
@@ -1916,29 +1916,29 @@ export const masterDummy = [
             { number: 92,  title: "chap 92"  }
         ]
     },
-    {
-        id: 70,
-        status: 3, release: 3,     
-        title: "Overgeared",
-        excerpt: "lorem ipsum dolor...",
-        likes: 1700,
-        rating: 4.5,
-        genre: ["Action", "Game"],
-        type: "KOMIK",
-        region: "KR",
-        image: "https://i.imgur.com/HHe6hQi.png",
-        chapter: [
-            { number: 100, title: "chap 100" },
-            { number: 99,  title: "chap 99"  },
-            { number: 98,  title: "chap 98"  },
-            { number: 97,  title: "chap 97"  },
-            { number: 96,  title: "chap 96"  },
-            { number: 95,  title: "chap 95"  },
-            { number: 94,  title: "chap 94"  },
-            { number: 93,  title: "chap 93"  },
-            { number: 92,  title: "chap 92"  }
-        ]
-    },
+    // {
+    //     id: 70,
+    //     status: 3, release: 3,     
+    //     title: "Overgeared",
+    //     excerpt: "lorem ipsum dolor...",
+    //     likes: 1700,
+    //     rating: 4.5,
+    //     genre: ["Action", "Game"],
+    //     type: "KOMIK",
+    //     region: "KR",
+    //     image: "https://i.imgur.com/HHe6hQi.png",
+    //     chapter: [
+    //         { number: 100, title: "chap 100" },
+    //         { number: 99,  title: "chap 99"  },
+    //         { number: 98,  title: "chap 98"  },
+    //         { number: 97,  title: "chap 97"  },
+    //         { number: 96,  title: "chap 96"  },
+    //         { number: 95,  title: "chap 95"  },
+    //         { number: 94,  title: "chap 94"  },
+    //         { number: 93,  title: "chap 93"  },
+    //         { number: 92,  title: "chap 92"  }
+    //     ]
+    // },
     {
         id: 71,
         status: 3, release: 3,     
@@ -2425,29 +2425,29 @@ export const masterDummy = [
             { number: 92,  title: "chap 92"  }  
         ]  
     },  
-    {  
-        id: 95,  
-        status: 3, release: 3,     
-        title: "Overgeared",  
-        excerpt: "lorem ipsum dolor...",  
-        likes: 1700,  
-        rating: 4.5,  
-        genre: ["Action", "Fantasy", "Game"],  
-        type: "KOMIK",  
-        region: "KR",  
-        image: "https://i.imgur.com/HHe6hQi.png",  
-        chapter: [  
-            { number: 100, title: "chap 100" },  
-            { number: 99,  title: "chap 99"  },  
-            { number: 98,  title: "chap 98"  },  
-            { number: 97,  title: "chap 97"  },  
-            { number: 96,  title: "chap 96"  },  
-            { number: 95,  title: "chap 95"  },  
-            { number: 94,  title: "chap 94"  },  
-            { number: 93,  title: "chap 93"  },  
-            { number: 92,  title: "chap 92"  }  
-        ]  
-    },  
+    // {  
+    //     id: 95,  
+    //     status: 3, release: 3,     
+    //     title: "Overgeared",  
+    //     excerpt: "lorem ipsum dolor...",  
+    //     likes: 1700,  
+    //     rating: 4.5,  
+    //     genre: ["Action", "Fantasy", "Game"],  
+    //     type: "KOMIK",  
+    //     region: "KR",  
+    //     image: "https://i.imgur.com/HHe6hQi.png",  
+    //     chapter: [  
+    //         { number: 100, title: "chap 100" },  
+    //         { number: 99,  title: "chap 99"  },  
+    //         { number: 98,  title: "chap 98"  },  
+    //         { number: 97,  title: "chap 97"  },  
+    //         { number: 96,  title: "chap 96"  },  
+    //         { number: 95,  title: "chap 95"  },  
+    //         { number: 94,  title: "chap 94"  },  
+    //         { number: 93,  title: "chap 93"  },  
+    //         { number: 92,  title: "chap 92"  }  
+    //     ]  
+    // },  
     {  
         id: 96,  
         status: 3, release: 3,     
