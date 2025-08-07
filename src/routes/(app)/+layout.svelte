@@ -281,7 +281,7 @@
         window.removeEventListener('popstate', handlePopState);
     }
     });
-    console.log('🔥 Root layout active');
+    // console.log('🔥 Root layout active');
 
     // import { page } from '$app/stores';
 
@@ -301,17 +301,23 @@
 	// let searchInput: HTMLInputElement;
 	// let searchForm: HTMLFormElement;
 	import { searchText } from '$lib/stores/searchText';
-    import { searchFilter } from "$lib/stores/searchFilter";
+    import { setSafetypeFilter, typeFilter } from "$lib/components/browse/typeFilter";
     import { sortAsc } from "$lib/stores/sortOrder";
+    import { setSafeContentFilter } from "$lib/components/browse/contentFilter";
+    import { setSafeScheduleFilter } from "$lib/components/browse/scheduleFilter";
 	$: keyword = $searchText;
 	let localSearch = ''; // lokal kalau tidak pakai store
 
     function handleSubmit(e: Event) {
         searchText.set(localSearch);
         if (localSearch === '') {
-        searchFilter.set('Daily');
+            setSafeContentFilter('Schedule');
+            setSafeScheduleFilter('Weekly');
+            setSafetypeFilter('Semua');
         } else {
-        searchFilter.set('Semua');
+            setSafeContentFilter('Semua');
+            setSafeScheduleFilter('Weekly');
+            setSafetypeFilter('Semua');
         }
         goto('/browse');
     }
@@ -429,7 +435,8 @@
                                 `}>
                                     <button on:click={async () => {
                                         searchText.set('');
-                                        searchFilter.set('Daily');
+                                        setSafeContentFilter('Schedule');
+                                        setSafeScheduleFilter('Weekly');
                                         sortAsc.set(true);
                                         await goto('/browse');
                                     }} 

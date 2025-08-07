@@ -1,6 +1,6 @@
 export const masterDummy = [
     { id: 0, title: "Overgeared",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sun'}], 
     authors: ["Lee Dong‑Wook"],
     artists: ["Team Argo (REDICE)"],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
@@ -24,7 +24,7 @@ export const masterDummy = [
     createdAt: "2019-03-01T00:00:00Z", updatedAt: "2025-07-10T00:00:00Z" },
 
     { id: 1, title: "Return Of The Mount Hua Sect",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Wed'}], 
     authors: ["비가"],
     artists: ["HABAN"],
     type: "NOVEL", genre: ["Comedy", "Adventure"], region: "KR",
@@ -46,7 +46,7 @@ export const masterDummy = [
     createdAt: "2020-06-15T00:00:00Z", updatedAt: "2025-06-30T00:00:00Z" },
 
     { id: 2, title: "The Regressed Son Of A Duke Is An Assassin",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Tue'}], 
     authors: ["[unknown]"],
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
@@ -67,7 +67,7 @@ export const masterDummy = [
     createdAt: "2023-01-10T00:00:00Z", updatedAt: "2025-05-20T00:00:00Z" },
 
     { id: 3, title: "Revenge of the Iron‑Blooded Sword Hound",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'daily', on: '21:00'}], 
     authors: ["[unknown]"],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1500, rating: 4.9,
@@ -88,7 +88,7 @@ export const masterDummy = [
     createdAt: "2023-05-05T00:00:00Z", updatedAt: "2025-05-25T00:00:00Z" },
 
     { id: 4, title: "Reincarnation of the Suicidal Battle God",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'daily', on: '15:00'}], 
     authors: ["[unknown]"],
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
@@ -109,7 +109,7 @@ export const masterDummy = [
     createdAt: "2022-11-01T00:00:00Z", updatedAt: "2025-05-30T00:00:00Z" },
 
     { id: 5, title: "The Novel Extra",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'daily', on: '21:00'}], 
     authors: ["Yi Seong‑do"],
     type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
@@ -130,7 +130,7 @@ export const masterDummy = [
     createdAt: "2018-01-01T00:00:00Z", updatedAt: "2025-04-15T00:00:00Z" },
 
     { id: 6, title: "Solo Max‑Level Newbie",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'daily', on: '09:00'}], 
     authors: ["WAN.Z"], artists: ["Swingbat"],
     type: "KOMIK", genre: ["Fantasy", "Adventure"], region: "KR",
     likes: 1300, rating: 3.2,
@@ -150,8 +150,8 @@ export const masterDummy = [
     ],
     createdAt: "2021-07-29T00:00:00Z", updatedAt: "2025-07-29T00:00:00Z" },
 
-    { id: 7, title: "The Return of the Crazy Demon",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    { id: 7, title: "The Return of the Crazy DeMon",
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}], 
     authors: ["Yu Jin-Seong"], artists: ["Ihy"],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 980, rating: 4.0,
@@ -161,7 +161,7 @@ export const masterDummy = [
     chapter: [
         { number: 154, title: "Fall of the Pearl" },
         { number: 153, title: "Rebirth as a Porter" },
-        { number: 152, title: "Return of the Demon" },
+        { number: 152, title: "Return of the DeMon" },
         { number: 151, title: "Cult’s Shadow" },
         { number: 150, title: "Heavenly Jade Theft" },
         { number: 149, title: "Murim’s Whispers" },
@@ -172,7 +172,7 @@ export const masterDummy = [
     createdAt: "2020-05-01T00:00:00Z", updatedAt: "2025-07-29T00:00:00Z" },
 
     { id: 9, title: "I Killed an Academy Player",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Thu'}], 
     authors: ["사람살려"],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 39200, rating: 4.1,
@@ -193,7 +193,7 @@ export const masterDummy = [
     createdAt: "2021-01-01T00:00:00Z", updatedAt: "2025-07-20T00:00:00Z" },
 
     { id: 10, title: "The Novel Extra",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Fri'}], 
     authors: ["Yi Seong‑do"],
     type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
@@ -214,7 +214,7 @@ export const masterDummy = [
     createdAt: "2018-01-01T00:00:00Z", updatedAt: "2025-04-15T00:00:00Z" },
 
     { id: 11, title: "Return Of The Mount Hua Sect",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}], 
     authors: ["비가"], artists: ["HABAN"],
     type: "KOMIK", genre: ["Murim", "Adventure"], region: "KR",
     likes: 1300, rating: 4.5,
@@ -235,7 +235,7 @@ export const masterDummy = [
     createdAt: "2021-03-01T00:00:00Z", updatedAt: "2025-06-30T00:00:00Z" },
 
     { id: 12, title: "Steins;Gate",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 3, release: 3, schedule: [{period: 'weekly', on: 'Tue'}], 
     authors: ["5pb./Nitroplus"], 
     type: "VISUAL NOVEL", genre: ["Sci‑Fi", "Thriller"], region: "JP",
     likes: 4200, rating: 4.8,
@@ -245,7 +245,7 @@ export const masterDummy = [
     createdAt: "2009-11-15T00:00:00Z", updatedAt: "2016-06-01T00:00:00Z" },
 
     { id: 13, title: "Ranker’s Return",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}], 
     authors: ["Gang Hyeonu (Karakter)"],
     type: "NOVEL", genre: ["Fantasy", "Action"], region: "KR",
     likes: 900, rating: 4.3, 
@@ -266,7 +266,7 @@ export const masterDummy = [
     createdAt: "2017-01-22T00:00:00Z", updatedAt: "2025-01-22T00:00:00Z" },
 
     { id: 14, title: "The Return of the Disaster‑Class Hero",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sat'}], 
     authors: ["Undetermined"], artists: [],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1120, rating: 4.4,
@@ -287,7 +287,7 @@ export const masterDummy = [
     createdAt: "2023-02-01T00:00:00Z", updatedAt: "2025-07-01T00:00:00Z" },
 
     { id: 15, title: "Damn Reincarnation",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sat'}], 
     authors: ["Author Unknown"], artists: [],
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
@@ -308,7 +308,7 @@ export const masterDummy = [
     createdAt: "2022-08-01T00:00:00Z", updatedAt: "2025-05-20T00:00:00Z" },
 
     { id: 16, title: "Ranker’s Return",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sun'}], 
     authors: ["Gang Hyeonu"], artists: [],
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1200, rating: 4.3,
@@ -329,13 +329,13 @@ export const masterDummy = [
     createdAt: "2017-01-22T00:00:00Z", updatedAt: "2025-01-22T00:00:00Z" },
 
     { id: 17, title: "Solo Leveling",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Wed'}], 
     authors: ["Chugong"], artists: ["Dubu (Redice Studio)"],
     type: "KOMIK", genre: ["Action", "Fantasy"], region: "KR",
     likes: 3000, rating: 4.8,
     color: "#452c6b",
     image: "https://cdn.mangaupdates.com/image/i474339.jpg",
-    excerpt: "Sung Jin‑woo, the weakest hunter, gains the ability to level up infinitely and fights to protect humanity from monstrous threats.",
+    excerpt: "Sung Jin‑woo, the weakest hunter, gains the ability to level up infinitely and fights to protect humanity from Monstrous threats.",
     chapter: [
         { number: 179, title: "Shadow Monarch Ascends" },
         { number: 178, title: "Triumph in Jeju" },
@@ -343,20 +343,20 @@ export const masterDummy = [
         { number: 176, title: "Guild War" },
         { number: 175, title: "Ragnarok Begins" },
         { number: 174, title: "Trials of the System" },
-        { number: 173, title: "Demonic Siege" },
+        { number: 173, title: "DeMonic Siege" },
         { number: 172, title: "Awakening of Power" },
         { number: 171, title: "Reborn as Monarch" },
     ],
     createdAt: "2018-03-04T00:00:00Z", updatedAt: "2025-06-24T00:00:00Z" },
 
     { id: 18, title: "SSS-Class Revival Hunter",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Tue'}], 
     authors: ["Ju-yeon"], artists: [],
     type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
     color: "#481c6e",
     image: "https://cdn.mangaupdates.com/image/i466617.jpg",
-    excerpt: "A hunter once considered weak awakens anew as an SSS-class revival hunter, rewriting destiny one monster at a time.",
+    excerpt: "A hunter once considered weak awakens anew as an SSS-class revival hunter, rewriting destiny one Monster at a time.",
     chapter: [
         { number: 143, title: "Rebirth Begins" },
         { number: 142, title: "Legacy of the Fallen" },
@@ -371,7 +371,7 @@ export const masterDummy = [
     createdAt: "2020-07-20T00:00:00Z", updatedAt: "2025-05-20T00:00:00Z" },
 
     { id: 19, title: "Overgeared",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Thu'}], 
     authors: ["Lee Dong‑Wook"], artists: ["Team Argo (REDICE)"],
     type: "NOVEL", genre: ["Fantasy", "Action"], region: "KR",
     likes: 920, rating: 4.7,
@@ -392,7 +392,7 @@ export const masterDummy = [
     createdAt: "2014-12-01T00:00:00Z", updatedAt: "2025-04-18T00:00:00Z" },
 
     { id: 20, title: "SSS-Class Revival Hunter",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}], 
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Thu'}], 
     authors: ["Ju-yeon"], artists: [],
     type: "KOMIK", genre: ["Fantasy", "Adventure"], region: "KR",
     likes: 1300, rating: 4.7,
@@ -415,7 +415,7 @@ export const masterDummy = [
         {
         id: 21,
         title: "Damn Reincarnation",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Tue'}],     
     authors: ["Mogma"],
         type: "NOVEL",
         genre: ["Fantasy", "Drama"],
@@ -443,7 +443,7 @@ export const masterDummy = [
     {
         id: 22,
         title: "I’m the Max-Level Newbie",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Wed'}],     
     authors: ["Maslow"],
         type: "NOVEL",
         genre: ["Fantasy", "Adventure"],
@@ -471,7 +471,7 @@ export const masterDummy = [
     {
         id: 23,
         title: "I Killed an Academy Player",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Fri'}],     
     authors: ["사람살려"],
         type: "NOVEL",
         genre: ["Fantasy", "Action"],
@@ -499,7 +499,7 @@ export const masterDummy = [
     {
         id: 24,
         title: "Revenge of the Iron‑Blooded Sword Hound",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sun'}],     
     authors: ["Regobal Basso"],
         type: "NOVEL",
         genre: ["Fantasy", "Action"],
@@ -527,7 +527,7 @@ export const masterDummy = [
     {
         id: 25,
         title: "Nano Machine",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sat'}],     
     authors: ["Im Baek‑Won"],
         artists: ["HA Jin"],
         type: "KOMIK",
@@ -539,7 +539,7 @@ export const masterDummy = [
         image: "https://cdn.mangaupdates.com/image/i491625.jpg",
         excerpt: "When a descendant from the future injects a nano-machine into a weak heir, his world—and every Murim he ever challenges—shatters under the weight of new power.",
         chapter: [
-            { number: 206, title: "Demon’s Blood Upgrade" },
+            { number: 206, title: "DeMon’s Blood Upgrade" },
             { number: 205, title: "Spear of Fade" },
             { number: 204, title: "Nano‑tech Surge" },
             { number: 203, title: "Blade of the Herald" },
@@ -556,7 +556,7 @@ export const masterDummy = [
     {
         id: 26,
         title: "Nano Machine",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Fri'}],     
     authors: ["한중월야 (Han Joong‑Wueol Ya)"],
         type: "NOVEL",
         genre: ["Fantasy","Sci‑Fi"],
@@ -584,7 +584,7 @@ export const masterDummy = [
     {
         id: 27,
         title: "The World After the Fall",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'monthly', on: 'Week 1'}],     
     authors: ["Sing‑Shong"],
         artists: ["Undead Gamja"],
         type: "KOMIK",
@@ -594,7 +594,7 @@ export const masterDummy = [
         rating: 4.4,
         color: "#3a3f58",
         image: "https://cdn.mangaupdates.com/image/i493869.jpg",
-        excerpt: "Traps the fate‑bound ‘Walkers’ in a tower summoned over fallen cities; this manhwa follows their tragic regression as they reboot history in an apocalyptic struggle.",
+        excerpt: "Traps the fate‑bound ‘Walkers’ in a tower sumMoned over fallen cities; this manhwa follows their tragic regression as they reboot history in an apocalyptic struggle.",
         chapter: [
             { number: 128, title: "Awakening Tower" },
             { number: 127, title: "Lost Floors" },
@@ -613,7 +613,7 @@ export const masterDummy = [
     {
         id: 28,
         title: "The World After the Fall",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'monthly', on: 'Week 2'}],     
     authors: ["Sing‑Shong"],
         type: "NOVEL",
         genre: ["Fantasy","Adventure"],
@@ -640,8 +640,8 @@ export const masterDummy = [
 
     {
         id: 29,
-        title: "The Return of the Crazy Demon",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        title: "The Return of the Crazy DeMon",
+    status: 1, release: 1, schedule: [{period: 'monthly', on: 'Week 3'}],     
     authors: ["Yi Zaha"],
         type: "NOVEL",
         genre: ["Fantasy","Action","Wuxia"],
@@ -650,17 +650,17 @@ export const masterDummy = [
         rating: 4.2,
         color: "#5b2e3f",
         image: "https://i.imgur.com/lpyg0lo.png",
-        excerpt: "After stealing a heavenly pearl and falling off a cliff, an infamous demon returns decades younger—and hungrier—driven by vengeance against a world that wronged him.",
+        excerpt: "After stealing a heavenly pearl and falling off a cliff, an infamous deMon returns decades younger—and hungrier—driven by vengeance against a world that wronged him.",
         chapter: [
             { number: 387, title: "Reflection of the Depraved" },
             { number: 386, title: "Scar of the Past" },
             { number: 385, title: "Bloodclaw’s Prelude" },
             { number: 384, title: "Fateful Betrayal" },
-            { number: 383, title: "Demon’s Genesis" },
+            { number: 383, title: "DeMon’s Genesis" },
             { number: 382, title: "Mortal’s Reckoning" },
             { number: 381, title: "The Waiter Reborn" },
             { number: 380, title: "Empty Chalice" },
-            { number: 379, title: "The Crazy Demon Returns" }
+            { number: 379, title: "The Crazy DeMon Returns" }
         ],
         createdAt: "2024-02-15T00:00:00Z",
         updatedAt: "2025-04-27T00:00:00Z"
@@ -669,7 +669,7 @@ export const masterDummy = [
     {
         id: 30,
         title: "The Return of the Disaster‑Class Hero",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'monthly', on: 'Week 4'}],     
     authors: ["SAN.G"],
         type: "NOVEL",
         genre: ["Fantasy","Comedy","Action"],
@@ -678,7 +678,7 @@ export const masterDummy = [
         rating: 3.3,
         color: "#122254",
         image: "https://cdn.mangaupdates.com/image/i427252.jpg",
-        excerpt: "Presumed dead for centuries as he slay monsters inside the Tower of Saints, a betrayed warrior awakens younger than ever to wage vengeance on all who abandoned him.",
+        excerpt: "Presumed dead for centuries as he slay Monsters inside the Tower of Saints, a betrayed warrior awakens younger than ever to wage vengeance on all who abandoned him.",
         chapter: [
             { number: 328, title: "God Warrior’s Wraith" },
             { number: 327, title: "Tower of Whispered Lies" },
@@ -697,7 +697,7 @@ export const masterDummy = [
     { 
         id: 31,
         title: "Pick Me Up!",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'monthly', on: 'Week 1'}],     
     authors: ["BASEKO"],
         artists: ["PENGUIN CUP"],
         type: "KOMIK",
@@ -707,11 +707,11 @@ export const masterDummy = [
         rating: 3.7, // from Mangaupdates search results :contentReference[oaicite:0]{index=0}
         color: "#d49f6b",
         image: "https://cdn.mangaupdates.com/image/i494116.jpg",
-        excerpt: "A quirky fantasy‑comedy about a mischievous creature living among humans, hiding its powers while navigating everyday absurdities.",
+        excerpt: "A quirky fantasy‑comedy about a mischievous creature living aMong humans, hiding its powers while navigating everyday absurdities.",
         chapter: [
             { number: 60, title: "Euphoric Encounter" },
             { number: 59, title: "Creature at Work" },
-            { number: 58, title: "Imposter Among Men" },
+            { number: 58, title: "Imposter AMong Men" },
             { number: 57, title: "Chaos and Calm" },
             { number: 56, title: "Double Identity" },
             { number: 55, title: "Unexpected Guests" },
@@ -726,7 +726,7 @@ export const masterDummy = [
     { 
         id: 32,
         title: "Pick Me Up!",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Tue'}],     
     authors: ["BASEKO"],
         type: "NOVEL",
         genre: ["Fantasy", "Comedy"],
@@ -751,39 +751,39 @@ export const masterDummy = [
         updatedAt: "2025-07-29T21:00:00Z"
     },
 
-    { 
-        id: 33,
-        title: "Overgeared",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-    authors: ["PARK Saenal (adaptation)", "Lee Dong‑Wook"], 
-        artists: ["Team Argo (REDICE)"],
-        type: "KOMIK",
-        genre: ["Fantasy", "Action"],
-        region: "KR",
-        likes: 1300000,
-        rating: 4.0, // approx. 8/10, cited from community thread :contentReference[oaicite:2]{index=2}
-        color: "#672f41",
-        image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
-        excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
-        chapter: [
-            { number: 101, title: "Forging Destiny" },
-            { number: 100, title: "Legend Begins" },
-            { number: 99, title: "Battlefield Craft" },
-            { number: 98, title: "Plague and Profit" },
-            { number: 97, title: "Numen Awakening" },
-            { number: 96, title: "Guild Gambit" },
-            { number: 95, title: "Dark Artifacts" },
-            { number: 94, title: "Assassin’s Strike" },
-            { number: 93, title: "Forged in Fire" }
-        ],
-        createdAt: "2020-11-01T00:00:00Z",
-        updatedAt: "2025-07-25T18:45:00Z"
-    },
+    // { 
+    //     id: 33,
+    //     title: "Overgeared",
+    //     status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}],     
+    //     authors: ["PARK Saenal (adaptation)", "Lee Dong‑Wook"], 
+    //     artists: ["Team Argo (REDICE)"],
+    //     type: "KOMIK",
+    //     genre: ["Fantasy", "Action"],
+    //     region: "KR",
+    //     likes: 1300000,
+    //     rating: 4.0, // approx. 8/10, cited from community thread :contentReference[oaicite:2]{index=2}
+    //     color: "#672f41",
+    //     image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
+    //     excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
+    //     chapter: [
+    //         { number: 101, title: "Forging Destiny" },
+    //         { number: 100, title: "Legend Begins" },
+    //         { number: 99, title: "Battlefield Craft" },
+    //         { number: 98, title: "Plague and Profit" },
+    //         { number: 97, title: "Numen Awakening" },
+    //         { number: 96, title: "Guild Gambit" },
+    //         { number: 95, title: "Dark Artifacts" },
+    //         { number: 94, title: "Assassin’s Strike" },
+    //         { number: 93, title: "Forged in Fire" }
+    //     ],
+    //     createdAt: "2020-11-01T00:00:00Z",
+    //     updatedAt: "2025-07-25T18:45:00Z"
+    // },
 
     { 
         id: 34,
         title: "Omniscient Reader’s Viewpoint",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Sun'}],     
     authors: ["Sing n Song"],
         artists: ["BLACKBOX"],
         type: "NOVEL",
@@ -812,7 +812,7 @@ export const masterDummy = [
     { 
         id: 35,
         title: "Eleceed",
-    status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+    status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}],     
     authors: ["Son Jeho", "Lee Gwang‑su"],
         type: "KOMIK",
         genre: ["Action", "Adventure"],
@@ -839,7 +839,7 @@ export const masterDummy = [
 
     { 
         id: 36,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Blue Lock",  
         authors: ["Muneyuki Kaneshiro"],
         artists: ["Yusuke Nomura"],
@@ -868,8 +868,8 @@ export const masterDummy = [
 
     {
         id: 36,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Paradise of Demonic Gods",
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
+        title: "Paradise of DeMonic Gods",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
         rating: 4.1,
@@ -891,7 +891,7 @@ export const masterDummy = [
     },
     {
         id: 37,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Spice and Wolf",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -914,7 +914,7 @@ export const masterDummy = [
     },
     {
         id: 38,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Ascendance of a Bookworm",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -937,7 +937,7 @@ export const masterDummy = [
     },
     {
         id: 39,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Clannad",
         excerpt: "lorem ipsum dolor...",
         likes: 3900,
@@ -949,7 +949,7 @@ export const masterDummy = [
     },
     {
         id: 40,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Tower of God",
         excerpt: "lorem ipsum dolor...",
         likes: 2800,
@@ -972,7 +972,7 @@ export const masterDummy = [
     },
     {
         id: 41,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "That Time I Got Reincarnated as a Slime",
         excerpt: "lorem ipsum dolor...",
         likes: 2700,
@@ -995,7 +995,7 @@ export const masterDummy = [
     },
     {
         id: 42,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The God of High School",
         excerpt: "lorem ipsum dolor...",
         likes: 2200,
@@ -1018,7 +1018,7 @@ export const masterDummy = [
     },
     {
         id: 43,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3, sched3le: [{period: 'weekly', on: 'Mon'}],     
         title: "Rewrite",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1030,7 +1030,7 @@ export const masterDummy = [
     },
     {
         id: 44,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Re:Zero − Starting Life in Another World",
         excerpt: "lorem ipsum dolor...",
         likes: 2900,
@@ -1053,7 +1053,7 @@ export const masterDummy = [
     },
     {
         id: 45,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Noblesse",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1076,7 +1076,7 @@ export const masterDummy = [
     },
     {
         id: 46,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The Rising of the Shield Hero",
         excerpt: "lorem ipsum dolor...",
         likes: 2400,
@@ -1099,7 +1099,7 @@ export const masterDummy = [
     },
     {
         id: 47,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Overlord",
         excerpt: "lorem ipsum dolor...",
         likes: 2600,
@@ -1122,7 +1122,7 @@ export const masterDummy = [
     },
     {
         id: 48,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Sweet Home",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1145,7 +1145,7 @@ export const masterDummy = [
     },
     {
         id: 49,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Planetarian",
         excerpt: "lorem ipsum dolor...",
         likes: 1800,
@@ -1157,7 +1157,7 @@ export const masterDummy = [
     },
     {
         id: 50,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Sword Art Online",
         excerpt: "lorem ipsum dolor...",
         likes: 3000,
@@ -1180,7 +1180,7 @@ export const masterDummy = [
     },
     {
         id: 51,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Hardcore Leveling Warrior",
         excerpt: "lorem ipsum dolor...",
         likes: 1900,
@@ -1203,7 +1203,7 @@ export const masterDummy = [
     },
     {
         id: 52,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Log Horizon",
         excerpt: "lorem ipsum dolor...",
         likes: 2100,
@@ -1226,7 +1226,7 @@ export const masterDummy = [
     },
     {
         id: 53,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "My Dress-Up Darling",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1249,7 +1249,7 @@ export const masterDummy = [
     },
     {
         id: 54,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Mushoku Tensei: Jobless Reincarnation",
         excerpt: "lorem ipsum dolor...",
         likes: 2500,
@@ -1272,7 +1272,7 @@ export const masterDummy = [
     },
     {
         id: 55,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Lookism",
         excerpt: "lorem ipsum dolor...",
         likes: 1800,
@@ -1295,7 +1295,7 @@ export const masterDummy = [
     },
     {
         id: 56,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "No Game No Life",
         excerpt: "lorem ipsum dolor...",
         likes: 2200,
@@ -1318,7 +1318,7 @@ export const masterDummy = [
     },
     {
         id: 57,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Bastard",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1341,7 +1341,7 @@ export const masterDummy = [
     },
     {
         id: 58,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The Beginning After The End",
         excerpt: "lorem ipsum dolor...",
         likes: 3400,
@@ -1364,7 +1364,7 @@ export const masterDummy = [
     },
     {
         id: 59,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The Boxer",
         excerpt: "lorem ipsum dolor...",
         likes: 1800,
@@ -1387,7 +1387,7 @@ export const masterDummy = [
     },
     {
         id: 60,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1410,8 +1410,8 @@ export const masterDummy = [
     },
     {
         id: 61,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Demon Slayer: Kimetsu no Yaiba",
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        title: "DeMon Slayer: Kimetsu no Yaiba",
         excerpt: "lorem ipsum dolor...",
         likes: 3100,
         rating: 4.9,
@@ -1433,7 +1433,7 @@ export const masterDummy = [
     },
     {
         id: 62,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Jujutsu Kaisen",
         excerpt: "lorem ipsum dolor...",
         likes: 3300,
@@ -1456,7 +1456,7 @@ export const masterDummy = [
     },
     {
         id: 63,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "My Dress-Up Darling",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1479,7 +1479,7 @@ export const masterDummy = [
     },
     {
         id: 64,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "True Beauty",
         excerpt: "lorem ipsum dolor...",
         likes: 2600,
@@ -1502,7 +1502,7 @@ export const masterDummy = [
     },
     {
         id: 65,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Villainess Level 99",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -1525,7 +1525,7 @@ export const masterDummy = [
     },
     {
         id: 66,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Higurashi When They Cry",
         excerpt: "Dark secrets hide in a rural village.",
         likes: 4100,
@@ -1537,7 +1537,7 @@ export const masterDummy = [
     },
     {
         id: 67,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1560,7 +1560,7 @@ export const masterDummy = [
     },
     {
         id: 68,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Billionaire Detective",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -1583,7 +1583,7 @@ export const masterDummy = [
     },
     {
         id: 69,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Wind Breaker",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1606,7 +1606,7 @@ export const masterDummy = [
     },
     {
         id: 70,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Overgeared",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1629,7 +1629,7 @@ export const masterDummy = [
     },
     {
         id: 71,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Ranker Who Lives A Second Time",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1652,7 +1652,7 @@ export const masterDummy = [
     },
     {
         id: 72,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Muv-Luv Alternative",
         excerpt: "lorem ipsum dolor...",
         likes: 3600,
@@ -1664,7 +1664,7 @@ export const masterDummy = [
     },
     {
         id: 73,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Umineko When They Cry",
         excerpt: "Mystery and magic clash in a twisted family inheritance dispute.",
         likes: 4200,
@@ -1676,7 +1676,7 @@ export const masterDummy = [
     },
     {
         id: 74,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2,     
         title: "The Live",
         excerpt: "lorem ipsum dolor...",
         likes: 1200,
@@ -1699,7 +1699,7 @@ export const masterDummy = [
     },
     {
         id: 75,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 2,     
         title: "Tomb Raider King",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -1722,8 +1722,8 @@ export const masterDummy = [
     },
     {
         id: 61,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Demon Slayer: Kimetsu no Yaiba",
+        status: 3, release: 3,     
+        title: "DeMon Slayer: Kimetsu no Yaiba",
         excerpt: "lorem ipsum dolor...",
         likes: 3100,
         rating: 4.9,
@@ -1745,7 +1745,7 @@ export const masterDummy = [
     },
     {
         id: 62,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Jujutsu Kaisen",
         excerpt: "lorem ipsum dolor...",
         likes: 3300,
@@ -1768,7 +1768,7 @@ export const masterDummy = [
     },
     {
         id: 63,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "My Dress-Up Darling",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1791,7 +1791,7 @@ export const masterDummy = [
     },
     {
         id: 64,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "True Beauty",
         excerpt: "lorem ipsum dolor...",
         likes: 2600,
@@ -1814,7 +1814,7 @@ export const masterDummy = [
     },
     {
         id: 65,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Villainess Level 99",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -1837,7 +1837,7 @@ export const masterDummy = [
     },
     {
         id: 66,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Higurashi When They Cry",
         excerpt: "Dark secrets hide in a rural village.",
         likes: 4100,
@@ -1849,7 +1849,7 @@ export const masterDummy = [
     },
     {
         id: 67,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1872,7 +1872,7 @@ export const masterDummy = [
     },
     {
         id: 68,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Billionaire Detective",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -1895,7 +1895,7 @@ export const masterDummy = [
     },
     {
         id: 69,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Wind Breaker",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1918,7 +1918,7 @@ export const masterDummy = [
     },
     {
         id: 70,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Overgeared",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1941,7 +1941,7 @@ export const masterDummy = [
     },
     {
         id: 71,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Ranker Who Lives A Second Time",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1964,7 +1964,7 @@ export const masterDummy = [
     },
     {
         id: 72,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Muv-Luv Alternative",
         excerpt: "lorem ipsum dolor...",
         likes: 3600,
@@ -1976,7 +1976,7 @@ export const masterDummy = [
     },
     {
         id: 73,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Umineko When They Cry",
         excerpt: "Mystery and magic clash in a twisted family inheritance dispute.",
         likes: 4200,
@@ -1988,7 +1988,7 @@ export const masterDummy = [
     },
     {
         id: 74,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "The Live",
         excerpt: "lorem ipsum dolor...",
         likes: 1200,
@@ -2011,7 +2011,7 @@ export const masterDummy = [
     },
     {
         id: 75,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Tomb Raider King",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -2034,19 +2034,19 @@ export const masterDummy = [
     },
     {
         id: 76,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3, schedul3: [{period: 'weekly', on: 'Mon'}],     
         title: "Kindred Spirits on the Roof",
         excerpt: "Yuri romance and supernatural spirits in a school.",
         likes: 1600,
         rating: 4.1,
         genre: ["Romance", "Supernatural"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "JP",
         image: "https://placehold.co/400"
     },
     {
         id: 77,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Ghost Teller",
         excerpt: "lorem ipsum dolor...",
         likes: 1100,
@@ -2069,7 +2069,7 @@ export const masterDummy = [
     },
     {
         id: 78,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Gosu",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -2092,7 +2092,7 @@ export const masterDummy = [
     },
     {
         id: 79,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "D.P. Dog Days",
         excerpt: "lorem ipsum dolor...",
         likes: 1300,
@@ -2115,7 +2115,7 @@ export const masterDummy = [
     },
     {
         id: 80,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "The Boxer",
         excerpt: "lorem ipsum dolor...",  
         likes: 1800,  
@@ -2138,31 +2138,31 @@ export const masterDummy = [
     },
     {
         id: 81,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3, schedul3: [{period: 'weekly', on: 'Mon'}],     
         title: "Saya no Uta",
-        excerpt: "A disturbing horror tale of love and monstrosity.",
+        excerpt: "A disturbing horror tale of love and Monstrosity.",
         likes: 2700,
         rating: 4.4,
         genre: ["Horror", "Psychological"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "JP",
         image: "https://placehold.co/400"
     },
     {
         id: 82,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Katawa Shoujo",
         excerpt: "A touching story about love and disabilities.",
         likes: 2500,
         rating: 4.6,
         genre: ["Drama", "Romance"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "INT",
         image: "https://placehold.co/400"
     },
     {
         id: 83,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Reincarnation of the Suicidal Battle God",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2185,7 +2185,7 @@ export const masterDummy = [
     },
     {
         id: 84,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -2208,7 +2208,7 @@ export const masterDummy = [
     },  
     {  
         id: 85,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Solo Max-Level Newbie",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1300,  
@@ -2231,8 +2231,8 @@ export const masterDummy = [
     },  
     {  
         id: 86,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Demon Slayer: Kimetsu no Yaiba",  
+        status: 3, release: 3,     
+        title: "DeMon Slayer: Kimetsu no Yaiba",  
         excerpt: "lorem ipsum dolor...",  
         likes: 3100,  
         rating: 4.9,  
@@ -2254,7 +2254,7 @@ export const masterDummy = [
     },  
     {  
         id: 87,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Jujutsu Kaisen",  
         excerpt: "lorem ipsum dolor...",  
         likes: 3300,  
@@ -2277,7 +2277,7 @@ export const masterDummy = [
     },  
     {  
         id: 88,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "My Dress-Up Darling",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2300,  
@@ -2300,7 +2300,7 @@ export const masterDummy = [
     },  
     {  
         id: 89,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "True Beauty",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2600,  
@@ -2323,7 +2323,7 @@ export const masterDummy = [
     },  
     {  
         id: 90,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Villainess Level 99",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1600,  
@@ -2346,19 +2346,19 @@ export const masterDummy = [
     },  
     {  
         id: 91,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "If My Heart Had Wings",  
         excerpt: "A story about dreams and gliders.",  
         likes: 2400,  
         rating: 4.3,  
         genre: ["Romance", "Slice of Life"],  
-        type: "VISUAL NOVEL",  
+        type: "NOVEL",  
         region: "JP",  
         image: "https://placehold.co/400"  
     },  
     {  
         id: 92,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Billionaire Detective",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1400,  
@@ -2381,7 +2381,7 @@ export const masterDummy = [
     },  
     {  
         id: 93,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Wind Breaker",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1700,  
@@ -2404,8 +2404,8 @@ export const masterDummy = [
     },  
     {  
         id: 94,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Paradise of Demonic Gods",  
+        status: 3, release: 3,     
+        title: "Paradise of DeMonic Gods",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1500,  
         rating: 4.1,  
@@ -2427,7 +2427,7 @@ export const masterDummy = [
     },  
     {  
         id: 95,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Overgeared",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1700,  
@@ -2450,7 +2450,7 @@ export const masterDummy = [
     },  
     {  
         id: 96,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Ranker Who Lives A Second Time",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2300,  
@@ -2473,7 +2473,7 @@ export const masterDummy = [
     },  
     {  
         id: 97,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "The Live",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1200,  
@@ -2496,7 +2496,7 @@ export const masterDummy = [
     },  
     {  
         id: 98,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Tomb Raider King",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1500,  
@@ -2519,7 +2519,7 @@ export const masterDummy = [
     },  
     {  
         id: 99,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Ghost Teller",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1100,  
@@ -2542,7 +2542,7 @@ export const masterDummy = [
     },  
     {  
         id: 100,  
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Gosu",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1400,  
@@ -2565,20 +2565,20 @@ export const masterDummy = [
     },
     {
         id: 101,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Doki Doki Literature Club!",
+        status: 3, release: 3,     
+        title: "Doki Doki Literature C3ub!",
         excerpt: "A cute club hides a dark reality.",
         likes: 4900,
         rating: 4.8,
         pages: 180,
         genre: ["Psychological", "Horror"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "INT",
         image: "https://placehold.co/400"
     },
     {
         id: 102,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "D.P. Dog Days",
         excerpt: "lorem ipsum dolor...",
         likes: 1300,
@@ -2602,33 +2602,33 @@ export const masterDummy = [
     },
     {
         id: 103,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "World End Syndrome",
+        status: 3, release: 3,     
+        title: "World End Syndr3me",
         excerpt: "Mystery in a seaside town with a colorful cast.",
         likes: 2200,
         rating: 4.2,
         pages: 260,
         genre: ["Mystery", "Romance"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "JP",
         image: "https://placehold.co/400"
     },
     {
         id: 104,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Tokyo School Life",
+        status: 3, release: 3,     
+        title: "Tokyo School L3fe",
         excerpt: "An exchange student experiences life and romance in Japan.",
         likes: 1500,
         rating: 4.0,
         pages: 180,
         genre: ["Romance", "Comedy"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "JP",
         image: "https://placehold.co/400"
     },
     {
         id: 105,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "God of Martial Arts",
         excerpt: "lorem ipsum dolor...",
         likes: 1850,
@@ -2652,7 +2652,7 @@ export const masterDummy = [
     },
     {
         id: 106,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Peerless Battle Spirit",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -2676,7 +2676,7 @@ export const masterDummy = [
     },
     {
         id: 107,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Reincarnation of the Strongest Sword God",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2700,7 +2700,7 @@ export const masterDummy = [
     },
     {
         id: 108,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Cultivation Chat Group",
         excerpt: "lorem ipsum dolor...",
         likes: 1550,
@@ -2724,7 +2724,7 @@ export const masterDummy = [
     },
     {
         id: 109,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Renegade Immortal",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -2748,7 +2748,7 @@ export const masterDummy = [
     },
     {
         id: 110,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Rebirth of the Thief Who Roamed The World",
         excerpt: "lorem ipsum dolor...",
         likes: 1450,
@@ -2772,7 +2772,7 @@ export const masterDummy = [
     },
     {
         id: 111,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Release the Ninjas",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -2796,33 +2796,33 @@ export const masterDummy = [
     },
     {
         id: 112,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Zero Escape: Virtue's Last Reward",
+        status: 3, release: 3,     
+        title: "Zero Escape: Virt3e's Last Reward",
         excerpt: "A death game with high stakes and time paradoxes.",
         likes: 4000,
         rating: 4.7,
         pages: 340,
         genre: ["Thriller", "Puzzle"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "JP",
         image: "https://placehold.co/400"
     },
     {
         id: 113,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
-        title: "Long Live the Queen",
+        status: 3, release: 3,     
+        title: "Long Live the Qu3en",
         excerpt: "Raise a princess, and survive court politics.",
         likes: 1900,
         rating: 4.2,
         pages: 210,
         genre: ["Strategy", "Drama"],
-        type: "VISUAL NOVEL",
+        type: "NOVEL",
         region: "INT",
         image: "https://placehold.co/400"
     },
     {
         id: 114,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "The Wandering Inn",
         excerpt: "lorem ipsum dolor...",
         likes: 1900,
@@ -2846,7 +2846,7 @@ export const masterDummy = [
     },
     {
         id: 115,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Magi: The Labyrinth of Magic",
         excerpt: "lorem ipsum dolor...",
         likes: 2400,
@@ -2870,7 +2870,7 @@ export const masterDummy = [
     },
     {
         id: 116,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "Princess Connect! Re:Dive",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2894,7 +2894,7 @@ export const masterDummy = [
     },
     {
         id: 117,
-        status: 3, release: 1, schedule: [{period: 'weekly', on: 'mon'}],     
+        status: 3, release: 3,     
         title: "My Isekai Life: I Gained a Second Character Class",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,

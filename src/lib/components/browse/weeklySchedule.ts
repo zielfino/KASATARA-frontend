@@ -1,8 +1,8 @@
-// src/lib/stores/dailySchedule.ts
+// src/lib/stores/weeklySchedule.ts
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-const STORAGE_KEY = 'dailySchedule';
+const STORAGE_KEY = 'weeklySchedule';
 
 export const validDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
 export type Day = typeof validDays[number];
@@ -11,10 +11,8 @@ export function isValidDay(value: string): value is Day {
 	return validDays.includes(value as Day);
 }
 
-// 🔁 Fungsi untuk ambil hari saat ini
-function getToday(): Day {
-	const dayIndex = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-	// Sesuaikan ke format validDays
+export function getToday(): Day {
+	const dayIndex = new Date().getDay();
 	const dayMap: Record<number, Day> = {
 		0: 'Sun',
 		1: 'Mon',
@@ -27,24 +25,23 @@ function getToday(): Day {
 	return dayMap[dayIndex];
 }
 
-// Setter aman
-export function setSafeDailySchedule(value: string) {
+export function setDayforWeekly(value: string) {
 	if (isValidDay(value)) {
-		dailySchedule.set(value);
+		weeklySchedule.set(value);
 	}
 }
 
 const initial: Day = browser
 	? (() => {
 			const stored = window.sessionStorage.getItem(STORAGE_KEY);
-			return isValidDay(stored ?? '') ? stored as Day : getToday(); // 👈 default = hari ini
+			return isValidDay(stored ?? '') ? stored as Day : 'Sun'; // 👈 default = hari ini
 		})()
-	: getToday();
+	: 'Mon';
 
-export const dailySchedule = writable<Day>(initial);
+export const weeklySchedule = writable<Day>(initial);
 
 if (browser) {
-	dailySchedule.subscribe((value) => {
+	weeklySchedule.subscribe((value) => {
 		if (isValidDay(value)) {
 			window.sessionStorage.setItem(STORAGE_KEY, value);
 		}

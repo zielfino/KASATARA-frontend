@@ -16,9 +16,10 @@ function onloadOrHydrate() {
 
 	// Ambil dari sessionStorage
 	const saved = Number(sessionStorage.getItem(key));
-	if (!isNaN(saved) && saved >= 1) {
-		page.set(saved);
-	}
+	// if (!isNaN(saved) && saved >= 1) {
+	// 	page.set(saved);
+	// }
+	page.set(1);
 
 	// Sinkronisasi ke sessionStorage saat page berubah
 	page.subscribe((value) => {

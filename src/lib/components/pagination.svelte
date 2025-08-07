@@ -138,45 +138,47 @@
     }
 </script>
 
-<div class={`w-full bg-mainlight border border-zinc-900/15 rounded-[1.2vw] xs:rounded-md h-[14vw] text-[3.2vw] xs:h-[64px] flex justify-center items-center xs:text-[16px] space-x-[1.6vw] xs:space-x-2 py-[3.2vw] xs:py-4`}>
-    <button
-        on:click={prev}
-        class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
-        disabled={currentPage === 1}
-    >
-        <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
-    </button>
-
-    {#each pageButtons as page}
-        {#if page === '...'}
-        <input
-        type="number"
-        bind:value={jump}
-        placeholder="..."
-        class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50 w-[7.2vw] xs:w-8 text-center appearance-none"
-        on:input={handleInput}
-        on:keydown={handleJump}
-        />
-        {:else}
+{#if totalPages > 1}
+    <div class={`w-full xs:mb-2 mb-[1.6vw] bg-mainlight border border-zinc-900/15 rounded-[1.2vw] xs:rounded-md h-[14vw] text-[3.2vw] xs:h-[64px] flex justify-center items-center xs:text-[16px] space-x-[1.6vw] xs:space-x-2 py-[3.2vw] xs:py-4`}>
         <button
-            class={`bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50`}
-            disabled={page === currentPage}
-            on:click={() => goToPage(page)}
+            on:click={prev}
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
+            disabled={currentPage === 1}
         >
-            {page}
+            <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
         </button>
-        {/if}
-    {/each}
+
+        {#each pageButtons as page}
+            {#if page === '...'}
+            <input
+            type="number"
+            bind:value={jump}
+            placeholder="..."
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50 w-[7.2vw] xs:w-8 text-center appearance-none"
+            on:input={handleInput}
+            on:keydown={handleJump}
+            />
+            {:else}
+            <button
+                class={`bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50`}
+                disabled={page === currentPage}
+                on:click={() => goToPage(page)}
+            >
+                {page}
+            </button>
+            {/if}
+        {/each}
 
 
-    <button
-        on:click={next}
-        class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
-        disabled={currentPage === totalPages}
-    >
-        <Icon icon="material-symbols:arrow-forward-ios-rounded" />
-    </button>
-</div>
+        <button
+            on:click={next}
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
+            disabled={currentPage === totalPages}
+        >
+            <Icon icon="material-symbols:arrow-forward-ios-rounded" />
+        </button>
+    </div>
+{/if}
 
 <style>
   /* Chrome, Safari, Edge, Opera */

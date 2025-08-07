@@ -19,9 +19,6 @@
 		{ disabled: false,label: 'Komik' },
 		{ disabled: false,label: 'Novel' },
 		{ disabled: false,label: 'Visual Novel' },
-		{ disabled: false,label: 'Official' },
-		{ disabled: false,label: 'Indie' },
-		{ disabled: false,label: 'Mirror' },
 	];	
 	const genrelist: Tag[] = [
 		{ disabled: false, label: 'Action' },
@@ -155,31 +152,31 @@
 	// CLICK CONTROL
 	// import { tick } from 'svelte';
 	// const isBrowser = typeof window !== 'undefined';
-	// let searchFilter: string = filter[0].label;
+	// let typeFilter: string = filter[0].label;
 	
 	// onMount(() => {
 	// 	if (!isBrowser) return;
-	// 	sessionStorage.setItem('searchFilter', searchFilter);
-	// 	const storedType = sessionStorage.getItem('searchFilter');
+	// 	sessionStorage.setItem('typeFilter', typeFilter);
+	// 	const storedType = sessionStorage.getItem('typeFilter');
 
 	// 	if (storedType && filter.map(item => item.label).includes(storedType)) {
-	// 		searchFilter = storedType;
+	// 		typeFilter = storedType;
 	// 	} else {
-	// 		sessionStorage.setItem('searchFilter', searchFilter);
+	// 		sessionStorage.setItem('typeFilter', typeFilter);
 	// 	}
 	// });
 
 	// async function searchgeHeroFilter(to: string) {
-	// 	searchFilter = to;
-	// 	sessionStorage.setItem('searchFilter', to);
+	// 	typeFilter = to;
+	// 	sessionStorage.setItem('typeFilter', to);
 	// 	await tick();
 	// }
 
 	import { tick } from 'svelte';
-	import { searchFilter } from '$lib/stores/searchFilter';
+	import { setSafetypeFilter, typeFilter } from '$lib/components/browse/typeFilter';
 
 	let current: string;
-	const unsubscribe = searchFilter.subscribe(v => current = v);
+	const unsubscribe = typeFilter.subscribe(v => current = v);
 
 	import { searchText } from '$lib/stores/searchText';
 	$: keyword = $searchText;
@@ -190,13 +187,13 @@
 	onMount(() => {
 		// pastikan nilai awal sudah tercache
 		if (!filter.find(tag => tag.label === current)) {
-		searchFilter.set(filter[0].label);
+		setSafetypeFilter(filter[0].label);
 		}
 		return unsubscribe;
 	});
 
 	async function searchgeHeroFilter(to: string) {
-		searchFilter.set(to);
+		setSafetypeFilter(to);
 		await tick();
 	}
 
@@ -212,8 +209,8 @@
 
 
 
-<div class="text-sm font-work-sans font-[400] tracking-tight space-x-2 flex items-center outline-none my-2 xs:my-[8px]">
-	<div class="font-[600] flex justify-between space-x-2"><span>Type</span><span>:</span></div>  
+<div class="text-sm font-work-sans font-[400] tracking-tight xs:space-x-2 space-x-[1.6vw] flex items-center outline-none my-2 xs:my-[8px]">
+	<div class="font-[600] flex justify-between xs:space-x-2 space-x-[1.6vw] text-nowrap max-xs:text-[2.8vw]"><span>Type</span><span>:</span></div>  
 
 	<!-- LOOP FILTER -->
 	{#each filter  as tag, i}
