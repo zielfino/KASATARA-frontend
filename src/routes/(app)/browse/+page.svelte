@@ -59,17 +59,27 @@
     $: isAsc = $sortAsc;
 
     // 3. Reactive filtering & paging
+    function normalize(str: string) {
+        return str
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '');  // buang semua kecuali a–z & 0–9
+    }
+
     $: {
         if ($searchText.trim()) {
-            const q = $searchText.toLowerCase();
+            const q = normalize($searchText);
+
             const bySearch = masterDummy.filter(card => {
-                const title   = card.title.toLowerCase();
-                const authors = card.authors?.join(' ').toLowerCase()   ?? '';
-                const artists = card.artists?.join(' ').toLowerCase()   ?? '';
-                return title.includes(q) || authors.includes(q) || artists.includes(q);
+            const title   = normalize(card.title);
+            const authors = normalize(card.authors?.join(' ')   ?? '');
+            const artists = normalize(card.artists?.join(' ')   ?? '');
+
+            return title.includes(q)
+                || authors.includes(q)
+                || artists.includes(q);
             });
             noCutCards = bySearch.map((card,i) => ({ ...card, idfe: `update-${i}` }));
-            console.log('active :' + $searchText.trim())
+            // console.log('active :' + $searchText.trim())
         } else if (masterDummy && $contentFilter !== 'Schedule') {
             // filter by content
             const byRelease = masterDummy.filter(card => {
