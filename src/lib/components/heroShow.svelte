@@ -96,6 +96,7 @@
     
     function updateShows() {
         if ($heroFilter === "Rekomendasi") {
+            const THREE_DAYS = 3 * 24 * 60 * 60 * 1000;
             const limit = typeof window !== 'undefined' ? window.innerWidth > 1100 ? 10 : window.innerWidth < 900 ? window.innerWidth < 500 ? 2 : 6 : 14 : 14;
             updateCards = masterDummy
             .filter(card => !excludedIds.includes(card.id))
@@ -105,11 +106,22 @@
                 const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
                 return dateB - dateA;
             })
-            .slice(0, limit).map((card, i) => ({
+            .slice(0, limit)
+            .map((card, i) => {
+            const updatedTime = card.updatedAt ? new Date(card.updatedAt).getTime() : 0;
+            const isRecent = Date.now() - updatedTime < THREE_DAYS;
+            return {
                 ...card,
                 idfe: `update-${i}`,
-                size: '1x1'
-            }));
+                size: '1x1',
+                label: (i < 3 || isRecent) ? 'up' : ''
+            }});
+            // .map((card, i) => ({
+            //     ...card,
+            //     idfe: `update-${i}`,
+            //     size: '1x1',
+            //     label: 'up'
+            // }));
         } else {
             // opsional: apa yang dilakukan jika bukan Rekomendasi
             const limit = typeof window !== 'undefined' ? window.innerWidth < 1100 ? window.innerWidth < 900 ? window.innerWidth < 500 ? 6 : 9 : 12 : 15 : 15;

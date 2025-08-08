@@ -197,7 +197,7 @@
     <!-- <News title="TIPS" type="info" color="light" /> -->
     <div class="pt-4 max-xs:pt-[6vw] max-xs:mb-[0vw] max-xs:pb-[0.8vw] flex justify-center items-center max-xs:bg-gradient-to-b max-xs:from-zinc-200 max-xs:to-zinc-200/0">
         <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[3.2vw] px-1.5">
-            <div class="text-xl whitespace-nowrap max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between xs:pl-2">
+            <div class="text-xl whitespace-nowrap max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between xs:pl-2 md:pl-0 md:pb-2">
                 <!-- Recently updated -->
                 Official Content
                 <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->

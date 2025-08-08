@@ -481,7 +481,7 @@
                                 '#d4d4d4'
                         };
                         `}>
-                        <Icon icon="fa6-solid:copy" class="mr-1" /> { item.chapter ? item.chapter[0] : item.pages}
+                        <Icon icon="fa6-solid:copy" class="mr-1" /> { item.chapter?.[0]?.number ?? 0}
                     </span>
                     
                     <span class={`rounded-md max-xs:rounded-[1.2vw] max-xs:border-[0.3vw] border-2 font-[600] flex w-min h-min justify-center items-center whitespace-nowrap
@@ -649,7 +649,7 @@
                 <div class="w-full">
                     {#if item.comments === 'short'}
                         {#if item.chapter}                        
-                            {#each item.chapter.slice(0, 1) as chapter, n}
+                            {#each item.chapter.slice(0 + (i*1), 1 + (i*1) ) as chap, n}
                                 <div
                                 role="button" 
                                 aria-label="chapter"
@@ -719,7 +719,7 @@
                                     item.genre[0] === 'Romance' ? '#fce7f3' :
                                     '#f5f5f5';
                                 }}>
-                                    <div>Chapter {chapter -1*i}</div>
+                                    <div>Chapter {chap.number}</div>
                                     <div>{formatTimeAgo(24 * 6 * (1 * i + n) + 1)}</div>
                                 </div>
                             {/each}
@@ -799,7 +799,7 @@
                         {/if}
                     {:else}
                         {#if item.chapter}                        
-                            {#each item.chapter.slice(0, 3) as chapter, n}
+                            {#each item.chapter.slice(0 + (i*3), 3 + (i*3) ) as chap, n}
                                 <div
                                 role="button" 
                                 aria-label="chapter"
@@ -869,7 +869,7 @@
                                     item.genre[0] === 'Romance' ? '#fce7f3' :
                                     '#f5f5f5';
                                 }}>
-                                    <div>Chapter {chapter -3*i}</div>
+                                    <div>Chapter {chap.number}</div>
                                     <div>{formatTimeAgo(24 * 6 * (3 * i + n) + 1)}</div>
                                 </div>
                             {/each}

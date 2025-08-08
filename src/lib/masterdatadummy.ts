@@ -148,7 +148,7 @@ export const masterDummy = [
         { number: 150, title: "Breakthrough" },
         { number: 149, title: "True Gamer's Path" },
     ],
-    createdAt: "2021-07-29T00:00:00Z", updatedAt: "2025-07-29T00:00:00Z" },
+    createdAt: "2021-07-29T00:00:00Z", updatedAt: "2025-08-07T00:00:00Z" },
 
     { id: 7, title: "The Return of the Crazy DeMon",
     status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}], 
@@ -347,7 +347,7 @@ export const masterDummy = [
         { number: 172, title: "Awakening of Power" },
         { number: 171, title: "Reborn as Monarch" },
     ],
-    createdAt: "2018-03-04T00:00:00Z", updatedAt: "2025-06-24T00:00:00Z" },
+    createdAt: "2018-03-04T00:00:00Z", updatedAt: "2025-08-06T00:00:00Z" },
 
     { id: 18, title: "SSS-Class Revival Hunter",
     status: 1, release: 1, schedule: [{period: 'weekly', on: 'Tue'}], 
@@ -720,7 +720,7 @@ export const masterDummy = [
             { number: 52, title: "What's in a Name?" }
         ],
         createdAt: "2023-01-15T10:00:00Z",
-        updatedAt: "2025-07-30T02:00:00Z"
+        updatedAt: "2025-08-08T02:00:00Z"
     },
 
     { 
@@ -748,7 +748,7 @@ export const masterDummy = [
             { number: 252, title: "A Friend in Need" }
         ],
         createdAt: "2022-01-10T08:00:00Z",
-        updatedAt: "2025-07-29T21:00:00Z"
+        updatedAt: "2025-08-07T21:00:00Z"
     },
     { 
         id: 33,
@@ -834,7 +834,7 @@ export const masterDummy = [
             { number: 192, title: "Edge of Society" }
         ],
         createdAt: "2018-07-20T00:00:00Z",
-        updatedAt: "2025-07-31T03:15:00Z"
+        updatedAt: "2025-08-08T03:15:00Z"
     },
 
     { 
