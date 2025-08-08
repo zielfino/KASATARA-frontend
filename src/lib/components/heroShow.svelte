@@ -1,13 +1,14 @@
 <script lang="ts">
     import Card from "./util/card.svelte";
     // import { cards } from '$lib/datadummy';
-    import { top } from '$lib/topdummy';
-    import { choice } from '$lib/choicedummy';
-    import { newarr } from '$lib/newdummy';
-    import { update } from '$lib/updatedummy';
+    // import { top } from '$lib/topdummy';
+    // import { choice } from '$lib/choicedummy';
+    // import { newarr } from '$lib/newdummy';
+    // import { update } from '$lib/updatedummy';
     import { onMount } from "svelte";
     import { writable } from "svelte/store";
     import { heroFilter } from '$lib/stores/heroFilter';
+    import { masterDummy } from "$lib/masterdatadummy";
 
     type CardItem = {
 		idfe: string;
@@ -30,9 +31,20 @@
     let choiceCard: CardItem;
     let newCard: CardItem;
     let updateCards: CardItem[] = [];
-    
+    let excludedIds = [] as number[];
+
     function topShows() {
-        const size = window.innerWidth <= 900 ? window.innerWidth <= 500 ? '2x1' : '1x1' : '2x2';
+        const size = window.innerWidth <= 900
+            ? window.innerWidth <= 500
+                ? '2x1'
+                : '1x1'
+            : '2x2';
+
+        const top = masterDummy
+            .slice() // pastikan tidak mengubah original masterDummy
+            .sort((b, a) => (a.likes ?? 0) - (b.likes ?? 0))[0]; // ambil satu teratas
+
+        if (!top) return; // jika tidak ada data
 
         topCard = {
             ...top,
@@ -40,10 +52,15 @@
             size,
             label: 'top'
         };
+        excludedIds[0] = top.id;
     }
 
     function choiceShows() {
         const size = window.innerWidth <= 900 ? '1x1' : '2x1';
+
+        const choice = masterDummy.find(i => i.id === 70) || masterDummy.find(i => i.id === 1);
+
+        if (!choice) return; 
 
         choiceCard = {
             ...choice,
@@ -52,23 +69,43 @@
             size,
             label: 'choice'
         };
+        excludedIds[1] = choice.id;
     }
 
     function newShows() {
         const size = window.innerWidth <= 900 ? '1x1' : '2x1';
+
+        const newBacaan = masterDummy
+        .slice()
+        .sort((a, b) => {
+            const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+            const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+            return dateB - dateA;
+        })[0]
+
+        if (!newBacaan) return; 
         newCard = {
-            ...newarr,
+            ...newBacaan,
             idfe: 'new',
             // size: '2x1',
             size,
             label: 'new'
         };
+        excludedIds[2] = newBacaan.id;
     }
     
     function updateShows() {
         if ($heroFilter === "Rekomendasi") {
             const limit = typeof window !== 'undefined' ? window.innerWidth > 1100 ? 10 : window.innerWidth < 900 ? window.innerWidth < 500 ? 2 : 6 : 14 : 14;
-            updateCards = update.slice(0, limit).map((card, i) => ({
+            updateCards = masterDummy
+            .filter(card => !excludedIds.includes(card.id))
+            .filter(card => card.release === 1)
+            .sort((a, b) => {
+                const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+                const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+                return dateB - dateA;
+            })
+            .slice(0, limit).map((card, i) => ({
                 ...card,
                 idfe: `update-${i}`,
                 size: '1x1'
@@ -77,20 +114,22 @@
             // opsional: apa yang dilakukan jika bukan Rekomendasi
             const limit = typeof window !== 'undefined' ? window.innerWidth < 1100 ? window.innerWidth < 900 ? window.innerWidth < 500 ? 6 : 9 : 12 : 15 : 15;
             
-            updateCards = update
+            updateCards = masterDummy
                 .filter(card => {
                     if ($heroFilter === "Banyak Chapter") {
-                        return (card.chapter?.[0] ?? 0) > 100;
+                        return card.release === 1;
                     } else if ($heroFilter === "Novel") {
-                        return card.type === "NOVEL";
+                        return card.type === "NOVEL" && card.release !== 3;
                     } else if ($heroFilter === "Komik") {
-                        return card.type === "KOMIK";
+                        return card.type === "KOMIK" && card.release !== 3;
+                    } else if ($heroFilter === "Indie") {
+                        return card.release === 3;
                     }
                     return true;
                 })
-                .sort((a, b) => {
+                .sort((b, a) => {
                     if ($heroFilter === "Banyak Chapter") {
-                        return ((b.chapter?.[0] ?? 0) - (a.chapter?.[0] ?? 0));
+                        return ((a.chapter?.[0]?.number ?? 0) - (b.chapter?.[0]?.number ?? 0));
                     }
                     return 0; 
                 })

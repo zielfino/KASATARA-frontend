@@ -4,6 +4,7 @@
     import Icon from '@iconify/svelte';
     import Card from './util/card.svelte';
     import { update } from '$lib/updatedummy';
+    import { masterDummy } from '$lib/masterdatadummy';
 
     // Props
     export let totalGroup: number = 4;
@@ -30,7 +31,15 @@
     let startX = 0;
     let scrollStart = 0;
     let scrollTimeout: ReturnType<typeof setTimeout>;
-    $: filterCards = update.filter(c => c.type === jenis);
+
+        
+    // $: officialCard = masterDummy.filter(card => card.release === 1)
+    $: kotak = masterDummy.sort((a, b) => {
+        const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+        const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+        return dateB - dateA;
+    });
+    $: filterCards = kotak.filter(c => c.type === jenis);
 
     // Initialize responsive stores
     onMount(() => {

@@ -34,6 +34,7 @@
         Fantasy: 'text-purple-500',
         Romance: 'text-pink-500',
         Comedy: 'text-amber-500',
+        Action: 'text-blue-500',
         'slice of life': 'text-sky-500',
         Drama: 'text-emerald-500',
         Horror: 'text-red-500'
@@ -51,7 +52,8 @@
     $: per = $contentPer;
 
     // Step 1: Filter berdasarkan type
-    $: filteredByType = update.filter(card => {
+    $: officialCard = masterDummy.filter(card => card.release === 1)
+    $: filteredByType = officialCard.filter(card => {
         switch (type) {
             case "komik": return card.type === "KOMIK";
             case "novel": return card.type === "NOVEL";
@@ -72,7 +74,7 @@
     $: sorted = [...filteredByPer].sort((b, a) => {
         switch (by) {
             case "trending": return (a.likes ?? 0) - (b.likes ?? 0);
-            case "sering": return (a.chapter?.[0] ?? a.pages ?? 0) - (b.chapter?.[0] ?? b.pages ?? 0);
+            case "sering": return (a.chapter?.[0]?.number ?? 0) - (b.chapter?.[0]?.number ?? 0);
             case "favorit": return (a.rating ?? 0) - (b.rating ?? 0);
             default: return 0;
         }
@@ -103,6 +105,7 @@
 
     let perPage = 12;
     import { page } from '$lib/stores/page';
+    import { masterDummy } from "$lib/masterdatadummy";
     $: currentPage = $page;
 
     onMount(() => {
@@ -123,9 +126,14 @@
 	$: botEnd = $phone ? 11 : $desktoplarge ? 12 : $desktop ? 14 : 19;
 
     $: offset = (currentPage - 1) * perPage;
-    
-    $: topItems = update.slice(topStart + offset, topEnd + offset);
-    $: botItems = update.slice(botStart + offset, botEnd + offset);
+
+    $: officialCard.sort((a, b) => {
+        const dateA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+        const dateB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+        return dateB - dateA;
+    });
+    $: topItems = officialCard.slice(topStart + offset, topEnd + offset);
+    $: botItems = officialCard.slice(botStart + offset, botEnd + offset);
 
     function getSize(i: number): string {
         if (i === 0 && ($desktoplarge || $phone)) return '2x1';
@@ -191,7 +199,7 @@
         <div class="w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[3.2vw] px-1.5">
             <div class="text-xl whitespace-nowrap max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between xs:pl-2">
                 <!-- Recently updated -->
-                Konten Terbaru
+                Official Content
                 <!-- <a href="/" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></a> -->
             </div>
         </div>
@@ -215,7 +223,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 max-xs:gap-[1.6vw]">
                 <!-- Left -->
                 <div class="w-full lg:col-span-3 max-xs:space-y-[1.6vw] space-y-2">
-                    <Pagination totalPages={Math.ceil(update.length / perPage)}/>
+                    <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
                     <div id="" class="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-2 h-fit gap-2 max-xs:gap-[1.6vw] lg:grid-cols-3 relative">
 
                         {#each botItems as item}
@@ -224,7 +232,7 @@
                         
                     </div>
                     {#if $phone}
-                        <Pagination totalPages={Math.ceil(update.length / perPage)}/>
+                        <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
                     {/if}
                 </div>
 
@@ -274,14 +282,14 @@
                                     </div>
                                     <!-- <div class="text-[2.4vw] xs:text-[12px] md:text-[10px] text-nowrap line-clamp-1">{first.author}</div> -->
                                     <div class="text-[2.4vw] xs:text-[12px] md:text-[12px] text-nowrap line-clamp-1">
-                                        <a tabindex="-1" href="/" class="hover:underline">{first.author ? first.author : 'author'}</a>, <a tabindex="-1" href="/" class="hover:underline">{first.ilustrator ? first.ilustrator : 'Illustrator'}</a>
+                                        <a tabindex="-1" href="/" class="hover:underline">{first.authors?.[0] ? first.authors?.[0] : 'author'}</a>, <a tabindex="-1" href="/" class="hover:underline">{first.artists?.[0] ? first.artists?.[0] : 'Illustrator'}</a>
                                     </div>
                                 </div>
                                 <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center col-span-2">
                                     {#if by === 'trending'}    
                                         {numFormat(first.likes)} <Icon icon="mingcute:heart-line" class="text-[4vw] ml-2 xs:text-[20px]" />
                                     {:else if by === 'sering'}    
-                                        {first.chapter?.[0] ?? first.pages} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                        {first.chapter?.[0].number ?? first.pages} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
                                     {:else if by === 'favorit'}    
                                         {first.rating} <Icon icon="mingcute:star-line" class="text-[4vw] ml-2 xs:text-[20px]" />
                                     {/if}
@@ -307,13 +315,13 @@
                                     <div class="flex-1 flex flex-col items-start leading-[1.4] text-[2.8vw] xs:text-[14px] md:text-[12px] xl:text-[12px] text-left capitalize">
                                         <div class={genreColor(item.genre[0])}>{item.genre[0]}</div>
                                         <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] xl:text-[14px] font-bold line-clamp-1">{item.title}</div>
-                                        <div class="text-[2.8vw] xs:text-[12px] md:text-[12px] xl:text-[12px] text-stone-500 line-clamp-1">{item.title}</div>
+                                        <div class="text-[2.8vw] xs:text-[12px] md:text-[12px] xl:text-[12px] text-stone-500 line-clamp-1">{item.authors?.[0] ? item.authors?.[0] : 'author'}</div>
                                     </div>
                                     <div class="text-[3.2vw] xs:text-[16px] md:text-[14px] flex justify-center items-center">
                                         {#if by === 'trending'}    
                                             {numFormat(item.likes)} <Icon icon="mingcute:heart-line" class="text-[4vw] ml-2 xs:text-[20px]" />
                                         {:else if by === 'sering'}    
-                                            {item.chapter?.[0] ?? item.pages} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
+                                            {item.chapter?.[0].number ?? item.pages} <Icon icon="material-symbols:file-copy-outline-rounded" class="text-[4vw] ml-2 xs:text-[20px]" />
                                         {:else if by === 'favorit'}    
                                             {item.rating} <Icon icon="mingcute:star-line" class="text-[4vw] ml-2 xs:text-[20px]" />
                                         {/if}
@@ -330,7 +338,7 @@
             </div>
             {#if !$phone}
                 <div class="max-xs:mt-[1.6vw] mt-2 w-full">
-                    <Pagination totalPages={Math.ceil(update.length / perPage)}/>
+                    <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
                 </div>
             {/if}
         </div>

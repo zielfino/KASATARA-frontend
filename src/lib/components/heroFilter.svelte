@@ -18,6 +18,7 @@
 		{ disabled: false,label: 'Banyak Chapter', icon: 'material-symbols:folder-copy-rounded' },
 		{ disabled: false,label: 'Komik', icon: 'mingcute:calendar-month-fill' },
 		{ disabled: false,label: 'Novel', icon: 'mingcute:calendar-month-fill' },
+		{ disabled: false,label: 'Indie', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
 		{ disabled: true,label: 'Ringan', icon: 'fa6-solid:feather-pointed', color: 'text-rose-200' },
 		{ disabled: true,label: 'Bacaan Pendek', icon: 'material-symbols:short-text-rounded' },
 		{ disabled: true,label: 'Upload Mingguan', icon: 'mingcute:calendar-month-fill' },

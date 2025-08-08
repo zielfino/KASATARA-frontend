@@ -195,7 +195,7 @@ export const masterDummy = [
     { id: 10, title: "The Novel Extra",
     status: 1, release: 1, schedule: [{period: 'weekly', on: 'Fri'}], 
     authors: ["Yi Seong‑do"],
-    type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
+    type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
     color: "#5e369c",
     image: "https://cdn.mangaupdates.com/image/i491674.jpg",
@@ -606,7 +606,7 @@ export const masterDummy = [
             { number: 121, title: "Relic of Regret" },
             { number: 120, title: "Time’s Testament" }
         ],
-        createdAt: "2020-02-15T00:00:00Z",
+        createdAt: "2021-02-15T00:00:00Z",
         updatedAt: "2025-06-30T00:00:00Z"
     },
 
@@ -662,7 +662,7 @@ export const masterDummy = [
             { number: 380, title: "Empty Chalice" },
             { number: 379, title: "The Crazy DeMon Returns" }
         ],
-        createdAt: "2024-02-15T00:00:00Z",
+        createdAt: "2021-02-15T00:00:00Z",
         updatedAt: "2025-04-27T00:00:00Z"
     },
 
@@ -705,7 +705,7 @@ export const masterDummy = [
         region: "KR",
         likes: 890,
         rating: 3.7, // from Mangaupdates search results :contentReference[oaicite:0]{index=0}
-        color: "#d49f6b",
+        color: "#231e42",
         image: "https://cdn.mangaupdates.com/image/i494116.jpg",
         excerpt: "A quirky fantasy‑comedy about a mischievous creature living aMong humans, hiding its powers while navigating everyday absurdities.",
         chapter: [
@@ -719,7 +719,7 @@ export const masterDummy = [
             { number: 53, title: "Monster School" },
             { number: 52, title: "What's in a Name?" }
         ],
-        createdAt: "2023-06-15T10:00:00Z",
+        createdAt: "2023-01-15T10:00:00Z",
         updatedAt: "2025-07-30T02:00:00Z"
     },
 
@@ -750,35 +750,35 @@ export const masterDummy = [
         createdAt: "2022-01-10T08:00:00Z",
         updatedAt: "2025-07-29T21:00:00Z"
     },
-
-    // { 
-    //     id: 33,
-    //     title: "Overgeared",
-    //     status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}],     
-    //     authors: ["PARK Saenal (adaptation)", "Lee Dong‑Wook"], 
-    //     artists: ["Team Argo (REDICE)"],
-    //     type: "KOMIK",
-    //     genre: ["Fantasy", "Action"],
-    //     region: "KR",
-    //     likes: 1300000,
-    //     rating: 4.0, // approx. 8/10, cited from community thread :contentReference[oaicite:2]{index=2}
-    //     color: "#672f41",
-    //     image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
-    //     excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
-    //     chapter: [
-    //         { number: 101, title: "Forging Destiny" },
-    //         { number: 100, title: "Legend Begins" },
-    //         { number: 99, title: "Battlefield Craft" },
-    //         { number: 98, title: "Plague and Profit" },
-    //         { number: 97, title: "Numen Awakening" },
-    //         { number: 96, title: "Guild Gambit" },
-    //         { number: 95, title: "Dark Artifacts" },
-    //         { number: 94, title: "Assassin’s Strike" },
-    //         { number: 93, title: "Forged in Fire" }
-    //     ],
-    //     createdAt: "2020-11-01T00:00:00Z",
-    //     updatedAt: "2025-07-25T18:45:00Z"
-    // },
+    { 
+        id: 33,
+        title: "Omnicient Reader Viewpoint",
+        status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}],     
+        authors: ["PARK Saenal (adaptation)", "Lee Dong‑Wook"], 
+        artists: ["Team Argo (REDICE)"],
+        type: "KOMIK",
+        genre: ["Fantasy", "Sci-Fi"],
+        region: "KR",
+        likes: 20900,
+        rating: 4.7,
+        color: "#693539",
+        image: "https://i.imgur.com/NndhplM.jpeg",
+        imageLong: "https://www.themarysue.com/wp-content/uploads/2024/07/Omniscient-Readers-Viewpoint.jpg?fit=1200%2C675",
+        excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
+        chapter: [
+            { number: 101, title: "Forging Destiny" },
+            { number: 100, title: "Legend Begins" },
+            { number: 99, title: "Battlefield Craft" },
+            { number: 98, title: "Plague and Profit" },
+            { number: 97, title: "Numen Awakening" },
+            { number: 96, title: "Guild Gambit" },
+            { number: 95, title: "Dark Artifacts" },
+            { number: 94, title: "Assassin’s Strike" },
+            { number: 93, title: "Forged in Fire" }
+        ],
+        createdAt: "2024-11-01T00:00:00Z",
+        updatedAt: "2025-07-25T18:45:00Z"
+    },
 
     { 
         id: 34,
@@ -863,7 +863,7 @@ export const masterDummy = [
             { number: 192, title: "Master Allocator" }
         ],
         createdAt: "2018-08-04T00:00:00Z",
-        updatedAt: "2025-07-27T21:30:00Z"
+        updatedAt: "2024-12-27T21:30:00Z"
     },
 
     {
@@ -1604,29 +1604,33 @@ export const masterDummy = [
             { number: 92,  title: "chap 92"  }
         ]
     },
-    // {
-    //     id: 70,
-    //     status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
-    //     title: "Overgeared",
-    //     excerpt: "lorem ipsum dolor...",
-    //     likes: 1700,
-    //     rating: 4.5,
-    //     genre: ["Action", "Game"],
-    //     type: "KOMIK",
-    //     region: "KR",
-    //     image: "https://i.imgur.com/HHe6hQi.png",
-    //     chapter: [
-    //         { number: 100, title: "chap 100" },
-    //         { number: 99,  title: "chap 99"  },
-    //         { number: 98,  title: "chap 98"  },
-    //         { number: 97,  title: "chap 97"  },
-    //         { number: 96,  title: "chap 96"  },
-    //         { number: 95,  title: "chap 95"  },
-    //         { number: 94,  title: "chap 94"  },
-    //         { number: 93,  title: "chap 93"  },
-    //         { number: 92,  title: "chap 92"  }
-    //     ]
-    // },
+    {
+        id: 70,
+        status: 1, release: 1, schedule: [{period: 'weekly', on: 'Mon'}],     
+        title: "Omnicient Reader Viewpoint",
+        excerpt: "Lorem ipsum dolor sit ameterasu asa  consectetur adipisicing elit. Ea nesciunt eum unde, laborum harum maiores odit id sequi minima officiis eos facilis aliquid libero ex. Eligendi assumenda nesciunt unde ipsa, cupiditate quas, recusandae beatae ad inventore rem corporis odio amet iste cum magnam error nihil quaerat illum quae quibusdam mollitia iure non commodi. Pariatur incidunt laudantium, praesentium nam, eos esse aperiam quidem veniam repudiandae delectus corrupti suscipit aut! Cumque deserunt ipsa tempora cupiditate nobis culpa iusto exercitationem quae adipisci nam. Facilis optio, animi, tempora praesentium nam alias similique est omnis sapiente facere dolorem numquam reiciendis repudiandae aliquid voluptates deserunt harum vel fugit! Consequuntur nam voluptatem nihil doloribus veritatis deleniti, doloremque modi dolor aliquid! Ipsum aliquid id laudantium atque laborum, provident assumenda amet itaque explicabo, impedit minus, dolorum saepe iste magnam numquam ut eaque quos unde asperiores suscipit ad ducimus culpa sed recusandae! Perferendis quaerat sequi quisquam nulla! Saepe, vero aperiam?",
+        likes: 3000,
+        rating: 4.9,
+        pages: 220,
+        genre: ["Fantasy", "Sci-Fi"],
+        region: 'KR',
+        type: "NOVEL",
+        color: "#252b4d",
+        image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg",
+        chapter: [
+            { number: 201, title: "Forging Destiny" },
+            { number: 200, title: "Legend Begins" },
+            { number: 199, title: "Battlefield Craft" },
+            { number: 198, title: "Plague and Profit" },
+            { number: 197, title: "Numen Awakening" },
+            { number: 196, title: "Guild Gambit" },
+            { number: 195, title: "Dark Artifacts" },
+            { number: 194, title: "Assassin’s Strike" },
+            { number: 193, title: "Forged in Fire" }
+        ],
+        createdAt: "2024-11-01T00:00:00Z",
+        updatedAt: "2025-07-25T18:45:00Z"
+    },
     {
         id: 71,
         status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
