@@ -334,7 +334,48 @@
         koin.update(v => !v);
     }
 
-    console.log(koin)
+    import { disclaimer } from "$lib/disclaimer";
+
+    function toggleDisclaimers() {
+        disclaimer.update(v => !v);
+    }
+
+    $: {
+        if (typeof window !== "undefined") {
+            document.body.style.overflow = $koin || $disclaimer ? "hidden" : "auto";
+        }
+    }
+    $: if (typeof window !== 'undefined') {
+        const lock = $koin || $disclaimer;
+        const val = lock ? 'hidden' : '';
+        document.body.style.overflow = val;
+        document.documentElement.style.overflow = val;
+    }
+
+
+    let showDisclaimer = false;
+    let revealTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    $: if (mounted) {
+        if ($disclaimer) {
+            startRevealTimer();
+        } else {
+        // cancel timer kalau masih pending, dan sembunyikan
+        if (revealTimeout) {
+            clearTimeout(revealTimeout);
+            revealTimeout = null;
+        }
+            showDisclaimer = false;
+        }
+    }
+
+    function startRevealTimer() {
+        if (revealTimeout) clearTimeout(revealTimeout);
+        revealTimeout = setTimeout(() => {
+            showDisclaimer = true;
+            revealTimeout = null;
+        }, 1000); // delay 300ms
+    }
 </script>
 
 <svelte:window on:contextmenu={disableRightClick} />
@@ -382,6 +423,38 @@
 </style>
 
 <section class="bg-mainlight">
+
+    
+    {#if showDisclaimer}
+        <div transition:fade={{ duration: 150 }} class={` xs:px-4 px-[3.2vw] fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/20 text-zinc-700 z-150 flex justify-center items-center`}>
+            <div class="min-w-64 min-h-32 p-4 relative justify-center max-xs:min-w-[51.2vw] max-xs:min-h-[51.2vw] bg-mainlight border-2 rounded-xl max-xs:rounded-[2.4vw] border-zinc-200 flex flex-col items-center max-xs:text-[2.8vw] max-w-[800px]">
+                <!-- <div class="absolute top-0 right-0 flex justify-between w-full">
+                    <div class="px-6 max-xs:px-[4.8vw] py-4 max-xs:py-[4.8vw] max-xs:text-[3.2vw] font-work-sans">Dsiclaimer</div>
+                    <button on:click={toggleDisclaimer} class="cursor-pointer p-[3.2vw] xs:p-4 mr-[1.6vw] xs:mr-2 max-xs:text-[4.8vw]"><Icon icon="maki:cross" /></button>
+                </div> -->
+                <div class="mb-4 text-2xl font-inter tracking-wider font-[1000]">DISCLAIMER</div>
+                <div class="xs:text-sm text-[2.8vw] max-h-[50dvh] overflow-y-scroll text-justify px-4 mask-b-from-80%">
+                    <p class="mb-4">This website is a personal portfolio and demonstration of web app work. Although the original design concept for this project would normally include full cover artwork, I have replaced most images with neutral placeholders for legal and ethical reasons. A small number of original cover images remain in the site in intentionally blurred form because they were difficult to substitute without compromising the visual feel of the demo. These images are displayed only as blurred, non-downloadable visual references and are used solely to preserve the atmosphere of the mockup; they are not presented for distribution, resale, or any commercial purpose.</p>
+                    <p class="mb-4">I do not claim ownership of any original artworks, characters, or story content shown in blurred form. All such content remains the intellectual property of their respective creators, artists, and publishers. If any rights holder objects to the inclusion of a blurred image on this portfolio site, please contact me and I will remove it immediately upon request. Please note that much of the background data (for example, author/artist names and publishing details) shown here was aggregated by AI-assisted tools from publicly available online databases and sources. While I have attempted to verify these details, errors may occur due to imperfect extraction or transcription by those tools; any such mistakes are unintentional and not meant to offend the creators. Credit is given below to acknowledge the original authors, artists, and publishing platforms responsible for the stories that inspired this demo.</p>
+                    <p class="mb-2 font-bold">Credits / Acknowledgements:</p>
+                    <ul class="mb-4 list-disc">
+                        <li class="ml-[3.2vw] xs:ml-6 mb-2"><p><b>Overgeared</b> <br> Author(s): Park Saenal (박새날) & Lee Dong-Wook (이동욱); Illustrator(s): Team Argo (REDICE Studio)</p></li>
+                        <li class="ml-[3.2vw] xs:ml-6 mb-2"><p><b>The Return of the Mount Hua Sect</b> <br> Author(s): BK_Moon & Lee Hyun-min (이현민); Illustrator(s): Kim Hyun-soo (김 현수).</p></li>
+                        <li class="ml-[3.2vw] xs:ml-6 mb-2"><p><b>The Greatest Estate Developer</b> <br> Author(s): Biga (비가); Illustrator(s): LICO.</p></li>
+                        <li class="ml-[3.2vw] xs:ml-6 mb-2 font-[400]"><p><i>And many other works and creators whose titles cannot all be listed here individually.</p></li>
+                    </ul>
+                    <p class="mb-4"><b>Inspired by</b>: Webtoon, Reddit, Tapas, and various official publishing platforms. All story titles, logos, and character images used or referenced on this site remain the trademarks and copyrighted works of their respective owners.</p>
+                    <p class="mb-2 mt-8 text-center font-nunito"><b>My Contact</b>: <br> email: zielalfinowork@gmail.com  |  whatsapp: <span class="whitespace-nowrap">+62 8 1991 87 9493</span>  |  any socmed: @zielfino</p>
+                    <div class="h-12"></div>
+                </div>
+                <button on:click={toggleDisclaimers}  class="w-full mt-2 px-[3.2vw] xs:px-4 py-[4vw] xs:py-5 rounded-lg font-work-sans cursor-pointer
+                border-2 border-sky-500 hover:bg-mainlight hover:text-sky-500
+                outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+                bg-sky-500 text-mainlight transition text-[3.2vw] xs:text-[18px] font-bold tracking-wider">GOT IT!</button>
+            </div>
+        </div>
+    {/if}
+
     
 
     <section class="bg-zinc-300/50 xs:bg-zinc-200/50">
