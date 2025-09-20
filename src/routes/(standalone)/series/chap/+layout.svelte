@@ -634,6 +634,8 @@
     }
 </script>
 
+<svelte:window on:contextmenu={disableRightClick} />
+
 
 <section class="bg-mainlight dark:bg-zinc-900 transition-all duration-300 flex flex-col items-center justify-center w-full relative">
 
@@ -1186,7 +1188,7 @@
                 </button>
                 <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-all duration-300">
                     <div>
-                        <div class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-[0.8vw] xs:mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
+                        <div class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><button on:click={goto('/series')} class="mr-[0.8vw] xs:mr-1">Overgeared</button> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
                         <div class="sm:text-[12px] xs:text-[10px] text-[2.4vw] opacity-50 font-[600]">HEATS(REDICE STUDIO), 이범근(REDICE STUDIO), 산지직송</div>
                     </div>
                     <div class="group cursor-pointer">
@@ -1255,7 +1257,7 @@
                 </div>
             </div>
             <div class="w-full flex justify-center rounded-md border border-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800 p-[3.2vw] xs:p-4 hover:bg-zinc-100 cursor-pointer my-[6.4vw] xs:my-8 text-zinc-900 dark:text-mainlight transition-all duration-300">
-                <div class="tracking-wide max-sm:text-[12px] max-xs:text-[3.2vw]">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[4vw] xs:text-[20px] inline-block`} /></div>
+                <button on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="tracking-wide max-sm:text-[12px] max-xs:text-[3.2vw]">Add a comment <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[4vw] xs:text-[20px] inline-block`} /></button>
             </div>
             <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
 
@@ -1336,22 +1338,23 @@
             <div class="border space-y-[1.6vw] xs:space-y-2 rounded-md border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-100 transition-all duration-300 tracking-wide font-[400] max-xs:text-[3.2vw] max-sm:text-[12px] p-[3.2vw] xs:p-4 my-[3.2vw] xs:my-4">
                 <textarea name="" id="" bind:this={textarea} on:input={autoGrow} class="h-[9.6vw] overflow-scroll-hidden xs:h-12 w-full outline-none resize-none" placeholder="Please log in to leave a comment"></textarea>
                 <!-- <div class="h-[19.2vw] xs:h-24">Please log in to leave a comment</div> -->
-                <div>spoiler</div>
                 <div class="flex justify-between">
                     <div class="flex space-x-[1.6vw] xs:space-x-2">
-                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">A</div>
-                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">B</div>
-                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">C</div>
-                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">D</div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">Spoiler</div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]"><Icon icon="mingcute:bold-line" class=""/></div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]"><Icon icon="mingcute:italic-line" class=""/></div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]"><Icon icon="mingcute:underline-line" class=""/></div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]"><Icon icon="mingcute:attachment-line" class=""/></div>
+                        <div class="font-work-sans flex items-center aspect-square justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[1.6vw] xs:px-2 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]"><Icon icon="mingcute:emoji-line" class=""/></div>
                     </div>
-                    <div class="font-work-sans flex items-center justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">send</div>
+                    <div class="font-work-sans flex items-center justify-center tracking-wide transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-not-allowed opacity-50 bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-3 h-[6.4vw] xs:h-8 rounded-[1.2vw] xs:rounded-md text-[2.8vw] xs:text-[14px]">send</div>
                 </div>
             </div>
 
             <div class="my-[3.2vw] xs:my-4 flex space-x-[1.6vw] xs:space-x-2">
                 <div class="flex items-center justify-center transition-all duration-300 text-mainlight dark:text-zinc-900 bg-zinc-700 dark:bg-mainlight px-[3.2vw] xs:px-3 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">Top</div>
-                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-3 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">Terbaru</div>
-                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-3 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">Terlama</div>
+                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-not-allowed opacity-50 bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-3 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">Terbaru</div>
+                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-not-allowed opacity-50 bg-zinc-200/70 dark:bg-zinc-800 px-[3.2vw] xs:px-3 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">Terlama</div>
             </div>
 
             <!-- induk -->
@@ -1717,7 +1720,7 @@
                             <!-- <div class="flex ml-2 bg-amber-300 h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans text-zinc-900">Creator</div>  -->
                             <!-- <div class="flex ml-2 bg-rose-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Admin</div>  -->
                             <!-- <div class="flex ml-2 bg-indigo-500 text-mainlight h-min font-[500] tracking-wide rounded-sm py-0.5 px-1.5 text-[10px] font-work-sans">Moderator</div>  -->
-                            <div class="flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div>
+                            <!-- <div class="flex text-amber-500/70 dark:text-amber-300/80 transition-all duration-300 ml-[1.6vw] xs:ml-2 font-[600] text-[2.4vw] xs:text-[12px] items-center font-work-sans tracking-tight whitespace-nowrap"><Icon icon="material-symbols-light:crown-rounded" class={`text-[4vw] xs:text-[20px] mr-0.25`} /> top comment</div> -->
                         </div>
                         <div class="flex duration-300 transition-all justify-end flex-1 font-work-sans font-[400] opacity-50 text-[2.8vw] xs:text-[14px]">
                             12 Hours ago
@@ -1760,7 +1763,7 @@
             </div>
 
             <div class="flex justify-center w-full my-[3.2vw] xs:my-4">
-                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-pointer bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-2 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px]">show more...</div>
+                <div class="flex items-center justify-center transition-all duration-300 hover:bg-zinc-300 dark:hover:bg-zinc-700 cursor-not-allowed bg-zinc-200/70 dark:bg-zinc-800 px-[2.4vw] xs:px-2 h-[8vw] xs:h-[32px] rounded-[1.2vw] xs:rounded-md text-[3.6vw] xs:text-[16px] opacity-50">show more</div>
             </div>
 
         </div>

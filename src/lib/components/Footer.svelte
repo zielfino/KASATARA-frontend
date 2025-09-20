@@ -9,10 +9,10 @@
         <div class="w-full xs:max-w-[80vw] sm:w-[700px] max-xs:px-[3.2vw] xs:px-4 max-sm:px-6 flex justify-between items-center text-[14px]">
             <div class="flex items-center">
                 <div class="mr-[2.4vw] xs:mr-3 font-work-sans font-[600] max-sm:text-[12px] max-xs:text-[2.8vw]">Notice</div>
-                <div class="text-[12px] max-sm:translate-y-0.5 max-xs:translate-y-0 max-sm:text-[10px] max-xs:text-[2.4vw] opacity-60 tracking-wide line-clamp-1 max-sm:mr-4 max-xs:mr-0">2025 WEBTOON Contest: Webcomic Legends - Deadline Extended</div>
+                <div class="text-[12px] max-sm:translate-y-0.5 max-xs:translate-y-0 max-sm:text-[10px] max-xs:text-[2.4vw] opacity-60 tracking-wide line-clamp-1 max-sm:mr-4 max-xs:mr-0">Lorem ipsum, dolor sit amet consectetur elit - Cupiditate, hic.</div>
             </div>
             <div class="opacity-30 whitespace-nowrap max-sm:text-[12px] max-xs:text-[2.8vw] max-xs:hidden">
-                May 16, 2025
+                Sep 03, 2050
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
             <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
             <div class="cursor-pointer hover:underline max-sm:mt-2">Contact</div>
             <Icon icon="ph:line-vertical-thin" class="text-[4.8vw] xs:text-[24px] opacity-30 max-sm:mt-2"/>
-            <div class="py-[0.8vw] xs:py-1 pl-[2.4vw] xs:pl-3 max-sm:mt-2 max-xs:mt-[1.6vw] rounded-[1.2vw] xs:rounded-md border bg-zinc-100/70 dark:bg-zinc-700/40 border-zinc-300 dark:border-zinc-900/40 transition-all duration-300 cursor-pointer hover:bg-zinc-300/70 dark:hover:bg-zinc-700">
+            <div class="py-[0.8vw] xs:py-1 pl-[2.4vw] xs:pl-3 max-sm:mt-2 max-xs:mt-[1.6vw] rounded-[1.2vw] xs:rounded-md border bg-zinc-100/70 dark:bg-zinc-700/40 border-zinc-300 dark:border-zinc-900/40 transition-all duration-300 cursor-not-allowed hover:bg-zinc-300/70 dark:hover:bg-zinc-700">
                 english
                 <Icon icon="gridicons:dropdown" class="text-[4.8vw] xs:text-[24px] opacity-60 inline-block mx-1"/>
             </div>

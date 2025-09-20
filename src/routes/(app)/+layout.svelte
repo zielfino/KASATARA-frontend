@@ -307,6 +307,7 @@
     import { sortAsc } from "$lib/stores/sortOrder";
     import { setSafeContentFilter } from "$lib/components/browse/contentFilter";
     import { setSafeScheduleFilter } from "$lib/components/browse/scheduleFilter";
+    import { fade } from "svelte/transition";
 	$: keyword = $searchText;
 	let localSearch = ''; // lokal kalau tidak pakai store
 
@@ -325,6 +326,15 @@
     }
 
     $: isIndex = $page.url.pathname === '/';
+
+    // import { onMount } from 'svelte';
+    import { koin } from "$lib/koin"; 
+
+    function toggleKoin() {
+        koin.update(v => !v);
+    }
+
+    console.log(koin)
 </script>
 
 <svelte:window on:contextmenu={disableRightClick} />
@@ -408,6 +418,42 @@
 
 
         <!-- Top Nav -->
+
+        <!-- <div class="w-full h-full absolute z-110 left-0 top-0 bg-zinc-900/20 backdrop-blur-xs flex items-center justify-center"> -->
+        {#if $koin}
+        <div transition:fade={{ duration: 150 }} class="fixed w-full left-0 top-0 backdrop-blur-xs h-full bg-zinc-900/20 text-zinc-700 z-150 flex justify-center items-center">
+            <div class="min-w-64 min-h-32 p-4 relative justify-center max-xs:min-w-[51.2vw] max-xs:min-h-[51.2vw] bg-mainlight border-2 rounded-xl max-xs:rounded-[2.4vw] border-zinc-200 flex flex-col items-center max-xs:text-[2.8vw]">
+                <div class="absolute top-0 right-0">
+                    <!-- <div class="px-6 max-xs:px-[4.8vw] py-4 max-xs:py-[4.8vw] max-xs:text-[3.2vw] font-work-sans">Settings</div> -->
+                    <button on:click={toggleKoin} class="cursor-pointer p-[3.2vw] xs:p-4 mr-[1.6vw] xs:mr-2 max-xs:text-[4.8vw]"><Icon icon="maki:cross" /></button>
+                </div>
+                <div class="mb-4 text-lg font-semibold">Sisa Koin : 0</div>
+                <div class="mb-2">maaf koin mu tidak cukup, beli koin disini!</div>        
+                <div class="flex space-x-2 my-2">
+                    <div class="relative border-2 border-zinc-200 hover:bg-zinc-200 cursor-pointer text-center h-[20.4vw] w-[20.4vw] xs:h-26 xs:w-26 rounded-md flex justify-between items-center flex-col">
+                        <div class="pt-8.5 flex font-semibold items-center justify-center">100 <Icon icon="fluent-color:coin-multiple-24" /></div>
+                        <div class="pb-2 text-xs">Rp. 12.000</div>
+                    </div>        
+                    <div class="relative border-2 border-zinc-200 hover:bg-zinc-200 cursor-pointer text-center h-[20.4vw] w-[20.4vw] xs:h-26 xs:w-26 rounded-md flex justify-between items-center flex-col">
+                        <div class="pt-8.5 flex font-semibold items-center justify-center">200 <Icon icon="fluent-color:coin-multiple-24" /></div>
+                        <div class="pb-2 text-xs">Rp. 20.000</div>
+                    </div>        
+                    <div class="relative border-2 border-zinc-200 hover:bg-zinc-200 cursor-pointer text-center h-[20.4vw] w-[20.4vw] xs:h-26 xs:w-26 rounded-md flex justify-between items-center flex-col">
+                        <div class="pt-8.5 flex font-semibold items-center justify-center">500 <Icon icon="fluent-color:coin-multiple-24" /></div>
+                        <div class="pb-2 text-xs">Rp. 70.000</div>
+                    </div>  
+                    <div class="relative border-2 border-zinc-200 hover:bg-zinc-200 cursor-pointer text-center h-[20.4vw] w-[20.4vw] xs:h-26 xs:w-26 rounded-md flex justify-between items-center flex-col">
+                        <div class="pt-8.5 flex font-semibold items-center justify-center">1.000 <Icon icon="fluent-color:coin-multiple-24" /></div>
+                        <div class="pb-2 text-xs">Rp. 100.000</div>
+                    </div>
+                </div>
+                <button  on:click|stopPropagation={() => goto('/series/chap')}  class="w-full px-[3.2vw] xs:px-4 py-[4vw] xs:py-5 rounded-lg font-work-sans cursor-pointer
+                border-2 border-purple-600 hover:bg-mainlight hover:text-purple-600
+                outline-none focus-visible:ring-2 focus-visible:ring-sky-400
+                bg-purple-600 text-mainlight transition text-[2.4vw] xs:text-[12px]">Baca Chapter #144</button>
+            </div>
+        </div>
+        {/if}
         <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15 portrait:px-[1.6vw] portrait:xs:px-2 portrait:pt-2 portrait:xs:pt-[1.6vw] transition-all duration-300" 
         class:translate-y-[50%]={isIndex && touchscreen && (isSOpen && scrollY <= 300 && scrollY > 200)} class:translate-y-[150%]={isIndex && touchscreen && (isSOpen && scrollY > 300)} class:-translate-y-[100%]={isIndex && touchscreen && (isSOpen && scrollY <= 300)}>
             <section class="flex flex-col justify-center items-center bg-mainlight min-[900px]:bg-zinc-200 portrait:rounded-lg portrait:overflow-hidden portrait:border border-zinc-900/30 landscape:border-y relative">

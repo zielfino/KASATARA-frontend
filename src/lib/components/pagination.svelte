@@ -2,6 +2,7 @@
     import Icon from '@iconify/svelte';
     import { onMount } from 'svelte';
 
+    export let dead: boolean  ;
     export let totalPages: number = 3 ;
     export let initialPage: number = 1;
 
@@ -142,8 +143,8 @@
     <div class={`w-full xs:mb-2 mb-[1.6vw] bg-mainlight border border-zinc-900/15 rounded-[1.2vw] xs:rounded-md h-[14vw] text-[3.2vw] xs:h-[64px] flex justify-center items-center xs:text-[16px] space-x-[1.6vw] xs:space-x-2 py-[3.2vw] xs:py-4`}>
         <button
             on:click={prev}
-            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
-            disabled={currentPage === 1}
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-not-allowed focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
+            disabled={currentPage === 1 || dead}
         >
             <Icon icon="material-symbols:arrow-back-ios-new-rounded" />
         </button>
@@ -154,14 +155,15 @@
             type="number"
             bind:value={jump}
             placeholder="..."
-            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50 w-[7.2vw] xs:w-8 text-center appearance-none"
+            disabled={dead}
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-not-allowed focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50 w-[7.2vw] xs:w-8 text-center appearance-none"
             on:input={handleInput}
-            on:keydown={handleJump}
+            on:keydown={handleJump} 
             />
             {:else}
             <button
-                class={`bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50`}
-                disabled={page === currentPage}
+                class={`bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-not-allowed focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50`}
+                disabled={page === currentPage || dead}
                 on:click={() => goToPage(page)}
             >
                 {page}
@@ -172,8 +174,8 @@
 
         <button
             on:click={next}
-            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-context-menu focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
-            disabled={currentPage === totalPages}
+            class="bg-mainlight border border-zinc-900/30 hover:bg-zinc-900/10 disabled:hover:bg-mainlight rounded-[1.2vw] xs:rounded-md disabled:opacity-30 aspect-square flex justify-center items-center h-full cursor-pointer disabled:cursor-not-allowed focus-visible:bg-sky-400/10 outline-none focus-visible:border-sky-400/50"
+            disabled={currentPage === totalPages || dead}
         >
             <Icon icon="material-symbols:arrow-forward-ios-rounded" />
         </button>

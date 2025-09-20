@@ -56,9 +56,9 @@ text-center"> -->
     ${excerpt ? 'w-[90%] mt-4' : 'w-[200px] mt-2 mb-4' }`}>
     {#if excerpt}
         <!-- <div class="flex justify-center items-center"><Icon icon="icon-park-outline:like" class="text-[3.6vw] xs:text-[18px] mr-1" />1.2M</div> -->
-        <div class="flex justify-center items-center group"><Icon icon="mingcute:book-2-line" class="text-[3.6vw] xs:text-[18px] mr-1 group-hover:hidden" /><Icon icon="mingcute:book-6-line" class="text-[3.6vw] xs:text-[18px] mr-1 hidden group-hover:block" />Komik</div>
+        <div class="flex justify-center items-center group"><Icon icon="mingcute:book-2-line" class="text-[3.6vw] xs:text-[18px] mr-1" />Komik</div>
         <!-- <div class="flex justify-center items-center"><Icon icon="mingcute:clapperboard-line" class="text-[3.6vw] xs:text-[18px] mr-1" />Komik</div> -->
-        <div class="flex justify-center items-center group"><Icon icon="lucide:clapperboard" class="text-[3.6vw] xs:text-[18px] mr-1 group-hover:hidden" /><Icon icon="uil:clapper-board" class="text-[3.6vw] xs:text-[18px] mr-1 hidden group-hover:block" />Fantasy, Comedy</div>
+        <div class="flex justify-center items-center group"><Icon icon="lucide:clapperboard" class="text-[3.6vw] xs:text-[18px] mr-1" />Fantasy, Comedy</div>
         <!-- <div class="flex justify-center items-center"><Icon icon="mingcute:clapperboard-line" class="text-[3.6vw] xs:text-[18px] mr-1" />Fantasy, Comedy</div> -->
         <!-- <div class="flex justify-center items-center"><Icon icon="icon-park-outline:thumbs-up" class="text-[3.6vw] xs:text-[18px] mr-1" />test</div> -->
     {/if}
