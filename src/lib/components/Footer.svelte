@@ -58,8 +58,12 @@
                 <polygon points="697.61 145.05 683.75 206.46 713.67 206.46 726.07 151.47 732.48 123.02 704.02 116.6 179.81 5.54 151.16 0 145.62 28.64 124.09 139.95 155.55 130.92 174.27 34.19 697.61 145.05"/>
                 <polygon points="379.6 206.46 349.26 206.46 325.03 122.03 36.79 210.08 102.74 409.75 264.93 363.91 355.39 363.91 110.78 437.79 82.74 445.84 0 190.28 345.03 85.94 379.6 206.46"/>
             </svg>
-            <div class="mt-[3.2vw] xs:mt-4 font-work-sans text-[2.8vw] xs:text-[14px] tracking-wider opacity-60 text-center">&copy; agerr.studio</div>
+            <div class="min-[630px]:text-xs text-[1.8vw] mt-4 max-w-[650px] px-4 italic font-[400] opacity-70 text-center">
+                © 2025 agerr.studio. All rights reserved.
+                <br> All <b>design layout, code, and interface elements</b> on this website are original works created by agerr.studio.
+                <br> <b>External artworks</b> (e.g., book covers, characters, story content) remain copyright of their <b>respective creators</b> and are used here for <b>non-commercial</b>, demonstrative purposes only.
+            </div>
         </div>
-        <div class="h-[20vw] xs:hidden"></div>
+        <div class="h-[10vw] xs:h-[10vw] md:h-128 landscape:h-0"></div>
     </div>
 </div>

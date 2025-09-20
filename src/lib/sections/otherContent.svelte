@@ -107,6 +107,7 @@
     import { page } from '$lib/stores/page';
     import { masterDummy } from "$lib/masterdatadummy";
     import { goto } from "$app/navigation";
+    import { dailySchedule } from "$lib/components/browse/dailySchedule";
     $: currentPage = $page;
 
     onMount(() => {
@@ -224,7 +225,7 @@
             <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-2 max-xs:gap-[1.6vw]">
                 <!-- Left -->
                 <div class="w-full lg:col-span-3 max-xs:space-y-[1.6vw] space-y-2">
-                    <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
+                    <Pagination dead={false} totalPages={Math.ceil(officialCard.length / perPage)}/>
                     <div id="" class="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-2 h-fit gap-2 max-xs:gap-[1.6vw] lg:grid-cols-3 relative">
 
                         {#each botItems as item}
@@ -233,7 +234,7 @@
                         
                     </div>
                     {#if $phone}
-                        <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
+                        <Pagination dead={false} totalPages={Math.ceil(officialCard.length / perPage)}/>
                     {/if}
                 </div>
 
@@ -243,7 +244,15 @@
 
                         <!-- Tombol 'Papan Peringkat' -->
                         <div class="pb-0">
-                            <TitleLink title="Papan Peringkat" link="/" outer={false} />
+                            <div class={``}>
+                                <div class='w-full max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] max-xs:px-[1.6vw] px-1.5'>
+                                    <div class="text-xl max-xs:text-[4vw] font-work-sans font-[600] tracking-tight flex justify-between">
+                                        <div class="outline-none focus-visible:decoration-sky-400 focus-visible:text-sky-400">Papan Peringkat</div>
+                                        <!-- <div tabindex="-1" class="text-base flex justify-center items-center"><Icon icon="material-symbols:arrow-forward-ios-rounded" /></div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <TitleLink title="Papan Peringkat" link="/" outer={false} /> -->
                         </div>
 
                         <!-- Switch Peringkat -->
@@ -308,8 +317,7 @@
                                 h-[24vw] xs:h-[96px] md:h-[96.28px] lg:h-[95.8px] xl:h-[94.2px]
                                 ${i === 0 ? 'border-t-0' : i === 13 ? 'border-b-0' : ''}
                                 `}>
-                                    <div class="font-bold 
-                                    text-[4.8vw] xs:text-[20px] md:text-[20px] aspect-[3/4] bg-cover bg-center h-full relative"
+                                    <div class="font-bold text-[4.8vw] xs:text-[20px] md:text-[20px] aspect-[3/4] bg-cover bg-center h-full relative"
                                     style={`background-image: url('${item.image}')`}>
                                         <div class="absolute top-[1.6vw] left-[2.4vw] xs:top-1 xs:left-3">#{i+2}</div>
                                     </div>
@@ -339,7 +347,7 @@
             </div>
             {#if !$phone}
                 <div class="max-xs:mt-[1.6vw] mt-2 w-full">
-                    <Pagination totalPages={Math.ceil(officialCard.length / perPage)}/>
+                    <Pagination dead={false} totalPages={Math.ceil(officialCard.length / perPage)}/>
                 </div>
             {/if}
         </div>
