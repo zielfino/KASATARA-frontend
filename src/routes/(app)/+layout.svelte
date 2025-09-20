@@ -394,15 +394,15 @@
                         <!-- <img src="https://i.imgur.com/yV9iEEP.png" alt="banner" class="h-full absolute left-0">
                         <img src="https://i.imgur.com/AUQkFm6.png" alt="" class="h-[37%] right-[calc(12%/2)] top-[calc((100%-81%)/2)] absolute">
                         <img src="https://i.imgur.com/eiEJ5of.png" alt="" class="h-[50%] right-[calc(12%/2)] bottom-[calc((100%-81%)/2)] absolute"> -->
-                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none">
+                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none focus-within:scale-101 focus-within:z-100">
                             <div class="absolute cursor-pointer left-[calc(12%/2)] h-[calc(100%-(100%-81%))] w-[62%] top-[calc((100%-81%)/2)] bottom-[calc((100%-81%)/2)] trapezoid peer z-3"></div>
-                            <img src="https://i.imgur.com/K3dGSiE.png" alt="banner" class="h-full absolute top-0 left-0 z-2 peer-hover:scale-[1.005] peer-focus-visible:scale-[1.0075] peer-active:scale-[1] pointer-events-none transition">
+                            <img src="https://i.imgur.com/K3dGSiE.png" alt="banner" class="blur-xs h-full absolute top-0 left-0 z-2 peer-hover:scale-[1.005] peer-focus-visible:scale-[1.0075] peer-active:scale-[1] pointer-events-none transition">
                         </button>
-                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none">
+                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none focus-within:scale-101">
                             <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] peer bannertr z-3"></div>
                             <img src="https://i.imgur.com/V1cYTpP.png" alt="" class="blur-xs h-[46%] right-[calc(4.6%/2)] top-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
                         </button>
-                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none">
+                        <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none focus-within:scale-101 focus-within:z-100">
                             <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] peer bannertb z-3"></div>
                             <img src="https://i.imgur.com/e7JRrts.png" alt="" class="blur-xs h-[59%] right-[calc(4.6%/2)] bottom-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
                         </button>

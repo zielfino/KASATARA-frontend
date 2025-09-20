@@ -17,7 +17,7 @@
 		{ disabled: false, label: 'Schedule' },
 		{ disabled: false, label: 'Official' },
 		{ disabled: false, label: 'Indie' },
-		{ disabled: false, label: 'Mirror' },
+		// { disabled: false, label: 'Mirror' },
 		{ disabled: false, label: 'Semua' },
 	];
 

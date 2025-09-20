@@ -7,7 +7,7 @@ export const masterDummy = [
     likes: 1800000, rating: 4.7,
     color: "#672f41",
     image: "https://placehold.co/400x600",
-    imageLong: "https://placehold.co/400x600",
+    imageLong: "https://placehold.co/600x400",
     imageLarge: "https://placehold.co/400x600",
     excerpt: "As Greed, the legendary Overgeared King, forges weapons that rewrite fate, he steps into a virtual war where every battle shapes destiny.",
     chapter: [
@@ -763,7 +763,7 @@ export const masterDummy = [
         rating: 4.7,
         color: "#693539",
         image: "https://placehold.co/400x600",
-        imageLong: "https://placehold.co/400x600",
+        imageLong: "https://placehold.co/600x400",
         excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
         chapter: [
             { number: 101, title: "Forging Destiny" },
@@ -792,7 +792,7 @@ export const masterDummy = [
         likes: 3000,
         rating: 4.6, // Novel Updates rating screenshot :contentReference[oaicite:3]{index=3}
         color: "#252b4d",
-        image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg",
+        image: "https://placehold.co/400x600",
         excerpt: "A lonely office worker becomes humanity’s unlikely hero when the world stages his favorite web novel—and only he knows how the story ends.",
         chapter: [
             { number: 501, title: "The 30‑Year Reader" },
