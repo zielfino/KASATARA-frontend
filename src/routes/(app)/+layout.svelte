@@ -400,11 +400,11 @@
                         </button>
                         <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none">
                             <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(37%)] w-[30.7%] top-[calc((100%-81%)/2)] peer bannertr z-3"></div>
-                            <img src="https://i.imgur.com/V1cYTpP.png" alt="" class="h-[46%] right-[calc(4.6%/2)] top-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
+                            <img src="https://i.imgur.com/V1cYTpP.png" alt="" class="blur-xs h-[46%] right-[calc(4.6%/2)] top-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
                         </button>
                         <button on:click={() => goto('/series')} tabindex="0" class="absolute w-full h-full outline-none">
                             <div class="absolute cursor-pointer right-[calc(12%/2)] h-[calc(50%)] w-[28%] bottom-[calc((100%-81%)/2)] peer bannertb z-3"></div>
-                            <img src="https://i.imgur.com/e7JRrts.png" alt="" class="h-[59%] right-[calc(4.6%/2)] bottom-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
+                            <img src="https://i.imgur.com/e7JRrts.png" alt="" class="blur-xs h-[59%] right-[calc(4.6%/2)] bottom-0 absolute z-2 peer-hover:scale-[1.01] peer-focus-visible:scale-[1.015] peer-active:scale-[1] pointer-events-none transition">
                         </button>
                     </div> 
                 </section>

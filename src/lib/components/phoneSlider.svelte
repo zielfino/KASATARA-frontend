@@ -12,13 +12,20 @@
 
     // === 👇🏻 Real groups (no FG manual anymore!)
     const realGroups: Group[] = [
-        { id: 1, title: 'I Killed an Academy Player', color: '#b2471a', image: 'https://cdn.mangaupdates.com/image/i491892.jpg' },
-        { id: 2, title: 'Omnicient Reader Viewpoint', color: '#a9684c', image: 'https://i.imgur.com/NndhplM.png' },
-        { id: 3, title: 'Solo Max-Level Newbie', color: '#3c3e46', image: 'https://i.imgur.com/GQjCFrx.png' },
-        { id: 4, title: 'Revenge of the Iron‑Blooded Sword Houndt', color: '#2d2741', image: 'https://cdn.mangaupdates.com/image/i485704.jpg' },
-        { id: 5, title: 'The Novel Extra', color: '#432f8e', image: 'https://i.imgur.com/3FsnLBx.png' },
-        { id: 6, title: 'Return Of The Mount Hua Sect', color: '#963e58', image: 'https://cdn.mangaupdates.com/image/i474809.jpg' },
-        { id: 7, title: 'Omnicient Reader Viewpoint', color: '#424464', image: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg' }
+        // { id: 1, title: 'I Killed an Academy Player', color: '#b2471a', image: 'https://cdn.mangaupdates.com/image/i491892.jpg' },
+        // { id: 2, title: 'Omnicient Reader Viewpoint', color: '#a9684c', image: 'https://i.imgur.com/NndhplM.png' },
+        // { id: 3, title: 'Solo Max-Level Newbie', color: '#3c3e46', image: 'https://i.imgur.com/GQjCFrx.png' },
+        // { id: 4, title: 'Revenge of the Iron‑Blooded Sword Houndt', color: '#2d2741', image: 'https://cdn.mangaupdates.com/image/i485704.jpg' },
+        // { id: 5, title: 'The Novel Extra', color: '#432f8e', image: 'https://i.imgur.com/3FsnLBx.png' },
+        // { id: 6, title: 'Return Of The Mount Hua Sect', color: '#963e58', image: 'https://cdn.mangaupdates.com/image/i474809.jpg' },
+        // { id: 7, title: 'Omnicient Reader Viewpoint', color: '#424464', image: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg' }
+        { id: 1, title: 'I Killed an Academy Player', color: '#b2471a', image: 'https://placehold.co/400x600' },
+        { id: 2, title: 'Omnicient Reader Viewpoint', color: '#a9684c', image: 'https://placehold.co/400x600' },
+        { id: 3, title: 'Solo Max-Level Newbie', color: '#3c3e46', image: 'https://placehold.co/400x600' },
+        { id: 4, title: 'Revenge of the Iron‑Blooded Sword Houndt', color: '#2d2741', image: 'https://placehold.co/400x600' },
+        { id: 5, title: 'The Novel Extra', color: '#432f8e', image: 'https://placehold.co/400x600' },
+        { id: 6, title: 'Return Of The Mount Hua Sect', color: '#963e58', image: 'https://placehold.co/400x600' },
+        { id: 7, title: 'Omnicient Reader Viewpoint', color: '#424464', image: 'https://placehold.co/400x600' }
     ];
 
     // Fake Groups (auto generated)

@@ -6,9 +6,9 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1800000, rating: 4.7,
     color: "#672f41",
-    image: "https://placehold.co/400x600",
-    imageLong: "https://placehold.co/400x600",
-    imageLarge: "https://placehold.co/400x600",
+    image: "https://page-images.kakaoentcdn.com/download/resource?kid=bIFLfT/hy41I0xPNR/T9hM4wcR2U0bK7aJbkHkK1&filename=o1",
+    imageLong: "https://i.imgur.com/HHe6hQi.png",
+    imageLarge: "https://i.imgur.com/vfwwynV.png",
     excerpt: "As Greed, the legendary Overgeared King, forges weapons that rewrite fate, he steps into a virtual war where every battle shapes destiny.",
     chapter: [
         { number: 200, title: "The Great Dismantling" },
@@ -30,7 +30,7 @@ export const masterDummy = [
     type: "NOVEL", genre: ["Comedy", "Adventure"], region: "KR",
     likes: 1800000, rating: 4.7,
     color: "#6e3b59",
-    image: "https://placehold.co/400x600",
+    image: "https://nos.wjv-1.neo.id/sect/2022/09/1663147397-5705-Return-of-Mount-Hua-Sect.jpeg",
     excerpt: "In this quirky martial‑arts novel, a sect’s fall leads to hilarious misadventures as disciples fight to restore honor and rebuild their legacy.",
     chapter: [
         { number: 189, title: "Sect’s Collapse" },
@@ -51,7 +51,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
     color: "#561743",
-    image: "https://placehold.co/400x600",
+    image: "https://image-comic.pstatic.net/webtoon/821195/thumbnail/thumbnail_IMAG21_4eff0192-8237-4ec7-b74c-bd66cfd25d51.jpg",
     excerpt: "A duke’s son reborn into his past life, now an assassin bound for vengeance against aristocratic betrayal.",
     chapter: [
         { number: 72, title: "The Beginning" },
@@ -72,7 +72,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1500, rating: 4.9,
     color: "#3d1f1f",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i485704.jpg",
     excerpt: "A hound reborn with iron blood hunts down those who betrayed him, wielding vengeance as his sword.",
     chapter: [
         { number: 192, title: "Blood Oath" },
@@ -93,7 +93,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
     color: "#7b6038",
-    image: "https://placehold.co/400x600",
+    image: "https://image-comic.pstatic.net/webtoon/774044/thumbnail/thumbnail_IMAG21_81504afb-1a05-41b0-9650-0c9aa1d741d9.jpg",
     excerpt: "After dying on the battlefield, a battle god returns to reshape destiny with newfound power and purpose.",
     chapter: [
         { number: 143, title: "Rebirth" },
@@ -114,7 +114,7 @@ export const masterDummy = [
     type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
     color: "#481c6e",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i299829.jpg",
     excerpt: "A novelist reborn into his own story must rewrite fate to save the world he created—only to confront personal tragedy.",
     chapter: [
         { number: 143, title: "Extraordinary Beginnings" },
@@ -135,7 +135,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Adventure"], region: "KR",
     likes: 1300, rating: 3.2,
     color: "#4a2449",
-    image: "https://placehold.co/400x600",
+    image: "https://i.imgur.com/GQjCFrx.png",
     excerpt: "Kang Jinhyeok, streamer yang menguasai Tower of Trials, bangkit untuk melindungi umat manusia dalam pertempuran nyata yang penuh tantangan.",
     chapter: [
         { number: 157, title: "Final Floor" },
@@ -156,7 +156,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 980, rating: 4.0,
     color: "#4c5467",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i490842.png",
     excerpt: "Lee Jaha, si iblis gila yang kembali ke masa lalu sebagai pelayan—dan kini merencanakan balas dendam sebagai pendekar Murim yang tak tertandingi.",
     chapter: [
         { number: 154, title: "Fall of the Pearl" },
@@ -177,7 +177,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 39200, rating: 4.1,
     color: "#af1800",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i491892.jpg",
     excerpt: "Corin kembali ke masa lalu tiga tahun, bertekad menghentikan pemain akademi Sihu dan menuntaskan takdir dunia sebagai dirinya yang sejati.",
     chapter: [
         { number: 256, title: "Return to Three Years Ago" },
@@ -198,7 +198,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
     color: "#5e369c",
-    image: "https://placehold.co/400x600",
+    image: "https://i.imgur.com/3FsnLBx.png",
     excerpt: "Seorang novelis terperangkap di dunia ciptaannya sendiri, menghadapi tragedi dan takdir yang harus dia ubah dengan pena kehidupannya.",
     chapter: [
         { number: 143, title: "Extraordinary Beginnings" },
@@ -219,7 +219,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Murim", "Adventure"], region: "KR",
     likes: 1300, rating: 4.5,
     color: "#b75774",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i474809.jpg",
     excerpt: "Setelah kejatuhan besar, pemimpin baru Mount Hua Sect bangkit dengan tekad untuk memulihkan kejayaan dan menguasai seni bela diri legendaris.",
     chapter: [
         { number: 21, title: "Resurgence of Pride" },
@@ -235,12 +235,12 @@ export const masterDummy = [
     createdAt: "2021-03-01T00:00:00Z", updatedAt: "2025-06-30T00:00:00Z" },
 
     { id: 12, title: "Steins;Gate",
-    status: 3, release: 2, schedule: [{period: 'weekly', on: 'Tue'}], 
+    status: 3, release: 3, schedule: [{period: 'weekly', on: 'Tue'}], 
     authors: ["5pb./Nitroplus"], 
     type: "VISUAL NOVEL", genre: ["Sci‑Fi", "Thriller"], region: "JP",
     likes: 4200, rating: 4.8,
     color: undefined,
-    image: "https://placehold.co/400x600",
+    image: "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSok2B2ZVF-LUdCk4aePZ2q3g41x_vln4_MBaVNkOKPmGB7wNTd6TTJsO_IUMHF4z6bHjJ5",
     excerpt: "Ketika Rintaro Okabe menemukan cara mengirim pesan ke masa lalu, ia dan teman‑temannya menghadapi dilema etis dan konsekuensi luar biasa dalam eksperimen waktu.",
     createdAt: "2009-11-15T00:00:00Z", updatedAt: "2016-06-01T00:00:00Z" },
 
@@ -250,7 +250,7 @@ export const masterDummy = [
     type: "NOVEL", genre: ["Fantasy", "Action"], region: "KR",
     likes: 900, rating: 4.3, 
     color: "#1a1a2e",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i347622.png",
     excerpt: "Gan Hyeonu kembali ke dunia virtual untuk menuntut status tertinggi di panggung global, menghadapi intrik, persaingan sengit, dan dunia yang berubah.",
     chapter: [
         { number: 500, title: "Return of the Genius Ranker" },
@@ -271,7 +271,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1120, rating: 4.4,
     color: "#4b371c",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i477220.jpg",
     excerpt: "Pahlawan malapetaka yang pernah diremehkan kembali dengan kekuatan baru untuk menyelamatkan dunia dari ancaman kiamat.",
     chapter: [
         { number: 75, title: "Hero’s Resurrection" },
@@ -292,7 +292,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
     color: "#963434",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i418196.jpg",
     excerpt: "Kehidupan yang diulang: sang protagonis terlahir kembali dengan dendam dan tekad menghancurkan ketidakadilan masa lalu.",
     chapter: [
         { number: 21, title: "Rebirth of Vengeance" },
@@ -313,7 +313,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Action"], region: "KR",
     likes: 1200, rating: 4.3,
     color: "#e4b22b",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i486763.jpg",
     excerpt: "A legendary VR game ranker returns to rise again and restore his family’s fortune in the real world.",
     chapter: [
         { number: 197, title: "Return of the Genius Ranker" },
@@ -334,7 +334,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Action", "Fantasy"], region: "KR",
     likes: 3000, rating: 4.8,
     color: "#452c6b",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i474339.jpg",
     excerpt: "Sung Jin‑woo, the weakest hunter, gains the ability to level up infinitely and fights to protect humanity from Monstrous threats.",
     chapter: [
         { number: 179, title: "Shadow Monarch Ascends" },
@@ -355,7 +355,7 @@ export const masterDummy = [
     type: "NOVEL", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 4.5,
     color: "#481c6e",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i466617.jpg",
     excerpt: "A hunter once considered weak awakens anew as an SSS-class revival hunter, rewriting destiny one Monster at a time.",
     chapter: [
         { number: 143, title: "Rebirth Begins" },
@@ -376,7 +376,7 @@ export const masterDummy = [
     type: "NOVEL", genre: ["Fantasy", "Action"], region: "KR",
     likes: 920, rating: 4.7,
     color: "#7f5a38",
-    image: "https://placehold.co/400x600",
+    image: "https://comicthumb-phinf.pstatic.net/20240405_38/pocket_1712278122339WVv7M_JPEG/tem8_cover.jpg",
     excerpt: "A legendary blacksmith rises by crafting divine gear for the Overgeared guild in a virtual world where myths become reality.",
     chapter: [
         { number: 150, title: "Forge of Legends" },
@@ -397,7 +397,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Adventure"], region: "KR",
     likes: 1300, rating: 4.7,
     color: "#4a2449",
-    image: "https://placehold.co/400x600",
+    image: "https://cdn.mangaupdates.com/image/i469710.jpg",
     excerpt: "As the hallowed Revival Hunter reaches SSS-class strength, he fights in live-action battles against mythical beasts.",
     chapter: [
         { number: 21, title: "Legacy Awakened" },
@@ -423,7 +423,7 @@ export const masterDummy = [
         likes: 920,
         rating: 4.0,
         color: "#963434",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i427914.jpg",
         excerpt: "An unbreakable soul reborn again and again to escape a cursed fate—with each rebirth, his strength and legacy grow beyond what gods intended.",
         chapter: [
             { number: 625, title: "Awakening from Ruin" },
@@ -451,7 +451,7 @@ export const masterDummy = [
         likes: 1300,
         rating: 3.2,
         color: "#122254",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i432574.jpg",
         excerpt: "The gamer who once ruled virtual leaderboards suddenly finds the entire game world answered his self‑learned tactics—and now reality doesn’t know what hit it.",
         chapter: [
             { number: 157, title: "Top‑Ranked Rebirth" },
@@ -479,7 +479,7 @@ export const masterDummy = [
         likes: 10000,
         rating: 4.1,
         color: "#184666",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/9Hfjhoo.png",
         excerpt: "After regressing three years before the apocalypse, Corin decides to eliminate the academy’s most dangerous player—and this time, he plans to save everyone by changing fate.",
         chapter: [
             { number: 264, title: "A World on Trial" },
@@ -507,7 +507,7 @@ export const masterDummy = [
         likes: 800,
         rating: 3.4,
         color: "#3d1f1f",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/XyhiLZx.png",
         excerpt: "Branded a traitor and buried alive, the infamous hound of the Sword Clan returns in flesh and fury—with every breath, the vengeance of a legion drives him.",
         chapter: [
             { number: 500, title: "Clan of Betrayal" },
@@ -536,7 +536,7 @@ export const masterDummy = [
         likes: 1450,
         rating: 4.2,
         color: "#3d161a",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i491625.jpg",
         excerpt: "When a descendant from the future injects a nano-machine into a weak heir, his world—and every Murim he ever challenges—shatters under the weight of new power.",
         chapter: [
             { number: 206, title: "DeMon’s Blood Upgrade" },
@@ -564,7 +564,7 @@ export const masterDummy = [
         likes: 1100,
         rating: 3.5,
         color: "#2f4d69",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i360060.jpg",
         excerpt: "A future‑origin nanomachine merges with a downtrodden orphan, elevating him into a ruthless martial prodigy caught in a murim of power, revenge, and science.",
         chapter: [
             { number: 342, title: "Final Orbit" },
@@ -593,7 +593,7 @@ export const masterDummy = [
         likes: 1340,
         rating: 4.4,
         color: "#3a3f58",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i493869.jpg",
         excerpt: "Traps the fate‑bound ‘Walkers’ in a tower sumMoned over fallen cities; this manhwa follows their tragic regression as they reboot history in an apocalyptic struggle.",
         chapter: [
             { number: 128, title: "Awakening Tower" },
@@ -621,7 +621,7 @@ export const masterDummy = [
         likes: 980,
         rating: 4.4,
         color: "#3a3f58",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/rRM0DBp.png",
         excerpt: "Humanity is cursed to repeat its past: Walker survivors must ascend to the sky‑tower and reset time to reclaim a broken world in this epic web novel.",
         chapter: [
             { number: 409, title: "Ouroboros (5 – Epilogue)" },
@@ -649,7 +649,7 @@ export const masterDummy = [
         likes: 620,
         rating: 4.2,
         color: "#5b2e3f",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/lpyg0lo.png",
         excerpt: "After stealing a heavenly pearl and falling off a cliff, an infamous deMon returns decades younger—and hungrier—driven by vengeance against a world that wronged him.",
         chapter: [
             { number: 387, title: "Reflection of the Depraved" },
@@ -677,7 +677,7 @@ export const masterDummy = [
         likes: 680,
         rating: 3.3,
         color: "#122254",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i427252.jpg",
         excerpt: "Presumed dead for centuries as he slay Monsters inside the Tower of Saints, a betrayed warrior awakens younger than ever to wage vengeance on all who abandoned him.",
         chapter: [
             { number: 328, title: "God Warrior’s Wraith" },
@@ -706,7 +706,7 @@ export const masterDummy = [
         likes: 890,
         rating: 3.7, // from Mangaupdates search results :contentReference[oaicite:0]{index=0}
         color: "#231e42",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.mangaupdates.com/image/i494116.jpg",
         excerpt: "A quirky fantasy‑comedy about a mischievous creature living aMong humans, hiding its powers while navigating everyday absurdities.",
         chapter: [
             { number: 60, title: "Euphoric Encounter" },
@@ -734,7 +734,7 @@ export const masterDummy = [
         likes: 540,
         rating: 3.5, // as per NovelUpdates site :contentReference[oaicite:1]{index=1}
         color: "#444444",
-        image: "https://placehold.co/400x600",
+        image: "https://cdn.novelupdates.com/images/2020/08/pmu1.jpg",
         excerpt: "The light‑novel version brims with whimsical charm, tracing the bond between a human and a magical creature grappling with daily life in Seoul.",
         chapter: [
             { number: 260, title: "Prologue of a Myth" },
@@ -762,8 +762,8 @@ export const masterDummy = [
         likes: 20900,
         rating: 4.7,
         color: "#693539",
-        image: "https://placehold.co/400x600",
-        imageLong: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/NndhplM.jpeg",
+        imageLong: "https://www.themarysue.com/wp-content/uploads/2024/07/Omniscient-Readers-Viewpoint.jpg?fit=1200%2C675",
         excerpt: "In a sprawling VRMMO, a down‑and‑out player uncovers a legendary blacksmith class and builds weapons that spell his legend—and earn him allies and enemies alike.",
         chapter: [
             { number: 101, title: "Forging Destiny" },
@@ -820,7 +820,7 @@ export const masterDummy = [
         likes: 2600,
         rating: 4.7, // approximate from Mangaupdates listing (not individually verified)
         color: "#0d88a2",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/XQvYdje.jpeg",
         excerpt: "When a kind-hearted orphan gains supernatural power and animal-like agility, he’s thrust into battles and conspiracies that test his strength—and his humanity.",
         chapter: [
             { number: 200, title: "Awakening Force" },
@@ -839,7 +839,7 @@ export const masterDummy = [
 
     { 
         id: 36,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Blue Lock",  
         authors: ["Muneyuki Kaneshiro"],
         artists: ["Yusuke Nomura"],
@@ -849,7 +849,7 @@ export const masterDummy = [
         likes: 2500,
         rating: 4.8, // approximate from widely aggregated reviews (e.g. Mangaupdates partial)
         color: "#5e369c",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         excerpt: "A national soccer tryout becomes a brutal survival tournament—only one striker can feed the ego of glory, and only Blue Lock will decide who it is.",
         chapter: [
             { number: 200, title: "Crowning the Ace" },
@@ -868,7 +868,7 @@ export const masterDummy = [
 
     {
         id: 36,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Paradise of DeMonic Gods",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -876,7 +876,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -891,7 +891,7 @@ export const masterDummy = [
     },
     {
         id: 37,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Spice and Wolf",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -899,7 +899,7 @@ export const masterDummy = [
         genre: ["Romance", "Fantasy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -914,7 +914,7 @@ export const masterDummy = [
     },
     {
         id: 38,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Ascendance of a Bookworm",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -922,7 +922,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -937,7 +937,7 @@ export const masterDummy = [
     },
     {
         id: 39,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Clannad",
         excerpt: "lorem ipsum dolor...",
         likes: 3900,
@@ -945,11 +945,11 @@ export const masterDummy = [
         genre: ["Drama", "Romance"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 40,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Tower of God",
         excerpt: "lorem ipsum dolor...",
         likes: 2800,
@@ -957,7 +957,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -972,7 +972,7 @@ export const masterDummy = [
     },
     {
         id: 41,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "That Time I Got Reincarnated as a Slime",
         excerpt: "lorem ipsum dolor...",
         likes: 2700,
@@ -980,7 +980,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Comedy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -995,7 +995,7 @@ export const masterDummy = [
     },
     {
         id: 42,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The God of High School",
         excerpt: "lorem ipsum dolor...",
         likes: 2200,
@@ -1003,7 +1003,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1018,7 +1018,7 @@ export const masterDummy = [
     },
     {
         id: 43,
-        status: 3, release: 2, sched3le: [{period: 'weekly', on: 'Mon'}],     
+        status: 3, release: 3, sched3le: [{period: 'weekly', on: 'Mon'}],     
         title: "Rewrite",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1026,11 +1026,11 @@ export const masterDummy = [
         genre: ["Supernatural", "Action"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 44,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Re:Zero − Starting Life in Another World",
         excerpt: "lorem ipsum dolor...",
         likes: 2900,
@@ -1038,7 +1038,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1053,7 +1053,7 @@ export const masterDummy = [
     },
     {
         id: 45,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Noblesse",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1061,7 +1061,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1076,7 +1076,7 @@ export const masterDummy = [
     },
     {
         id: 46,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "The Rising of the Shield Hero",
         excerpt: "lorem ipsum dolor...",
         likes: 2400,
@@ -1084,7 +1084,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1099,7 +1099,7 @@ export const masterDummy = [
     },
     {
         id: 47,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Overlord",
         excerpt: "lorem ipsum dolor...",
         likes: 2600,
@@ -1107,7 +1107,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1122,7 +1122,7 @@ export const masterDummy = [
     },
     {
         id: 48,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Sweet Home",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1130,7 +1130,7 @@ export const masterDummy = [
         genre: ["Horror", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1145,7 +1145,7 @@ export const masterDummy = [
     },
     {
         id: 49,
-        status: 2, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 2, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Planetarian",
         excerpt: "lorem ipsum dolor...",
         likes: 1800,
@@ -1153,7 +1153,7 @@ export const masterDummy = [
         genre: ["Drama", "Sci-Fi"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 50,
@@ -1165,7 +1165,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Action"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1188,7 +1188,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1211,7 +1211,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Drama"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1234,7 +1234,7 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1257,7 +1257,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Comedy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1280,7 +1280,7 @@ export const masterDummy = [
         genre: ["Drama", "Comedy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1303,7 +1303,7 @@ export const masterDummy = [
         genre: ["Comedy", "Fantasy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1326,7 +1326,7 @@ export const masterDummy = [
         genre: ["Drama", "Horror"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1349,7 +1349,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Action"],
         type: "NOVEL",
         region: "EN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1372,7 +1372,7 @@ export const masterDummy = [
         genre: ["Drama", "Action"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1395,7 +1395,7 @@ export const masterDummy = [
         genre: ["Romance", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1418,7 +1418,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1441,7 +1441,7 @@ export const masterDummy = [
         genre: ["Action", "Horror"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1464,7 +1464,7 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1487,7 +1487,7 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1510,7 +1510,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Romance"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1525,7 +1525,7 @@ export const masterDummy = [
     },
     {
         id: 66,
-        status: 3, release: 2, schedule: [{period: 'weekly', on: 'Mon'}],     
+        status: 3, release: 3, schedule: [{period: 'weekly', on: 'Mon'}],     
         title: "Higurashi When They Cry",
         excerpt: "Dark secrets hide in a rural village.",
         likes: 4100,
@@ -1533,7 +1533,7 @@ export const masterDummy = [
         genre: ["Horror", "Mystery"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 67,
@@ -1545,7 +1545,7 @@ export const masterDummy = [
         genre: ["Romance", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1568,7 +1568,7 @@ export const masterDummy = [
         genre: ["Action", "Mystery"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1591,7 +1591,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1616,7 +1616,7 @@ export const masterDummy = [
         region: 'KR',
         type: "NOVEL",
         color: "#252b4d",
-        image: "https://placehold.co/400x600",
+        image: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg",
         chapter: [
             { number: 201, title: "Forging Destiny" },
             { number: 200, title: "Legend Begins" },
@@ -1641,7 +1641,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Adventure"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1656,7 +1656,7 @@ export const masterDummy = [
     },
     {
         id: 72,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Muv-Luv Alternative",
         excerpt: "lorem ipsum dolor...",
         likes: 3600,
@@ -1664,11 +1664,11 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 73,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Umineko When They Cry",
         excerpt: "Mystery and magic clash in a twisted family inheritance dispute.",
         likes: 4200,
@@ -1676,7 +1676,7 @@ export const masterDummy = [
         genre: ["Mystery", "Horror"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 74,
@@ -1688,7 +1688,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1711,7 +1711,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1726,7 +1726,7 @@ export const masterDummy = [
     },
     {
         id: 61,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "DeMon Slayer: Kimetsu no Yaiba",
         excerpt: "lorem ipsum dolor...",
         likes: 3100,
@@ -1734,7 +1734,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1749,7 +1749,7 @@ export const masterDummy = [
     },
     {
         id: 62,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Jujutsu Kaisen",
         excerpt: "lorem ipsum dolor...",
         likes: 3300,
@@ -1757,7 +1757,7 @@ export const masterDummy = [
         genre: ["Action", "Horror"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1772,7 +1772,7 @@ export const masterDummy = [
     },
     {
         id: 63,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "My Dress-Up Darling",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1780,7 +1780,7 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1795,7 +1795,7 @@ export const masterDummy = [
     },
     {
         id: 64,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "True Beauty",
         excerpt: "lorem ipsum dolor...",
         likes: 2600,
@@ -1803,7 +1803,7 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1818,7 +1818,7 @@ export const masterDummy = [
     },
     {
         id: 65,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Villainess Level 99",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -1826,7 +1826,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Romance"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1841,7 +1841,7 @@ export const masterDummy = [
     },
     {
         id: 66,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Higurashi When They Cry",
         excerpt: "Dark secrets hide in a rural village.",
         likes: 4100,
@@ -1849,11 +1849,11 @@ export const masterDummy = [
         genre: ["Horror", "Mystery"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 67,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -1861,7 +1861,7 @@ export const masterDummy = [
         genre: ["Romance", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1876,7 +1876,7 @@ export const masterDummy = [
     },
     {
         id: 68,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Billionaire Detective",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -1884,7 +1884,7 @@ export const masterDummy = [
         genre: ["Action", "Mystery"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1899,7 +1899,7 @@ export const masterDummy = [
     },
     {
         id: 69,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Wind Breaker",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -1907,7 +1907,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1922,7 +1922,7 @@ export const masterDummy = [
     },
     // {
     //     id: 70,
-    //     status: 3, release: 2,     
+    //     status: 3, release: 3,     
     //     title: "Overgeared",
     //     excerpt: "lorem ipsum dolor...",
     //     likes: 1700,
@@ -1930,7 +1930,7 @@ export const masterDummy = [
     //     genre: ["Action", "Game"],
     //     type: "KOMIK",
     //     region: "KR",
-    //     image: "https://placehold.co/400x600",
+    //     image: "https://i.imgur.com/HHe6hQi.png",
     //     chapter: [
     //         { number: 100, title: "chap 100" },
     //         { number: 99,  title: "chap 99"  },
@@ -1945,7 +1945,7 @@ export const masterDummy = [
     // },
     {
         id: 71,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Ranker Who Lives A Second Time",
         excerpt: "lorem ipsum dolor...",
         likes: 2300,
@@ -1953,7 +1953,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Adventure"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -1968,7 +1968,7 @@ export const masterDummy = [
     },
     {
         id: 72,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Muv-Luv Alternative",
         excerpt: "lorem ipsum dolor...",
         likes: 3600,
@@ -1976,11 +1976,11 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 73,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Umineko When They Cry",
         excerpt: "Mystery and magic clash in a twisted family inheritance dispute.",
         likes: 4200,
@@ -1988,11 +1988,11 @@ export const masterDummy = [
         genre: ["Mystery", "Horror"],
         type: "VISUAL NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 74,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "The Live",
         excerpt: "lorem ipsum dolor...",
         likes: 1200,
@@ -2000,7 +2000,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2015,7 +2015,7 @@ export const masterDummy = [
     },
     {
         id: 75,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Tomb Raider King",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -2023,7 +2023,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2038,7 +2038,7 @@ export const masterDummy = [
     },
     {
         id: 76,
-        status: 3, release: 2, schedul3: [{period: 'weekly', on: 'Mon'}],     
+        status: 3, release: 3, schedul3: [{period: 'weekly', on: 'Mon'}],     
         title: "Kindred Spirits on the Roof",
         excerpt: "Yuri romance and supernatural spirits in a school.",
         likes: 1600,
@@ -2046,11 +2046,11 @@ export const masterDummy = [
         genre: ["Romance", "Supernatural"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 77,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Ghost Teller",
         excerpt: "lorem ipsum dolor...",
         likes: 1100,
@@ -2058,7 +2058,7 @@ export const masterDummy = [
         genre: ["Horror", "Drama"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2073,7 +2073,7 @@ export const masterDummy = [
     },
     {
         id: 78,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Gosu",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -2081,7 +2081,7 @@ export const masterDummy = [
         genre: ["Action", "Martial Arts"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2096,7 +2096,7 @@ export const masterDummy = [
     },
     {
         id: 79,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "D.P. Dog Days",
         excerpt: "lorem ipsum dolor...",
         likes: 1300,
@@ -2104,7 +2104,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2119,7 +2119,7 @@ export const masterDummy = [
     },
     {
         id: 80,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "The Boxer",
         excerpt: "lorem ipsum dolor...",  
         likes: 1800,  
@@ -2127,7 +2127,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],  
         type: "KOMIK",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2142,7 +2142,7 @@ export const masterDummy = [
     },
     {
         id: 81,
-        status: 3, release: 2, schedul3: [{period: 'weekly', on: 'Mon'}],     
+        status: 3, release: 3, schedul3: [{period: 'weekly', on: 'Mon'}],     
         title: "Saya no Uta",
         excerpt: "A disturbing horror tale of love and Monstrosity.",
         likes: 2700,
@@ -2150,11 +2150,11 @@ export const masterDummy = [
         genre: ["Horror", "Psychological"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 82,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Katawa Shoujo",
         excerpt: "A touching story about love and disabilities.",
         likes: 2500,
@@ -2162,11 +2162,11 @@ export const masterDummy = [
         genre: ["Drama", "Romance"],
         type: "NOVEL",
         region: "INT",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 83,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Reincarnation of the Suicidal Battle God",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2174,7 +2174,7 @@ export const masterDummy = [
         genre: ["Drama", "Fantasy"],
         type: "NOVEL",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://i.imgur.com/dMc3mbP.png",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2189,7 +2189,7 @@ export const masterDummy = [
     },
     {
         id: 84,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Doctor Elise: The Royal Lady with the Lamp",
         excerpt: "lorem ipsum dolor...",
         likes: 2000,
@@ -2197,7 +2197,7 @@ export const masterDummy = [
         genre: ["Drama", "Romance"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2212,7 +2212,7 @@ export const masterDummy = [
     },  
     {  
         id: 85,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Solo Max-Level Newbie",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1300,  
@@ -2220,7 +2220,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Adventure"],  
         type: "NOVEL",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://i.imgur.com/vU3kZxL.png",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2235,7 +2235,7 @@ export const masterDummy = [
     },  
     {  
         id: 86,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "DeMon Slayer: Kimetsu no Yaiba",  
         excerpt: "lorem ipsum dolor...",  
         likes: 3100,  
@@ -2243,7 +2243,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],  
         type: "KOMIK",  
         region: "JP",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2258,7 +2258,7 @@ export const masterDummy = [
     },  
     {  
         id: 87,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Jujutsu Kaisen",  
         excerpt: "lorem ipsum dolor...",  
         likes: 3300,  
@@ -2266,7 +2266,7 @@ export const masterDummy = [
         genre: ["Action", "Horror"],  
         type: "KOMIK",  
         region: "JP",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2281,7 +2281,7 @@ export const masterDummy = [
     },  
     {  
         id: 88,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "My Dress-Up Darling",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2300,  
@@ -2289,7 +2289,7 @@ export const masterDummy = [
         genre: ["Comedy", "Romance"],  
         type: "NOVEL",  
         region: "JP",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2304,7 +2304,7 @@ export const masterDummy = [
     },  
     {  
         id: 89,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "True Beauty",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2600,  
@@ -2312,7 +2312,7 @@ export const masterDummy = [
         genre: ["Comedy", "Romance"],  
         type: "NOVEL",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2327,7 +2327,7 @@ export const masterDummy = [
     },  
     {  
         id: 90,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Villainess Level 99",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1600,  
@@ -2335,7 +2335,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Romance"],  
         type: "KOMIK",  
         region: "JP",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2350,7 +2350,7 @@ export const masterDummy = [
     },  
     {  
         id: 91,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "If My Heart Had Wings",  
         excerpt: "A story about dreams and gliders.",  
         likes: 2400,  
@@ -2358,11 +2358,11 @@ export const masterDummy = [
         genre: ["Romance", "Slice of Life"],  
         type: "NOVEL",  
         region: "JP",  
-        image: "https://placehold.co/400x600"  
+        image: "https://placehold.co/400"  
     },  
     {  
         id: 92,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Billionaire Detective",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1400,  
@@ -2370,7 +2370,7 @@ export const masterDummy = [
         genre: ["Action", "Drama", "Mystery"],  
         type: "KOMIK",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2385,7 +2385,7 @@ export const masterDummy = [
     },  
     {  
         id: 93,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Wind Breaker",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1700,  
@@ -2393,7 +2393,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],  
         type: "NOVEL",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2408,7 +2408,7 @@ export const masterDummy = [
     },  
     {  
         id: 94,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Paradise of DeMonic Gods",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1500,  
@@ -2416,7 +2416,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],  
         type: "NOVEL",  
         region: "CN",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2431,7 +2431,7 @@ export const masterDummy = [
     },  
     // {  
     //     id: 95,  
-    //     status: 3, release: 2,     
+    //     status: 3, release: 3,     
     //     title: "Overgeared",  
     //     excerpt: "lorem ipsum dolor...",  
     //     likes: 1700,  
@@ -2439,7 +2439,7 @@ export const masterDummy = [
     //     genre: ["Action", "Fantasy", "Game"],  
     //     type: "KOMIK",  
     //     region: "KR",  
-    //     image: "https://placehold.co/400x600",  
+    //     image: "https://i.imgur.com/HHe6hQi.png",  
     //     chapter: [  
     //         { number: 100, title: "chap 100" },  
     //         { number: 99,  title: "chap 99"  },  
@@ -2454,7 +2454,7 @@ export const masterDummy = [
     // },  
     {  
         id: 96,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Ranker Who Lives A Second Time",  
         excerpt: "lorem ipsum dolor...",  
         likes: 2300,  
@@ -2462,7 +2462,7 @@ export const masterDummy = [
         genre: ["Adventure", "Fantasy"],  
         type: "KOMIK",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2477,7 +2477,7 @@ export const masterDummy = [
     },  
     {  
         id: 97,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "The Live",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1200,  
@@ -2485,7 +2485,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],  
         type: "NOVEL",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2500,7 +2500,7 @@ export const masterDummy = [
     },  
     {  
         id: 98,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Tomb Raider King",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1500,  
@@ -2508,7 +2508,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],  
         type: "NOVEL",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2523,7 +2523,7 @@ export const masterDummy = [
     },  
     {  
         id: 99,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Ghost Teller",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1100,  
@@ -2531,7 +2531,7 @@ export const masterDummy = [
         genre: ["Drama", "Horror"],  
         type: "KOMIK",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2546,7 +2546,7 @@ export const masterDummy = [
     },  
     {  
         id: 100,  
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Gosu",  
         excerpt: "lorem ipsum dolor...",  
         likes: 1400,  
@@ -2554,7 +2554,7 @@ export const masterDummy = [
         genre: ["Action", "Drama", "Martial Arts"],  
         type: "KOMIK",  
         region: "KR",  
-        image: "https://placehold.co/400x600",  
+        image: "https://placehold.co/400",  
         chapter: [  
             { number: 100, title: "chap 100" },  
             { number: 99,  title: "chap 99"  },  
@@ -2569,7 +2569,7 @@ export const masterDummy = [
     },
     {
         id: 101,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Doki Doki Literature C3ub!",
         excerpt: "A cute club hides a dark reality.",
         likes: 4900,
@@ -2578,11 +2578,11 @@ export const masterDummy = [
         genre: ["Psychological", "Horror"],
         type: "NOVEL",
         region: "INT",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 102,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "D.P. Dog Days",
         excerpt: "lorem ipsum dolor...",
         likes: 1300,
@@ -2591,7 +2591,7 @@ export const masterDummy = [
         genre: ["Action", "Drama"],
         type: "KOMIK",
         region: "KR",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2606,7 +2606,7 @@ export const masterDummy = [
     },
     {
         id: 103,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "World End Syndr3me",
         excerpt: "Mystery in a seaside town with a colorful cast.",
         likes: 2200,
@@ -2615,11 +2615,11 @@ export const masterDummy = [
         genre: ["Mystery", "Romance"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 104,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Tokyo School L3fe",
         excerpt: "An exchange student experiences life and romance in Japan.",
         likes: 1500,
@@ -2628,11 +2628,11 @@ export const masterDummy = [
         genre: ["Romance", "Comedy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 105,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "God of Martial Arts",
         excerpt: "lorem ipsum dolor...",
         likes: 1850,
@@ -2641,7 +2641,7 @@ export const masterDummy = [
         genre: ["Action", "Adventure"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2656,7 +2656,7 @@ export const masterDummy = [
     },
     {
         id: 106,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Peerless Battle Spirit",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -2665,7 +2665,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2680,7 +2680,7 @@ export const masterDummy = [
     },
     {
         id: 107,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Reincarnation of the Strongest Sword God",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2689,7 +2689,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Adventure"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2704,7 +2704,7 @@ export const masterDummy = [
     },
     {
         id: 108,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Cultivation Chat Group",
         excerpt: "lorem ipsum dolor...",
         likes: 1550,
@@ -2713,7 +2713,7 @@ export const masterDummy = [
         genre: ["Comedy", "Fantasy"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2728,7 +2728,7 @@ export const masterDummy = [
     },
     {
         id: 109,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Renegade Immortal",
         excerpt: "lorem ipsum dolor...",
         likes: 1500,
@@ -2737,7 +2737,7 @@ export const masterDummy = [
         genre: ["Action", "Fantasy"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2752,7 +2752,7 @@ export const masterDummy = [
     },
     {
         id: 110,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Rebirth of the Thief Who Roamed The World",
         excerpt: "lorem ipsum dolor...",
         likes: 1450,
@@ -2761,7 +2761,7 @@ export const masterDummy = [
         genre: ["Action", "Adventure"],
         type: "NOVEL",
         region: "CN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2776,7 +2776,7 @@ export const masterDummy = [
     },
     {
         id: 111,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Release the Ninjas",
         excerpt: "lorem ipsum dolor...",
         likes: 1400,
@@ -2785,7 +2785,7 @@ export const masterDummy = [
         genre: ["Action", "Comedy"],
         type: "NOVEL",
         region: "EN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2800,7 +2800,7 @@ export const masterDummy = [
     },
     {
         id: 112,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Zero Escape: Virt3e's Last Reward",
         excerpt: "A death game with high stakes and time paradoxes.",
         likes: 4000,
@@ -2809,11 +2809,11 @@ export const masterDummy = [
         genre: ["Thriller", "Puzzle"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 113,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Long Live the Qu3en",
         excerpt: "Raise a princess, and survive court politics.",
         likes: 1900,
@@ -2822,11 +2822,11 @@ export const masterDummy = [
         genre: ["Strategy", "Drama"],
         type: "NOVEL",
         region: "INT",
-        image: "https://placehold.co/400x600"
+        image: "https://placehold.co/400"
     },
     {
         id: 114,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "The Wandering Inn",
         excerpt: "lorem ipsum dolor...",
         likes: 1900,
@@ -2835,7 +2835,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Slice of Life"],
         type: "NOVEL",
         region: "EN",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2850,7 +2850,7 @@ export const masterDummy = [
     },
     {
         id: 115,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Magi: The Labyrinth of Magic",
         excerpt: "lorem ipsum dolor...",
         likes: 2400,
@@ -2859,7 +2859,7 @@ export const masterDummy = [
         genre: ["Fantasy", "Adventure"],
         type: "KOMIK",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2874,7 +2874,7 @@ export const masterDummy = [
     },
     {
         id: 116,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "Princess Connect! Re:Dive",
         excerpt: "lorem ipsum dolor...",
         likes: 1600,
@@ -2883,7 +2883,7 @@ export const masterDummy = [
         genre: ["Comedy", "Fantasy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },
@@ -2898,7 +2898,7 @@ export const masterDummy = [
     },
     {
         id: 117,
-        status: 3, release: 2,     
+        status: 3, release: 3,     
         title: "My Isekai Life: I Gained a Second Character Class",
         excerpt: "lorem ipsum dolor...",
         likes: 1700,
@@ -2907,7 +2907,7 @@ export const masterDummy = [
         genre: ["Comedy", "Fantasy"],
         type: "NOVEL",
         region: "JP",
-        image: "https://placehold.co/400x600",
+        image: "https://placehold.co/400",
         chapter: [
             { number: 100, title: "chap 100" },
             { number: 99,  title: "chap 99"  },

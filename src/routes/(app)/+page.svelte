@@ -223,7 +223,7 @@
                             {#each Array.from({ length: 10 }, (_, i) => i + 1) as n}
                                 <!-- <li>{n}</li> -->
                                 <div class="flex justify-center items-center">
-                                    <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2"></div>
+                                    <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2 bg-cover" style="background-image: url(https://placehold.co/400x400);"></div>
                                     <div class="w-full flex justify-between items-center">
                                         <div>
                                             <div class="leading-[1.2] text-[16px] text-zinc-900 dark:text-mainlight capitalize">judul bacaan</div>
