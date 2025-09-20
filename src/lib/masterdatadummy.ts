@@ -198,7 +198,7 @@ export const masterDummy = [
     type: "KOMIK", genre: ["Fantasy", "Drama"], region: "KR",
     likes: 920, rating: 3.5,
     color: "#5e369c",
-    image: "https://cdn.mangaupdates.com/image/i491674.jpg",
+    image: "https://i.imgur.com/3FsnLBx.png",
     excerpt: "Seorang novelis terperangkap di dunia ciptaannya sendiri, menghadapi tragedi dan takdir yang harus dia ubah dengan pena kehidupannya.",
     chapter: [
         { number: 143, title: "Extraordinary Beginnings" },
@@ -535,7 +535,7 @@ export const masterDummy = [
         region: "KR",
         likes: 1450,
         rating: 4.2,
-        color: "#2f4d69",
+        color: "#3d161a",
         image: "https://cdn.mangaupdates.com/image/i491625.jpg",
         excerpt: "When a descendant from the future injects a nano-machine into a weak heir, his world—and every Murim he ever challenges—shatters under the weight of new power.",
         chapter: [

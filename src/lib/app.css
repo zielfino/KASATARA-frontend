@@ -35,3 +35,18 @@ img, a, input, button {
 p {
     @apply tracking-wide;
 }
+
+@media (max-width: 740px) {
+    html, body {
+        -ms-overflow-style: none; /* IE, Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    /* WebKit browsers (Chrome, Safari, Opera) */
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+}

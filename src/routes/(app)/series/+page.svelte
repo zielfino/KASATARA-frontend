@@ -53,12 +53,14 @@
                     <div class="absolute flex xs:space-x-2 space-x-[1.6vw] lg:space-x-0
                     right-0 lg:left-[calc(175px+1.25rem)] lg:-top-[calc(32px+0.7rem)] -top-[7.6vw] xs:-top-[calc(28px+0.5rem)] sm:-top-[calc(32px+0.5rem)] ">
                         <button class="lg:order-1 lg:ml-2 aspect-square h-[32px] bg-mainlight border border-zinc-900/15 rounded-full flex justify-center items-center max-sm:h-[28px] max-xs:h-[5.6vw]
-                        outline-none hover:bg-mainlight/85 focus-visible:bg-sky-200 focus-visible:border-sky-400/50 active:bg-mainlight/70 cursor-pointer"><Icon icon="material-symbols:favorite-outline-rounded" class="text-[22px] max-xs:text-[3.6vw] max-sm:text-[18px] mt-0.5 max-xs:mt-[0.4vw]" /></button>
+                        outline-none hover:bg-mainlight/85 focus-visible:bg-sky-200 focus-visible:border-sky-400/50 active:bg-mainlight/70 cursor-not-allowed"><Icon icon="material-symbols:favorite-outline-rounded" class="text-[22px] max-xs:text-[3.6vw] max-sm:text-[18px] mt-0.5 max-xs:mt-[0.4vw]" /></button>
                         <button class="bg-mainlight border border-zinc-900/15 rounded-full flex justify-center items-center h-[32px] max-xs:h-[5.6vw] px-2 max-xs:px-[0.8vw] max-sm:px-1 max-sm:h-[28px]
-                        outline-none hover:bg-mainlight/85 focus-visible:bg-sky-200 focus-visible:border-sky-400/50 active:bg-mainlight/70 cursor-pointer group
+                        outline-none hover:bg-mainlight/85 focus-visible:bg-sky-200 focus-visible:border-sky-400/50 active:bg-mainlight/70 cursor-not-allowed group
                         ">
                         <!-- <Icon icon="material-symbols:add" class="text-[18px] max-sm:text-[14px] max-xs:text-[2.8vw] mx-1 max-xs:mx-[0.8vw]" /> -->
-                        <Icon icon="mingcute:bookmark-line" class="text-[12px] min-[700px]:text-[14px] max-xs:text-[2.8vw] mr-1 max-xs:mr-[0.8vw] group-hover:hidden mx-1 max-xs:mx-[0.8vw]" /> <Icon icon="mingcute:bookmark-fill" class="text-[12px] min-[700px]:text-[14px] max-xs:text-[2.8vw] mr-1 max-xs:mr-[0.8vw] hidden group-hover:block  mx-1 max-xs:mx-[0.8vw]" />
+                        <Icon icon="mingcute:bookmark-line" class="text-[12px] min-[700px]:text-[14px] max-xs:text-[2.8vw] mr-1 max-xs:mr-[0.8vw] mx-1 max-xs:mx-[0.8vw]" /> 
+                        <!-- <Icon icon="mingcute:bookmark-line" class="text-[12px] min-[700px]:text-[14px] max-xs:text-[2.8vw] mr-1 max-xs:mr-[0.8vw] group-hover:hidden mx-1 max-xs:mx-[0.8vw]" />  -->
+                        <!-- <Icon icon="mingcute:bookmark-fill" class="text-[12px] min-[700px]:text-[14px] max-xs:text-[2.8vw] mr-1 max-xs:mr-[0.8vw] hidden group-hover:block  mx-1 max-xs:mx-[0.8vw]" /> -->
                         <span class="sm:text-[14px] xs:text-[12px] text-[2.4vw] mr-[1.6vw] xs:mr-3">Bookmark</span></button>
                         <!-- <button class="aspect-square h-[32px] bg-mainlight border border-zinc-900/15 rounded-full flex justify-center items-center
                         outline-none hover:bg-mainlight/85 focus-visible:bg-sky-200 focus-visible:border-sky-400/50 active:bg-mainlight/70 cursor-pointer"><Icon icon="material-symbols:favorite-outline-rounded" class="text-[22px] mt-0.5" /></button>
@@ -488,7 +490,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="w-full bg-gradient-to-br from-purple-700 to-purple-500/75 text-mainlight rounded-md flex justify-between items-center p-[1.6vw] xs:p-2 pr-[3.2vw] xs:pr-4 cursor-pointer">
+                    <div class="w-full bg-gradient-to-br cursor-not-allowed from-purple-700 to-purple-500/75 text-mainlight rounded-md flex justify-between items-center p-[1.6vw] xs:p-2 pr-[3.2vw] xs:pr-4">
                         <div class="text-[2.4vw] xs:text-[12px] p-[1.6vw] xs:p-2">
                             <div class="font-[600] text-[2.8vw] xs:text-[14px]">I Killed An Academy Player</div>
                             <div class="opacity-75">Ayo season 3-nya sekarang, Corin telah bangkit dari tidurnya!</div>

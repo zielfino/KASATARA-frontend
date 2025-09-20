@@ -653,7 +653,7 @@
                                 <div
                                 role="button" 
                                 aria-label="chapter"
-                                on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                                on:click|stopPropagation={() => goto('/series/chap')}
                                 on:keydown|stopPropagation={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
                                     console.log('Klik dengan keyboard');
@@ -727,7 +727,7 @@
                             <div
                             role="button" 
                             aria-label="chapter"
-                            on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                            on:click|stopPropagation={() => goto('/series/chap')}
                             on:keydown|stopPropagation={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                 console.log('Klik dengan keyboard');
@@ -803,7 +803,7 @@
                                 <div
                                 role="button" 
                                 aria-label="chapter"
-                                on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                                on:click|stopPropagation={() => goto('/series/chap')}
                                 on:keydown|stopPropagation={(e) => {
                                     if (e.key === 'Enter' || e.key === ' ') {
                                     console.log('Klik dengan keyboard');
@@ -877,7 +877,7 @@
                             <div
                             role="button" 
                             aria-label="chapter"
-                            on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                            on:click|stopPropagation={() => goto('/series/chap')}
                             on:keydown|stopPropagation={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                 console.log('Klik dengan keyboard');
@@ -949,7 +949,7 @@
                             <div
                             role="button" 
                             aria-label="chapter"
-                            on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                            on:click|stopPropagation={() => goto('/series/chap')}
                             on:keydown|stopPropagation={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                 console.log('Klik dengan keyboard');
@@ -1021,7 +1021,7 @@
                             <div
                             role="button" 
                             aria-label="chapter"
-                            on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                            on:click|stopPropagation={() => goto('/series/chap')}
                             on:keydown|stopPropagation={(e) => {
                                 if (e.key === 'Enter' || e.key === ' ') {
                                 console.log('Klik dengan keyboard');
@@ -1159,7 +1159,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1174,7 +1174,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1189,7 +1189,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1209,7 +1209,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1224,7 +1224,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1239,7 +1239,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1256,7 +1256,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1271,7 +1271,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1286,7 +1286,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1304,7 +1304,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1319,7 +1319,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');
@@ -1334,7 +1334,7 @@
                         <div
                         role="button" 
                         aria-label="chapter"
-                        on:click|stopPropagation={() => console.log('Klik di div child saja')}
+                        on:click|stopPropagation={() => goto('/series/chap')}
                         on:keydown|stopPropagation={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
                             console.log('Klik dengan keyboard');

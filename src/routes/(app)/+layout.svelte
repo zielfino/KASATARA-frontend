@@ -1,12 +1,14 @@
 <script lang="ts">
     // export const ssr = false;
     // export const prerender = true;
-
+    function disableRightClick(e: MouseEvent) {
+        e.preventDefault();
+    }
     import { onMount, onDestroy, tick } from "svelte";
     import "$lib/app.css";
     import Icon from "@iconify/svelte";
     import { goto } from '$app/navigation';
-    import { writable } from "svelte/store";
+    import { derived, writable } from "svelte/store";
 	import { browser } from '$app/environment';
     import PhoneSlider from "$lib/components/phoneSlider.svelte";
     // let { children } = $props();
@@ -321,7 +323,11 @@
         }
         goto('/browse');
     }
+
+    $: isIndex = $page.url.pathname === '/';
 </script>
+
+<svelte:window on:contextmenu={disableRightClick} />
 
 <style>
 	.dropdown-panel::before {
@@ -403,7 +409,7 @@
 
         <!-- Top Nav -->
         <nav class="sticky top-0 z-100 drop-shadow-lg drop-shadow-zinc-900/15 portrait:px-[1.6vw] portrait:xs:px-2 portrait:pt-2 portrait:xs:pt-[1.6vw] transition-all duration-300" 
-        class:translate-y-[50%]={touchscreen && (isSOpen && scrollY <= 300 && scrollY > 200)} class:translate-y-[150%]={touchscreen && (isSOpen && scrollY > 300)} class:-translate-y-[100%]={touchscreen && (isSOpen && scrollY <= 300)}>
+        class:translate-y-[50%]={isIndex && touchscreen && (isSOpen && scrollY <= 300 && scrollY > 200)} class:translate-y-[150%]={isIndex && touchscreen && (isSOpen && scrollY > 300)} class:-translate-y-[100%]={isIndex && touchscreen && (isSOpen && scrollY <= 300)}>
             <section class="flex flex-col justify-center items-center bg-mainlight min-[900px]:bg-zinc-200 portrait:rounded-lg portrait:overflow-hidden portrait:border border-zinc-900/30 landscape:border-y relative">
                 <div class="w-full min-[900px]:bg-mainlight flex flex-col items-center justify-center z-2">
                     <div class="w-full  text-mainred fill-mainred flex items-center justify-between 
@@ -596,7 +602,12 @@
                     <div class={`w-full h-full absolute z-5 top-0 left-0 flex justify-center items-center bg-mainlight
                     ${isSOpen === true ? '' : 'hidden pointer-events-none'}
                     `}>
-                        <form bind:this={searchForm}
+                        <form 
+                          on:submit|preventDefault={(e) => {
+                            handleSubmit(e);
+                            isSOpen = false;
+                        }}
+                        bind:this={searchForm}
                         class="bg-mainlight border-[0.4vw] border-zinc-900 text-zinc-900 fill-zinc-900
                         outline-none focus-within:border-sky-400
                         rounded-lg pl-[2.4vw] xs:pl-3 pr-[3.2vw] xs:pr-4 h-[10vw] xs:h-[50px] font-work-sans items-center relative overflow-hidden w-[88%] flex justify-between text-[3.2vw] xs:text-[14px]
@@ -609,6 +620,7 @@
                                     name="kasantaraSearchInput"
                                     id="kasantaraSearchInput"   
                                     bind:this={searchInput}
+                                    bind:value={localSearch}
                                     type="text"
                                     class="outline-none bg-transparent w-full py-[1.6vw] xs:py-[8px"
                                     placeholder="Cari Bacaan"

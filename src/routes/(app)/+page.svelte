@@ -154,29 +154,29 @@
 <svelte:head>
     <!-- BASIC SEO -->
         <title>KASATARA - Beranda</title>
-        <meta name="description" content="BacaKomik adalah platform untuk membaca komik dan novel digital secara gratis dan legal." />
-        <meta name="keywords" content="komik, baca komik online, novel, webtoon, manga gratis, baca novel" />
+        <!-- <meta name="description" content="BacaKomik adalah platform untuk membaca komik dan novel digital secara gratis dan legal." /> -->
+        <!-- <meta name="keywords" content="komik, baca komik online, novel, webtoon, manga gratis, baca novel" /> -->
         <!-- <meta name="author" content="BacaKomik Team" /> -->
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="noindex, follow" />
         <meta charset="UTF-8" />
         <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
 
     <!-- OPEN GRAPH (untuk Facebook & LinkedIn) -->
-        <meta property="og:title" content="BacaKomik - Platform Komik & Novel Gratis" />
+        <!-- <meta property="og:title" content="BacaKomik - Platform Komik & Novel Gratis" />
         <meta property="og:description" content="Nikmati berbagai judul komik dan novel terbaru hanya di BacaKomik." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://bacakomik.com/" />
         <meta property="og:image" content="https://bacakomik.com/og-image.jpg" />
         <meta property="og:locale" content="id_ID" />
-        <meta property="og:site_name" content="BacaKomik" />
+        <meta property="og:site_name" content="BacaKomik" /> -->
 
     <!-- TWITTER CARD -->
-        <meta name="twitter:card" content="summary_large_image" />
+        <!-- <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="BacaKomik - Platform Komik & Novel Gratis" />
         <meta name="twitter:description" content="Nikmati berbagai judul komik dan novel terbaru hanya di BacaKomik." />
         <meta name="twitter:image" content="https://bacakomik.com/og-image.jpg" />
         <meta name="twitter:site" content="@bacakomik" />
-        <meta name="twitter:creator" content="@bacakomik" />
+        <meta name="twitter:creator" content="@bacakomik" /> -->
 
     <!-- FAVICON -->
         <!-- <link rel="icon" href="/favicon.ico" /> -->
@@ -192,7 +192,7 @@
             : 'hover:-translate-x-4 focus-within:-translate-x-4'}
         `}>
         <div class="relative">
-            <button on:click={(e) => { historyShow = !historyShow }} class="fixed z-[101] translate-x-[2px] md:block top-[calc(100%/3)] right-0 bg-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
+            <button on:click={(e) => { historyShow = !historyShow }} class="fixed z-[101] translate-x-[2px] md:block top-[calc(100%/3)] right-0 bg-mainlight dark:bg-zinc-800 dark:border-zinc-500 dark:text-mainlight text-[14px] font-work-sans rounded-l-xl cursor-pointer 
             border-2 border-r-0 border-zinc-400 hidden
             peer focus-visible:outline-none focus-visible:border-sky-500">
                 <div class="flex my-3 mt-4 [writing-mode:vertical-lr]"><div>Riwayat Bacaan</div> <Icon icon="material-symbols:arrow-back-ios-new-rounded" class={`text-xl mx-3 transition-transform ${historyShow ? 'rotate-180' : ''}`} /></div>
@@ -200,7 +200,7 @@
             <div tabindex="-1"
             class={`
                 fixed z-[100] w-[320px] right-0 translate-y-32 translate-x-full
-                h-[75dvh] bg-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400
+                h-[75dvh] bg-mainlight dark:bg-zinc-800 dark:text-mainlight border-2 rounded-l-xl border-r-0 border-zinc-400 dark:border-zinc-500
                 p-3 focus-visible:outline-none overflow-y-scroll
                 peer-focus-visible:outline-none peer-focus-visible:border-sky-500
                 ${historyShow
@@ -226,8 +226,8 @@
                                     <div class="bg-emerald-400 rounded-lg h-[60px] aspect-square mr-2"></div>
                                     <div class="w-full flex justify-between items-center">
                                         <div>
-                                            <div class="leading-[1.2] text-[16px] text-zinc-900 capitalize">judul bacaan</div>
-                                            <div class="leading-none text-[12px] text-zinc-900/40 tracking-tight">terakhir dibaca 32 Feb 2025</div>
+                                            <div class="leading-[1.2] text-[16px] text-zinc-900 dark:text-mainlight capitalize">judul bacaan</div>
+                                            <div class="leading-none text-[12px] text-zinc-900/40 dark:text-mainlight/40 tracking-tight">terakhir dibaca 32 Feb 2025</div>
                                         </div>
                                         <div>#{n}</div>
                                     </div>

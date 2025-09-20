@@ -17,6 +17,7 @@
     import { masterDummy } from '$lib/masterdatadummy';
     import { dailySchedule } from '$lib/components/browse/dailySchedule';
     import { monthySchedule } from '$lib/components/browse/monthlySchedule';
+    import { goto } from '$app/navigation';
 
     // 2. Local state & derived
     $: keyword = $searchText;
@@ -210,7 +211,7 @@
         <div class="w-full sm:max-w-[calc(675px-16px)] md:max-w-[770px] lg:max-w-[946px] xl:max-w-[1100px] mt-3 md:mt-6 font-work-sans">
 
             {#if keyword !== ''}
-                <div class="w-full bg-zinc-400">
+                <div class="w-full max-[700px]:px-4 max-[500px]:px-[3.2vw] max-[500px]:text-[3.2vw] my-[3.2vw] xs:my-4">
                     Hasil pencarian dari "{keyword}"
                 </div>
             {:else}
@@ -226,14 +227,15 @@
                     </div>
                     
                     <!-- RIGHT FILLER -->
-                    <div class="flex items-center justify-center mr-[0.8vw] xs:mr-1 space-x-2">
+                    <div class="flex items-center justify-center mr-[0.8vw] xs:mr-1 space-x-[1vw] xs:space-x-2">
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
+                                opacity-50 cursor-not-allowed
+                                max-xs:text-[3.5vw] text-xl aspect-square h-[7vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
-                                active:bg-zinc-900/9 cursor-pointer"
+                                active:bg-zinc-900/9"
                         aria-label="Toggle sort order"
                         >
                         {#if isAsc}
@@ -245,10 +247,11 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
+                                opacity-50 cursor-not-allowed
+                                max-xs:text-[3.5vw] text-xl aspect-square h-[7vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
-                                active:bg-zinc-900/9 cursor-pointer"
+                                active:bg-zinc-900/9"
                         aria-label="Toggle sort order"
                         >
                         {#if isAsc}
@@ -260,10 +263,11 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
+                                opacity-50 cursor-not-allowed
+                                max-xs:text-[3.5vw] text-xl aspect-square h-[7vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
-                                active:bg-zinc-900/9 cursor-pointer"
+                                active:bg-zinc-900/9"
                         aria-label="Toggle sort order"
                         >
                         {#if isAsc}
@@ -275,10 +279,11 @@
                         <button
                         on:click={toggleSort}
                         class="flex justify-center items-center max-xs:py-[0.8vw] py-1 text-nowrap rounded-full border border-zinc-900/15 outline-none
-                                max-xs:text-[4vw] text-xl aspect-square h-[8vw] xs:h-8
+                                opacity-50 cursor-not-allowed
+                                max-xs:text-[3.5vw] text-xl aspect-square h-[7vw] xs:h-8
                                 max-xs:text-zinc-900 text-zinc-900/70 max-xs:bg-white
                                 hover:bg-zinc-900/3 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50
-                                active:bg-zinc-900/9 cursor-pointer"
+                                active:bg-zinc-900/9"
                         aria-label="Toggle sort order"
                         >
                         {#if isAsc}
@@ -303,6 +308,7 @@
                 lg:grid-cols-6 xl:w-[1100px]">
                     {#each noCutCards  as item}
                         <button
+                            on:click|stopPropagation={() => goto('/series')}
                             role={'button'} 
                             aria-label="card"
                             class={`group relative
@@ -385,6 +391,7 @@
                 lg:grid-cols-6 xl:w-[1100px]">
                     {#each showCards as item}
                         <button
+                            on:click|stopPropagation={() => goto('/series')}
                             role={'button'} 
                             aria-label="card"
                             class={`group relative

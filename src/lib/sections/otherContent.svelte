@@ -106,6 +106,7 @@
     let perPage = 12;
     import { page } from '$lib/stores/page';
     import { masterDummy } from "$lib/masterdatadummy";
+    import { goto } from "$app/navigation";
     $: currentPage = $page;
 
     onMount(() => {
@@ -252,7 +253,7 @@
 
                     <!-- Peringkat -->
                     {#if first}
-                        <button on:click={() => window.location.href = '/'} class="outline-none h-fit hover:bg-zinc-200/80 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
+                        <button on:click={() => goto('/series')} class="outline-none h-fit hover:bg-zinc-200/80 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                             w-full cursor-pointer flex flex-col justify-center items-center bg-mainlight rounded-md xs:pb-2 border border-zinc-900/15 overflow-hidden">
                             <div class="flex justify-center items-center w-full xs:aspect-auto
                             md:px-0">
@@ -302,7 +303,7 @@
                         <!-- 2 - 7 -->
                         <div class="w-full overflow-scroll-hidden space-y-2 max-xs:space-y-[1.6vw] overflow-y-scroll">
                             {#each rest as item, i}
-                                <button class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
+                                <button on:click={() => goto('/series')}  class={`flex items-center justify-between bg-mainlight rounded-md border border-zinc-900/15 outline-none overflow-hidden
                                 w-full hover:bg-zinc-200/80 cursor-pointer gap-[2.4vw] pr-[4.8vw] xs:pr-8 xs:gap-4 focus-visible:bg-sky-400/10 focus-visible:border-sky-400/50 
                                 h-[24vw] xs:h-[96px] md:h-[96.28px] lg:h-[95.8px] xl:h-[94.2px]
                                 ${i === 0 ? 'border-t-0' : i === 13 ? 'border-b-0' : ''}

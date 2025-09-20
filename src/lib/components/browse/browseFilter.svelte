@@ -97,7 +97,7 @@
 
 
 
-<section>
+<section class="max-xs:mx-[3.2vw]">
 
 	<!-- CONTENT FILTER -->
 	<div class="text-sm font-work-sans font-[400] tracking-tight xs:space-x-2 space-x-[1.6vw] flex items-center outline-none my-2 xs:my-[8px]">
@@ -118,7 +118,7 @@
 			}}
 			class={`  
 				flex justify-center items-center
-				max-xs:py-[0.8vw] py-1 h-fit
+				max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 				text-nowrap rounded-full
 				border border-zinc-900/15
 				outline-none 
@@ -154,7 +154,7 @@
 				}}
 				class={`  
 					flex justify-center items-center
-					max-xs:py-[0.8vw] py-1 h-fit
+					max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 					text-nowrap rounded-full
 					border border-zinc-900/15
 					outline-none 
@@ -188,7 +188,7 @@
 					}}
 					class={`  
 						flex justify-center items-center
-						max-xs:py-[0.8vw] py-1 h-fit
+						max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 						text-nowrap rounded-full
 						border border-zinc-900/15
 						outline-none 
@@ -221,7 +221,7 @@
 					}}
 					class={`  
 						flex justify-center items-center
-						max-xs:py-[0.8vw] py-1 h-fit
+						max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 						text-nowrap rounded-full
 						border border-zinc-900/15
 						outline-none 
@@ -254,7 +254,7 @@
 					}}
 					class={`  
 						flex justify-center items-center
-						max-xs:py-[0.8vw] py-1 h-fit
+						max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 						text-nowrap rounded-full
 						border border-zinc-900/15
 						outline-none 
@@ -289,7 +289,7 @@
 				}}
 				class={`  
 					flex justify-center items-center
-					max-xs:py-[0.8vw] py-1 h-fit
+					max-xs:py-[0.8vw] py-1 h-fit max-xs:w-full max-xs:h-[7.2vw]
 					text-nowrap rounded-full
 					border border-zinc-900/15
 					outline-none 

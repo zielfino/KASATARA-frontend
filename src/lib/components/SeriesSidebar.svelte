@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto } from "$app/navigation";
     import Icon from "@iconify/svelte";
     import { onMount } from "svelte";
     
@@ -76,7 +77,7 @@ text-center"> -->
     <div class="border-zinc-300 border-[0.2vw] xs:border w-[90%] my-[3.2vw] xs:my-4"></div>
     {/if}
     <div class="w-full px-[3.2vw] xs:px-4 uppercase">
-        <button class="w-full px-[3.2vw] xs:px-4 py-[4vw] xs:py-5 rounded-lg font-work-sans cursor-pointer
+        <button  on:click|stopPropagation={() => goto('/series/chap')}  class="w-full px-[3.2vw] xs:px-4 py-[4vw] xs:py-5 rounded-lg font-work-sans cursor-pointer
         border-2 border-purple-600 hover:bg-mainlight hover:text-purple-600
         outline-none focus-visible:ring-2 focus-visible:ring-sky-400
         bg-purple-600 text-mainlight transition text-[2.4vw] xs:text-[12px]">baca eps pertama</button>
@@ -90,7 +91,8 @@ text-center"> -->
                 <span>Novel Tersedia</span>
                 <span class="opacity-50">372 Chap</span>
             </div>
-            <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] hover:bg-zinc-600 m-[1.6vw] xs:m-2 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Baca</button>
+            <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] cursor-not-allowed m-[1.6vw] xs:m-2 opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Baca</button>
+            <!-- <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] hover:bg-zinc-600 m-[1.6vw] xs:m-2 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Baca</button> -->
         </div>
         <div class="w-full rounded-lg text-[2.4vw] xs:text-[12px] font-work-sans
         border-[0.2vw] xs:border border-zinc-900/30
@@ -99,7 +101,8 @@ text-center"> -->
                 <span>Tiket Gratis</span>
                 <span class="opacity-50">1 Chap</span>
             </div>
-            <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] hover:bg-zinc-600 m-[1.6vw] xs:m-2 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Claim</button>
+            <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] cursor-not-allowed m-[1.6vw] xs:m-2 opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Claim</button>
+            <!-- <button class="w-[12.8vw] xs:w-[64px] py-[0.8vw] xs:py-1 bg-zinc-900 rounded-full text-mainlight text-[2.8vw] xs:text-[14px] hover:bg-zinc-600 m-[1.6vw] xs:m-2 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-sky-400">Claim</button> -->
         </div>
     </div>
 <!-- </div> -->

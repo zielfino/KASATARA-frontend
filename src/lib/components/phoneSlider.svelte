@@ -16,7 +16,7 @@
         { id: 2, title: 'Omnicient Reader Viewpoint', color: '#a9684c', image: 'https://i.imgur.com/NndhplM.png' },
         { id: 3, title: 'Solo Max-Level Newbie', color: '#3c3e46', image: 'https://i.imgur.com/GQjCFrx.png' },
         { id: 4, title: 'Revenge of the Iron‑Blooded Sword Houndt', color: '#2d2741', image: 'https://cdn.mangaupdates.com/image/i485704.jpg' },
-        { id: 5, title: 'The Novel Extra', color: '#432f8e', image: 'https://cdn.mangaupdates.com/image/i491674.jpg' },
+        { id: 5, title: 'The Novel Extra', color: '#432f8e', image: 'https://i.imgur.com/3FsnLBx.png' },
         { id: 6, title: 'Return Of The Mount Hua Sect', color: '#963e58', image: 'https://cdn.mangaupdates.com/image/i474809.jpg' },
         { id: 7, title: 'Omnicient Reader Viewpoint', color: '#424464', image: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1602711402i/55673120.jpg' }
     ];
@@ -239,7 +239,9 @@
             >
                 <div class="w-full h-full relative flex justify-center items-center text-mainlight font-semibold px-2 py-1 bg-cover bg-center"
                         style="background-image: url('{group.image}');">
-                    <div class="absolute z-3 bottom-8 text-[3.2vw] xs:text-xl text-center w-[70%]">{group.title}</div>
+                    <div class="absolute z-3 w-full h-full top-0 left-0 flex justify-center">
+                        <div class="absolute z-3 bottom-8 text-[3.2vw] xs:text-xl text-center w-[70%]">{group.title}</div>
+                    </div>
                     <div class="absolute z-2 h-1/2 w-full bottom-0"
                     style={`
                     background-color: 

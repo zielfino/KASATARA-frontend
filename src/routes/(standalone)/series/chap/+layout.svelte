@@ -462,6 +462,7 @@
     import { contentWidth } from '$lib/stores/contentWidth';
     import News from "$lib/components/news.svelte";
     import Footer from "$lib/components/Footer.svelte";
+    import { goto } from "$app/navigation";
     let width = 500;
 
     // const unsubscribe = contentWidth.subscribe(val => width = val);
@@ -626,6 +627,11 @@
         textarea.style.height = 'auto'; // reset dulu biar bisa shrink
         textarea.style.height = textarea.scrollHeight + 'px';
     }
+    // let slotWrapper: HTMLDivElement;
+
+    function disableRightClick(e: MouseEvent) {
+        e.preventDefault();
+    }
 </script>
 
 
@@ -650,8 +656,8 @@
                             <Icon class="text-[7.4vw] xs:text-4xl mb-[0.8vw] xs:mb-1" icon="mingcute:walk-fill" />
                             Normal <br>Mode
                         </button>
-                        <button on:click={() => marathonMode = true}  class={`flex flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
-                        ${!marathonMode ? 'hover:border-[0.6vw] xs:hover:border-3 hover:bg-mainred/5 hover:border-mainred/30 cursor-pointer transition-all border border-zinc-400 dark:border-mainlight/30' 
+                        <button class={`flex opacity-50 flex-col justify-center items-center text-[2.8vw] xs:text-sm font-[400] leading-[1] tracking-wide w-[21vw] xs:w-24 h-[21vw] xs:h-24 rounded-[2.4vw] xs:rounded-xl text-center
+                        ${!marathonMode ? 'cursor-not-allowed transition-all border border-zinc-400 dark:border-mainlight/30' 
                         : 'border-[0.6vw] xs:border-3 border-mainred bg-mainred/15 pointer-events-none'}`}>
                             <Icon class="text-[7.4vw] xs:text-4xl mb-[0.8vw] xs:mb-1" icon="mingcute:run-fill" />
                             Marathon Mode
@@ -771,10 +777,10 @@
             
             <button tabindex={navShow ? 0 : -1} on:click={switchTheme} class={`absolute right-0 order-2 mx-3 cursor-pointer group outline-none`}>
                 <div class="">
-                    <Icon icon="mingcute:moon-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="mingcute:moon-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
+                    <Icon icon="mingcute:eye-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="mingcute:eye-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
                 </div>
                 <div class="">
-                    <Icon icon="mingcute:sun-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="mingcute:sun-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'hidden' : 'group-hover:block'}`} />
+                    <Icon icon="mingcute:eye-close-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="mingcute:eye-close-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'hidden' : 'group-hover:block'}`} />
                 </div>
             </button>
             {/if}
@@ -801,13 +807,13 @@
                         <div class="bg-zinc-100 dark:bg-zinc-800 rounded-md border border-zinc-300 dark:border-zinc-700 w-72 h-64 
                     scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 overflow-y-scroll transition-all duration-300 p-2">
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> <span class="opacity-70 dark:opacity-40">#19</span></div>
-                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
+                            <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between cursor-not-allowed opacity-50"><span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> <span class="opacity-70 dark:opacity-40">#18</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> <span class="opacity-70 dark:opacity-40">#17</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> <span class="opacity-70 dark:opacity-40">#16</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (4)</span> <span class="opacity-70 dark:opacity-40">#15</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (3)</span> <span class="opacity-70 dark:opacity-40">#14</span></div>
                             <div class="w-full h-12 border-b border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Miracle testing (2)</span> <span class="opacity-70 dark:opacity-40">#13</span></div>
-                            <div class="w-full h-12 border-zinc-300 px-2 flex items-center justify-between hover:underline cursor-pointer"><span class="line-clamp-1">Load more...</span></div>
+                            <div class="w-full h-12 border-zinc-300 px-2 flex items-center justify-center hover:underline cursor-pointer"><span class="line-clamp-1">Load more</span></div>
                         </div>
                     </div>
                     {/if}
@@ -819,10 +825,10 @@
                 
                 <button tabindex={navShow ? 0 : -1} on:click={switchTheme} class={`order-2 mx-3 cursor-pointer group outline-none`}>
                     <div class="">
-                        <Icon icon="mingcute:moon-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="mingcute:moon-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
+                        <Icon icon="mingcute:eye-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'group-hover:hidden group-focus-visible:hidden' : 'hidden'}`} /><Icon icon="mingcute:eye-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'group-hover:block group-focus-visible:block' : 'hidden'}`} />
                     </div>
                     <div class="">
-                        <Icon icon="mingcute:sun-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="mingcute:sun-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'hidden' : 'group-hover:block'}`} />
+                        <Icon icon="mingcute:eye-close-line" class={`text-[4.8vw] xs:text-2xl ${isDark ? 'hidden' : 'group-hover:hidden'}`} /><Icon icon="mingcute:eye-close-fill" class={`text-[4.8vw] xs:text-2xl hidden ${isDark ? 'hidden' : 'group-hover:block'}`} />
                     </div>
                 </button>
 
@@ -1052,41 +1058,41 @@
             <div class="h-full w-full overflow-y-scroll text-[3.2vw]">
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Sky-Breaking Sword Saint (4) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, commodi?</span> 
-                    <span class="opacity-70 dark:opacity-40">#19</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#19</span>
                 </div>
                 <!-- <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div> -->
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer bg-zinc-200 dark:bg-zinc-700 transition-all duration-300">
                     <span class="line-clamp-1">Sky-Breaking Sword Saint (3)</span> 
-                    <span class="opacity-70 dark:opacity-40">#18</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#18</span>
                 </div>
                 <!-- <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div> -->
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Sky-Breaking Sword Saint (2)</span> 
-                    <span class="opacity-70 dark:opacity-40">#17</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#17</span>
                 </div>
                 <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Sky-Breaking Sword Saint (1)</span> 
-                    <span class="opacity-70 dark:opacity-40">#16</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#16</span>
                 </div>
                 <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Miracle testing (4)</span> 
-                    <span class="opacity-70 dark:opacity-40">#15</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#15</span>
                 </div>
                 <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Miracle testing (3)</span> 
-                    <span class="opacity-70 dark:opacity-40">#14</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#14</span>
                 </div>
                 <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
                 <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
                     <span class="line-clamp-1">Miracle testing (2)</span> 
-                    <span class="opacity-70 dark:opacity-40">#13</span>
+                    <span class="opacity-70 dark:opacity-40 max-xs:pr-[3.2vw]">#13</span>
                 </div>
                 <div class="h-[1px] rounded-xl bg-zinc-900/15 dark:bg-mainlight/15 w-[90%] ml-[5%]"></div>
-                <div class="w-full h-12 px-2 flex items-center justify-between hover:underline cursor-pointer">
-                    <span class="line-clamp-1">Load more...</span>
+                <div class="w-full h-12 px-2 flex items-center justify-center hover:underline cursor-pointer">
+                    <span class="line-clamp-1 text-center">Load more</span>
                 </div>
             </div>
         </div>
@@ -1096,7 +1102,7 @@
     <!-- {/if} -->
 
     {#if !commentDisplay}
-    <div bind:this={slotWrapper} class="w-full flex justify-center relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none" role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll}>
+    <div bind:this={slotWrapper} on:contextmenu={disableRightClick} class="w-full flex justify-center relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none" role="button" tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();handleAutoScroll();} }} on:click={handleAutoScroll}>
     <!-- <div bind:this={slotWrapper} class="relative overflow-auto scroll-smooth focus-visible:opacity-50 outline-none"> -->
         <slot />
     </div>
@@ -1171,13 +1177,13 @@
             <div class="h-[1px] w-[96%] mx-[2%] bg-zinc-300 my-[6.4vw] xs:my-8 rounded-full dark:bg-zinc-800 transition-all duration-300"></div>
             
             <div class="space-y-[1.6vw] xs:space-y-2 my-[6.4vw] xs:my-8">
-                <div class="flex justify-between items-center bg-purple-800 border border-purple-700 p-[1.6vw] xs:p-2 rounded-[1.2vw] xs:rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-[4.8vw] xs:mb-6">
+                <button on:click|stopPropagation={() => goto('/series')}  class="flex w-full justify-between items-center bg-purple-800 border border-purple-700 p-[1.6vw] xs:p-2 rounded-[1.2vw] xs:rounded-md text-mainlight cursor-pointer hover:bg-purple-700 transition-all mb-[4.8vw] xs:mb-6">
                     <div class="flex items-center">
-                        <div class="h-[8vw] xs:h-10 rounded-[0.8vw] xs:rounded-sm aspect-square bg-red-400 mr-[2.4vw] xs:mr-3"></div>
+                        <div class="h-[8vw] xs:h-10 rounded-[0.8vw] xs:rounded-sm aspect-square bg-red-400 mr-[2.4vw] xs:mr-3 bg-cover" style={`background-image: url('https://i.imgur.com/HHe6hQi.png')`}></div>
                         <div class="max-xs:text-[3.6vw]">Baca versi novelnya</div>
                     </div>
                     <div class="bg-mainlight/30 h-[6.4vw] xs:h-[32px] flex items-center justify-center aspect-square rounded-full text-mainlight mr-[1.6vw] xs:mr-2"><Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[3.2vw] xs:text-[16px] translate-x-[5%]`} /></div>
-                </div>
+                </button>
                 <div class="flex items-start justify-between text-zinc-900 dark:text-mainlight transition-all duration-300">
                     <div>
                         <div class="text-[3.2vw] xs:text-[16px] max-sm:text-[14px] tracking-wide font-[700] flex items-center cursor-pointer hover:underline w-min whitespace-nowrap"><span class="mr-[0.8vw] xs:mr-1">Omnicient Reader Viewpoint</span> <Icon icon="material-symbols:arrow-forward-ios-rounded" class={`text-[12px] inline-block opacity-40`} /></div>
@@ -1321,7 +1327,8 @@
     <!-- <div class="h-[100dvh] w-full pt-[56px]"> -->
         <!-- <div class="w-full h-full overflow-y-scroll scrollbar scrollbar-thumb-zinc-700 dark:scrollbar-thumb-mainlight scrollbar-track-mainlight/0 space-y-4"> -->
         <div class={`w-full h-full pt-[16vw] xs:pt-24 p-[3.2vw] xs:p-4 max-w-[800px] to-zinc-900 dark:text-mainlight`}>
-            <div class="font-semibold tracking-wide text-zinc-500 flex justify-between my-[3.2vw] xs:my-4 max-xs:text-[3.2vw] font-work-sans w-full dark:text-zinc-400 transition-all duration-300">
+            <div class="font-semibold tracking-wide text-zinc-500 flex items-center my-[3.2vw] xs:my-4 max-xs:text-[3.2vw] space-x-[8px] max-xs:space-x-[1.6vw] font-work-sans w-full dark:text-zinc-400 transition-all duration-300">
+                <button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer"><Icon icon="mingcute:left-fill" class="text-2xl max-xs:text-[4.8vw]"/></button>
                 <div>Comments (3.2K)</div>
                 <!-- <button tabindex="-1" on:keydown={(e) => {if (e.key === 'Enter' || e.key === ' ') {e.preventDefault();e.stopPropagation();togglecomment()} }} on:click={(e) => {e.preventDefault();e.stopPropagation();togglecomment()}} class="hover:underline cursor-pointer">See all</button> -->
             </div>
